@@ -8,9 +8,11 @@ Source/UnitTestResults/*
 !Source/UnitTestResults/ExpectedValues/
 !Source/UnitTestResults/ImageCreatorSaveFolder/
 Source/UnitTestResults/ImageCreatorSaveFolder/*
+!Source/UnitTestResults/ImageCreatorSaveFolder/.gitkeep
 !Source/UnitTestResults/MasterTestImages/
 !Source/UnitTestResults/SceneBatfiles/
 Source/UnitTestResults/SceneBatfiles/*
+!Source/UnitTestResults/SceneBatfiles/.gitkeep
 
 # User-specific files
 *.rsuser
