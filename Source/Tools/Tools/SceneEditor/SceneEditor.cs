@@ -19,6 +19,7 @@ using System.IO;
 //31.5.2017  Projekt wurde angelegt
 //1.5.2019 Ich beginne mit der Arbeit am Stilllifebild
 //16.11.2021 Stilllife-Bild stimmt zu 100% mit Referenzbild überrein
+//10.10.2022 Projekt geht auf GitHub
 //Nächster Schritt: Spectrales Raytracing
 
 namespace Tools.Tools.SceneEditor
