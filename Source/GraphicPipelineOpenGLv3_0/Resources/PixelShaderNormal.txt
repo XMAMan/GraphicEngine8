@@ -1,0 +1,131 @@
+#version 330 core
+
+precision highp float;
+
+//http://www.geeks3d.com/20130514/opengl-interpolation-qualifiers-glsl-tutorial/ -> Für Texturkoordianten braucht man auf jeden fall perpektifische Divsion(smooth)
+//flat: the value is not interpolated. The value given to the fragment shader is the value from the Provoking Vertex for that primitive. -> Das Provoking-Vertex ist das Vertex des Dreiecks, welches als Input-Parameter für den PixelShader genommen wird. Siehe -> glProvokingVertex — specifiy the vertex to be used as the source of data for flat shaded varyings. By default, the provoking vertex is the last vertex of a primitive,
+//smooth: performs a perspective correct interpolation.
+//noperspective: performs a linear interpolation in window space.
+
+noperspective in vec3 normal;
+smooth in vec3 posWorld;
+noperspective in vec3 tangent;
+smooth in vec2 textcoord;
+smooth in vec4 ShadowCoord;
+
+layout(location = 0) out vec4 out_frag_color;
+
+uniform sampler2D Texture0;	// Farbtextur
+uniform sampler2D Texture1; // Bumpmap
+uniform samplerCube Cubemap;// Für Reflektion
+uniform sampler2D ShadowMap;// Für Shadowmapping
+uniform int UseTexture0; 
+uniform int UseTexture1; 
+uniform int LightingIsEnabled; 
+uniform int UseCubemap;
+uniform int UseShadowmap;
+uniform int DoFlatShading;
+uniform int BlendingWithBlackColor;
+uniform vec4 color;
+uniform vec3 CameraPosition;
+uniform mat4 NormalMatrix;
+uniform mat4 ShadowMapMatrix[10];		//Position, Ausrichtung, Projektionsmatrix und beim Auslesen der ShadowMap Bias-Matrix (Für jede Lichtquelle eine Matrix)
+
+struct LightStruct
+{
+	int LightCount;
+	vec3 LightPositions[10];
+	float ConstantAttenuation[10];
+	float LinearAttenuation[10];
+	float QuadraticAttenuation[10];
+	vec3 SpotDirection[10];			// Richtung bei Richtungslicht
+	float SpotCosCutoff[10];			// Wenn 180, dann Punktlicht in alle Richtung, sonst Richtungslicht
+	float SpotExponent[10];
+	float SpecularHighlightPowExponent;//Glanzpunktgröße	
+};
+ 
+uniform LightStruct lightStruct;
+
+#COMMONFUNCTIONS#
+
+void main()
+{
+	vec4 objektColor = color * (1.0 - UseTexture0) + vec4(texture2D(Texture0, textcoord.xy)) * UseTexture0 * color;	
+
+	//objektColor = vec4(sign(cos(textcoord.x * 10)+cos(textcoord.y * 10))); //Hiermit kann man ein Kachelmuster erzeugen
+
+	vec3 normalVector = normalize(normal);	
+	if (DoFlatShading == 1) normalVector = normalize(cross(dFdx(posWorld.xyz), dFdy(posWorld.xyz)));
+	//Die Grafikkarte ruft für jede Pixel-Ecke den Pixelshader auf. Also 4 mal pro Pixel (Parallel) und nicht nur einmal pro Pixelmitte!!!
+	//posWorld.xyz ist die linke obere Ecke des Pixels
+	//dFdx bildet die Differenz zwischen einer Interpolationsvariable/Varring zwischen rechter oberer Pixelecke und linker oberer Ecke
+	//dFdx(posWorld.xyz) = posWorld_rechte_obere_pixelecke.xyz - posWorld_linkee_obere_pixelecke.xyz -> Richtungsvektor, welcher auf oberer Pixelkante liegt
+	//dFdy(posWorld.xyz) = Richtungsvektor, welcher auf linker Pixelkante liegt
+	//cross(dFdx(posWorld.xyz), dFdy(posWorld.xyz) = Flatnormale von Pixel
+	//Quelle: https://www.opengl.org/discussion_boards/showthread.php/176425-How-are-dFdx-and-dFdy-functions-implemented
+
+	if (BlendingWithBlackColor == 1 && (objektColor.x + objektColor.y + objektColor.z) < 0.1) discard;
+
+	if (UseTexture1 == 1)
+	{
+		normalVector = NormalSampleToWorldSpace(ReadBumpNormalFromTexture(textcoord), normalize(normal), normalize(tangent));
+	}
+
+	if (LightingIsEnabled == 0)
+	{
+		out_frag_color = objektColor;
+	}else
+	{	
+		out_frag_color = vec4(GetIlluminatedColor(posWorld, normalVector, objektColor).xyz, objektColor.w);
+		
+	}
+
+	if (UseCubemap == 1)
+	{
+		vec3 ReflectDir = normalize(reflect(posWorld - CameraPosition, normalVector));  //In is incident vector
+		ReflectDir = normalize(mat3(transpose(NormalMatrix)) * ReflectDir).xyz;
+		//out_frag_color = vec4(ReflectDir.x, ReflectDir.y, ReflectDir.z, 1); return;
+		
+		vec4 col1 = out_frag_color;
+		vec4 col2 = texture(Cubemap, ReflectDir);
+		vec4 c = color;
+		out_frag_color = vec4(col1.x * (1- c.x) + col2.x * c.x, col1.y * (1- c.y) + col2.y * c.y, col1.z * (1- c.z) + col2.z * c.z, c.w);
+		//out_frag_color = out_frag_color * 0.8 + texture(Cubemap, ReflectDir) * 0.2;		 
+	} 
+
+	float visibility = 1.0;		
+
+	if (UseShadowmap == 1)
+	{
+		//float bias = 0.0005*tan(acos(dot(normalVector,(lightStruct.LightPositions[0].xyz - posWorld)))); // cosTheta is dot( n,l ), clamped between 0 and 1
+		//bias = clamp(bias, 0,0.0001);
+		
+		//so versuche ich shadow acne zu vermeiden (https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping)
+		//Wenn die Szene ein großen Skalierungsfaktor (RingKugel(0);Shadows(32)) hat dann nutze das:
+		float bias = max(0.001 * (1.0 - dot(normalVector, normalize(lightStruct.LightPositions[0].xyz - posWorld))), 0.0001); 
+
+		//Wenn die Szene ein kleinen Skalierungsfaktor(Säulenbüro) hat dann nutze das:
+		//float bias = max(0.1 * (1.0 - dot(normalVector, normalize(lightStruct.LightPositions[0].xyz - posWorld))), 0.01); 
+
+		//float bias = 0.001f;
+		vec4 shadowCoord = ShadowCoord / ShadowCoord.w;
+		
+		if (shadowCoord.z < 1 && vec4(texture2D(ShadowMap, shadowCoord.xy)).r  <  shadowCoord.z - bias)
+		{
+			visibility = 0.5;
+		}
+
+		if (shadowCoord.x < 0 ||shadowCoord.y < 0 || shadowCoord.x > 1 ||shadowCoord.y > 1)
+		{
+			visibility = 1.0;		
+		}
+	}
+
+	
+	out_frag_color *= visibility;
+	out_frag_color.w = objektColor.w;
+	//out_frag_color = vec4(textcoord.x, textcoord.y, 0, 1);
+	//out_frag_color = vec4(normal.x, normal.y, normal.z, 1);
+	//out_frag_color = vec4(tangent.x, tangent.y, tangent.z, 1);
+	//out_frag_color = vec4(normalize(cross(tangent, normal)).xyz, 1); //Bitangente
+}

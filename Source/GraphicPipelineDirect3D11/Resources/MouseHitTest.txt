@@ -1,0 +1,32 @@
+PS_IN VS_MouseHit(VS_IN input) 
+{
+	PS_IN output = (PS_IN)0;
+
+	output.pos = mul(float4(input.pos.xyz, 1.0), WorldViewProj);
+	output.col = input.col;
+	output.tex = mul(float3(input.tex.xy, 1.0), (float3x3)TextureMatrix).xy;
+
+	return output;
+}
+
+float4 PS_MouseHit( PS_IN input ) : SV_Target
+{
+	float4 objektColor = CurrentColor * (1 - UseTexture0) + GetTexelFromColorTexture(input.tex) * UseTexture0 * CurrentColor;	
+
+	if (BlendingBlackColor && (objektColor.x + objektColor.y + objektColor.z) < 0.1) discard;
+
+	return float4(MouseHitId / 255.0f, (MouseHitId * 10) / 255.0f, MouseHitId / 255.0f, 1);
+}
+
+technique11 MouseHitTest
+{
+	pass P0
+	{
+        SetHullShader( NULL );
+        SetDomainShader( NULL );
+        SetGeometryShader( NULL );
+
+		SetVertexShader( CompileShader( vs_4_0, VS_MouseHit() ) );
+		SetPixelShader( CompileShader( ps_4_0, PS_MouseHit() ) );
+	}
+}

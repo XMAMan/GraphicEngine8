@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe CreateImage ..\Data\24_EnvironmentMaterialTest_json.txt -output 24_EnvironmentMaterialTest.jpg -renderMod VertexConnectionMerging -tonemapping GammaOnly -sampleCount 1000 -width 1024 -height 256 -saveFolder AutoSave

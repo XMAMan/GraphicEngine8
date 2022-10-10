@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1DBC6AC1-451A-47F5-88D6-ADBD92C6E30E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GraphicPipelineDirect3D11</RootNamespace>
+    <AssemblyName>GraphicPipelineDirect3D11</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\SlimDX.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BlendStateHelper.cs" />
+    <Compile Include="Cubemap.cs" />
+    <Compile Include="DepthStencilStateHelper.cs" />
+    <Compile Include="GraphicPipelineDirect3D11.cs" />
+    <Compile Include="MyFramebuffer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RasterizerStateHelper.cs" />
+    <Compile Include="SamplerStateHelper.cs" />
+    <Compile Include="TextureHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BitmapHelper\BitmapHelper.csproj">
+      <Project>{61FDFE91-0853-47E7-9F76-DF885C28CEF0}</Project>
+      <Name>BitmapHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicGlobal\GraphicGlobal.csproj">
+      <Project>{A2938D3C-DA44-4ABB-9F66-A4D502C803C7}</Project>
+      <Name>GraphicGlobal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicMinimal\GraphicMinimal.csproj">
+      <Project>{B149FAA2-72F8-4846-8520-DFCDDBDAEE14}</Project>
+      <Name>GraphicMinimal</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DisplacementMapping.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LinesAndPoints.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ParallaxMapping.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ShadowmapCreation.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SimpleRendering.fx.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Variablen.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MouseHitTest.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

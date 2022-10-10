@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe CreateImage ..\Data\01_RingSphereWithDiffuseGroundAndNoMotionBlur_json.txt -output 01_RingSphere_Raytracer.jpg -renderMod Raytracer -sampleCount 1 -width 420 -height 328 -closeWindowAfterRendering false

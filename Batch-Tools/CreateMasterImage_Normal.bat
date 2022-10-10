@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe MasterTest Normal -size 4 -dataFolder ..\Data\

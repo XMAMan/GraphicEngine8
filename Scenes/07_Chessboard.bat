@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe CreateImage ..\Data\07_Chessboard_json.txt -output 07_Chessboard.jpg -renderMod BidirectionalPathTracing -sampleCount 1000 -width 1680 -height 988 -saveFolder AutoSave

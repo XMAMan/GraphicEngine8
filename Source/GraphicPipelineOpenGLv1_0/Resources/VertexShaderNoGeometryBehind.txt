@@ -1,0 +1,43 @@
+//Das ist der aktuell genutzt Geometry-Shader. Der GeometryShader.txt-Shader für den Explosionseffekt geht nicht
+//#version 330 //-> Wenn ich dieses Attribut nutzen will, muss ich die Vertex-Attribut über layout-Location angeben
+
+// Vertex-Variablen (Vertexshader-Input)
+attribute vec3 in_tangent;		//The inverse tangent to the geometry
+
+uniform mat4 ObjToClipMatrix;
+uniform mat4 ObjToWorldMatrix;
+uniform mat4 NormalMatrix;
+uniform mat4 ShadowMapMatrix[10];
+uniform mat3 TextureMatrix;
+
+noperspective out vec3			normal;
+smooth out vec3					posWorld;
+noperspective out vec3			tangent;
+smooth out vec2					textcoord;
+out vec4						ShadowCoord;
+
+
+void main() 
+{
+	//Ganz alt (Wenn man kein #version 330  nutzt und die vordefinierten sachen nutzt: gl_ModelViewProjectionMatrix,gl_Vertex,gl_Color  )
+	//gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;//ftransform(); 
+	//VposClip = gl_Position;
+	//gl_FrontColor = gl_Color;
+	//gl_TexCoord[0] = gl_TextureMatrix[0] * vec4(gl_MultiTexCoord0.x, gl_MultiTexCoord0.y, 0, 1);
+
+	//Transformiere von Objekt in Worldspace
+	//So würde man von Obj in EyeSpace transformieren: 
+	// gl_NormalMatrix = Transpose(Inverse(gl_ModelViewMatrix) -> ObjToEye-Space-Normalmatrix (Ist vordefiniert)
+	//Vnormal = normalize(mat3(NormalMatrix) * gl_Normal); 
+	//VposWorld = (ObjToWorldMatrix * gl_Vertex).xyz;
+	//Vtangent = normalize(mat3(NormalMatrix) * tangentVertex);
+	//VShadowCoord = ShadowMapMatrix[0] * gl_Vertex;
+
+
+	gl_Position = ObjToClipMatrix * vec4(gl_Vertex.xyz, 1);	
+	normal = normalize(mat3(NormalMatrix) * gl_Normal); 
+	posWorld = (ObjToWorldMatrix * vec4(gl_Vertex.xyz, 1)).xyz;
+	tangent = normalize(mat3(NormalMatrix) * in_tangent);
+	textcoord = (TextureMatrix * vec3(gl_MultiTexCoord0.xy, 1)).xy;
+	ShadowCoord = ShadowMapMatrix[0] * vec4(gl_Vertex.xyz, 1);
+}

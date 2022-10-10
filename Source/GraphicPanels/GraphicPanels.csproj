@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{70374F52-2740-4344-BA84-903C08B10B20}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GraphicPanels</RootNamespace>
+    <AssemblyName>GraphicPanels</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO" />
+    <Reference Include="System.Linq.Expressions" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DrawingObjectContainer.cs" />
+    <Compile Include="DrawingPanelContainer.cs" />
+    <Compile Include="DrawingPanelFactory.cs" />
+    <Compile Include="EnumDefinitions.cs" />
+    <Compile Include="ExportData.cs" />
+    <Compile Include="Helper\LegoGridCreator.cs" />
+    <Compile Include="Helper\ObjToHeightMapConverter.cs" />
+    <Compile Include="InterfaceFromDrawingPanelNotSupportedException.cs" />
+    <Compile Include="GeometryCommand.cs" />
+    <Compile Include="GraphicPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GraphicPanel.Designer.cs">
+      <DependentUpon>GraphicPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GraphicPanel2D.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GraphicPanel3D.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GraphicPanel3DExtensions.cs" />
+    <Compile Include="PanelWithoutFlickers.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Panel3DProgressText.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BitmapHelper\BitmapHelper.csproj">
+      <Project>{61FDFE91-0853-47E7-9F76-DF885C28CEF0}</Project>
+      <Name>BitmapHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FullPathGenerator\FullPathGenerator.csproj">
+      <Project>{EF2029DA-FCD8-433D-8E19-E9E41D31ED1A}</Project>
+      <Name>FullPathGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicGlobal\GraphicGlobal.csproj">
+      <Project>{A2938D3C-DA44-4ABB-9F66-A4D502C803C7}</Project>
+      <Name>GraphicGlobal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicMinimal\GraphicMinimal.csproj">
+      <Project>{B149FAA2-72F8-4846-8520-DFCDDBDAEE14}</Project>
+      <Name>GraphicMinimal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicPipelineCPU\GraphicPipelineCPU.csproj">
+      <Project>{424391CA-1C3B-46E5-95FA-29C796B49DF2}</Project>
+      <Name>GraphicPipelineCPU</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicPipelineDirect3D11\GraphicPipelineDirect3D11.csproj">
+      <Project>{1DBC6AC1-451A-47F5-88D6-ADBD92C6E30E}</Project>
+      <Name>GraphicPipelineDirect3D11</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicPipelineOpenGLv1_0\GraphicPipelineOpenGLv1_0.csproj">
+      <Project>{0BCE7D40-44E7-44B9-9563-DF41307F1843}</Project>
+      <Name>GraphicPipelineOpenGLv1_0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicPipelineOpenGLv3_0\GraphicPipelineOpenGLv3_0.csproj">
+      <Project>{35076EAE-4553-4208-843F-E52D39A01964}</Project>
+      <Name>GraphicPipelineOpenGLv3_0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IntersectionTests\IntersectionTests.csproj">
+      <Project>{EC763480-CB40-4CFF-88B9-B6209D38114B}</Project>
+      <Name>IntersectionTests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParticipatingMedia\ParticipatingMedia.csproj">
+      <Project>{214aa3c8-cf4d-4a80-b67b-29e9e1558980}</Project>
+      <Name>ParticipatingMedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Radiosity\Radiosity.csproj">
+      <Project>{97EB866F-64C2-4DF0-B191-A36C975CA012}</Project>
+      <Name>Radiosity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rasterizer\Rasterizer.csproj">
+      <Project>{1FE44FEA-1AE6-4268-8A80-C8F497390EE6}</Project>
+      <Name>Rasterizer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RayObjects\RayObjects.csproj">
+      <Project>{9E8D86B6-2326-43B6-B029-240D0A9139B8}</Project>
+      <Name>RayObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RaytracerMain\RaytracerMain.csproj">
+      <Project>{2CBB110C-223B-4426-B445-B04772DC17EC}</Project>
+      <Name>RaytracerMain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RaytracingColorEstimator\RaytracingColorEstimator.csproj">
+      <Project>{2A5B4F56-580F-418C-AB3B-545D7A7E81CB}</Project>
+      <Name>RaytracingColorEstimator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RaytracingMethods\RaytracingMethods.csproj">
+      <Project>{4A95C8BA-E941-49D5-8BB1-37D94C7EFD80}</Project>
+      <Name>RaytracingMethods</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextureHelper\TextureHelper.csproj">
+      <Project>{2037cefb-8e7a-4d35-8e86-e071104ec6d7}</Project>
+      <Name>TextureHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TriangleObjectGeneration\TriangleObjectGeneration.csproj">
+      <Project>{75C32A07-9569-4624-9972-3ECEEE4CAE3A}</Project>
+      <Name>TriangleObjectGeneration</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

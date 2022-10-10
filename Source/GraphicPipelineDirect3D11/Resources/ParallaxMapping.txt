@@ -1,0 +1,237 @@
+//////////////////////////// Parallax Mapping//////////////////////////////
+//Quelle: http://www.gamedev.net/page/resources/_/technical/graphics-programming-and-theory/a-closer-look-at-parallax-occlusion-mapping-r3262 -> Er rechnet in Weltkoordinaten. Ich habes es auf Augkoordinaten umgestellt
+PS_IN VS_Parallax(VS_IN input) 
+{
+	PS_IN output = (PS_IN)0;
+
+	output.pos = mul(float4(input.pos.xyz, 1.0), WorldViewProj);
+	output.col = input.col;	
+	output.tex = mul(float3(input.tex.xy, 1.0), (float3x3)TextureMatrix).xy;
+	output.Normal = normalize(mul(input.Normal, (float3x3)NormalMatrix).xyz); 
+	output.WorldPosition = mul(float4(input.pos.xyz, 1.0), ObjToWorld).xyz;
+	output.Tangent = normalize(mul(input.Tangent, (float3x3)NormalMatrix));// Tangente in Eyespace transformieren
+
+	output.shadowPos = mul(float4(input.pos.xyz, 1.0), ShadowMatrix);
+
+	return output;
+}
+
+int		nMaxSamples			= 30;
+int		nMinSamples			= 4;
+
+//Hinweis zum Thema TexturScaleFactor und Parallax-Mapping. Wenn ich innerhalb der parallax-Funktion beim Berechnen von vCurrOffset keine
+//Multiplikation mit TexturScaleFaktorX/Y vornehme, dann wird der HeighScaleFactor-Effekt um so weniger, um so höher die Skalierung ist.
+//Ich könnte nun entweder den HeighScaleFactor mit max(TexturScaleFaktorX,TexturScaleFaktorY) multiplizieren oder ich überlasse das Thema komplett
+//den Nutzer.
+
+//Gelernte Lektion beim Schreiben der GetShadowFactor-Funktion: Mit der TBN-Matrix darf man nur Richtungsvektoren zwischen World- und Tangentsapce
+//transformieren, dessen Startpunkt bei ein Punkt auf der Texturebene liegt. Will ich ein Punkt vom Texturspace zurück im Worldspace
+//umrechnen, dann bilde ich im Texturspace zuerst ein Richtungsvektor von inputPositionTexturspace zu textureSpacePoint und rechne
+//diesen Richtungsvektor dann in Worldspace und addiere ihn auf den input.WorldPosition-Punkt drauf
+
+
+float GetShadowFactor(float3 inputWorldPosition, float2 inputTex, float2 vFinalCoords, float3x3 tangentToWorldSpace, float3x3 worldToTangentSpace, float2 dx, float2 dy)
+{
+	//Schritt 1: Bestimme den aktuellen Punkt im Texturspace wo ich hingelaufen bin
+	float heightTex = Texture1.SampleGrad( TextureFilterPoint, vFinalCoords , dx, dy ).a * HeighScaleFactor;
+	float3 pointTex = float3(vFinalCoords.x, vFinalCoords.y, heightTex);
+	
+	//Schritt 2: Rechen den pointTex-Punkt in Worldspace um
+	float3 pointWorld = inputWorldPosition + mul(pointTex - float3(inputTex.x, inputTex.y, HeighScaleFactor), tangentToWorldSpace);
+
+	//Schritt 3: Gehe durch alle Lichtquelle durch und laufe von pointTex in Richtung Lichtquelle im Texturspace
+	//			 und schaue, ob du bis Höhe 1 * HeighScaleFactor kommst
+	for(int i=0; i < LightCount; i++) //Gehe durch alle Lichtquelle durch
+	{
+		//Schritt 4: Bestimme den Richtungsvektor vom pointTex zur Lichtquelle im Texturspace
+		float3 toLightDirectionTex = mul(normalize(LightPositions[i].xyz - pointWorld), worldToTangentSpace );
+
+		float aspectRatio = TexturScaleFaktorX / TexturScaleFaktorY; //Gleiche die Verzehrung aus (Siehe Ring-Kugel-Test)
+		toLightDirectionTex.x *= aspectRatio; //z bleibt anverändert da sonst die Höhe verändert wird (Siehe Blaue Textur bei TexturMapping-Test)
+
+
+		//Schritt 5: Bestimme die Anzahl der Sampleschritte fürs Raycasting
+		int nNumSamples = (int)lerp( nMaxSamples, nMinSamples, toLightDirectionTex.z );// Um so flacher man auf die Textur schaut, um so mehr Schritt muss man auf der Textur laufen
+
+		//Schritt 6: Die Textur wird oben beim Punkt 'endPoint = pointTex + toLightDirectionTex * t' geschnitten
+		//			 Bestimme t indem der Schnittpunkt zwischen den Strahl {pointTex + toLightDirectionTex * t}
+		//			 und der Ebene {z = HeighScaleFactor} berechnet wird
+		//t ist die Distanz zwischen pointTex und endPoint (Liegt ganz oben im Texturspace)
+		float t = (HeighScaleFactor - pointTex.z) / max(toLightDirectionTex.z, 0.0001f); 
+		float3 endPoint = pointTex + toLightDirectionTex * t;
+		float3 posToEnd = endPoint - pointTex;
+		float3 stepDirection = posToEnd / (float)nNumSamples;
+		
+		//Schritt 7: Laufe mit Raycasting bis zur oberen Texturkante und schaue, ob dort der Weg frei ist
+		float3 stepPoint =  pointTex;
+		float currHeight = pointTex.z;
+		for (int j=0; j < nNumSamples; j++)
+		{
+			stepPoint += stepDirection;
+			currHeight = Texture1.SampleGrad( TextureFilterPoint, stepPoint.xy , dx, dy ).a * HeighScaleFactor;
+
+			//Liegt stepPoint im Schatten?
+			if (currHeight > stepPoint.z  + 0.01f)
+			{
+				return 0.5f; //Punkt liegt im Schatten weil Hightmaptextur das so sagt
+			}
+		}
+
+		//Schritt 8: Ich bin ganz oben bei der Textur angekommen am Punkt endPoint. Prüfe nun per Shadow-Mapping
+		//ob hier kein Schatten ist		
+		if (UseShadowmap)	
+		{
+			//endPoint = float3(inputTex.x, inputTex.y, HeighScaleFactor);
+
+			float3 endPointWorld = pointWorld + mul( endPoint - pointTex, tangentToWorldSpace );
+
+			//float4 objPos = mul(float4(inputWorldPosition, 1.0), WorldToObj); 
+			float4 objPos = mul(float4(endPointWorld, 1.0), WorldToObj); 
+
+			//float f = length(endPointWorld - inputWorldPosition);
+			//return f;
+
+			float4 shadowPos4 = mul(objPos, ShadowMatrix);	
+			float3 shadowPos = clamp(shadowPos4.xyz / shadowPos4.w, 0, 1);
+			shadowPos.y = 1 - shadowPos.y;
+
+			if (shadowPos.x > 0 && shadowPos.y > 0 && shadowPos.x < 1 && shadowPos.y < 1)
+			{
+				if (shadowPos.z < 1 && ShadowTexture.Sample(TextureFilterPoint, shadowPos.xy).r < shadowPos.z - 0.001)
+				{
+					return 0.5f; //Es gibt Schatten weil ein anders Objekt der Szene sein Schatten zum endPoint wirft
+				}
+			}
+		}
+	}
+
+	return 1; //Es gibt kein Schatten
+}
+
+float4 PS_Parallax( PS_IN input ) : SV_Target 
+{
+	float3 normalVector = normalize( input.Normal ); 
+	if (DoFlatShading) normalVector = normalize(cross(ddy(input.WorldPosition.xyz), ddx(input.WorldPosition.xyz)));//ddx bildet die Ableitung nach der Bildschirmkoordiante x
+	
+	//Mit der TBN-Matrix kann man Richtungsvektoren von Tangent- in Weltkoordinaten transformieren. 
+	float3x3 tangentToWorldSpace;
+	tangentToWorldSpace[0] = normalize( input.Tangent );
+	tangentToWorldSpace[1] = normalize(cross(input.Tangent, normalVector));
+	tangentToWorldSpace[2] = normalize( normalVector );
+	
+	//Transpose stellt die Inverse der Richtungsmatrix 'tangentToWorldSpace' dar
+	float3x3 worldToTangentSpace = transpose(tangentToWorldSpace);
+	
+	float3 camToPos = normalize(input.WorldPosition - CameraPosition);
+	float3 camToPosTex = mul( camToPos, worldToTangentSpace );			//camToPos im Texturspace
+
+	float aspectRatio = TexturScaleFaktorX / TexturScaleFaktorY; //Gleiche die Verzehrung aus (Siehe Ring-Kugel-Test)
+	camToPosTex.x *= aspectRatio; //z bleibt anverändert da sonst die Höhe verändert wird (Siehe Blaue Textur bei TexturMapping-Test)
+
+	//Bilde Schnittpunkt zwischen Strahl {(input.tex.x, input.tex.y, HeighScaleFactor) + camToPosTex * t} und der Ebene {z=0}
+	//HeighScaleFactor + camToPosTex.z * t = 0
+	float t = -HeighScaleFactor / camToPosTex.z;
+
+	// Um so flacher man auf die Textur schaut, um so mehr Schritt muss man auf der Textur laufen
+	int nNumSamples = (int)lerp( nMaxSamples, nMinSamples, -camToPosTex.z );
+
+	//Starte oben auf der Textur
+	float3 stepPoint = float3(input.tex.x, input.tex.y, HeighScaleFactor);
+	float3 endPoint = stepPoint + camToPosTex * t;
+	float3 stepDirection = (endPoint - stepPoint) / (float)nNumSamples; 
+
+	float2 dx = ddx( input.tex );
+	float2 dy = ddy( input.tex );
+
+	float currHeight = HeighScaleFactor;
+	float lastHeight = HeighScaleFactor;
+	float3 lastStepPoint = stepPoint;
+
+	for (int i=0; i < nNumSamples; i++)
+	{
+		currHeight = Texture1.SampleGrad( TextureFilterPoint, stepPoint.xy , dx, dy ).a * HeighScaleFactor;
+		
+		//Habe ich den Schnittpunkt zwischen den camToPos-Strahl und der Textur gefunden?
+		if (currHeight > stepPoint.z)
+		{
+			float delta1 = currHeight - stepPoint.z;						//Aktueller Abstand zwischen Strahl und Textur
+			float delta2 = ( stepPoint.z - stepDirection.z ) - lastHeight;	//Vorheriger Abstand zwischen Strahl und Textur
+			float ratio = delta1/(delta1+delta2);
+
+			// Interpolate between the final two segments to find the true intersection point offset.
+			stepPoint = (ratio) * lastStepPoint + (1.0-ratio) * stepPoint;
+
+			break;
+		}
+
+		lastStepPoint = stepPoint;
+		stepPoint += stepDirection;
+		lastHeight = currHeight;
+	}
+
+	float2 vFinalCoords = stepPoint.xy;
+
+	//Schneide den Rand ab
+	if (TesselationFactor != 0)
+	{
+		if (vFinalCoords.x <= 0.01f || vFinalCoords.y <= 0.01f || vFinalCoords.x >= TexturScaleFaktorX - 0.01f || vFinalCoords.y >= TexturScaleFaktorY - 0.01f) discard;
+	}
+
+	float4 objektColor = CurrentColor * (1 - UseTexture0) + GetTexelFromColorTexture(vFinalCoords) * UseTexture0 * CurrentColor;	
+	if (BlendingBlackColor && (objektColor.x + objektColor.y + objektColor.z) < 0.1) discard;
+
+	float shadowFactor = GetShadowFactor(input.WorldPosition, input.tex, vFinalCoords, tangentToWorldSpace, worldToTangentSpace, dx, dy);
+
+	if (LightingIsEnabled == false) return objektColor * shadowFactor;
+
+	float3 bumpNormal = NormalSampleToWorldSpace(ReadBumpNormalFromTexture(vFinalCoords), normalVector, input.Tangent);
+	return float4(GetIlluminatedColor(input.WorldPosition, bumpNormal, objektColor).xyz * shadowFactor,1);	
+}
+
+technique11 DrawTriangleParallax
+{
+	pass P0
+	{
+        SetHullShader( NULL );
+        SetDomainShader( NULL );
+        SetGeometryShader( NULL );
+
+		SetVertexShader( CompileShader( vs_4_0, VS_Parallax() ) );
+		SetPixelShader( CompileShader( ps_4_0, PS_Parallax() ) );
+	}
+}
+
+//------------------------  Resources.MouseHitTest funktioniert nicht. Deswegen füge ich den Inhalt hier ein
+
+PS_IN VS_MouseHit(VS_IN input) 
+{
+	PS_IN output = (PS_IN)0;
+
+	output.pos = mul(float4(input.pos.xyz, 1.0), WorldViewProj);
+	output.col = input.col;	
+	output.tex = mul(float3(input.tex.xy, 1.0), (float3x3)TextureMatrix).xy;
+
+	return output;
+}
+
+float4 PS_MouseHit( PS_IN input ) : SV_Target
+{
+	float4 objektColor = CurrentColor * (1 - UseTexture0) + GetTexelFromColorTexture(input.tex) * UseTexture0 * CurrentColor;	
+
+	if (BlendingBlackColor && (objektColor.x + objektColor.y + objektColor.z) < 0.1) discard;
+
+	return float4(MouseHitId / 255.0f, (MouseHitId * 10) / 255.0f, MouseHitId / 255.0f, 1);
+}
+
+technique11 MouseHitTest
+{
+	pass P0
+	{
+        SetHullShader( NULL );
+        SetDomainShader( NULL );
+        SetGeometryShader( NULL );
+
+		SetVertexShader( CompileShader( vs_4_0, VS_MouseHit() ) );
+		SetPixelShader( CompileShader( ps_4_0, PS_MouseHit() ) );
+	}
+}

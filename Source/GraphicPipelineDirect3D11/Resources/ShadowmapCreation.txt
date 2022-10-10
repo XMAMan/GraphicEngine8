@@ -1,0 +1,66 @@
+PS_IN VS_ShadowmapCreation(VS_IN input)
+{
+	PS_IN output = (PS_IN)0;
+	output.pos = mul(float4(input.pos.xyz, 1.0), ShadowMatrix);
+	//output.pos = mul(float4(input.pos.xyz, 1.0), WorldViewProj);
+	output.tex = mul(float3(input.tex.xy, 1.0), (float3x3)TextureMatrix).xy;
+
+	return output;
+}
+
+struct PS_OUTPUT
+{
+    float4 Color: SV_Target0;
+    float Depth: SV_Depth;
+};
+
+//float PS_ShadowmapCreation( PS_IN input ) : SV_Depth
+PS_OUTPUT PS_ShadowmapCreation( PS_IN input )
+{
+	PS_OUTPUT output = (PS_OUTPUT)0;
+
+	float4 objektColor = CurrentColor * (1 - UseTexture0) + GetTexelFromColorTexture(input.tex) * UseTexture0;	
+	if (BlendingBlackColor && (objektColor.x + objektColor.y + objektColor.z) < 0.1) discard;
+
+	output.Color = objektColor;
+	output.Depth = input.pos.z / 2 + 0.5f; //Hier muss nicht noch durch w geteilt werden, da DirectX automatisch den SV_POSITION-Parameter nach den Clipping durch w teilt
+
+	return output;
+}
+
+//https://msdn.microsoft.com/en-us/library/windows/desktop/cc308048(v=vs.85).aspx
+RasterizerState Depth
+{
+	// [From MSDN]
+	// If the depth buffer currently bound to the output-merger stage has a UNORM format or
+	// no depth buffer is bound the bias value is calculated like this: 
+	//
+	// Bias = (float)DepthBias * r + SlopeScaledDepthBias * MaxDepthSlope;
+	//
+	// where r is the minimum representable value > 0 in the depth-buffer format converted to float32.
+	// [/End MSDN]
+	// 
+	// For a 24-bit depth buffer, r = 1 / 2^24.
+	//
+	// Example: DepthBias = 100000 ==> Actual DepthBias = 100000/2^24 = .006
+
+	// You need to experiment with these values for your scene.
+	DepthBias = 10000;
+    DepthBiasClamp = 0.0f;
+	SlopeScaledDepthBias = 1.0f;
+};
+
+technique11 CreateShadowmap
+{
+	pass P0
+	{
+        SetHullShader( NULL );
+        SetDomainShader( NULL );
+        SetGeometryShader( NULL );
+
+		SetVertexShader( CompileShader( vs_4_0, VS_ShadowmapCreation() ) );
+		SetPixelShader( CompileShader( ps_4_0, PS_ShadowmapCreation() ) );
+		//SetPixelShader( NULL );
+		//SetRasterizerState(Depth);
+	}
+}

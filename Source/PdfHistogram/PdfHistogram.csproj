@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{24743C8C-A488-499C-ABA1-040D596DABD7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PdfHistogram</RootNamespace>
+    <AssemblyName>PdfHistogram</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChunkTables\AxialQuadChunkTable.cs" />
+    <Compile Include="ChunkTables\AxialCubeChunkTable.cs" />
+    <Compile Include="ChunkTables\DirectionChunkTable.cs" />
+    <Compile Include="ChunkTables\RectangleChunkTable.cs" />
+    <Compile Include="DirectionHistogram.cs" />
+    <Compile Include="DistanceHistogram.cs" />
+    <Compile Include="FullPathHistogram.cs" />
+    <Compile Include="FunctionPlotter2D.cs" />
+    <Compile Include="MinMaxPlotter.cs" />
+    <Compile Include="RectangleHistogram.cs" />
+    <Compile Include="SimpleFunctionHelper\FunctionComparer.cs" />
+    <Compile Include="SimpleFunctionHelper\FunctionIntegrator.cs" />
+    <Compile Include="SimpleFunctionHelper\FunctionPlotter.cs" />
+    <Compile Include="SimpleFunctionHistogram.cs" />
+    <Compile Include="SubPathHistogram.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ChunkTables\QuadListChunkTable.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BitmapHelper\BitmapHelper.csproj">
+      <Project>{61fdfe91-0853-47e7-9f76-df885c28cef0}</Project>
+      <Name>BitmapHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FullPathGenerator\FullPathGenerator.csproj">
+      <Project>{ef2029da-fcd8-433d-8e19-e9e41d31ed1a}</Project>
+      <Name>FullPathGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicGlobal\GraphicGlobal.csproj">
+      <Project>{a2938d3c-da44-4abb-9f66-a4d502c803c7}</Project>
+      <Name>GraphicGlobal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicMinimal\GraphicMinimal.csproj">
+      <Project>{b149faa2-72f8-4846-8520-dfcddbdaee14}</Project>
+      <Name>GraphicMinimal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IntersectionTests\IntersectionTests.csproj">
+      <Project>{ec763480-cb40-4cff-88b9-b6209d38114b}</Project>
+      <Name>IntersectionTests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParticipatingMedia\ParticipatingMedia.csproj">
+      <Project>{214aa3c8-cf4d-4a80-b67b-29e9e1558980}</Project>
+      <Name>ParticipatingMedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RayObjects\RayObjects.csproj">
+      <Project>{9e8d86b6-2326-43b6-b029-240d0a9139b8}</Project>
+      <Name>RayObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RaytracingRandom\RaytracingRandom.csproj">
+      <Project>{98a73ac3-620f-4520-89ea-b97a75573a3c}</Project>
+      <Name>RaytracingRandom</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubpathGenerator\SubpathGenerator.csproj">
+      <Project>{200904b4-8bcc-4895-9647-64122b668fde}</Project>
+      <Name>SubpathGenerator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,199 @@
+#version 330
+
+precision highp float;
+
+noperspective in vec3 normal;
+in vec3 posWorld;
+noperspective in vec3 tangent;
+in vec2 textcoord;
+smooth in vec4 ShadowCoord;
+
+layout(location = 0) out vec4 out_frag_color;
+
+uniform sampler2D Texture0;	// Farbtextur
+uniform sampler2D Texture1; // Bumpmap
+uniform sampler2D ShadowMap;// Für Shadowmapping
+uniform int UseTexture0; 
+uniform int UseTexture1; 
+uniform int LightingIsEnabled; 
+uniform int DoFlatShading;
+uniform int UseShadowmap;
+uniform int BlendingWithBlackColor;
+uniform vec4 color;
+uniform vec3 CameraPosition;
+uniform float TexturScaleFaktorX;
+uniform float TexturScaleFaktorY;
+uniform float HeighScaleFactor;				// um so größer, um so höher sind die Huckel
+uniform float TesselationFactor;
+uniform mat4 ShadowMapMatrix[10];		//Position, Ausrichtung, Projektionsmatrix und beim Auslesen der ShadowMap Bias-Matrix (Für jede Lichtquelle eine Matrix)
+uniform mat4 WorldToObj;
+
+struct LightStruct
+{
+	int LightCount;
+	vec3 LightPositions[10];
+	float ConstantAttenuation[10];
+	float LinearAttenuation[10];
+	float QuadraticAttenuation[10];
+	vec3 SpotDirection[10];			// Richtung bei Richtungslicht
+	float SpotCosCutoff[10];			// Wenn 180, dann Punktlicht in alle Richtung, sonst Richtungslicht
+	float SpotExponent[10];
+	float SpecularHighlightPowExponent; //Glanzpunktgröße
+};
+ 
+uniform LightStruct lightStruct;
+
+#COMMONFUNCTIONS#
+
+int		nMaxSamples			= 30;
+int		nMinSamples			= 4;
+
+float GetShadowFactor(vec3 inputWorldPosition, vec2 inputTex, vec2 vFinalCoords, mat3 tangentToWorldSpace, mat3 worldToTangentSpace, ivec2 textureSize)
+{
+	//Schritt 1: Bestimme den aktuellen Punkt im Texturspace wo ich hingelaufen bin
+	float heightTex = vec4(texelFetch(Texture1,ivec2( int(vFinalCoords.x * textureSize.x) % textureSize.x,  int(vFinalCoords.y * textureSize.y) % textureSize.y), 0)).a* HeighScaleFactor;   //Ohne Filter
+	vec3 pointTex = vec3(vFinalCoords.x, vFinalCoords.y, heightTex);
+	
+	//Schritt 2: Rechen den pointTex-Punkt in Worldspace um
+	vec3 pointWorld = inputWorldPosition + tangentToWorldSpace * (pointTex - vec3(inputTex.x, inputTex.y, HeighScaleFactor));
+
+	//Schritt 3: Gehe durch alle Lichtquelle durch und laufe von pointTex in Richtung Lichtquelle im Texturspace
+	//			 und schaue, ob du bis Höhe 1 * HeighScaleFactor kommst
+	for(int i=0; i < lightStruct.LightCount; i++) //Gehe durch alle Lichtquelle durch
+	{
+		//Schritt 4: Bestimme den Richtungsvektor vom pointTex zur Lichtquelle im Texturspace
+		vec3 toLightDirectionTex = worldToTangentSpace * normalize(lightStruct.LightPositions[i].xyz - pointWorld);
+
+		float aspectRatio = TexturScaleFaktorX / TexturScaleFaktorY; //Gleiche die Verzehrung aus (Siehe Ring-Kugel-Test)
+		toLightDirectionTex.x *= aspectRatio; //z bleibt anverändert da sonst die Höhe verändert wird (Siehe Blaue Textur bei TexturMapping-Test)
+
+		//Schritt 5: Bestimme die Anzahl der Sampleschritte fürs Raycasting
+		int nNumSamples = int(mix( nMaxSamples, nMinSamples, toLightDirectionTex.z ));// Um so flacher man auf die Textur schaut, um so mehr Schritt muss man auf der Textur laufen
+
+		//Schritt 6: Die Textur wird oben beim Punkt 'endPoint = pointTex + toLightDirectionTex * t' geschnitten
+		//			 Bestimme t indem der Schnittpunkt zwischen den Strahl {pointTex + toLightDirectionTex * t}
+		//			 und der Ebene {z = HeighScaleFactor} berechnet wird
+		//t ist die Distanz zwischen pointTex und endPoint (Liegt ganz oben im Texturspace)
+		float t = (HeighScaleFactor - pointTex.z) / max(toLightDirectionTex.z, 0.0001); 
+		vec3 endPoint = pointTex + toLightDirectionTex * t;
+		vec3 posToEnd = endPoint - pointTex;
+		vec3 stepDirection = posToEnd / float(nNumSamples);
+
+		//vec3 7: Laufe mit Raycasting bis zur oberen Texturkante und schaue, ob dort der Weg frei ist
+		vec3 stepPoint =  pointTex;
+		float currHeight = pointTex.z;
+		for (int j=0; j < nNumSamples; j++)
+		{
+			stepPoint += stepDirection;
+			currHeight = vec4(texelFetch(Texture1,ivec2( int(stepPoint.x * textureSize.x) % textureSize.x,  int(stepPoint.y * textureSize.y) % textureSize.y), 0)).a* HeighScaleFactor;   //Ohne Filter
+			
+			//Liegt stepPoint im Schatten?
+			if (currHeight > stepPoint.z  + 0.01)
+			{
+				return 0.5; //Punkt liegt im Schatten weil Hightmaptextur das so sagt
+			}
+		}
+
+		//Schritt 8: Ich bin ganz oben bei der Textur angekommen am Punkt endPoint. Prüfe nun per Shadow-Mapping
+		//ob hier kein Schatten ist		
+		if (UseShadowmap == 1)	
+		{
+			vec3 endPointWorld = pointWorld + tangentToWorldSpace * (endPoint - pointTex);
+
+			vec4 objPos = WorldToObj * vec4(endPointWorld, 1.0); 
+
+			vec4 shadowPos4 = ShadowMapMatrix[0] * objPos;	
+			vec3 shadowPos = shadowPos4.xyz / shadowPos4.w;
+
+			if (shadowPos.x > 0 && shadowPos.y > 0 && shadowPos.x < 1 && shadowPos.y < 1)
+			{
+				if (shadowPos.z < 1 && vec4(texture2D(ShadowMap, shadowPos.xy)).r < shadowPos.z - 0.001)
+				{
+					return 0.5; //Es gibt Schatten weil ein anders Objekt der Szene sein Schatten zum endPoint wirft
+				}
+			}
+		}
+	}	
+
+	return 1; //Es gibt kein Schatten
+}
+
+void main()
+{
+	vec3 normalVector = normalize(normal);	
+	if (DoFlatShading == 1) normalVector = normalize(cross(dFdx(posWorld.xyz), dFdy(posWorld.xyz)));
+
+	//Mit der TBN-Matrix kann man Richtungsvektoren von Tangent- in Weltkoordinaten transformieren. 
+	mat3 tangentToWorldSpace = mat3(normalize( tangent ),
+							        normalize( cross(tangent, normalVector)),
+							        normalize( normalVector ));
+
+	//Transpose stellt die Inverse der Richtungsmatrix 'tangentToWorldSpace' dar
+	mat3 worldToTangentSpace = transpose(tangentToWorldSpace);
+
+	vec3 camToPos = normalize(posWorld - CameraPosition);
+	vec3 camToPosTex =  worldToTangentSpace * camToPos;		//camToPos im Texturspace
+
+	float aspectRatio = TexturScaleFaktorX / TexturScaleFaktorY; //Gleiche die Verzehrung aus (Siehe Ring-Kugel-Test)
+	camToPosTex.x *= aspectRatio; //z bleibt anverändert da sonst die Höhe verändert wird (Siehe Blaue Textur bei TexturMapping-Test)
+
+	//Bilde Schnittpunkt zwischen Strahl {(input.tex.x, input.tex.y, HeighScaleFactor) + camToPosTex * t} und der Ebene {z=0}
+	//HeighScaleFactor + camToPosTex.z * t = 0
+	float t = -HeighScaleFactor / camToPosTex.z;
+
+	// Um so flacher man auf die Textur schaut, um so mehr Schritt muss man auf der Textur laufen
+	int nNumSamples = int(mix( nMaxSamples, nMinSamples,  -camToPosTex.z ));
+
+	//Starte oben auf der Textur
+	vec3 stepPoint = vec3(textcoord.x, textcoord.y, HeighScaleFactor);
+	vec3 endPoint = stepPoint + camToPosTex * t;
+	vec3 stepDirection = (endPoint - stepPoint) / float(nNumSamples); 
+
+	vec2 dx = dFdx( textcoord );
+	vec2 dy = dFdy( textcoord );
+	ivec2 textureSize = textureSize(Texture1, 0); //Größe der Textur in Pixeln ivec2 = Integer-Vektor
+
+	float currHeight = HeighScaleFactor;
+	float lastHeight = HeighScaleFactor;
+	vec3 lastStepPoint = stepPoint;
+
+	for (int i=0; i < nNumSamples; i++)
+	{
+		currHeight = vec4(texelFetch(Texture1,ivec2( int(stepPoint.x * textureSize.x) % textureSize.x,  int(stepPoint.y * textureSize.y) % textureSize.y), 0)).a * HeighScaleFactor;   //Ohne Filter
+
+		//Habe ich den Schnittpunkt zwischen den camToPos-Strahl und der Textur gefunden?
+		if (currHeight > stepPoint.z)
+		{
+			float delta1 = currHeight - stepPoint.z;						//Aktueller Abstand zwischen Strahl und Textur
+			float delta2 = ( stepPoint.z - stepDirection.z ) - lastHeight;	//Vorheriger Abstand zwischen Strahl und Textur
+			float ratio = delta1/(delta1+delta2);
+
+			// Interpolate between the final two segments to find the true intersection point offset.
+			stepPoint = (ratio) * lastStepPoint + (1.0-ratio) * stepPoint;
+
+			break;
+		}
+
+		lastStepPoint = stepPoint;
+		stepPoint += stepDirection;
+		lastHeight = currHeight;
+	}
+
+	vec2 vFinalCoords = stepPoint.xy;
+
+	//Schneide den Rand ab
+	if (TesselationFactor != 0)
+	{
+		if (vFinalCoords.x <= 0.01f || vFinalCoords.y <= 0.01f || vFinalCoords.x >= TexturScaleFaktorX - 0.01f || vFinalCoords.y >= TexturScaleFaktorY - 0.01f) discard;
+	}
+
+	vec4 objektColor = color * (1.0 - UseTexture0) + vec4(texture2D(Texture0, vFinalCoords.xy)) * UseTexture0 * color;	
+	if (BlendingWithBlackColor == 1 && (objektColor.x + objektColor.y + objektColor.z) < 0.1) discard;
+
+	float shadowFactor = GetShadowFactor(posWorld, textcoord, vFinalCoords, tangentToWorldSpace, worldToTangentSpace, textureSize);
+
+	if (LightingIsEnabled == 0) {out_frag_color = objektColor * shadowFactor; return;}
+
+	vec3 bumpNormal = NormalSampleToWorldSpace(ReadBumpNormalFromTexture(vFinalCoords), normalVector, normalize(tangent));
+	out_frag_color = vec4(GetIlluminatedColor(posWorld, bumpNormal, objektColor).xyz * shadowFactor,1);
+}

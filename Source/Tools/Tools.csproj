@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A777CFAF-42A8-4BD8-9E01-4698F23CB810}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tools</RootNamespace>
+    <AssemblyName>GraphicTool</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PowerArgs, Version=3.6.0.0, Culture=neutral, PublicKeyToken=26a276264bbd55b8, processorArchitecture=MSIL">
+      <HintPath>..\packages\PowerArgs.3.6.0\lib\netstandard2.0\PowerArgs.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommandLineParsing.cs" />
+    <Compile Include="Tools\CleanBatCreator.cs" />
+    <Compile Include="Tools\CopyOnlyUsedFilesFromDataFolder.cs" />
+    <Compile Include="Tools\FilePaths.cs" />
+    <Compile Include="Tools\Form3DTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\Form3DTest.Designer.cs">
+      <DependentUpon>Form3DTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\ILMergeBatCreator.cs" />
+    <Compile Include="Tools\ImagePostProcessing\ImagePostProcessingHelper.cs" />
+    <Compile Include="Tools\ImagePostProcessing\HistogramPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tools\ImagePostProcessing\TrackbarFloat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tools\ImagePostProcessing\TrackbarFloat.Designer.cs">
+      <DependentUpon>TrackbarFloat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\ImagePostProcessing\NumberSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\ImagePostProcessing\NumberSelector.Designer.cs">
+      <DependentUpon>NumberSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\LineOfCodesCounter.cs" />
+    <Compile Include="Tools\MasterTestImage\MasterTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\MasterTestImage\MasterTestForm.Designer.cs">
+      <DependentUpon>MasterTestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\SceneEditor\SceneEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\SceneEditor\SceneEditor.Designer.cs">
+      <DependentUpon>SceneEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Form2DTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\Form2DTest.Designer.cs">
+      <DependentUpon>Form2DTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\MasterTestImage\MasterTest.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\SceneEditor\Scenes.cs" />
+    <Compile Include="Tools\ImagePostProcessing\ImageEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\ImagePostProcessing\ImageEditor.Designer.cs">
+      <DependentUpon>ImageEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\SceneFileRenderer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\SceneFileRenderer.Designer.cs">
+      <DependentUpon>SceneFileRenderer.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Tools\Form3DTest.resx">
+      <DependentUpon>Form3DTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\ImagePostProcessing\TrackbarFloat.resx">
+      <DependentUpon>TrackbarFloat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\ImagePostProcessing\NumberSelector.resx">
+      <DependentUpon>NumberSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\MasterTestImage\MasterTestForm.resx">
+      <DependentUpon>MasterTestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\SceneEditor\SceneEditor.resx">
+      <DependentUpon>SceneEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\Form2DTest.resx">
+      <DependentUpon>Form2DTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Tools\ImagePostProcessing\ImageEditor.resx">
+      <DependentUpon>ImageEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\SceneFileRenderer.resx">
+      <DependentUpon>SceneFileRenderer.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BitmapHelper\BitmapHelper.csproj">
+      <Project>{61fdfe91-0853-47e7-9f76-df885c28cef0}</Project>
+      <Name>BitmapHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Graphic2DTest\Graphic2DTest.csproj">
+      <Project>{bc058911-aa38-48e1-912c-0ff22db00e46}</Project>
+      <Name>Graphic2DTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicPanels\GraphicPanels.csproj">
+      <Project>{70374F52-2740-4344-BA84-903C08B10B20}</Project>
+      <Name>GraphicPanels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicMinimal\GraphicMinimal.csproj">
+      <Project>{b149faa2-72f8-4846-8520-dfcddbdaee14}</Project>
+      <Name>GraphicMinimal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageCreator\ImageCreator.csproj">
+      <Project>{727a7d5a-22b5-4018-9769-ab5de9b57e01}</Project>
+      <Name>ImageCreator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy ..\..\..\GraphicPipelineDirect3D11\SlimDX.dll .\SlimDX.dll</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

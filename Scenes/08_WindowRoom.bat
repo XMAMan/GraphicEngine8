@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe CreateImage ..\Data\08_WindowRoom_json.txt -output 08_WindowRoom.jpg -renderMod RadiositySolidAngle -sampleCount 1 -width 1600 -height 837 -radiosityMaxAreaPerPatch 0,01

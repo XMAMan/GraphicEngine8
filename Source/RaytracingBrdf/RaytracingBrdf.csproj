@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7060CB48-A41B-4AF4-AFF3-B54CD57B7101}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RaytracingBrdf</RootNamespace>
+    <AssemblyName>RaytracingBrdf</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BrdfFactory.cs" />
+    <Compile Include="BrdfFunctions\BrdfDiffuseCosinusWeighted.cs" />
+    <Compile Include="BrdfFunctions\BrdfDiffuseUniformWeighted.cs" />
+    <Compile Include="BrdfFunctions\BrdfGlas.cs" />
+    <Compile Include="BrdfFunctions\BrdfGlossy.cs" />
+    <Compile Include="BrdfFunctions\BrdfMirror.cs" />
+    <Compile Include="BrdfFunctions\BrdfSpecularHighlight.cs" />
+    <Compile Include="BrdfFunctions\DiffuseAndMirrorWithSumBrdf.cs" />
+    <Compile Include="BrdfFunctions\DiffuseAndOtherBrdf.cs" />
+    <Compile Include="BrdfFunctions\DiffusePhongGlasOrMirrorSum.cs" />
+    <Compile Include="BrdfFunctions\IBrdf.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Heiz\MicrofacetBasics\HeizBeckmann.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Heiz\MicrofacetBasics\HeizBrdf.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Heiz\MicrofacetBasics\HeizGGX.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Heiz\HeizGlas.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Heiz\HeizMirror.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Heiz\MicrofacetBasics\IHeizBrdf.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Heiz\SlopSpace\ISlopeSpaceMicrofacet.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Heiz\SlopSpace\SlopeDistribution\BeckmannSlopeDistribution.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Heiz\SlopSpace\SlopeDistribution\GgxSlopeDistribution.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Heiz\SlopSpace\SlopeDistribution\ISlopeDistribution.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Heiz\SlopSpace\SlopeSpaceFactory.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Heiz\SlopSpace\SlopeSpaceSmithMicrofacet.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Heiz\SlopSpace\SlopeSpaceVisualisizer.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Walter\MicrofacetBasics\IWalterBrdf.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Walter\MicrofacetBasics\WalterBeckmann.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Walter\MicrofacetBasics\WalterBrdf.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Walter\MicrofacetBasics\WalterGGX.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Walter\WalterGlas.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\Walter\WalterMirror.cs" />
+    <Compile Include="BrdfFunctions\MirrorAndOther.cs" />
+    <Compile Include="BrdfFunctions\MirrorWithRustBrdf.cs" />
+    <Compile Include="BrdfFunctions\TwoBrdfs.cs" />
+    <Compile Include="BrdfPoint.cs" />
+    <Compile Include="SampleAndRequest\BrdfEvaluateResult.cs" />
+    <Compile Include="SampleAndRequest\BrdfSampleEvent.cs" />
+    <Compile Include="SampleAndRequest\BrdfSampler.cs" />
+    <Compile Include="BrdfFunctions\MicrofacetBrdf\IMicrofacetBasics.cs" />
+    <Compile Include="PhaseFunction.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleAndRequest\IBrdfSampler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BitmapHelper\BitmapHelper.csproj">
+      <Project>{61FDFE91-0853-47E7-9F76-DF885C28CEF0}</Project>
+      <Name>BitmapHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicGlobal\GraphicGlobal.csproj">
+      <Project>{A2938D3C-DA44-4ABB-9F66-A4D502C803C7}</Project>
+      <Name>GraphicGlobal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicMinimal\GraphicMinimal.csproj">
+      <Project>{B149FAA2-72F8-4846-8520-DFCDDBDAEE14}</Project>
+      <Name>GraphicMinimal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IntersectionTests\IntersectionTests.csproj">
+      <Project>{EC763480-CB40-4CFF-88B9-B6209D38114B}</Project>
+      <Name>IntersectionTests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParticipatingMedia\ParticipatingMedia.csproj">
+      <Project>{214aa3c8-cf4d-4a80-b67b-29e9e1558980}</Project>
+      <Name>ParticipatingMedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PointSearch\PointSearch.csproj">
+      <Project>{9dfda7d6-4482-4e9a-8af3-fb4dd96f79ff}</Project>
+      <Name>PointSearch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RayCamera\RayCamera.csproj">
+      <Project>{cf472bf4-2ae8-44c7-8b29-68824ff2e0ad}</Project>
+      <Name>RayCamera</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RayObjects\RayObjects.csproj">
+      <Project>{9E8D86B6-2326-43B6-B029-240D0A9139B8}</Project>
+      <Name>RayObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RayTracerGlobal\RayTracerGlobal.csproj">
+      <Project>{EAEAB694-A553-4E68-B0F4-FB0813BF062B}</Project>
+      <Name>RayTracerGlobal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RaytracingRandom\RaytracingRandom.csproj">
+      <Project>{98A73AC3-620F-4520-89EA-B97A75573A3C}</Project>
+      <Name>RaytracingRandom</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

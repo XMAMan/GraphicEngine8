@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe CreateImage ..\Data\12_Snowman_json.txt -output 12_Snowman.jpg -renderMod BidirectionalPathTracing -sampleCount 1000 -width 1680 -height 987 -saveFolder AutoSave

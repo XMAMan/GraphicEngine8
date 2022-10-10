@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2CBB110C-223B-4426-B445-B04772DC17EC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RaytracerMain</RootNamespace>
+    <AssemblyName>RaytracerMain</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helper.cs" />
+    <Compile Include="IDrawingAsynchron\DrawingAsynchronHelper.cs" />
+    <Compile Include="IRaytracingHelper\BrightnessFactorCalculator.cs" />
+    <Compile Include="IRaytracingHelper\NormalFlipper.cs" />
+    <Compile Include="IRaytracingHelper\RaytracingHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DepthOfField\RasterizerDrawingObject.cs" />
+    <Compile Include="RaytracerMain.cs" />
+    <Compile Include="DepthOfField\DepthOfFieldDrawer.cs" />
+    <Compile Include="IRaytracingHelper\SinglePixelAnalyser.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BitmapHelper\BitmapHelper.csproj">
+      <Project>{61FDFE91-0853-47E7-9F76-DF885C28CEF0}</Project>
+      <Name>BitmapHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FullPathGenerator\FullPathGenerator.csproj">
+      <Project>{ef2029da-fcd8-433d-8e19-e9e41d31ed1a}</Project>
+      <Name>FullPathGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicGlobal\GraphicGlobal.csproj">
+      <Project>{A2938D3C-DA44-4ABB-9F66-A4D502C803C7}</Project>
+      <Name>GraphicGlobal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicMinimal\GraphicMinimal.csproj">
+      <Project>{B149FAA2-72F8-4846-8520-DFCDDBDAEE14}</Project>
+      <Name>GraphicMinimal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageCreator\ImageCreator.csproj">
+      <Project>{727A7D5A-22B5-4018-9769-AB5DE9B57E01}</Project>
+      <Name>ImageCreator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IntersectionTests\IntersectionTests.csproj">
+      <Project>{ec763480-cb40-4cff-88b9-b6209d38114b}</Project>
+      <Name>IntersectionTests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParticipatingMedia\ParticipatingMedia.csproj">
+      <Project>{214AA3C8-CF4D-4A80-B67B-29E9E1558980}</Project>
+      <Name>ParticipatingMedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RayObjects\RayObjects.csproj">
+      <Project>{9e8d86b6-2326-43b6-b029-240d0a9139b8}</Project>
+      <Name>RayObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RayTracerGlobal\RayTracerGlobal.csproj">
+      <Project>{EAEAB694-A553-4E68-B0F4-FB0813BF062B}</Project>
+      <Name>RayTracerGlobal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RaytracingColorEstimator\RaytracingColorEstimator.csproj">
+      <Project>{2a5b4f56-580f-418c-ab3b-545d7a7e81cb}</Project>
+      <Name>RaytracingColorEstimator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubpathGenerator\SubpathGenerator.csproj">
+      <Project>{200904b4-8bcc-4895-9647-64122b668fde}</Project>
+      <Name>SubpathGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TriangleObjectGeneration\TriangleObjectGeneration.csproj">
+      <Project>{75c32a07-9569-4624-9972-3eceee4cae3a}</Project>
+      <Name>TriangleObjectGeneration</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

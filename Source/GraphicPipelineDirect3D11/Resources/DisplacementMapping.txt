@@ -1,0 +1,153 @@
+//http://www.richardssoftware.net/2013/09/bump-and-displacement-mapping-with.html
+
+struct PatchTess
+{
+        float EdgeTess[3] : SV_TessFactor;
+        float InsideTess  : SV_InsideTessFactor;
+};
+
+PatchTess PatchHS(InputPatch<PS_IN,3> patch, 
+                  uint patchID : SV_PrimitiveID)
+{
+        PatchTess pt;
+        
+        // Average tess factors along edges, and pick an edge tess factor for 
+        // the interior tessellation.  It is important to do the tess factor
+        // calculation based on the edge properties so that edges shared by 
+        // more than one triangle will have the same tessellation factor.  
+        // Otherwise, gaps can appear.
+        pt.EdgeTess[0] = 0.5f*(patch[1].TessFactor + patch[2].TessFactor);
+        pt.EdgeTess[1] = 0.5f*(patch[2].TessFactor + patch[0].TessFactor);
+        pt.EdgeTess[2] = 0.5f*(patch[0].TessFactor + patch[1].TessFactor);
+        pt.InsideTess  = pt.EdgeTess[0];
+        
+        return pt;
+}
+
+struct HullOut
+{
+    float4 pos : SV_POSITION;
+	float4 col : COLOR0;
+	float2 tex : TEXCOORD0;
+	float3 Normal : NORMAL;
+	float3 WorldPosition : POSITION1;
+	float3 Tangent : NORMAL2;
+	float4 shadowPos : POSITION2;
+};
+
+[domain("tri")]
+[partitioning("fractional_odd")]
+[outputtopology("triangle_cw")]
+[outputcontrolpoints(3)]
+[patchconstantfunc("PatchHS")]
+HullOut HS(InputPatch<PS_IN,3> p, 
+           uint i : SV_OutputControlPointID,
+           uint patchId : SV_PrimitiveID)
+{
+        HullOut hout;
+
+        // Pass through shader.
+        hout.pos		= p[i].pos;
+        hout.col		= p[i].col;
+        hout.tex		= p[i].tex;
+        hout.Normal		= p[i].Normal;
+        hout.Tangent    = p[i].Tangent;
+		hout.WorldPosition = p[i].WorldPosition;        
+		hout.shadowPos  = p[i].shadowPos;
+        
+        return hout;
+}
+
+// The domain shader is called for every vertex created by the tessellator.  
+// It is like the vertex shader after tessellation.
+[domain("tri")]
+PS_IN DS(PatchTess patchTess, 
+             float3 bary : SV_DomainLocation, 
+             const OutputPatch<HullOut,3> tri)
+{
+        PS_IN dout;
+        
+        // Interpolate patch attributes to generated vertices.
+        dout.pos      = bary.x*tri[0].pos      + bary.y*tri[1].pos      + bary.z*tri[2].pos;
+        dout.col	  = bary.x*tri[0].col      + bary.y*tri[1].col      + bary.z*tri[2].col;
+        dout.tex      = bary.x*tri[0].tex      + bary.y*tri[1].tex      + bary.z*tri[2].tex;
+        dout.Normal   = bary.x*tri[0].Normal   + bary.y*tri[1].Normal   + bary.z*tri[2].Normal;
+        dout.Tangent  = bary.x*tri[0].Tangent  + bary.y*tri[1].Tangent  + bary.z*tri[2].Tangent;
+		dout.WorldPosition   = bary.x*tri[0].WorldPosition   + bary.y*tri[1].WorldPosition   + bary.z*tri[2].WorldPosition;
+		dout.shadowPos = bary.x*tri[0].shadowPos  + bary.y*tri[1].shadowPos  + bary.z*tri[2].shadowPos;
+        
+        //To avoid the warning: warning X3578: Output value 'DS' is not completely initialized
+		dout.TessFactor = 1;
+
+        // Interpolating normal can unnormalize it, so normalize it.
+        dout.Normal = normalize(dout.Normal);
+        
+        //
+        // Displacement mapping.
+        //
+        
+        // Choose the mipmap level based on distance to the eye; specifically, choose
+        // the next miplevel every MipInterval units, and clamp the miplevel in [0,6].
+        const float MipInterval = 20.0f;
+        float mipLevel = clamp( (distance(dout.WorldPosition, CameraPosition) - MipInterval) / MipInterval, 0.0f, 6.0f);
+        
+        // Sample height map (stored in alpha channel).
+		float gHeightScale = HeighScaleFactor;
+		float h = 1;
+		if (UseTexture1)
+		{
+			h = Texture1.SampleLevel(TextureFilterLinear, dout.tex, mipLevel).a;
+		}
+        
+        // Offset vertex along normal.
+        dout.WorldPosition += (gHeightScale*(h-1.0))*dout.Normal;
+
+        // Project to homogeneous clip space.
+        dout.pos = mul(float4(dout.WorldPosition, 1.0f), mul(CameraMatrix, ProjectionMatrix));
+
+		//dout.col = float4(gHeightScale,gHeightScale,gHeightScale,1);
+
+        return dout;
+}
+
+//http://msdn.microsoft.com/en-us/library/windows/desktop/bb509609(v=vs.85).aspx	-> Erklärung zur Syntax für den Geometryshader
+[maxvertexcount(3)]  //So viele Vertexe kommen maximal aus dem Geometry-Shader herraus
+void GShader3D( triangle PS_IN input[3], inout TriangleStream<PS_IN> OutputStream )
+{	
+	PS_IN output = (PS_IN)0;
+
+	float3 translation = float3(0,0,0);
+	if (ExplosionEffectIsEnabled == 1)
+	{
+		translation = normalize(input[0].Normal) * abs(sin(Time / 100.0f)) * ExplosionsRadius;
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		output.pos = input[i].pos;
+		output.col = input[i].col;
+		output.tex = input[i].tex;
+		output.Normal = input[i].Normal;
+		output.WorldPosition = input[i].WorldPosition + translation;
+		output.Tangent = input[i].Tangent;
+		output.shadowPos = input[i].shadowPos;
+
+	    output.pos = mul(float4(output.WorldPosition, 1.0f), mul(CameraMatrix, ProjectionMatrix));
+		OutputStream.Append( output );
+	}
+	OutputStream.RestartStrip(); //Wird nach jeder erzeugten Linie/Punkt/Dreieck aufgerufen
+}
+
+technique11 DrawTriangleNormalAndDisplacement
+{
+	pass P0
+	{
+		SetVertexShader( CompileShader( vs_4_0, VS_Standard() ) );
+        SetHullShader( CompileShader( hs_5_0, HS() ) );
+        SetDomainShader( CompileShader( ds_5_0, DS() ) );
+        //SetGeometryShader( NULL );
+		//SetGeometryShader(ConstructGSWithSO( CompileShader( gs_4_0, GShader3D() ), "SV_POSITION.xyzw; COLOR0.xyzw; TEXCOORD0.xy; NORMAL.xyz; NORMAL1.xyz; POSITION.xyz; POSITION1.xyz; TANGENT.xyz" )); //0: .. Ausgabe des 1. Geometry-Shader-Schrittes
+        SetGeometryShader( CompileShader( gs_4_0, GShader3D() ) );
+		SetPixelShader( CompileShader( ps_4_0, PS_Standard() ) );
+	}
+}

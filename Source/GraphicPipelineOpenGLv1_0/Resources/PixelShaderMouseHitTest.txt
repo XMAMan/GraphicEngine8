@@ -1,0 +1,18 @@
+//#version 330 core
+
+uniform sampler2D Texture0;	// Farbtextur
+uniform int UseTexture0; 
+uniform int BlendingWithBlackColor;
+uniform int MouseHitId;
+uniform vec4 color;
+
+smooth in vec2	textcoord;
+
+void main()
+{	
+	vec4 objektColor = color * (1.0 - UseTexture0) + vec4(texture2D(Texture0, textcoord.xy)) * UseTexture0 * color;	
+	if (BlendingWithBlackColor == 1 && (objektColor.x + objektColor.y + objektColor.z) < 0.1) discard; 
+
+	gl_FragColor = vec4(MouseHitId / 255.0f, MouseHitId / 255.0f, MouseHitId / 255.0f, 1);
+	gl_FragColor.y = (MouseHitId * 10) / 255.0f;
+}

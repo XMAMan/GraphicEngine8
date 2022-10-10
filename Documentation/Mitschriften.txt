@@ -1,0 +1,136 @@
+Meilensteine:
+-Projekt wurde am 31.5.2017 angelegt. 
+-Am 8.7.2017 habe ich funktional den gleichen Stand wie bei der Grafik7 erreicht und die Projekte sind in klar benannte Projekte unterteilt. Es gibt noch 5 offenen Bugs.
+-Am 31.7.2017 ist der einzig 'große' Bug noch, das Lighttracing bei der Cornellbox leichter anders aussieht und ich noch nicht Camera-PdfW verstanden habe
+-Am 31.8.2017 ist der cameraPdfA/cameraPdfW-Term so ziemlich verstanden. Nur die Pixel-Filte + Tent-Sampling ist noch nicht im LightTracing enthalten was vermutlich dazu führt, dass es leicht heller ist. Ich habs erstmal mit konstanten Faktor gewichtet.
+-Ziel1: Aufteilung von Grafik7 in klar benannte Teilprojekte, wo es keine Vermischung mehr gibt (IntersectionTest, LightSampling, BrdfSampling, SubpathSampling, FullpathSampling, RayObjects, TextureHelper, ImageCreator, PixelEstimator, FrameEstimator, RaytracerMain)
+-Ziel2: Globale-Projekte weiter eindampfen
+-Ziel3: Schnittstellen der Teilprojekte kontrollieren/Abhändigkeiten überprüfen/Gedanken über Interface/Lose Kopplung/Testbarkeit machen. Vielleicht gibt es pro Projekt nur eine Public-Class
+-Ziel4: Spectrales Raytracing, Subsurface Scattering, Haare, Metropolis-Sampling, Denoise
+
+Feststellung:
+-Wenn man mit dem Size-Faktor die gesamte Szene vergrößert aber die Emission-Werte von den Lichtquellen gleich läßt, dann veringert sich die Leuchtkraft pro Flächeninhalt. Dadurch wird dann alles dunkler.
+-Hat das fotometrische Grundgesetzt (https://de.wikipedia.org/wiki/Strahldichte#Fotometrisches_Grundgesetz) durch das teilen durch r² eine Randbedingung, die ich nicht kenne? Zwei Flächen tauschen unendlich Energie aus, wenn sie sich berühren?  -> Tuen sie nicht, wenn man darauf achtet, dass das Verhältniss zwischen Flächengröße und Flächenabstand nicht zu groß wird
+-Die PdfA vom Eye-Subpath Index 1 ist der inverse Pixelfootprint, wenn man mit Equalsampling arbeitet
+
+Ideen für Neues:
+-Decimate-Modifier aus Blender implementieren, damit Radiosity schneller geht: https://code.it4i.cz/blender/cyclesphi277/blob/0706631c1c1ba5ed623bcace0241bdd3f877068b/source/blender/bmesh/tools/bmesh_decimate_collapse.c
+-Eric Veach schreibt auf Seite 70 was von Effizienz eines Estimators. Ich könnte den Pixel/Frame-Estimator mal umd diese Funktion erweitern um zu sehen, welches Verfahren das Beste ist
+-Bei Radiosity den ViewFaktor mit ein Z-Buffer berechnen(Als zusätzliches Verfahren neben SolidAngle und Hemicube)
+-Surface Light nicht über den RayObjectDivider sondern über Halton-Random-Sampling erzeugen, um die Cell-Punkte zu erzeugen
+-Attenuation + Distanzsampling bei Inhomogenen Medien
+-Eric Veach's Vereinfachung der MIS-Weight-Formel durch kürzen (Seite 332)	Hinweis: Bei SmallVCM gibt es auch eine Kürzung; Ich habe unter Dokumentation.odt\"Die MIS-Berechung bei SmallUPBP" eine erste kleine Erklärung dazu
+-Beim speichern eines fertigen Raytracing-Bildes Meta-Informationen in der BMP-Datei mitgeben(Verfahren;Tonemapping;Renderzeit;Samplecount;Photonencount;Rechnername;CPU)
+-Ideen für weiteres: https://www.mitsuba-renderer.org/ -> Hier wird aufgelistet, welche Renderfahren/Features er so hat 
+-ParallaxEdgeCutting beim Rasterizer 
+-Wasser beim Rasterizer 
+-Aus Parallax-Objekt 3D-Objekt erzeugen
+-Bei Photoshop nutze ich die Hdr-Tonung "Helligkeit/Gammakorrektur". Mein Bildnachbearbeiter um Gammakorrektur + Antifirefly erweitern
+-Brushed-Metal-Brdf
+-Haare
+	https://github.com/tunabrain/tungsten/blob/master/src/core/bsdfs/HairBcsdf.cpp
+-SSS
+-https://en.wikipedia.org/wiki/List_of_common_shading_algorithms	-> Hier gibts realistische diffuse Brdf aber auch anderes
+	https://en.wikipedia.org/wiki/Oren%E2%80%93Nayar_reflectance_model	-> Oren–Nayar reflectance model sieht besser als Lambert aus
+	https://en.wikipedia.org/wiki/Cel_shading
+	https://en.wikipedia.org/wiki/Gooch_shading
+-Camera Lens Effects: Blure, Glare, Bloom
+-Denoising -> https://alain.xyz/blog/ray-tracing-denoising
+-Spektrales Raytracing
+-PathGuiding
+-GPU-Raytracing
+-Testausgabe für Normal-, Tangent-, Cos-Light-Map; Testausgabe für Cubemap
+-Wenn ich die Godray-Säulenbüro-Scene mit MultipeDirectLighting erzeuge, dann ist die vordere Säule schon nach 1 Sample deutlich Streuselärmer. 
+ Könnte man nicht eine Möglichkeit schaffen dass man immer 2 Lichtquellen pro Eye-Point auswählt: Vordere + Ein zufälliges Fenster?
+-.NET-Dlls mit Exe zusammenfassen ohne das Riesen-Costura.Fody (Ging bei Grafik7 ja auch) -> Mit ILMerge geht es zwar auch aber dann kann ich NewtsonSoft.Json nicht mehr verwenden. ILMerge und Newtonsoft.Json vertragen sich nicht!
+-Auf .NET Core 5.0 umstellen (Dort gibts die Single-Exe-Ausgabe schon so mit dabei) -> https://www.reddit.com/r/csharp/comments/hm8blc/single_exe_c_net_framework/
+
+Links:
+https://github.com/wjakob/pbrt-v3
+https://github.com/mitsuba-renderer/mitsuba
+-Spectral Raytracing: https://ceciliavision.github.io/graphics/a6/
+                      https://en.wikipedia.org/wiki/Spectral_rendering
+                      https://github.com/chicio/Spectral-Clara-Lux-Tracer
+                      https://www.eclat-digital.com/2013/02/22/spectral-rendering/
+
+Importance Sampling with Hemispherical Particle Footprints [2002]                             -> https://www.cg.tuwien.ac.at/research/publications/2001/Hey-2001-ImpX/TR-186-2-01-05Paper.pdf     -> Habe ich am 12.7.2017 nach 3 Tagen Arbeit fertig gestellt. Es scheint im großen und ganzen zu funktionieren aber ich warte noch die PixelKonvergenztest ab.
+Probabilistic Connections for Bidirectional Path Tracing [2015]                               -> http://www-sop.inria.fr/reves/Basilic/2015/PRDD15b/PCBPT.pdf                                     -> Ich hab mich jetzt 2 Wochen damit beschäftigt und es läuft bestenfalls gleichschnell wie BDPT und das Ergebniss sieht aber schlechter aus
+Robust Adaptive Photon Tracing Using Photon Path Visibility [2011]                            -> http://graphics.ucsd.edu/~henrik/papers/robust_adaptive_progressive_photon_mapping.pdf
+A Simple and Robust Mutation Strategy for the Metropolis Light Transport Algorithm [2002]     -> https://ai2-s2-pdfs.s3.amazonaws.com/139e/0b2e2919839f58ed8f6cf56b88ec77d38d84.pdf
+Robust Light Transport Simulation via Metropolised Bidirectional Estimators [2016]            -> http://www.ci.i.u-tokyo.ac.jp/~hachisuka/ups-vcm_mcmc.pdf
+Charted Metropolis Light Transport [2017]                                                     -> https://arxiv.org/pdf/1612.05395.pdf
+Energy Redistribution Path Tracing [2005]                                                     -> https://pdfs.semanticscholar.org/1b95/f1580cad83af8cba8f29681251e4513b00fe.pdf
+Fusing State Spaces for Markov Chain Monte Carlo Rendering [2017]                             -> http://www.ci.i.u-tokyo.ac.jp/~hachisuka/inverse.pdf
+http://cgg.mff.cuni.cz/~jaroslav/papers/2014-ltstutorial/06%20-%20ltstutorial%20-%20mcmc2%20-%20kaplanyan.pdf -> Übersicht über alle aktuellen Metropolisalgorithmen
+http://iliyan.com/publications/VolumeSTAR/VolumeSTAR_EG2018.pdf   -> Übersicht über aktuelle Participating Media Verfahren
+http://www.aconty.com/pdf/many-lights-hpg2018.pdf	-> Importance-Sampling fürs LightSelection	(Es gibt Bildbereich für kleine Lampe die Nah ist und Bereich für große Lampe aber weit weg) (Sonne-Tischlampe-Problem)
+https://de.wikipedia.org/wiki/Strahldichte	-> Definition für die Radiance
+https://computergraphics.stackexchange.com/ -> Fragen/Antworten zu Computergrafikthemen
+http://iliyan.com/publications	-> Im ompf2-Forum heißt er ingenious http://ompf2.com/memberlist.php?mode=viewprofile&u=66
+https://docs.microsoft.com/de-de/xamarin/android/get-started/hello-android/hello-android-quickstart?pivots=windows -> Plattformübergreifende Handy-Apps in C# (Laut Christian ist der HTML-Ansatz mit nativen Apps 'apache cordovra')
+https://learnopengl.com/Advanced-Lighting/Parallax-Mapping	-> So geht Parallax-Mapping
+https://stackoverflow.com/questions/55089830/adding-shadows-to-parallax-occlusion-map	-> So geht Parallax-Mapping mit harten Self-Shadows
+https://graphics.cg.uni-saarland.de/courses/cg1-2017/slides/CG09-TextureFiltering.pdf	-> Was ist Magnification/Minification-Filtering?
+http://www.essentialmath.com/OtherPubs/Texture_Filtering.pdf -> Sehr gute Texturfilter-Erklärung   
+https://khongton.github.io/Dynamic-Cubemaps/	
+https://learnopengl.com/Advanced-OpenGL/Cubemaps   
+http://www.graphics.cornell.edu/~bjw/rgbe.html	-> RGBE File Format -> Rapsos Idee zur Verbesserung meiner Bilder ist das ich im Hdr(RGBE)-Format speichere und dann mit Gimp das Tonemapping mache
+https://github.com/Enichan/sharpexr -> EXR-Dateien mit C# lesen
+https://www.tutorialspoint.com/c_standard_library/c_function_frexp.htm	-> Berechnet für eine gegebene float-Zahl x mantissa(Float) und exponent(int): x = mantissa * 2 ^ exponent.
+https://stackoverflow.com/questions/389993/extracting-mantissa-and-exponent-from-double-in-c-sharp
+https://stackoverflow.com/questions/15685181/how-to-get-the-sign-mantissa-and-exponent-of-a-floating-point-number
+https://github.com/MachineCognitis/C.math.NET
+https://github.com/MachineCognitis/C.math.NET/blob/master/C.math/math.cs
+https://machinecognitis.github.io/C.math.NET/html/8615fb99-c43d-a9fc-3f64-5908f8034de8.htm#!	math.ldexp(float number, int exponent)
+https://convertio.co/de/bmp-hdr/	-> Online HDR-Konverter
+https://therealmjp.github.io/posts/sss-intro/	-> Subsurface Scattering
+https://github.com/appleseedhq/appleseed/releases/tag/1.3.0-beta	-> Hier werden Subsurface-Scattering-BSDFs etwas beschrieben
+https://computergraphics.stackexchange.com/questions/81/what-is-the-dipole-approximation-for-subsurface-scattering	-> Guter Einstieg für SSS
+https://github.com/apple/ml-hypersim advanced rendering effects (e.g., rolling shutter, motion and defocus blur, chromatic aberration)	-> Kamera-Effekte um Raytracing realistischer zu machen
+https://stackoverflow.com/questions/65704910/msbuild-cannot-resolve-msbuildmajorversion -> Sollte folgender Fehler kommen: Es wurde versucht, einen numerischen Vergleich für "$(MsBuildMajorVersion)" auszuführen, der zu "" anstatt zu einer Zahl in Bedingung "($(MsBuildMajorVersion) < 16)"
+	 
+-Allgemeiner Plan fürs Refactoren:
+ -Auskommentierten Code entfernen wenn nicht benötigt sonst reinkommentieren (per Schalter wenn nötig)
+ -Nicht benötigte Klassen entfernen
+ -Nicht benötigte Dll-Referenzen entfernen 
+ -sinnvolle Variablen und Klassennamen
+ -Schauen das es vom Design her ok aussieht(wenig komplex)
+ -Schauen das es dokumentiert und getestet ist
+ 
+-Refactoren einer Klasse:
+ -Schaue das sie nicht zu viele Zeilen hat
+ -Jede Methode muss auf eine Bildschirmseite passen
+ -Methoden betrachten ihre Parameter als Readonly
+ -Eine Methode erzeugt entweder ein Objekt und gibt es zurück oder sie verändert den internen Zustand seines Objekts; Aber sie soll nicht gleichzeitig erzeugen und modifizieren!
+ -Man muss einer Methode vom Name her ansehen ob sie was erzeugt(Create, Build, Calculate, Sample) oder modifiziert(Add, Update, Delete, Remove)
+ -Wenn ich eine Methode habe, die ein Objekt als Parameter reinbekommt, und dann wird dieses Objekt durch seine Propertys modifiziert, dann stellt sich die Frage, warum das reingereichte Objekt nicht 
+  diese Modifizierungsmethode bekommt
+ -Listen/Arrays/Dictionarys sollten keine Public-Propertys sein, da hier wieder das Problem aufkommt, dass einer die Daten hat und andere diese Daten modifizieren. Derjenige der die Daten hat sollte 
+  auch für dessen Modifizierung zuständig sein außer es handelt sich um eine Datenklasse. In dem Fall wäre dann die Datenklasse eine private Variable von jemand, der sie modifiziert.
+ -Erweiterungsmethoden werfen sofort die Frage auf, warum das keine eigene Klasse wird; Warum wird hier wieder eine Trennung zwischen Daten und Datenauswertung/Datenmodifizierung vorgenommen?
+ 
+Hinweis zur SlimDX / C++-Dll-Nutzung unter .NET:
+19.8.2021: Damit ich SlimDX und OpenTK unter dem neuen LG-Laptop nutzen kann, musste ich die 32-Bit-Versionen von msvcr100.dll, msvcp100.dll und libegl.dll in den Ordner C:\Windows\SysWOW64
+           kopieren. Das scheint sowas wie der C:\Windows\System32-Ordner zu sein nur dass dort die 64-Bit-Dlls liegen. SlimDX benötigt aber die 32-Bit-Version.
+           Ich habe das Problem mit depends.exe untersucht und konnte somit sehen, dass diese beiden Dlls für SlimDX fehlten. Die libegl.dll hat mir der Debuger angezeigt
+           das sie fehlt. Erst hatte ich die Dlls erst neben die SlimDX.dll-Datei gelegt aber dann hat der TestExplorer noch geschimpft. Also liegen sie nun im SysWOW64-Ordner und jetzt geht es.
+Hinweis2:In dem moment, wo man unter .NET eine C++-Dll verwendet, legt man sich auf x86 oder x64 fest. Ich verwende hier SlimDX(In 86 und 64 verfügbar) und OpenEXR(Nur in 64 verfügbar). 
+         Alle .NET-Dlls, die keine C++-Abhängigkeit haben sollten auf AnyCPU eingestellt werden. Nur die EXE und die .NET-Dlls mit Abhängigkeiten sollten auf 64 oder 86 eingestellt werden.
+         Der TestRunner kann unter 86 oder 64 betrieben werden (Je nachdem, was für Version die Abhängigkeit haben, muss man das einstellen)
+         Wenn ich den GesamtTest unter x64 ausführe, dann kann der Pathtracer an der Glaskugel nicht mehr gebrochen werden, da der IntersectionFinder kein Schnittpunkt mit der Kugel findet (Floats sind nun 64 Bit groß und das klappt mit mein Raytracer momentan nicht)
+         Resümee: Ich kann keine x64-Dlls verwenden. Somit kann ich zwar SlimDX nutzen aber die OpenEXR-Dll nicht
+
+CPU-Untersuchungen:
+-7.8.2021: Wenn du ein schnellen aber leisen Prozessor willst, musst du die Intel i7 U-Reihe (Comet Lake Comet Lake-U) kaufen. Bsp: Intel Core i7-10810U
+-25.8.2021 - Renderzeit für NoWindowRoom 1 Sample mit BPT:
+ LG gram - 11th Gen Intel(R) Core(TM) i7 - 1165G7 @ 2.80GHz 2.80 GHz   -> 6 Sekunden
+ HP Elitebook - Intel(R) Core(TM) i7 - 10610U CPU @ 1.80GHz 2.30 GHz   -> 14 Sekunden
+ Asus - Intel(R) Core(TM) i3 - 4030U CPU @ 1.90GHz 1.90 Ghz            -> 38 Sekunden
+ Dell Precision - Intel(R) Core(TM) i7 - 7820HQ CPU @ 2.90Ghz 2.90 Ghz	-> 7 Sekunden	
+ Dell - 11th Gen Intel(R) Core(TM) i9 - 11950H @ 2.60GHz 2.61 GHz      -> 3 Sekunden
+ 
+ToDo:
+-Wolken-Kanten-Problem lösen (Szene 22) this.graphicPanel.StartRaytracing(420, 328, new ImagePixelRange(new Point(309, 7), new Point(409,32)), (result) =>
+	-> Wenn man im ImageEditor die Helligkeit hochdreht und das Histo-Red aktiviert läßt, sie man noch deutlicher das Problem
+	-> Nicht die Kante sondern die Wolkenkugel sieht man (Aber nur den oberen Teil?)
+-Für die ParallaxMapping-Klasse brauche ich noch eine Dokumentation mit Bildern

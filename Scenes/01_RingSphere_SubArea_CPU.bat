@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe CreateImage ..\Data\01_RingSphereWithDiffuseGroundAndNoMotionBlur_json.txt -output 01_RingSphere_SubArea_CPU.jpg -renderMod CPU -width 420 -height 328 -pixelRange [34;144;101;250]

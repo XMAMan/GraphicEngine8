@@ -1,0 +1,11 @@
+uniform mat3 TextureMatrix;
+
+smooth out vec2					textcoord;
+
+void main() 
+{
+	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;//ftransform();
+	gl_FrontColor = gl_Color;
+	gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+	textcoord = (TextureMatrix * vec3(gl_MultiTexCoord0.xy, 1)).xy;
+}

@@ -1,0 +1,15 @@
+//VertexShader Shadowmap-Creation Old Way
+uniform mat4 ShadowMapMatrix[10];
+uniform mat3 TextureMatrix;
+
+smooth out vec4 pos;
+smooth out vec2					textcoord;
+
+void main() 
+{
+	gl_Position = ShadowMapMatrix[0] * gl_Vertex;
+	gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+	pos = ShadowMapMatrix[0] * gl_Vertex;
+	textcoord = (TextureMatrix * vec3(gl_MultiTexCoord0.xy, 1)).xy;
+
+}

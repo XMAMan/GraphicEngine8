@@ -1,0 +1,612 @@
+{
+  "$type": "GraphicPanels.SmallExportData, GraphicPanels",
+  "Commands": {
+    "$type": "GraphicPanels.IGeometryCommand[], GraphicPanels",
+    "$values": [
+      {
+        "$type": "GraphicPanels.AddWaveFrontFileAndSplitCommand, GraphicPanels",
+        "File": "<DataFolder>10_MirrorGlassCaustic.obj",
+        "TakeNormalsFromFile": false,
+        "ObjectPropertys": {
+          "Id": -1,
+          "Position": [0.0, 0.0, 0.0],
+          "Orientation": [0.0, 0.0, 0.0],
+          "SpecularHighlightPowExponent": 0.0,
+          "SpecularHighlightCutoff1": 1.0,
+          "SpecularHighlightCutoff2": 2.0,
+          "Size": 1.0,
+          "Color": {
+            "$type": "GraphicMinimal.ColorFromRgb, GraphicMinimal",
+            "Type": 1,
+            "Rgb": null
+          },
+          "NormalSource": {
+            "$type": "GraphicMinimal.NormalFromObjectData, GraphicMinimal",
+            "Type": 0
+          },
+          "NormalInterpolation": 1,
+          "HasBillboardEffect": false,
+          "HasStencilShadow": false,
+          "BlackIsTransparent": false,
+          "DisplacementData": {
+            "$type": "GraphicMinimal.DisplacementData, GraphicMinimal",
+            "UseDisplacementMapping": false,
+            "DisplacementHeight": 0.0,
+            "TesselationFaktor": 1.0
+          },
+          "HasExplosionEffect": false,
+          "RasterizerLightSource": null,
+          "CanReceiveLight": true,
+          "ShowFromTwoSides": false,
+          "HasSilhouette": false,
+          "Opacity": 0.0,
+          "UseCubemap": false,
+          "IsMirrorPlane": false,
+          "IsWireFrame": false,
+          "TextureCoordSource": {
+            "$type": "GraphicMinimal.ObjectDataTextureCoordSource, GraphicMinimal",
+            "Type": 0
+          },
+          "RaytracingLightSource": null,
+          "BlobPropertys": null,
+          "MediaDescription": null,
+          "MotionBlurMovment": null,
+          "CreateQuads": false,
+          "BrdfModel": 0,
+          "RefractionIndex": "NaN",
+          "Albedo": 0.2,
+          "SpecularAlbedo": 1.0,
+          "MirrorColor": [1.0, 1.0, 1.0],
+          "GlossyColor": [1.0, 1.0, 1.0],
+          "GlossyPowExponent": 200.0,
+          "GlasIsSingleLayer": false,
+          "TileDiffuseFactor": 0.2
+        }
+      },
+      {
+        "$type": "GraphicPanels.RemoveObjektCommand, GraphicPanels",
+        "ObjId": 6
+      },
+      {
+        "$type": "GraphicPanels.RemoveObjektCommand, GraphicPanels",
+        "ObjId": 5
+      },
+      {
+        "$type": "GraphicPanels.FlipNormalsCommand, GraphicPanels",
+        "ObjId": 3
+      }
+    ]
+  },
+  "AllObjectPropertys": {
+    "$type": "GraphicMinimal.ObjectPropertys[], GraphicMinimal",
+    "$values": [
+      {
+        "Name": "Vase",
+        "Id": 1,
+        "Position": [-2.522328, 1.41382754, 0.0156749487],
+        "Orientation": [0.0, 0.0, 0.0],
+        "SpecularHighlightPowExponent": 0.0,
+        "SpecularHighlightCutoff1": 1.0,
+        "SpecularHighlightCutoff2": 2.0,
+        "Size": 1.0,
+        "Color": {
+          "$type": "GraphicMinimal.ColorFromTexture, GraphicMinimal",
+          "Type": 0,
+          "TextureFile": "<DataFolder>Mario.png",
+          "TextureMatrix": "Scale(0.2,0.2)",
+          "TextureFilter": 0,
+          "TextureMode": 1
+        },
+        "NormalSource": {
+          "$type": "GraphicMinimal.NormalFromObjectData, GraphicMinimal",
+          "Type": 0
+        },
+        "NormalInterpolation": 0,
+        "HasBillboardEffect": false,
+        "HasStencilShadow": false,
+        "BlackIsTransparent": false,
+        "DisplacementData": {
+          "$type": "GraphicMinimal.DisplacementData, GraphicMinimal",
+          "UseDisplacementMapping": false,
+          "DisplacementHeight": 0.0,
+          "TesselationFaktor": 1.0
+        },
+        "HasExplosionEffect": false,
+        "RasterizerLightSource": null,
+        "CanReceiveLight": true,
+        "ShowFromTwoSides": true,
+        "HasSilhouette": false,
+        "Opacity": 0.0,
+        "UseCubemap": false,
+        "IsMirrorPlane": false,
+        "IsWireFrame": false,
+        "TextureCoordSource": {
+          "$type": "GraphicMinimal.ObjectDataTextureCoordSource, GraphicMinimal",
+          "Type": 0
+        },
+        "RaytracingLightSource": null,
+        "BlobPropertys": null,
+        "MediaDescription": {
+          "$type": "GraphicMinimal.DescriptionForVacuumMedia, GraphicMinimal",
+          "Priority": 3
+        },
+        "MotionBlurMovment": null,
+        "CreateQuads": false,
+        "BrdfModel": 3,
+        "RefractionIndex": 1.5,
+        "Albedo": 0.2,
+        "SpecularAlbedo": 1.0,
+        "MirrorColor": [1.0, 1.0, 1.0],
+        "GlossyColor": [1.0, 1.0, 1.0],
+        "GlossyPowExponent": 200.0,
+        "GlasIsSingleLayer": false,
+        "TileDiffuseFactor": 0.2
+      },
+      {
+        "Name": "Wand2",
+        "Id": 2,
+        "Position": [0.606593132, 0.53649807, -5.089245],
+        "Orientation": [0.0, 0.0, 0.0],
+        "SpecularHighlightPowExponent": 0.0,
+        "SpecularHighlightCutoff1": 1.0,
+        "SpecularHighlightCutoff2": 2.0,
+        "Size": 1.0,
+        "Color": {
+          "$type": "GraphicMinimal.ColorFromRgb, GraphicMinimal",
+          "Type": 1,
+          "Rgb": [1.0, 1.0, 1.0]
+        },
+        "NormalSource": {
+          "$type": "GraphicMinimal.NormalFromObjectData, GraphicMinimal",
+          "Type": 0
+        },
+        "NormalInterpolation": 1,
+        "HasBillboardEffect": false,
+        "HasStencilShadow": false,
+        "BlackIsTransparent": false,
+        "DisplacementData": {
+          "$type": "GraphicMinimal.DisplacementData, GraphicMinimal",
+          "UseDisplacementMapping": false,
+          "DisplacementHeight": 0.0,
+          "TesselationFaktor": 1.0
+        },
+        "HasExplosionEffect": false,
+        "RasterizerLightSource": null,
+        "CanReceiveLight": true,
+        "ShowFromTwoSides": false,
+        "HasSilhouette": false,
+        "Opacity": 0.0,
+        "UseCubemap": false,
+        "IsMirrorPlane": false,
+        "IsWireFrame": false,
+        "TextureCoordSource": {
+          "$type": "GraphicMinimal.ObjectDataTextureCoordSource, GraphicMinimal",
+          "Type": 0
+        },
+        "RaytracingLightSource": null,
+        "BlobPropertys": null,
+        "MediaDescription": null,
+        "MotionBlurMovment": null,
+        "CreateQuads": false,
+        "BrdfModel": 0,
+        "RefractionIndex": "NaN",
+        "Albedo": 0.2,
+        "SpecularAlbedo": 1.0,
+        "MirrorColor": [1.0, 1.0, 1.0],
+        "GlossyColor": [1.0, 1.0, 1.0],
+        "GlossyPowExponent": 200.0,
+        "GlasIsSingleLayer": false,
+        "TileDiffuseFactor": 0.2
+      },
+      {
+        "Name": "GetFlippedNormalsObjectFromOtherObject(Load3DSMaxFileInWavefrontFormat:<DataFolder>10_MirrorGlassCaustic.obj:True:BackLight_Plane.003)",
+        "Id": 11,
+        "Position": [0.172341347, 12.0719547, -0.495680332],
+        "Orientation": [0.0, 0.0, 0.0],
+        "SpecularHighlightPowExponent": 0.0,
+        "SpecularHighlightCutoff1": 1.0,
+        "SpecularHighlightCutoff2": 2.0,
+        "Size": 1.0,
+        "Color": {
+          "$type": "GraphicMinimal.ColorFromRgb, GraphicMinimal",
+          "Type": 1,
+          "Rgb": [1.0, 1.0, 1.0]
+        },
+        "NormalSource": {
+          "$type": "GraphicMinimal.NormalFromObjectData, GraphicMinimal",
+          "Type": 0
+        },
+        "NormalInterpolation": 1,
+        "HasBillboardEffect": false,
+        "HasStencilShadow": false,
+        "BlackIsTransparent": false,
+        "DisplacementData": {
+          "$type": "GraphicMinimal.DisplacementData, GraphicMinimal",
+          "UseDisplacementMapping": false,
+          "DisplacementHeight": 0.0,
+          "TesselationFaktor": 1.0
+        },
+        "HasExplosionEffect": false,
+        "RasterizerLightSource": null,
+        "CanReceiveLight": true,
+        "ShowFromTwoSides": false,
+        "HasSilhouette": false,
+        "Opacity": 0.0,
+        "UseCubemap": false,
+        "IsMirrorPlane": false,
+        "IsWireFrame": false,
+        "TextureCoordSource": {
+          "$type": "GraphicMinimal.ObjectDataTextureCoordSource, GraphicMinimal",
+          "Type": 0
+        },
+        "RaytracingLightSource": {
+          "$type": "GraphicMinimal.DiffuseSurfaceLightDescription, GraphicMinimal",
+          "Emission": 5000.0,
+          "IsInfinityAway": false
+        },
+        "BlobPropertys": null,
+        "MediaDescription": null,
+        "MotionBlurMovment": null,
+        "CreateQuads": false,
+        "BrdfModel": 0,
+        "RefractionIndex": "NaN",
+        "Albedo": 0.2,
+        "SpecularAlbedo": 1.0,
+        "MirrorColor": [1.0, 1.0, 1.0],
+        "GlossyColor": [1.0, 1.0, 1.0],
+        "GlossyPowExponent": 200.0,
+        "GlasIsSingleLayer": false,
+        "TileDiffuseFactor": 0.2
+      },
+      {
+        "Name": "Rueckwand",
+        "Id": 4,
+        "Position": [0.455606461, 2.26468945, 5.0784235],
+        "Orientation": [0.0, 0.0, 0.0],
+        "SpecularHighlightPowExponent": 0.0,
+        "SpecularHighlightCutoff1": 1.0,
+        "SpecularHighlightCutoff2": 2.0,
+        "Size": 1.0,
+        "Color": {
+          "$type": "GraphicMinimal.ColorFromTexture, GraphicMinimal",
+          "Type": 0,
+          "TextureFile": "<DataFolder>120klein.jpg",
+          "TextureMatrix": "Ident()",
+          "TextureFilter": 0,
+          "TextureMode": 1
+        },
+        "NormalSource": {
+          "$type": "GraphicMinimal.NormalFromObjectData, GraphicMinimal",
+          "Type": 0
+        },
+        "NormalInterpolation": 1,
+        "HasBillboardEffect": false,
+        "HasStencilShadow": false,
+        "BlackIsTransparent": false,
+        "DisplacementData": {
+          "$type": "GraphicMinimal.DisplacementData, GraphicMinimal",
+          "UseDisplacementMapping": false,
+          "DisplacementHeight": 0.0,
+          "TesselationFaktor": 1.0
+        },
+        "HasExplosionEffect": false,
+        "RasterizerLightSource": null,
+        "CanReceiveLight": true,
+        "ShowFromTwoSides": false,
+        "HasSilhouette": false,
+        "Opacity": 0.0,
+        "UseCubemap": false,
+        "IsMirrorPlane": false,
+        "IsWireFrame": false,
+        "TextureCoordSource": {
+          "$type": "GraphicMinimal.ObjectDataTextureCoordSource, GraphicMinimal",
+          "Type": 0
+        },
+        "RaytracingLightSource": null,
+        "BlobPropertys": null,
+        "MediaDescription": null,
+        "MotionBlurMovment": null,
+        "CreateQuads": false,
+        "BrdfModel": 0,
+        "RefractionIndex": "NaN",
+        "Albedo": 0.2,
+        "SpecularAlbedo": 1.0,
+        "MirrorColor": [1.0, 1.0, 1.0],
+        "GlossyColor": [1.0, 1.0, 1.0],
+        "GlossyPowExponent": 200.0,
+        "GlasIsSingleLayer": false,
+        "TileDiffuseFactor": 0.2
+      },
+      {
+        "Name": "LichtEnde",
+        "Id": 7,
+        "Position": [-1.19814849, 0.4181295, 0.0637389943],
+        "Orientation": [0.0, 0.0, 0.0],
+        "SpecularHighlightPowExponent": 0.0,
+        "SpecularHighlightCutoff1": 1.0,
+        "SpecularHighlightCutoff2": 2.0,
+        "Size": 1.0,
+        "Color": {
+          "$type": "GraphicMinimal.ColorFromRgb, GraphicMinimal",
+          "Type": 1,
+          "Rgb": [0.9411765, 0.0, 0.0]
+        },
+        "NormalSource": {
+          "$type": "GraphicMinimal.NormalFromObjectData, GraphicMinimal",
+          "Type": 0
+        },
+        "NormalInterpolation": 1,
+        "HasBillboardEffect": false,
+        "HasStencilShadow": false,
+        "BlackIsTransparent": false,
+        "DisplacementData": {
+          "$type": "GraphicMinimal.DisplacementData, GraphicMinimal",
+          "UseDisplacementMapping": false,
+          "DisplacementHeight": 0.0,
+          "TesselationFaktor": 1.0
+        },
+        "HasExplosionEffect": false,
+        "RasterizerLightSource": null,
+        "CanReceiveLight": true,
+        "ShowFromTwoSides": false,
+        "HasSilhouette": false,
+        "Opacity": 0.0,
+        "UseCubemap": false,
+        "IsMirrorPlane": false,
+        "IsWireFrame": false,
+        "TextureCoordSource": {
+          "$type": "GraphicMinimal.ObjectDataTextureCoordSource, GraphicMinimal",
+          "Type": 0
+        },
+        "RaytracingLightSource": null,
+        "BlobPropertys": null,
+        "MediaDescription": null,
+        "MotionBlurMovment": null,
+        "CreateQuads": false,
+        "BrdfModel": 0,
+        "RefractionIndex": "NaN",
+        "Albedo": 0.2,
+        "SpecularAlbedo": 1.0,
+        "MirrorColor": [1.0, 1.0, 1.0],
+        "GlossyColor": [1.0, 1.0, 1.0],
+        "GlossyPowExponent": 200.0,
+        "GlasIsSingleLayer": false,
+        "TileDiffuseFactor": 0.2
+      },
+      {
+        "Name": "LichtStart",
+        "Id": 8,
+        "Position": [-5.62241364, 2.14817667, 0.06386],
+        "Orientation": [0.0, 0.0, 0.0],
+        "SpecularHighlightPowExponent": 0.0,
+        "SpecularHighlightCutoff1": 1.0,
+        "SpecularHighlightCutoff2": 2.0,
+        "Size": 1.0,
+        "Color": {
+          "$type": "GraphicMinimal.ColorFromRgb, GraphicMinimal",
+          "Type": 1,
+          "Rgb": [1.0, 1.0, 1.0]
+        },
+        "NormalSource": {
+          "$type": "GraphicMinimal.NormalFromObjectData, GraphicMinimal",
+          "Type": 0
+        },
+        "NormalInterpolation": 1,
+        "HasBillboardEffect": false,
+        "HasStencilShadow": false,
+        "BlackIsTransparent": false,
+        "DisplacementData": {
+          "$type": "GraphicMinimal.DisplacementData, GraphicMinimal",
+          "UseDisplacementMapping": false,
+          "DisplacementHeight": 0.0,
+          "TesselationFaktor": 1.0
+        },
+        "HasExplosionEffect": false,
+        "RasterizerLightSource": null,
+        "CanReceiveLight": true,
+        "ShowFromTwoSides": false,
+        "HasSilhouette": false,
+        "Opacity": 0.0,
+        "UseCubemap": false,
+        "IsMirrorPlane": false,
+        "IsWireFrame": false,
+        "TextureCoordSource": {
+          "$type": "GraphicMinimal.ObjectDataTextureCoordSource, GraphicMinimal",
+          "Type": 0
+        },
+        "RaytracingLightSource": {
+          "$type": "GraphicMinimal.SphereWithSpotLightDescription, GraphicMinimal",
+          "Emission": 50.0,
+          "IsInfinityAway": false,
+          "SpotCutoff": 15.0,
+          "SpotDirection": [0.9313275, -0.364182681, -2.54720671E-05]
+        },
+        "BlobPropertys": null,
+        "MediaDescription": null,
+        "MotionBlurMovment": null,
+        "CreateQuads": false,
+        "BrdfModel": 0,
+        "RefractionIndex": "NaN",
+        "Albedo": 0.2,
+        "SpecularAlbedo": 1.0,
+        "MirrorColor": [1.0, 1.0, 1.0],
+        "GlossyColor": [1.0, 1.0, 1.0],
+        "GlossyPowExponent": 200.0,
+        "GlasIsSingleLayer": false,
+        "TileDiffuseFactor": 0.2
+      },
+      {
+        "Name": "Spiegel",
+        "Id": 9,
+        "Position": [0.007390499, 2.18711066, 3.143892],
+        "Orientation": [0.0, 0.0, 0.0],
+        "SpecularHighlightPowExponent": 0.0,
+        "SpecularHighlightCutoff1": 1.0,
+        "SpecularHighlightCutoff2": 2.0,
+        "Size": 1.0,
+        "Color": {
+          "$type": "GraphicMinimal.ColorFromRgb, GraphicMinimal",
+          "Type": 1,
+          "Rgb": [1.0, 1.0, 1.0]
+        },
+        "NormalSource": {
+          "$type": "GraphicMinimal.NormalFromObjectData, GraphicMinimal",
+          "Type": 0
+        },
+        "NormalInterpolation": 1,
+        "HasBillboardEffect": false,
+        "HasStencilShadow": false,
+        "BlackIsTransparent": false,
+        "DisplacementData": {
+          "$type": "GraphicMinimal.DisplacementData, GraphicMinimal",
+          "UseDisplacementMapping": false,
+          "DisplacementHeight": 0.0,
+          "TesselationFaktor": 1.0
+        },
+        "HasExplosionEffect": false,
+        "RasterizerLightSource": null,
+        "CanReceiveLight": true,
+        "ShowFromTwoSides": false,
+        "HasSilhouette": false,
+        "Opacity": 0.0,
+        "UseCubemap": false,
+        "IsMirrorPlane": false,
+        "IsWireFrame": false,
+        "TextureCoordSource": {
+          "$type": "GraphicMinimal.ObjectDataTextureCoordSource, GraphicMinimal",
+          "Type": 0
+        },
+        "RaytracingLightSource": null,
+        "BlobPropertys": null,
+        "MediaDescription": null,
+        "MotionBlurMovment": null,
+        "CreateQuads": false,
+        "BrdfModel": 1,
+        "RefractionIndex": "NaN",
+        "Albedo": 0.2,
+        "SpecularAlbedo": 1.0,
+        "MirrorColor": [1.0, 1.0, 1.0],
+        "GlossyColor": [1.0, 1.0, 1.0],
+        "GlossyPowExponent": 200.0,
+        "GlasIsSingleLayer": false,
+        "TileDiffuseFactor": 0.2
+      },
+      {
+        "Name": "Tisch",
+        "Id": 10,
+        "Position": [0.0, 0.0, 4.76837158E-07],
+        "Orientation": [0.0, 0.0, 0.0],
+        "SpecularHighlightPowExponent": 0.0,
+        "SpecularHighlightCutoff1": 1.0,
+        "SpecularHighlightCutoff2": 2.0,
+        "Size": 1.0,
+        "Color": {
+          "$type": "GraphicMinimal.ColorFromTexture, GraphicMinimal",
+          "Type": 0,
+          "TextureFile": "<DataFolder>Envwall.bmp",
+          "TextureMatrix": "Scale(0.7,0.7)",
+          "TextureFilter": 0,
+          "TextureMode": 1
+        },
+        "NormalSource": {
+          "$type": "GraphicMinimal.NormalFromObjectData, GraphicMinimal",
+          "Type": 0
+        },
+        "NormalInterpolation": 1,
+        "HasBillboardEffect": false,
+        "HasStencilShadow": false,
+        "BlackIsTransparent": false,
+        "DisplacementData": {
+          "$type": "GraphicMinimal.DisplacementData, GraphicMinimal",
+          "UseDisplacementMapping": false,
+          "DisplacementHeight": 0.0,
+          "TesselationFaktor": 1.0
+        },
+        "HasExplosionEffect": false,
+        "RasterizerLightSource": null,
+        "CanReceiveLight": true,
+        "ShowFromTwoSides": false,
+        "HasSilhouette": false,
+        "Opacity": 0.0,
+        "UseCubemap": false,
+        "IsMirrorPlane": false,
+        "IsWireFrame": false,
+        "TextureCoordSource": {
+          "$type": "GraphicMinimal.ObjectDataTextureCoordSource, GraphicMinimal",
+          "Type": 0
+        },
+        "RaytracingLightSource": null,
+        "BlobPropertys": null,
+        "MediaDescription": null,
+        "MotionBlurMovment": null,
+        "CreateQuads": false,
+        "BrdfModel": 0,
+        "RefractionIndex": "NaN",
+        "Albedo": 0.2,
+        "SpecularAlbedo": 1.0,
+        "MirrorColor": [1.0, 1.0, 1.0],
+        "GlossyColor": [1.0, 1.0, 1.0],
+        "GlossyPowExponent": 200.0,
+        "GlasIsSingleLayer": false,
+        "TileDiffuseFactor": 0.2
+      }
+    ]
+  },
+  "GlobalSettings": {
+    "$type": "GraphicMinimal.GlobalObjectPropertys, GraphicMinimal",
+    "Camera": {
+      "$type": "GraphicMinimal.Camera, GraphicMinimal",
+      "Position": [3.739768, 2.8995986, -7.47697735],
+      "Forward": [-0.383272767, -0.263315737, 0.8853061],
+      "Up": [0.0, 1.0, 0.0],
+      "OpeningAngleY": 50.0,
+      "zNear": 0.001,
+      "zFar": 3000.0
+    },
+    "BackgroundImage": "#000000",
+    "BackgroundColorFactor": 1.0,
+    "ExplosionRadius": 1.0,
+    "Time": 0,
+    "ShadowsForRasterizer": 0,
+    "UseFrustumCulling": true,
+    "DistanceDephtOfFieldPlane": 100.0,
+    "WidthDephtOfField": 2.0,
+    "DepthOfFieldIsEnabled": false,
+    "UseCosAtCamera": true,
+    "CameraSamplingMode": 2,
+    "SaveFolder": "",
+    "AutoSaveMode": 0,
+    "SamplingCount": 1000,
+    "RecursionDepth": 10,
+    "ThreadCount": 7,
+    "MaxRenderTimeInSeconds": 2147483647,
+    "RaytracerRenderMode": 0,
+    "Tonemapping": 0,
+    "BrightnessFactor": 1.0,
+    "PhotonCount": 10000,
+    "PhotonmapSearchRadiusFactor": 1.0,
+    "BeamDataLineQueryReductionFactor": 0.1,
+    "SearchRadiusForMediaBeamTracer": 0.005,
+    "PhotonmapPixelSettings": 5,
+    "GlobalParticipatingMedia": {
+      "$type": "GraphicMinimal.DescriptionForHomogeneousMedia, GraphicMinimal",
+      "Priority": 0,
+      "AbsorbationCoeffizent": [0.01, 0.01, 0.01],
+      "EmissionCoeffizient": [0.0, 0.0, 0.0],
+      "ScatteringCoeffizent": [0.01, 0.01, 0.01],
+      "AnisotropyCoeffizient": 0.5,
+      "PhaseFunctionExtraFactor": 1.0
+    },
+    "RadiositySettings": {
+      "$type": "GraphicMinimal.RadiositySettings, GraphicMinimal",
+      "RadiosityColorMode": 1,
+      "MaxAreaPerPatch": 0.01,
+      "HemicubeResolution": 30,
+      "IlluminationStepCount": 10,
+      "GenerateQuads": true,
+      "SampleCountForPatchDividerShadowTest": 40
+    },
+    "LightPickStepSize": 0
+  },
+  "Modus": 22
+}

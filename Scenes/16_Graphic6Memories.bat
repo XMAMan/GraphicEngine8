@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe CreateImage ..\Data\16_Graphic6Memories_json.txt -output 16_Graphic6Memories.jpg -renderMod FullBidirectionalPathTracing -sampleCount 1000 -width 1600 -height 837 -saveFolder AutoSave

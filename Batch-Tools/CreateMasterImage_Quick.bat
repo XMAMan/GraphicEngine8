@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe MasterTest Quick -size 1 -dataFolder ..\Data\

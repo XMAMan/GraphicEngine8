@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe CreateImage ..\Data\18_CloudsForTestImage_json.txt -output 18_Clouds.jpg -renderMod ThinMediaMultipleScattering -sampleCount 1000 -width 420 -height 328

@@ -1,0 +1,91 @@
+matChrome
+Diffuse-Color = [0;0;0]
+Mirror-Color = [1;1;1]
+PhongColor = [0;0;0]
+PhongExponent = 10
+Brechungsindex = -1
+
+
+matGlass
+Diffuse-Color = [0;0;0]
+Mirror-Color = [1;1;1]
+PhongColor = [0;0;0]
+PhongExponent = 10
+Brechungsindex = 1,3
+Media-Name = medGlass
+Media-Priority = 5
+Media-Absorption = new Vector3D(0.0199999996f, 0.00100000005f, 0.0199999996f)
+Media-Scattering = new Vector3D(0.00039999999f, 9.99999975E-05f, 0.00039999999f)
+Media-Emission = new Vector3D(0f, 0f, 0f)
+Media-G = 0
+Media-GeometryType = Real
+
+
+diffuse_white
+Diffuse-Color = [0,588;0,588;0,588]
+PhongColor = [0;0;0]
+PhongExponent = 10
+
+
+matLight
+Diffuse-Color = [0,588199973;0,588199973;0,588199973]
+Mirror-Color = [0;0;0]
+PhongColor = [0;0;0]
+PhongExponent = 10
+Emission-Color = [80000;80000;80000]
+
+
+diffuse_blue
+Diffuse-Color = [0,0979999974;0,0979999974;0,949000001]
+PhongColor = [0;0;0]
+PhongExponent = 10
+
+
+diffuse_yellow
+Diffuse-Color = [0,949000001;0,949000001;0,0979999974]
+PhongColor = [0;0;0]
+PhongExponent = 10
+
+
+matBall
+Diffuse-Color = [0;0;0]
+Mirror-Color = [1;1;1]
+PhongColor = [0;0;0]
+PhongExponent = 10
+Brechungsindex = 1,5
+Media-Name = medBall
+Media-Priority = 5
+Media-Absorption = new Vector3D(9.99999975E-05f, 0.00999999978f, 0.00999999978f)
+Media-Scattering = new Vector3D(0.0599999987f, 0.100000001f, 0.100000001f)
+Media-Emission = new Vector3D(0f, 0f, 0f)
+Media-G = -0,3
+Media-GeometryType = Real
+
+
+matBall2
+Diffuse-Color = [0;0;0]
+Mirror-Color = [1;1;1]
+PhongColor = [0;0;0]
+PhongExponent = 10
+Brechungsindex = 1,5
+Media-Name = medBall2
+Media-Priority = 5
+Media-Absorption = new Vector3D(0.00499999989f, 0.0599999987f, 0.25999999f)
+Media-Scattering = new Vector3D(0.100000001f, 0.100000001f, 0.100000001f)
+Media-Emission = new Vector3D(0f, 0f, 0f)
+Media-G = -0,9
+Media-GeometryType = Real
+
+
+matGlobal
+Diffuse-Color = [0,588;0,588;0,588]
+Mirror-Color = [0;0;0]
+PhongColor = [0;0;0]
+PhongExponent = 10
+Media-Name = medGlobal
+Media-Priority = 1
+Media-Absorption = new Vector3D(0f, 0f, 0f)
+Media-Scattering = new Vector3D(0.000199999995f, 0.000150000007f, 9.99999975E-05f)
+Media-Emission = new Vector3D(0f, 0f, 0f)
+Media-G = 0,5
+Media-GeometryType = Imaginary

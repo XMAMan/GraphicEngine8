@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{45061928-C88A-401B-B81C-4CC79DD70C4C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Photonusmap</RootNamespace>
+    <AssemblyName>Photonusmap</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SurfacePhotonmap\CausticMap.cs" />
+    <Compile Include="SurfacePhotonmap\ISurfacePhotonmap.cs" />
+    <Compile Include="ConstruktorDataForPhotonmapCreation.cs" />
+    <Compile Include="MultipleLightPathSampler.cs" />
+    <Compile Include="SurfacePhotonmap\PhotonMap.cs" />
+    <Compile Include="Photonmaps.cs" />
+    <Compile Include="SurfacePhotonmap\PhotonMapSearchRadiusCalculator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VolumetricPhotonmap\BeamDataLineQuery\BeamDataLineQueryMap.cs" />
+    <Compile Include="VolumetricPhotonmap\BeamDataLineQuery\BeamRay.cs" />
+    <Compile Include="VolumetricPhotonmap\PointDataBeamQuery\IVolumetricPhoton.cs" />
+    <Compile Include="VolumetricPhotonmap\PointDataBeamQuery\PhotonIntersectionPoint.cs" />
+    <Compile Include="VolumetricPhotonmap\PointDataPointQuery\PointDataPointQueryMap.cs" />
+    <Compile Include="VolumetricPhotonmap\PointDataBeamQuery\VolumetricPhoton.cs" />
+    <Compile Include="VolumetricPhotonmap\PointDataBeamQuery\PointDataBeamQueryMap.cs" />
+    <Compile Include="VolumetricPhotonmap\PointDataBeamQuery\VolumetricPhotonmapRadiusCalculator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GraphicGlobal\GraphicGlobal.csproj">
+      <Project>{A2938D3C-DA44-4ABB-9F66-A4D502C803C7}</Project>
+      <Name>GraphicGlobal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicMinimal\GraphicMinimal.csproj">
+      <Project>{B149FAA2-72F8-4846-8520-DFCDDBDAEE14}</Project>
+      <Name>GraphicMinimal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IntersectionTests\IntersectionTests.csproj">
+      <Project>{EC763480-CB40-4CFF-88B9-B6209D38114B}</Project>
+      <Name>IntersectionTests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParticipatingMedia\ParticipatingMedia.csproj">
+      <Project>{214aa3c8-cf4d-4a80-b67b-29e9e1558980}</Project>
+      <Name>ParticipatingMedia</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PointSearch\PointSearch.csproj">
+      <Project>{9DFDA7D6-4482-4E9A-8AF3-FB4DD96F79FF}</Project>
+      <Name>PointSearch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RayCamera\RayCamera.csproj">
+      <Project>{cf472bf4-2ae8-44c7-8b29-68824ff2e0ad}</Project>
+      <Name>RayCamera</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RayTracerGlobal\RayTracerGlobal.csproj">
+      <Project>{EAEAB694-A553-4E68-B0F4-FB0813BF062B}</Project>
+      <Name>RayTracerGlobal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RaytracingBrdf\RaytracingBrdf.csproj">
+      <Project>{7060CB48-A41B-4AF4-AFF3-B54CD57B7101}</Project>
+      <Name>RaytracingBrdf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubpathGenerator\SubpathGenerator.csproj">
+      <Project>{200904B4-8BCC-4895-9647-64122B668FDE}</Project>
+      <Name>SubpathGenerator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

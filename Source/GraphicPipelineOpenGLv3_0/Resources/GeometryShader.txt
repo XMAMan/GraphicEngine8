@@ -1,0 +1,51 @@
+#version 330
+
+layout(triangles) in;
+layout(triangle_strip, max_vertices = 3)out;
+
+noperspective in vec3 normalPass[];
+in vec3 posWorldPass[];
+noperspective in vec3 tangentPass[]; 
+in vec2 textcoordPass[];
+in vec4 ShadowCoordPass[];
+
+noperspective out vec3 normal;
+smooth out vec3 posWorld;
+noperspective out vec3 tangent;
+smooth out vec2 textcoord;
+smooth out vec4 ShadowCoord;
+
+uniform mat4 ObjToClipMatrix;
+uniform mat4 ObjToWorldMatrix;
+uniform mat4 NormalMatrix;
+uniform mat4 ShadowMapMatrix[10];		//Position, Ausrichtung, Projektionsmatrix und beim Auslesen der ShadowMap Bias-Matrix (Für jede Lichtquelle eine Matrix)
+uniform int ShadowmappingTextureId;
+uniform mat3 TextureMatrix;
+uniform int Time;
+uniform int ExplosionEffectIsEnabled;
+uniform float ExplosionsRadius;
+
+// Dieser Shader ermöglicht den Explosions-Effekt
+
+void main()
+{
+	vec3 translation = vec3(0,0,0);
+	if (ExplosionEffectIsEnabled == 1)
+	{
+		translation = normalize(mat3(NormalMatrix) * normalPass[0]).xyz * abs(sin(Time / 100.0f)) * ExplosionsRadius;
+	}
+
+	for(int i = 0; i < 3; i++)
+    {
+		//gl_Position =  ShadowMapMatrix[ShadowmappingTextureId] * vec4(gl_in[i].gl_Position.xyz + translation, 1);
+		gl_Position = ObjToClipMatrix * vec4(gl_in[i].gl_Position.xyz + translation, 1);
+
+		normal = normalize(mat3(NormalMatrix) * normalPass[i]).xyz;
+		posWorld = (ObjToWorldMatrix * vec4(posWorldPass[i] + translation,1)).xyz;
+		tangent = normalize(mat3(NormalMatrix) * tangentPass[i]).xyz;
+		textcoord = (TextureMatrix * vec3(textcoordPass[i].xy, 1)).xy;
+		ShadowCoord = (ShadowMapMatrix[ShadowmappingTextureId] * vec4(gl_in[i].gl_Position.xyz + translation,1)); //Shadowmapping
+		EmitVertex();
+	}
+	EndPrimitive();
+}

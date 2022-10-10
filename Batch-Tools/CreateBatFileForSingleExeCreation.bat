@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe CreateILMergeBatFile -exeFolder ..\Source\Tools\bin\Debug -ilMergeFilePath ILMerge.exe -outputFileName CreateSingleExe.bat

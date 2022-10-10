@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{424391CA-1C3B-46E5-95FA-29C796B49DF2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GraphicPipelineCPU</RootNamespace>
+    <AssemblyName>GraphicPipelineCPU</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DrawingHelper\Helper3D\PointsAndLinesDrawer.cs" />
+    <Compile Include="DrawingHelper\Helper3D\TriangleDrawer.cs" />
+    <Compile Include="PipelineHelper\CubemappedFrameCollection.cs" />
+    <Compile Include="PipelineHelper\FramebufferCollection.cs" />
+    <Compile Include="PipelineHelper\MouseHitTest.cs" />
+    <Compile Include="ObjToWindowSpaceConversion\Clipping\ClipSpaceToWindowSpaceConverter.cs" />
+    <Compile Include="ObjToWindowSpaceConversion\Clipping\LineClipping.cs" />
+    <Compile Include="ObjToWindowSpaceConversion\Clipping\TriangleClipping.cs" />
+    <Compile Include="ObjToWindowSpaceConversion\Clipping\ClipSpacePoint.cs" />
+    <Compile Include="ObjToWindowSpaceConversion\Clipping\ObjectToClipSpaceConverter.cs" />
+    <Compile Include="ObjToWindowSpaceConversion\WindowSpaceLine.cs" />
+    <Compile Include="ObjToWindowSpaceConversion\WindowSpacePoint.cs" />
+    <Compile Include="PipelineHelper\TextureCollection.cs" />
+    <Compile Include="PipelineHelper\TriangleArrayCollection.cs" />
+    <Compile Include="Rasterizer\LineRasterizer.cs" />
+    <Compile Include="Rasterizer\NoInterpolationRasterizer.cs" />
+    <Compile Include="Rasterizer\TriangleRasterizer.cs" />
+    <Compile Include="ObjToWindowSpaceConversion\WindowSpaceTriangle.cs" />
+    <Compile Include="Shader\PixelShader\PixelShaderCreateShadowMap.cs" />
+    <Compile Include="Shader\PixelShader\PixelShaderHelper.cs" />
+    <Compile Include="Shader\PixelShader\PixelShaderNormal.cs" />
+    <Compile Include="Shader\PixelShader\PixelShaderParallaxMapping.cs" />
+    <Compile Include="Shader\PixelShader\PixelShaderParsedInput.cs" />
+    <Compile Include="Shader\ShaderInputOutputData.cs" />
+    <Compile Include="Textures\Cubemap.cs" />
+    <Compile Include="DrawingHelper\DrawingHelper2D.cs" />
+    <Compile Include="DrawingHelper\ColorHelper.cs" />
+    <Compile Include="DrawingHelper\Helper3D\Footprint.cs" />
+    <Compile Include="Textures\CubemappedFrame.cs" />
+    <Compile Include="Textures\DepthTexture.cs" />
+    <Compile Include="Textures\Framebuffer.cs" />
+    <Compile Include="GraphicPipelineCPU.cs" />
+    <Compile Include="DrawingHelper\Helper3D\Interpolationvariables.cs" />
+    <Compile Include="ObjToWindowSpaceConversion\ObjectSpaceToWindowSpaceConverter.cs" />
+    <Compile Include="Shader\GeometryShader.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertysForDrawing.cs" />
+    <Compile Include="Textures\ITexture2D.cs" />
+    <Compile Include="Textures\StencilTexture.cs" />
+    <Compile Include="Textures\ColorTexture.cs" />
+    <Compile Include="Textures\ColorTextureDeck.cs" />
+    <Compile Include="Shader\UniformVariables.cs" />
+    <Compile Include="Shader\VertexShader.cs" />
+    <Compile Include="DrawingHelper\ViewPort.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BitmapHelper\BitmapHelper.csproj">
+      <Project>{61FDFE91-0853-47E7-9F76-DF885C28CEF0}</Project>
+      <Name>BitmapHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicGlobal\GraphicGlobal.csproj">
+      <Project>{A2938D3C-DA44-4ABB-9F66-A4D502C803C7}</Project>
+      <Name>GraphicGlobal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicMinimal\GraphicMinimal.csproj">
+      <Project>{B149FAA2-72F8-4846-8520-DFCDDBDAEE14}</Project>
+      <Name>GraphicMinimal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextureHelper\TextureHelper.csproj">
+      <Project>{2037cefb-8e7a-4d35-8e86-e071104ec6d7}</Project>
+      <Name>TextureHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

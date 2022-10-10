@@ -1,0 +1,85 @@
+//Dieser Shader funktioniert nur wenn man auch den TriangleDrawerNewWay verwendet. Sonst bekommt man ein schwarzes Bild.
+//Ich kˆnnte mit diesen Shader theoretisch auch Linien und Punkte zeichnen aber dann m¸sste ich die Linien/Punkte-Daten in VBOs speichern
+//https://www.geeks3d.com/20111111/simple-introduction-to-geometry-shaders-glsl-opengl-tutorial-part1/ -> So geht ein Pass-Thourgh-Geometry-Shader
+//http://www.mbsoftworks.sk/index.php?page=tutorials&series=1&tutorial=17
+
+#version 330
+
+//#version 120 
+//#extension GL_EXT_geometry_shader4 : enable
+
+layout(triangles) in;
+layout(triangle_strip, max_vertices = 3)out;
+
+//Diese Struktur ist Default-M‰ﬂig schon da
+//in gl_PerVertex
+//{
+//  vec4 gl_Position;
+//  float gl_PointSize;
+//  float gl_ClipDistance[];
+//} gl_in[];
+
+//Wenn der Geometry-Shader nur durchreicht
+//noperspective in vec3 Vnormal[];
+//smooth in vec3 VposWorld[];
+//noperspective in vec3 Vtangent[];
+//in vec2	Vtextcoord[];
+//smooth in vec4 VShadowCoord[];
+
+//Wenn der Geometry-Shader alles macht
+noperspective in vec3 Vnormal[];
+noperspective in vec3 Vtangent[];
+in vec2	Vtextcoord[];
+
+
+noperspective out vec3 normal;
+smooth out vec3 posWorld;
+noperspective out vec3 tangent;
+smooth out vec2	textcoord;
+smooth out vec4 ShadowCoord;
+
+
+
+
+uniform mat4 ObjToClipMatrix;
+uniform mat4 ObjToWorldMatrix;
+uniform mat4 NormalMatrix;
+uniform mat4 ShadowMapMatrix[10];
+uniform int ShadowmappingTextureId;
+uniform mat3 TextureMatrix;
+uniform float TexturScaleFaktorX;
+uniform float TexturScaleFaktorY;
+uniform int Time;
+uniform int ExplosionEffectIsEnabled;
+uniform float ExplosionsRadius;
+
+void main(void)
+{
+	vec3 translation = vec3(0,0,0);
+	if (ExplosionEffectIsEnabled == 1)
+	{
+		translation = normalize(mat3(NormalMatrix) * Vnormal[0]).xyz * abs(sin(Time / 100.0f)) * ExplosionsRadius;
+	}
+
+	for(int i=0; i< 3; i++) //gl_VerticesIn
+	{
+		//Reiche nur durch
+		//gl_Position = gl_in[i].gl_Position;
+		//normal = Vnormal[i];
+		//posWorld = VposWorld[i];
+		//tangent = Vtangent[i];
+		//textcoord = Vtextcoord[i];
+		//ShadowCoord = VShadowCoord[i];
+
+		//Mache alles
+		gl_Position = ObjToClipMatrix * vec4(gl_in[i].gl_Position.xyz + translation, 1);
+		normal = normalize(mat3(NormalMatrix) * Vnormal[i]).xyz;
+		posWorld = (ObjToWorldMatrix * vec4(gl_in[i].gl_Position.xyz + translation,1)).xyz; 
+		tangent = normalize(mat3(NormalMatrix) * Vtangent[i]).xyz; 
+		textcoord = (TextureMatrix * vec3(Vtextcoord[i].xy, 1)).xy;
+		ShadowCoord = (ShadowMapMatrix[ShadowmappingTextureId] * vec4(gl_in[i].gl_Position.xyz,1)); //Shadowmapping
+		
+		EmitVertex();
+	}
+	EndPrimitive();	
+}

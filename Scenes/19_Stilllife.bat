@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe CreateImage ..\Data\19_Stilllife_json.txt -output 19_Stilllife.jpg -renderMod UPBP -tonemapping GammaOnly -sampleCount 50000 -width 1600 -height 700 -saveFolder AutoSave

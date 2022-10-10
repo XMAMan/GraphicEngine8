@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe Test_3D -dataFolder ..\Data\

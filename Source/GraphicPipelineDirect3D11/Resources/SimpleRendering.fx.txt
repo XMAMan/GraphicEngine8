@@ -1,0 +1,335 @@
+struct VS_IN
+{
+	float3 pos : POSITION;
+	float4 col : COLOR0;
+	float2 tex : TEXCOORD;
+	float3 Normal : NORMAL;
+	float3 Tangent : TANGENT;
+};
+
+//Superwichtige Anmwerkung: Abhängig von den, was hinter : steht (NORMAL, POSITION, TANGENT) werden dieser Parameter UNTERSCHIEDLICH!!! über
+//das Dreieck interpoliert. Die Formel: "InterpolationPoint = (1 - f) * Pos1 + f * Pos2" wird anscheinend nur für POSITION-Variablen verwendet.
+//Für NORMAL und TANGENT-Variablen gibt es eine andere Formel, die ich noch nicht kenne.
+
+//Anmerkung am 2.1.2014:
+//NORMAL- und TANGENT-Variablen werden mit der "(1 - f) * N1 + f * N2"-Formel interpoliert
+//POSITION- und TEXCOORD-Variablen werden auch mit der "(1 - f) * N1 + f * N2"-Formel interpoliert aber zustätzlich wird noch eine 
+//perspektivische Division durchgeführt. D.h. wärend des Interpolierens wird x/z, y/z und z/z gemacht. Beim auslesen am Ende im Pixelshader wird mit
+//(1/z) dividiert(entspricht *z)
+//Anmerkung am 20.4.15: SV_POSITION-Variablen werden automatisch nach den Clipping durch w geteilt.
+//						POSITION[n]-Variablen werden nicht automatisch durch w geteilt. Ich muss das im Pixelshader von Hand nachholen.
+//Sehr dürftige Erklärung von MSDN: https://msdn.microsoft.com/en-us/library/windows/desktop/bb509647%28v=vs.85%29.aspx (Vertexshader Output POSITION[n]: Position of a vertex in homogenous space. Compute position in screen-space by dividing (x,y,z) by w. Every vertex shader must write out a parameter with this semantic.)
+struct PS_IN
+{
+	float4 pos : SV_POSITION;						// Position im Clipspace
+	float3 WorldPosition : POSITION;				// Position des aktuellen Punktes in Worldspace
+	float4 col : COLOR0;							// Interpolierte Farbe (Nicht von Textur)
+	float2 tex : TEXCOORD0;							// Texturkoordinate skaliert mit dem Texturscale-Factoren X und Y
+	float3 Normal : NORMAL;							// Normale im Worldspace
+    float3 Tangent : TANGENT;						// Tangente in Wordspace
+
+	float  TessFactor : TESS;
+	float4 shadowPos : POSITION2; //Position von der Shadowmatrix
+
+	//nointerpolation float3 FlatNormal : NORMAL1;
+};
+
+//Vermutung: Das 
+//	output.Tangent = normalize(mul(input.Tangent, (float3x3)WorldViewEye));
+//und das:
+//  float3 T = normalize(tangentW - dot(tangentW, N)*N);
+//ist das gleiche wie das:
+//  output.Tangent = normalize(mul(float4(input.Tangent, -dot(input.pos.xyz, input.Tangent)), (float3x3)NormalMatrix).xyz); 
+
+//Gelerntes Matrizenwissen:
+// Ein Richtungsvektor(Normale, Vertex-Zu-Auge, Vertex-zu-Licht) wird mit einer 3x3-Matrix von einen Koordinatensystem ins andere transformiert
+// Ein Positionsvektor wird mit einer 4x4-Matrix transformiert
+// Die Inverse einer Rotationsmatrix ( == 3x3-Matrix) ist gleich ihre Transponierte
+// Mit der TBN(Tangent, Binormal, Normal)-Matrix kann man vom Tangentspace(Texturraum) in Objektspace transformieren wenn die Tangente, Binormale und Normale in Objektkoordinaten angegeben werden
+
+PS_IN VS_Standard(VS_IN input) 
+{
+	PS_IN output = (PS_IN)0;
+
+	output.pos = mul(float4(input.pos.xyz, 1.0), WorldViewProj);
+	output.col = input.col;
+	output.tex = mul(float3(input.tex.xy, 1.0), (float3x3)TextureMatrix).xy;
+	output.Normal = normalize(mul(input.Normal, (float3x3)NormalMatrix).xyz); 
+	output.Tangent = normalize(mul(input.Tangent, (float3x3)NormalMatrix).xyz);// Tangente in Eyespace transformieren
+	//output.Tangent = input.Tangent;
+	output.WorldPosition = mul(float4(input.pos.xyz, 1.0), ObjToWorld).xyz;
+	output.shadowPos = mul(float4(input.pos.xyz, 1.0), ShadowMatrix);	
+
+	float d = distance(output.WorldPosition, CameraPosition);
+	float gMaxTessDistance = 1.0;
+    float gMinTessDistance = 25.0;
+    float gMinTessFactor = 1.0;
+    float gMaxTessFactor = 5.0;
+    // Normalized tessellation factor. 
+    // The tessellation is 
+    //   0 if d >= gMinTessDistance and
+    //   1 if d <= gMaxTessDistance.  
+    float tess = saturate( (gMinTessDistance - d) / (gMinTessDistance - gMaxTessDistance) );
+    
+    // Rescale [0,1] --> [gMinTessFactor, gMaxTessFactor].
+    output.TessFactor = (gMinTessFactor + tess*(gMaxTessFactor-gMinTessFactor)) * TesselationFactor;
+	return output;
+}
+
+//---------------------------------------------------------------------------------------
+// Transforms a normal map sample to world space.
+//---------------------------------------------------------------------------------------
+float3 NormalSampleToWorldSpace(float3 normalMapSample, float3 unitNormalW, float3 tangentW)
+{    
+	// Uncompress each component from [0,1] to [-1,1].
+    float3 normalT = 2.0f*normalMapSample - 1.0f;    // Build orthonormal basis.
+    float3 N = unitNormalW;
+    float3 T = normalize(tangentW - dot(tangentW, N)*N);
+    float3 B = normalize(cross(T, N));    
+	float3x3 TBN = float3x3(T, B, N);    // Transform from tangent space to world space.
+    float3 bumpedNormalW = mul(normalT, TBN);    
+	return normalize(bumpedNormalW);
+}
+
+float3 ReadBumpNormalFromTexture(float2 textcoords)
+{
+	float acol = Texture1.Sample(TextureFilterLinear, textcoords).a;
+	float rcol = Texture1.Sample(TextureFilterLinear, textcoords).r;// / acol;
+	float gcol = Texture1.Sample(TextureFilterLinear, textcoords).g;// / acol;
+	float bcol = Texture1.Sample(TextureFilterLinear, textcoords).b;// / acol;
+
+	return saturate(float3(rcol, gcol, bcol));
+}
+
+float4 GetIlluminatedColor(float3 pixelPosWorldSpace, float3 normalVector, float4 objektColor4)
+{
+	float3 objektColor = objektColor4.xyz;
+	float3 finalColor = 0;
+    for(int i=0; i < LightCount; i++) //Gehe durch alle Lichtquelle durch
+    {
+		float3 vLightDir = LightPositions[i].xyz - pixelPosWorldSpace;
+		float dist = length(vLightDir);
+        float distanceFactor = 1.0 / (CONSTANT_ATTENUATIONS[i] +
+                                               LINEAR_ATTENUATIONS[i] * dist +
+                                               QUADRATIC_ATTENUATIONS[i] * dist * dist);
+		
+		vLightDir = normalize(vLightDir);
+
+		float spot  = 1;
+        if (LightSpotCutoffs[i] != -1) //Punkt-Richtungslicht
+        {
+            spot = max(dot(normalize(LightDirections[i].xyz), -vLightDir), 0);
+            if (spot < LightSpotCutoffs[i]) spot = 0;
+            spot = pow(spot, LightSpotExponents[i]);
+        }
+
+		float diffuseColor = max(dot(vLightDir, normalVector), 0);
+
+		//In der Original-Formel wird im Eyespace der normalVector mit (0,0,1) Multipliziert, um 'specularColor' zu berechnen
+		//Ich transformiere hier nun mit der inversen Camera-Matrix den (0,0,1)-Vektor aus dem Eye-Space in den World-Space
+		//um nun die WorldSpace-Normale mit toCamera zu muliplizieren. 
+		//Frage: Was bedeutet (0,0,1) im Eye-Space? Warum kann ich nicht mit der 'normalize(CameraPosition - pixelPosWorldSpace)' Formel arbeiten?
+		//float3 toCamera = normalize(CameraPosition - pixelPosWorldSpace);
+		float3 toCamera = normalize(mul(float3(0,0,1), (float3x3)transpose(CameraMatrix)).xyz); 	
+		
+		float specularColor = max(dot(toCamera, normalVector), 0);
+		if (CullFaceIsEnabled == 0 && diffuseColor == 0) 
+		{
+			diffuseColor = max(dot(vLightDir, -normalVector), 0);
+			specularColor = max(dot(float3(0.0, 0.0, 1.0), -normalVector), 0);
+		}
+		//float specularColor = pow(min(max(dot(float3(0.0, 0.0, 1.0), normalVector), 0), 1.0), SpecularHighlightPowExponent);
+
+		specularColor = pow(min(specularColor, 1.0), SpecularHighlightPowExponent);
+		if (SpecularHighlightPowExponent == 0) specularColor = 0;
+
+		//Saturare = Clamps the specified value within the range of 0 to 1.
+		finalColor += saturate ( objektColor * 0.05 + distanceFactor * spot * (objektColor * 0.05 + diffuseColor*objektColor + specularColor * float3(1,1,1)) ); 
+
+		//return float4(objektColor, 1);
+		//return float4(vLightDir.x, vLightDir.y, vLightDir.z, 1);
+		//return float4((float3(1,1,1) * diffuseColor).xyz,1) ;
+		//return float4(pixelPosWorldSpace.xyz,1) ;
+    }
+
+	return float4(finalColor, objektColor4.a);
+}
+
+float4 GetTexelFromColorTexture(float2 texCoords)
+{
+   return Texture0.Sample(SamplerStateTexture0, texCoords);
+}
+
+float3 Cubemapping(float3 direction)
+{
+	float x = direction.x;
+	float y = direction.y;
+	float z = direction.z;
+
+	float absX = abs(x);
+	float absY = abs(y);
+	float absZ = abs(z);
+	
+	bool isXPositive = x > 0 ? true : false;
+	bool isYPositive = y > 0 ? true : false;
+	bool isZPositive = z > 0 ? true : false;
+	
+	float maxAxis=-1, uc=-1, vc=-1;
+	float index = -1;
+
+	// POSITIVE X
+	if (isXPositive && absX >= absY && absX >= absZ) {
+	  // u (0 to 1) goes from +z to -z
+	  // v (0 to 1) goes from -y to +y
+	  maxAxis = absX;
+	  uc = -z;
+	  vc = y;
+	  index = 0;
+	}
+	// NEGATIVE X
+	if (!isXPositive && absX >= absY && absX >= absZ) {
+	  // u (0 to 1) goes from -z to +z
+	  // v (0 to 1) goes from -y to +y
+	  maxAxis = absX;
+	  uc = z;
+	  vc = y;
+	  index = 1;
+	}
+	// POSITIVE Y
+	if (isYPositive && absY >= absX && absY >= absZ) {
+	  // u (0 to 1) goes from -x to +x
+	  // v (0 to 1) goes from +z to -z
+	  maxAxis = absY;
+	  uc = x;
+	  vc = -z;
+	  index = 2;
+	}
+	// NEGATIVE Y
+	if (!isYPositive && absY >= absX && absY >= absZ) {
+	  // u (0 to 1) goes from -x to +x
+	  // v (0 to 1) goes from -z to +z
+	  maxAxis = absY;
+	  uc = x;
+	  vc = z;
+	  index = 3;
+	}
+	// POSITIVE Z
+	if (isZPositive && absZ >= absX && absZ >= absY) {
+	  // u (0 to 1) goes from -x to +x
+	  // v (0 to 1) goes from -y to +y
+	  maxAxis = absZ;
+	  uc = x;
+	  vc = y;
+	  index = 4;
+	}
+	// NEGATIVE Z
+	if (!isZPositive && absZ >= absX && absZ >= absY) {
+	  // u (0 to 1) goes from +x to -x
+	  // v (0 to 1) goes from -y to +y
+	  maxAxis = absZ;
+	  uc = -x;
+	  vc = y;
+	  index = 5;
+	}
+
+	// Convert range from -1 to 1 to 0 to 1
+	float u = 0.5f * (uc / maxAxis + 1.0f);
+	float v = 0.5f * (vc / maxAxis + 1.0f);
+
+	return float3(u,v, index);
+}
+
+
+float4 PS_Standard( PS_IN input ) : SV_Target
+{
+	//return float4(input.tex.xy, 0, 1);
+	//return input.col;
+	//float4 objektColor = input.col;
+	//float4 objektColor = CurrentColor * (1 - UseTexture0) + Texture0.Sample(TextureFilterPoint, input.tex) * UseTexture0;	
+	float4 objektColor = CurrentColor * (1 - UseTexture0) + GetTexelFromColorTexture(input.tex) * UseTexture0 * CurrentColor;	
+
+	//return objektColor;
+
+	if (BlendingBlackColor && (objektColor.x + objektColor.y + objektColor.z) < 0.1) discard;
+	if (LightingIsEnabled == false) return objektColor;
+
+	float3 normalVector = normalize(input.Normal);
+
+	//Quelle: http://www.dreamincode.net/forums/topic/289893-hlsl-flat-shading/ -> Er verwendet hier die WorldPosition und nicht die EyePosition. Könnte sein, dass ich es auch noch so machen muss
+	if (DoFlatShading) normalVector = normalize(cross(ddy(input.WorldPosition.xyz), ddx(input.WorldPosition.xyz)));//ddx bildet die Ableitung nach der Bildschirmkoordiante x
+	
+	if (UseTexture1)
+	{
+		normalVector = NormalSampleToWorldSpace(ReadBumpNormalFromTexture(input.tex), input.Normal, input.Tangent);
+	}
+
+	float4 reflectionColor = float4(0,0,0,0);
+	if (UseCubemap)
+	{
+		float3 reflectionVector = normalize(reflect(input.WorldPosition - CameraPosition, normalVector));
+		reflectionVector = normalize(mul(reflectionVector, (float3x3)transpose(NormalMatrix)).xyz);
+		//return float4(reflectionVector.xyz, 1); 
+		//reflectionColor  = CubeMapTexture.Sample(samAnisotropic, reflectionVector); 
+
+		reflectionColor  = CubeMapArrayTexture.Sample(TextureFilterPoint, Cubemapping(reflectionVector));
+		
+
+		float4 col1 = GetIlluminatedColor(input.WorldPosition, normalVector, objektColor);
+		float4 col2 = reflectionColor;
+		float4 c = CurrentColor;
+		return float4(col1.x * (1- c.x) + col2.x * c.x, col1.y * (1- c.y) + col2.y * c.y, col1.z * (1- c.z) + col2.z * c.z, c.w);
+		//return float4((GetIlluminatedColor(input.WorldPosition, normalVector, objektColor) * 0.8f + reflectionColor * 0.2f).xyz,1);
+	}
+
+	float shadowFaktor = 1;
+	if (UseShadowmap)	
+	{
+		float3 shadowPos = clamp(input.shadowPos.xyz / input.shadowPos.w, 0, 1);
+		shadowPos.y = 1 - shadowPos.y;
+
+		if (shadowPos.x > 0 && shadowPos.y > 0 && shadowPos.x < 1 && shadowPos.y < 1)
+		{
+			//Damit sie der Schatten in der Glaskugel falsch aus
+			//float shadowTex = ShadowTexture.SampleCmpLevelZero(samShadow, shadowPos.xy, shadowPos.z).r;
+			
+			float shadowTex = ShadowTexture.Sample(TextureFilterPoint, shadowPos.xy).r; 
+
+			float bias = max(0.001 * (1.0 - dot(normalVector, normalize(LightPositions[0].xyz - input.WorldPosition))), 0.0001); 
+
+			if (shadowPos.z < 1 && shadowTex < shadowPos.z - bias)
+			{
+				shadowFaktor = 0.5f;
+			}
+
+			//shadowFaktor = (1 - ShadowTexture.Sample(TextureFilterPoint, shadowPos.xy).r) * 100;
+			//shadowFaktor = (1 - shadowPos.z) * 100;
+
+			//return float4(shadowFaktor,shadowFaktor,shadowFaktor,1);
+		}
+	}
+
+	//return float4(input.tex.xy, 0, 1);
+	
+	//return float4(ReadBumpNormalFromTexture(input.tex).xyz, 0);
+	//return float4(normalVector.xyz, 1);
+
+	//return float4(saturate(float3(0,0,-1)).xyz, 0);
+	//return float4(saturate(input.Tangent).xyz, 0);
+	//return float4(saturate(normalize(cross(input.Tangent, normalVector))).xyz, 0); //Bitangente
+
+	return float4((GetIlluminatedColor(input.WorldPosition, normalVector, objektColor) * shadowFaktor).xyz, objektColor.w);//Wenn man in Textur rendert, muss Alpha = 1, da RGB * Alpha gerechnet wird
+
+	//So kann man ein Tonemapping-Effekt erzeugen
+	//int tone = 10;
+	//float4 colorBig = float4((GetIlluminatedColor(input.WorldPosition, normalVector, objektColor) * shadowFaktor).xyz, objektColor.w);
+	//return float4(floor(colorBig.x * tone) / tone, floor(colorBig.y * tone) / tone, floor(colorBig.z * tone) / tone, colorBig.w);
+}
+
+
+
+
+
+
+
+
+

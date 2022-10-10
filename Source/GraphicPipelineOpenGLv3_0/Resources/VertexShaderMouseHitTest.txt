@@ -1,0 +1,20 @@
+#version 330
+
+precision highp float;
+
+uniform mat4 ObjToClipMatrix;
+uniform mat3 TextureMatrix;
+uniform int MouseHitId;
+
+layout (location = 0) in vec3 in_position;
+layout (location = 1) in vec3 in_normal;
+layout (location = 2) in vec3 in_tangent;
+layout (location = 3) in vec2 in_textcoord;
+
+out vec2 textcoord;
+
+void main() 
+{
+	gl_Position = ObjToClipMatrix * vec4(in_position, 1);
+	textcoord = (TextureMatrix * vec3(in_textcoord.xy, 1)).xy;
+}

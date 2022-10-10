@@ -1,0 +1,37 @@
+#version 330
+
+precision highp float;
+
+uniform mat4 ObjToClipMatrix;
+uniform mat4 ObjToWorldMatrix;
+uniform mat4 NormalMatrix;
+uniform mat3 TextureMatrix;
+
+uniform mat4 ShadowMapMatrix[10];		//Position, Ausrichtung, Projektionsmatrix und beim Auslesen der ShadowMap Bias-Matrix (Für jede Lichtquelle eine Matrix)
+uniform int ShadowmappingTextureId;
+
+layout (location = 0) in vec3 in_position;
+layout (location = 1) in vec3 in_normal;
+layout (location = 2) in vec3 in_tangent;
+layout (location = 3) in vec2 in_textcoord;
+
+//flat = The value will not be interpolated. The value given to the fragment shader is the value from the Provoking Vertex for that primitive.
+//noperspective = The value will be linearly interpolated in window-space. This is usually not what you want, but it can have its uses.
+//smooth = The value will be interpolated in a perspective-correct fashion. This is the default if no qualifier is present.
+
+noperspective out vec3 normal;
+out vec3 posWorld;
+noperspective out vec3 tangent; 
+out vec2 textcoord;
+out vec4 ShadowCoord;
+
+void main() 
+{
+	gl_Position = ObjToClipMatrix * vec4(in_position, 1);
+	textcoord = (TextureMatrix * vec3(in_textcoord.xy, 1)).xy;
+	normal = normalize(mat3(NormalMatrix) * in_normal).xyz;
+	posWorld = (ObjToWorldMatrix * vec4(in_position,1)).xyz;
+	tangent = normalize(mat3(NormalMatrix) * in_tangent).xyz;// Tangente in Eyespace transformieren
+
+	ShadowCoord = (ShadowMapMatrix[ShadowmappingTextureId] * vec4(in_position,1)); //Shadowmapping
+}

@@ -1,0 +1,27 @@
+#version 330
+
+precision highp float;
+
+uniform mat4 ShadowMapMatrix[10];		//Position, Ausrichtung, Projektionsmatrix und beim Auslesen der ShadowMap Bias-Matrix (Für jede Lichtquelle eine Matrix)
+uniform int ShadowmappingTextureId;
+
+layout (location = 0) in vec3 in_position;
+layout (location = 1) in vec3 in_normal;
+layout (location = 2) in vec3 in_tangent;
+layout (location = 3) in vec2 in_textcoord;
+
+noperspective out vec3 normalPass;
+out vec3 posWorldPass;
+noperspective out vec3 tangentPass; 
+out vec2 textcoordPass;
+out vec4 ShadowCoord;
+
+void main() 
+{
+	gl_Position = vec4(in_position, 1); //Hier wird keine Multiplikation mit Modelviewmatrizen gemacht, da das im Geometryshader erfolgt
+	textcoordPass = in_textcoord;
+	normalPass = in_normal;
+	posWorldPass = in_position;
+	tangentPass = in_tangent;
+	ShadowCoord = vec4(in_position,1);
+}

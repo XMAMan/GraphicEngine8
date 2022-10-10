@@ -1,0 +1,225 @@
+//...........................Linien und Punkte .........................
+
+struct VS_OUT_Simple
+{
+	float3 pos : POSITION;
+};
+
+struct PS_IN_Simple
+{
+	float4 pos : SV_POSITION;
+};
+
+VS_OUT_Simple VShaderSimpleDraw(float3 pos : POSITION)
+{
+	VS_OUT_Simple output = (VS_OUT_Simple)0;
+	output.pos = pos;
+	return output;
+}
+
+PS_IN_Simple VShaderSimpleDraw1(float3 pos : POSITION)
+{
+	PS_IN_Simple output = (PS_IN_Simple)0;
+	output.pos = mul(float4(pos.xyz, 1.0), WorldViewProj);
+	return output;
+}
+
+float4 ScaleXY(float4 v, float2 scale)
+{
+	return float4(v.x * scale.x, v.y * scale.y, v.z, v.w);
+}
+
+//http://msdn.microsoft.com/en-us/library/windows/desktop/bb509609(v=vs.85).aspx	-> Erklärung zur Syntax für den Geometryshader
+[maxvertexcount(100)]  //So viele Vertexe kommen maximal aus dem Geometry-Shader herraus
+void GShaderSimpleDrawLine_MultiLine_2D( line VS_OUT_Simple input[2], inout LineStream<PS_IN_Simple> OutputStream )
+{	
+	PS_IN_Simple output = (PS_IN_Simple)0;
+
+	float2 r = normalize(input[1].pos.xy - input[0].pos.xy);	
+	float3 nw = float3(r.y, -r.x, 0) * 0.5;	
+
+	for (int i=0; i < LineWidth; i++)
+	{
+		float4 p1 = mul(float4(input[0].pos.xyz - nw * i, 1.0), WorldViewProj); p1 /= p1.w; 
+		float4 p2 = mul(float4(input[1].pos.xyz - nw * i, 1.0), WorldViewProj); p2 /= p2.w; 
+	
+		float4 p3 = mul(float4(input[0].pos.xyz + nw * i, 1.0), WorldViewProj); p3 /= p3.w;
+		float4 p4 = mul(float4(input[1].pos.xyz + nw * i, 1.0), WorldViewProj); p4 /= p4.w;
+		
+		output.pos = p1; OutputStream.Append( output );
+		output.pos = p2; OutputStream.Append( output );
+		OutputStream.RestartStrip(); //Wird nach jeder erzeugten Linie/Punkt/Dreieck aufgerufen
+	
+		output.pos = p3; OutputStream.Append( output );
+		output.pos = p4; OutputStream.Append( output );
+		OutputStream.RestartStrip(); //Wird nach jeder erzeugten Linie/Punkt/Dreieck aufgerufen
+	}
+}
+
+//http://msdn.microsoft.com/en-us/library/windows/desktop/bb509609(v=vs.85).aspx	-> Erklärung zur Syntax für den Geometryshader
+[maxvertexcount(100)]  //So viele Vertexe kommen maximal aus dem Geometry-Shader herraus
+void GShaderSimpleDrawLine_MultiLine_3D( line VS_OUT_Simple input[2], inout LineStream<PS_IN_Simple> OutputStream )
+{	
+	PS_IN_Simple output = (PS_IN_Simple)0;
+
+	float2 r = normalize(input[1].pos.xy - input[0].pos.xy);	
+
+	float ex = (2.0f / WindowWidth); 
+	float ey = (2.0f / WindowHeight); 
+	float4 nw = float4(r.y * ex, -r.x * ey, 0 ,0) * 0.5;
+	
+
+	for (int i=0; i < LineWidth; i++)
+	{
+		float4 p1 = mul(float4(input[0].pos.xyz, 1.0), WorldViewProj); p1 /= p1.w; p1-= nw * i;
+		float4 p2 = mul(float4(input[1].pos.xyz, 1.0), WorldViewProj); p2 /= p2.w; p2-= nw * i;
+	
+		float4 p3 = mul(float4(input[0].pos.xyz, 1.0), WorldViewProj); p3 /= p3.w; p3 += nw * i;
+		float4 p4 = mul(float4(input[1].pos.xyz, 1.0), WorldViewProj); p4 /= p4.w; p4 += nw * i;
+		
+		output.pos = p1; OutputStream.Append( output );
+		output.pos = p2; OutputStream.Append( output );
+		OutputStream.RestartStrip(); //Wird nach jeder erzeugten Linie/Punkt/Dreieck aufgerufen
+	
+		output.pos = p3; OutputStream.Append( output );
+		output.pos = p4; OutputStream.Append( output );
+		OutputStream.RestartStrip(); //Wird nach jeder erzeugten Linie/Punkt/Dreieck aufgerufen
+	}
+}
+
+//http://msdn.microsoft.com/en-us/library/windows/desktop/bb509609(v=vs.85).aspx	-> Erklärung zur Syntax für den Geometryshader
+[maxvertexcount(100)]  //So viele Vertexe kommen maximal aus dem Geometry-Shader herraus
+void GShaderSimpleDrawLine_TwoTriangles_2D( line VS_OUT_Simple input[2], inout TriangleStream<PS_IN_Simple> OutputStream )
+{	
+	PS_IN_Simple output = (PS_IN_Simple)0;
+
+	float2 r = normalize(input[1].pos.xy - input[0].pos.xy);		
+	float4 nw = float4(r.y, -r.x, 0 ,0) * 0.5 * LineWidth;
+
+	//So erzeugt man ein Dreieck, was den ganzen linken oberen Bildschirm bedeckt
+	//output.pos = float4(-1, -1, 0, 1); OutputStream.Append( output );		//Linke untere Ecke vom Bildschirm
+	//output.pos = float4(+1, +1, 0, 1); OutputStream.Append( output );		//Rechte obere Ecke vom Bildschirm
+	//output.pos = float4(-1, +1, 0, 1); OutputStream.Append( output );		//Linke obere Ecke vom Bildschirm
+	//OutputStream.RestartStrip();
+
+	//So erzeugt man ein Dreieck, was den ganzen linken oberen Bildschirm bedeckt
+	//float4 p1 = mul(float4(0, WindowHeight, 0, 1.0), WorldViewProj); p1 /= p1.w; output.pos = p1; OutputStream.Append( output );	//Linke untere Ecke vom Bildschirm
+	//float4 p2 = mul(float4(WindowWidth, 0, 0, 1.0), WorldViewProj);  p2 /= p2.w; output.pos = p2; OutputStream.Append( output );	//Rechte obere Ecke vom Bildschirm
+	//float4 p3 = mul(float4(0, 0, 0, 1.0), WorldViewProj);			   p3 /= p3.w; output.pos = p3; OutputStream.Append( output );	//Linke obere Ecke vom Bildschirm
+	//OutputStream.RestartStrip();
+
+	float4 p1 = mul(float4(input[0].pos.xyz, 1.0) - nw, WorldViewProj); p1 /= p1.w; //Linke obere Ecke
+	float4 p2 = mul(float4(input[1].pos.xyz, 1.0) + nw, WorldViewProj); p2 /= p2.w; //Rechte untere Ecke	
+	float4 p3 = mul(float4(input[0].pos.xyz, 1.0) + nw, WorldViewProj);	p3 /= p3.w; //Linke untere Ecke	
+	float4 p4 = mul(float4(input[1].pos.xyz, 1.0) - nw, WorldViewProj);	p4 /= p4.w; //Rechte obere Ecke
+	
+	output.pos = p1; OutputStream.Append( output );
+	output.pos = p3; OutputStream.Append( output );
+	output.pos = p2; OutputStream.Append( output );
+	OutputStream.RestartStrip(); //Wird nach jeder erzeugten Linie/Punkt/Dreieck aufgerufen
+	
+	output.pos = p1; OutputStream.Append( output );
+	output.pos = p2; OutputStream.Append( output );
+	output.pos = p4; OutputStream.Append( output );
+	OutputStream.RestartStrip(); //Wird nach jeder erzeugten Linie/Punkt/Dreieck aufgerufen
+}
+
+//http://msdn.microsoft.com/en-us/library/windows/desktop/bb509609(v=vs.85).aspx	-> Erklärung zur Syntax für den Geometryshader
+[maxvertexcount(100)]  //So viele Vertexe kommen maximal aus dem Geometry-Shader herraus
+void GShaderSimpleDrawLine_TwoTriangles_3D( line VS_OUT_Simple input[2], inout TriangleStream<PS_IN_Simple> OutputStream )
+{	
+	PS_IN_Simple output = (PS_IN_Simple)0;
+
+	float2 r = normalize(input[1].pos.xy - input[0].pos.xy);	
+	float ex = (2.0f / WindowWidth); 
+	float ey = (2.0f / WindowHeight); 
+	float4 nw = float4(r.y * ex, -r.x * ey, 0 ,0) * 0.5 * LineWidth;
+
+	float4 p1 = mul(float4(input[0].pos.xyz, 1.0), WorldViewProj); p1 /= p1.w; p1 -= nw; //Linke obere Ecke
+	float4 p2 = mul(float4(input[1].pos.xyz, 1.0), WorldViewProj); p2 /= p2.w; p2 += nw; //Rechte untere Ecke	
+	float4 p3 = mul(float4(input[0].pos.xyz, 1.0), WorldViewProj); p3 /= p3.w; p3 += nw; //Linke untere Ecke	
+	float4 p4 = mul(float4(input[1].pos.xyz, 1.0), WorldViewProj); p4 /= p4.w; p4 -= nw; //Rechte obere Ecke
+	
+	output.pos = p1; OutputStream.Append( output );
+	output.pos = p3; OutputStream.Append( output );
+	output.pos = p2; OutputStream.Append( output );
+	OutputStream.RestartStrip(); //Wird nach jeder erzeugten Linie/Punkt/Dreieck aufgerufen
+	
+	output.pos = p1; OutputStream.Append( output );
+	output.pos = p2; OutputStream.Append( output );
+	output.pos = p4; OutputStream.Append( output );
+	OutputStream.RestartStrip(); //Wird nach jeder erzeugten Linie/Punkt/Dreieck aufgerufen
+}
+
+
+[maxvertexcount(100)]  //So viele Vertexe kommen maximal aus dem Geometry-Shader herraus
+void GShaderSimpleDrawPoint( point VS_OUT_Simple input[1], inout PointStream<PS_IN_Simple> OutputStream )
+{	
+	PS_IN_Simple output = (PS_IN_Simple)0;
+
+	float4 newPos = mul(float4(input[0].pos.xyz, 1.0), WorldViewProj);
+	newPos /= newPos.w;
+	float ex = (2.0f / WindowWidth); 
+	float ey = (2.0f / WindowHeight); 
+
+	for( int x=0; x < PointWidth; x++ ) 
+		for( int y=0; y < PointWidth; y++ ) 
+	{				
+		output.pos = newPos + float4((x-PointWidth/2.0 + 0.5) * ex,(y-PointWidth/2.0+0.5) * ey,0,0) ;
+		OutputStream.Append( output );
+		OutputStream.RestartStrip(); //Wird nach jeder erzeugten Linie/Punkt/Dreieck aufgerufen
+	}  
+}
+
+float4 PShaderSimpleDraw(PS_IN_Simple input) : SV_Target
+{
+    return CurrentColor;
+}
+
+technique11 DrawLine
+{
+	pass P0
+	{
+		SetHullShader( NULL );
+		SetDomainShader( NULL );
+		
+		SetVertexShader(CompileShader(vs_4_0, VShaderSimpleDraw()));
+		SetGeometryShader(ConstructGSWithSO( CompileShader( gs_4_0, GShaderSimpleDrawLine_MultiLine_2D() ), "SV_POSITION.xyzw;" )); //0: .. Ausgabe des 1. Geometry-Shader-Schrittes
+		//SetGeometryShader(ConstructGSWithSO( CompileShader( gs_4_0, GShaderSimpleDrawLine_TwoTriangles_2D() ), "SV_POSITION.xyzw;" )); //0: .. Ausgabe des 1. Geometry-Shader-Schrittes
+
+		//SetVertexShader(CompileShader(vs_4_0, VShaderSimpleDraw1()));
+		//SetGeometryShader ( NULL );
+
+
+		SetPixelShader(CompileShader(ps_4_0, PShaderSimpleDraw()));
+	}
+	pass P1
+	{
+		SetHullShader( NULL );
+		SetDomainShader( NULL );
+		
+		SetVertexShader(CompileShader(vs_4_0, VShaderSimpleDraw()));
+		SetGeometryShader(ConstructGSWithSO( CompileShader( gs_4_0, GShaderSimpleDrawLine_MultiLine_3D() ), "SV_POSITION.xyzw;" )); //0: .. Ausgabe des 1. Geometry-Shader-Schrittes
+		//SetGeometryShader(ConstructGSWithSO( CompileShader( gs_4_0, GShaderSimpleDrawLine_TwoTriangles_3D() ), "SV_POSITION.xyzw;" )); //0: .. Ausgabe des 1. Geometry-Shader-Schrittes
+
+		//SetVertexShader(CompileShader(vs_4_0, VShaderSimpleDraw1()));
+		//SetGeometryShader ( NULL );
+
+
+		SetPixelShader(CompileShader(ps_4_0, PShaderSimpleDraw()));
+	}
+}
+
+technique11 DrawPoint
+{
+	pass P0
+	{
+		SetHullShader( NULL );
+		SetDomainShader( NULL );
+
+		SetVertexShader(CompileShader(vs_4_0, VShaderSimpleDraw()));
+		SetGeometryShader(ConstructGSWithSO( CompileShader( gs_4_0, GShaderSimpleDrawPoint() ), "SV_POSITION.xyzw;" )); //0: .. Ausgabe des 1. Geometry-Shader-Schrittes
+		SetPixelShader(CompileShader(ps_4_0, PShaderSimpleDraw()));
+	}
+
+}

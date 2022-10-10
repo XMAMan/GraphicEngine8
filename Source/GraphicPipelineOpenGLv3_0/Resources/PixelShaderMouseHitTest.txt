@@ -1,0 +1,25 @@
+#version 330 core
+
+precision highp float;
+
+smooth in vec2 textcoord;
+
+layout(location = 0) out vec4 out_frag_color;
+
+uniform sampler2D Texture0;	// Farbtextur
+uniform sampler2D Texture1; // Bumpmap
+uniform int UseTexture0; 
+uniform int UseTexture1; 
+uniform int BlendingWithBlackColor;
+uniform vec4 color;
+uniform int MouseHitId;
+
+void main()
+{
+	vec4 objektColor = color * (1.0 - UseTexture0) + vec4(texture2D(Texture0, textcoord.xy)) * UseTexture0 * color;	
+
+	if (BlendingWithBlackColor == 1 && (objektColor.x + objektColor.y + objektColor.z) < 0.1) discard;
+
+	out_frag_color = vec4(MouseHitId / 255.0f, MouseHitId / 255.0f, MouseHitId / 255.0f, 1);
+	out_frag_color.y = (MouseHitId * 10) / 255.0f;
+}

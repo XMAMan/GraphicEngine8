@@ -1,0 +1,22 @@
+#version 330
+
+precision highp float;
+
+uniform mat4 ShadowMapMatrix[10];		//Position, Ausrichtung, Projektionsmatrix und beim Auslesen der ShadowMap Bias-Matrix (Für jede Lichtquelle eine Matrix)
+uniform int ShadowmappingTextureId;
+uniform mat3 TextureMatrix;
+
+layout (location = 0) in vec3 in_position;
+layout (location = 1) in vec3 in_normal;
+layout (location = 2) in vec3 in_tangent;
+layout (location = 3) in vec2 in_textcoord;
+
+out vec2 textcoord;
+out vec4 pos;
+
+void main() 
+{
+   gl_Position =  ShadowMapMatrix[ShadowmappingTextureId] * vec4(in_position,1);
+   pos = ShadowMapMatrix[ShadowmappingTextureId] * vec4(in_position,1);
+   textcoord = (TextureMatrix * vec3(in_textcoord.xy, 1)).xy;
+}

@@ -1,0 +1,84 @@
+struct LightStruct
+{
+	int LightCount;
+	vec3 LightPositions[10];
+	float ConstantAttenuation[10];
+	float LinearAttenuation[10];
+	float QuadraticAttenuation[10];
+	vec3 SpotDirection[10];			// Richtung bei Richtungslicht
+	float SpotCosCutoff[10];			// Wenn 180, dann Punktlicht in alle Richtung, sonst Richtungslicht
+	float SpotExponent[10];
+	float SpecularHighlightPowExponent;	//Glanzpunktgröße	
+};
+ 
+uniform LightStruct lightStruct;
+
+//---------------------------------------------------------------------------------------
+// Transforms a normal map sample to world space.
+//---------------------------------------------------------------------------------------
+vec3 NormalSampleToWorldSpace(vec3 normalMapSample, vec3 unitNormalW, vec3 tangentW)
+{    
+	// Uncompress each component from [0,1] to [-1,1].
+    vec3 normalT = 2.0f*normalMapSample - 1.0;    // Build orthonormal basis.
+    vec3 N = unitNormalW;
+    vec3 T = normalize(tangentW - dot(tangentW, N)*N);
+    vec3 B = normalize(cross(T, N));    
+	mat3 TBN = mat3(T, B, N);    // Transform from tangent space to world space.
+    vec3 bumpedNormalW = TBN * normalT;    
+	return normalize(bumpedNormalW);
+}
+
+vec4 GetIlluminatedColor(vec3 posWorld, vec3 normalVector, vec4 objektColor)
+{
+	vec4 finalColor = vec4(0,0,0,0);
+    for(int i=0; i < lightStruct.LightCount; i++) //Gehe durch alle Lichtquelle durch 
+    {
+		vec3 vLightDir = lightStruct.LightPositions[i].xyz - posWorld;
+		float dist = length(vLightDir);
+
+		float distanceFactor = 1.0 / (lightStruct.ConstantAttenuation[i]  +
+                                     lightStruct.LinearAttenuation[i] * dist +
+                                     lightStruct.QuadraticAttenuation[i] * dist * dist);
+
+		vLightDir = normalize(vLightDir);
+
+		float spot  = 1;
+        if (lightStruct.SpotCosCutoff[i] != -1) //Richtungslicht
+        {
+            spot = max(dot(normalize(lightStruct.SpotDirection[i].xyz), -vLightDir), 0);
+            if (spot < lightStruct.SpotCosCutoff[i]) spot = 0;
+            spot = pow(spot, lightStruct.SpotExponent[i]);
+        }
+		
+		float diffuseColor = max(dot(vLightDir, normalVector), 0);
+
+		vec3 toCamera = normalize((mat3(transpose(CameraMatrix)) * vec3(0,0,1)).xyz);
+		float specularColor = max(dot(toCamera, normalVector), 0); 
+		if (CullFaceIsEnabled == 0 && diffuseColor == 0) 
+		{
+			diffuseColor = max(dot(vLightDir, -normalVector), 0);
+			specularColor = max(dot(toCamera, -normalVector), 0); 
+		}
+
+		specularColor = pow(min(specularColor, 1.0), lightStruct.SpecularHighlightPowExponent); 
+		if (lightStruct.SpecularHighlightPowExponent == 0) specularColor = 0;
+
+		finalColor += clamp ( objektColor * 0.05 + distanceFactor * spot * (objektColor * 0.05 + diffuseColor*objektColor + specularColor * vec4(1,1,1,0)), 0, 1 ); 
+
+		//return vec4(vLightDir.x,vLightDir.y,vLightDir.z,1);
+		//return vec4(diffuseColor,diffuseColor,diffuseColor, 1);
+		//finalColor += vec4(normalVector.x,normalVector.y,normalVector.z,0);
+	}
+
+	return finalColor;
+}
+
+vec3 ReadBumpNormalFromTexture(vec2 textcoord)
+{
+	vec4 bumptex = vec4(texture2D(Texture1, textcoord.xy));
+	float acol = bumptex.a;
+	float rcol = bumptex.r;// / acol;
+	float gcol = bumptex.g;// / acol;
+	float bcol = bumptex.b;// / acol;
+	return clamp(vec3(rcol, gcol, bcol),0,1);
+}

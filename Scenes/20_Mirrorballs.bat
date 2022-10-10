@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe CreateImage ..\Data\20_Mirrorballs_json.txt -output 20_Mirrorballs.jpg -renderMod UPBP -tonemapping GammaOnly -sampleCount 50000 -width 800 -height 800 -saveFolder AutoSave

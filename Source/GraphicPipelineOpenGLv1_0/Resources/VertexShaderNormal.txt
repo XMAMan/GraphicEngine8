@@ -1,0 +1,82 @@
+#version 330 //-> Wenn ich dieses Attribut nutzen will, muss ich die Vertex-Attribut über layout-Location angeben
+
+// Vertex-Variablen (Vertexshader-Input)
+//attribute vec3 in_tangent;		//The inverse tangent to the geometry
+
+//Alter Weg der Texturattribut-Übergabe. Führt dazu gesamtes Dreieck nur eine Texturkoordiante hat.
+//attribute vec3 in_position;
+//attribute vec3 in_normal;
+//attribute vec3 in_tangent;
+//attribute vec3 in_textcoord;
+
+//Wenn man #version 330 nutzt. Geht nicht. Liefert ein weißes Bild 
+layout (location = 0) in vec3 in_position;
+layout (location = 1) in vec3 in_normal;
+layout (location = 2) in vec3 in_tangent;
+layout (location = 3) in vec2 in_textcoord;
+
+uniform mat4 ObjToClipMatrix;
+uniform mat4 ObjToWorldMatrix;
+uniform mat4 NormalMatrix;
+uniform mat4 ShadowMapMatrix[10];
+uniform float TexturScaleFaktorX;
+uniform float TexturScaleFaktorY;
+
+// Hinweis zum varying-Variablen: Alle Vary-Variblen, die im Vertexshader gesetzt werden, werden zusammen addiert(bei ein Dreieck also Summe aus 3 Vertexen) und diese Summe wird dann den Fragmentshader übergeben
+// VertexShader-Output / Pixelshader-Input
+//varying vec3 normal, posWorld, tangent;
+//varying vec4 ShadowCoord;
+
+//Wenn der Geometry-Shader einfach nur durchreicht
+//noperspective out vec3			Vnormal;
+//smooth out vec3					VposWorld;
+//noperspective out vec3			Vtangent;
+//smooth out vec2					Vtextcoord;
+//out vec4							VShadowCoord;
+
+//Wenn der Geometry-Shader alles macht
+noperspective out vec3			Vnormal;
+noperspective out vec3			Vtangent;
+smooth out vec2					Vtextcoord;
+
+
+
+void main() 
+{
+	//Ganz alt (Wenn man kein #version 330  nutzt und die vordefinierten sachen nutzt: gl_ModelViewProjectionMatrix,gl_Vertex,gl_Color  )
+	//gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;//ftransform(); 
+	//VposClip = gl_Position;
+	//gl_FrontColor = gl_Color;
+	//gl_TexCoord[0] = gl_TextureMatrix[0] * vec4(gl_MultiTexCoord0.x * TexturScaleFaktorX, gl_MultiTexCoord0.y * TexturScaleFaktorY, 0, 1);
+
+	//Transformiere von Objekt in Worldspace
+	//So würde man von Obj in EyeSpace transformieren: 
+	// gl_NormalMatrix = Transpose(Inverse(gl_ModelViewMatrix) -> ObjToEye-Space-Normalmatrix (Ist vordefiniert)
+	//Vnormal = normalize(mat3(NormalMatrix) * gl_Normal); 
+	//VposWorld = (ObjToWorldMatrix * gl_Vertex).xyz;
+	//Vtangent = normalize(mat3(NormalMatrix) * tangentVertex);
+	//VShadowCoord = ShadowMapMatrix[0] * gl_Vertex;
+
+	//Ganz neu (Wenn man #version 330 nutzt und der Geometry-Shader einfach nur durchreicht)
+	//gl_Position = ObjToClipMatrix * vec4(in_position.xyz, 1);	
+	//Vnormal = normalize(mat3(NormalMatrix) * in_normal); 
+	//VposWorld = (ObjToWorldMatrix * vec4(in_position.xyz, 1)).xyz;
+	//Vtangent = normalize(mat3(NormalMatrix) * in_tangent);
+	//Vtextcoord = vec2(in_textcoord.x * TexturScaleFaktorX, in_textcoord.y * TexturScaleFaktorY);
+	//VShadowCoord = ShadowMapMatrix[0] * vec4(in_position.xyz, 1);
+
+	//Ganz neu (Wenn man #version 330 nutzt und der Geometry-Shader die Matrizen-Operationen macht)
+	gl_Position = vec4(in_position.xyz, 1);	
+	Vnormal = in_normal;
+	Vtangent = in_tangent;
+	Vtextcoord = vec2(in_textcoord.x, in_textcoord.y);	
+
+
+	//Wenn man kein #version 330 nutzt und somit noch den alten Weg der Vertex-Attribut nutzt ohne aber vordefinierte Matrizen zu nehmen
+	//gl_Position = ObjToClipMatrix * vec4(gl_Vertex.xyz, 1);	
+	//normal = normalize(mat3(NormalMatrix) * gl_Normal); 
+	//posWorld = (ObjToWorldMatrix * vec4(gl_Vertex.xyz, 1)).xyz;
+	//tangent = normalize(mat3(NormalMatrix) * in_tangent);
+	//textcoord = vec2(gl_MultiTexCoord0.x * TexturScaleFaktorX, gl_MultiTexCoord0.y * TexturScaleFaktorY);
+	//ShadowCoord = ShadowMapMatrix[0] * vec4(gl_Vertex.xyz, 1);
+}

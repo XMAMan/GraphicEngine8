@@ -1,0 +1,27 @@
+//PixelShader Shadowmap-Creation New Way
+//#version 330 core
+ 
+smooth in vec2 textcoord;
+smooth in vec4 pos;
+
+// Ouput data
+//layout(location = 0) out float fragmentdepth; // Ausgabe landet im Framebuffer an Texutur 0 (sie landet NICHT in der Tiefenpuffertextur).
+											  // Dafür sorgt die Grafikpipline automatisch, sobald ein Pixel den Pixelshader ohne Discard verläßt. Welche Farbe er dabei hat ist egal.
+
+uniform sampler2D Texture0;	// Farbtextur
+uniform int UseTexture0; 
+uniform int BlendingWithBlackColor;
+uniform vec4 color;
+
+void main()
+{
+    vec4 objektColor = color * (1.0 - UseTexture0) + vec4(texture2D(Texture0, textcoord.xy)) * UseTexture0;	
+	if (BlendingWithBlackColor == 1 && (objektColor.x + objektColor.y + objektColor.z) < 0.1) discard;
+
+	gl_FragColor = objektColor;
+
+	// Not really needed, OpenGL does it anyway
+    //fragmentdepth = gl_FragCoord.z;				//Die Zeile kann auch auskommentiert werden. Sie schreibt nur in die Farbtextur. Die Tiefenpuffertextur kann über den Pixelshader nicht angesprochen werden (nur über Discard)
+
+	//gl_FragDepth = pos.z / pos.w; //gl_FragCoord.z;
+}

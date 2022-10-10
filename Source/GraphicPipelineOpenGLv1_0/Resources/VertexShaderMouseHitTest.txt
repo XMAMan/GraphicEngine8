@@ -1,0 +1,27 @@
+#version 330
+
+layout (location = 0) in vec3 in_position;
+layout (location = 1) in vec3 in_normal;
+layout (location = 2) in vec3 in_tangent;
+layout (location = 3) in vec2 in_textcoord;
+
+uniform mat4 ObjToClipMatrix;
+uniform mat4 ObjToWorldMatrix;
+uniform mat4 NormalMatrix;
+uniform mat4 ShadowMapMatrix[10];
+uniform float TexturScaleFaktorX;
+uniform float TexturScaleFaktorY;
+
+//Wenn der Geometry-Shader alles macht
+noperspective out vec3			Vnormal;
+noperspective out vec3			Vtangent;
+smooth out vec2					Vtextcoord;
+
+void main() 
+{
+	//Ganz neu (Wenn man #version 330 nutzt und der Geometry-Shader die Matrizen-Operationen macht)
+	gl_Position = vec4(in_position.xyz, 1);	
+	Vnormal = in_normal;
+	Vtangent = in_tangent;
+	Vtextcoord = vec2(in_textcoord.x, in_textcoord.y);	
+}

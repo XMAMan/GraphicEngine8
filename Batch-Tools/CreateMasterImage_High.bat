@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe MasterTest High -size 5 -dataFolder ..\Data\

@@ -1,0 +1,1 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe CreateImage ..\Data\02_NoWindowRoom_json.txt -output 02_NoWindowRoom_RadiosityNoInterpolation.jpg -renderMod RadiositySolidAngle -sampleCount 1 -width 1680 -height 988 -radiosityColorMode WithoutColorInterpolation -radiosityMaxAreaPerPatch 0,003

@@ -1,0 +1,114 @@
+// Nonnumeric values cannot be added to a cbuffer.
+Texture2D Texture0;					// Speichert die aktuell gesetzte Textur-ID. Wird mit m_effectPass vom HS in GraKa kopiert (Zum kopieren in den Shader)	-> Darf nicht im Constant-Buffer gespeichert werden
+Texture2D Texture1;					// Bumpmaptextur
+TextureCube CubeMapTexture;			// Cubemap für Reflektionen (Hier wird das Bild Y-Mäßig gespiegelt)
+Texture2DArray CubeMapArrayTexture; // Der Einsatz eines Texture2DArray erlaubt mir mein eigenes Cubemapping zu machen
+Texture2D ShadowTexture;			// Shadowmapping
+float4 CurrentColor;
+
+//http://alt.3dcenter.org/artikel/grafikfilter/ -> Was sind Texturfilter überhaupt?
+
+SamplerState SamplerStateTexture0;
+
+//Hinweis zu Texturfilter: Point bedeutet scharf. Linear unscharf.
+//Beispiel: MIN_LINEAR_MAG_MIP_POINT	-> Verkleinern unscharf, vergrößern und Mip-Level scharf
+SamplerState TextureFilterLinear
+{
+	//Filter, AddressU, AddressV, AddressW, MipLODBias, MaxAnisotropy, ComparisonFunc, BorderColor, MinLOD, MaxLOD -> https://msdn.microsoft.com/en-us/library/windows/desktop/bb323488(v=vs.85).aspx
+	Filter = MIN_MAG_MIP_LINEAR;// http://msdn.microsoft.com/de-de/library/windows/desktop/ff476132(v=vs.85).aspx
+	AddressU = Wrap; //Wrap = Repeat, Clamp = No Repeat
+	AddressV = Wrap;
+	AddressW = Wrap;
+};
+
+SamplerState TextureFilterPoint
+{
+	Filter = MIN_MAG_MIP_POINT; 
+	AddressU = Wrap;
+	AddressV = Wrap;
+	AddressW = Wrap;
+};
+
+SamplerState samAnisotropic
+{
+	Filter = ANISOTROPIC;
+	MaxAnisotropy = 4;
+
+	AddressU = WRAP;
+	AddressV = WRAP;
+};
+
+//Texturfilter zum auslesen der Shadowmap
+SamplerComparisonState samShadow
+{
+    Filter   = COMPARISON_MIN_MAG_LINEAR_MIP_POINT;
+    AddressU = BORDER;
+    AddressV = BORDER;
+    AddressW = BORDER;
+    //BorderColor = float4(0.0f, 0.0f, 0.0f, 0.0f);
+	BorderColor = float4(1.0f, 1.0f, 1.0f, 1.0f);
+
+    //ComparisonFunc = LESS;
+};
+
+cbuffer ConstantBufferMatrix			// -> Only numeric variables can be added to a cbuffer
+{
+	float4x4 WorldViewProj;				// Zum Transformieren in den Clipspace (=ObjToWorld * CameraMatrix * ProjectionMatrix)
+	float4x4 NormalMatrix;				// Zum Transformieren von Objekt-Normalen in World-Space (=Inverse-Tranpose von ObjToWorld)
+	float4x4 ObjToWorld;				// Zum Transformieren von Objektkoordianten in World-Space
+	float4x4 WorldToObj;				// Um die Shadow-Map im Pixelshader vom Parallaxmapping auszulesen (Man MUSS ein Objektspace-Punkt mit der ShadowMatrix multiplizieren)
+	float4x4 CameraMatrix;				// Wird beim Displacement-Mapping und bei der Berechunung des (0,0,1)-Vektors von Eye nach World benötigt
+	float4x4 ProjectionMatrix;			// Um beim Displacement-Mapping die im World-Space veränderten Vertice in den Clipspace zu transformieren
+	float4x4 ShadowMatrix;
+	float4x4 TextureMatrix;				//Eigentlich ist das eine 3x3-Matrix aber man darf bei DirectX anscheinend nur 4x4-Matrizen von außen reingeben
+};
+
+cbuffer ConstantBufferWindowSize			
+{
+	int WindowWidth;
+	int WindowHeight;
+};
+
+cbuffer ConstantBufferTexture
+{
+	bool UseTexture0;					// Werte: 0 .. Nutze keine Texturefabe. Nimm stattdessen die Farbe aus m_colorVariable. 1.. Nutze Farbe aus m_TexturID1
+	bool UseTexture1;					// Bumpmaptexture
+	bool UseCubemap;
+	bool UseShadowmap;					// Shadomapping
+	float TexturScaleFaktorX;
+	float TexturScaleFaktorY;
+};
+
+cbuffer ConstantBufferLight
+{
+	bool LightingIsEnabled;
+	int LightCount;						// Anzahl der Lichter
+	float4 LightPositions[10];			// Positionen in Eye-Koordinaten von allen Lichtquellen
+	float CONSTANT_ATTENUATIONS[10];	// Lichtabschwächungsfaktor für alle Lichtquellen
+	float LINEAR_ATTENUATIONS[10];
+	float QUADRATIC_ATTENUATIONS[10];
+	float4 LightDirections[10];			// Richtung bei Richtungslicht
+	float LightSpotCutoffs[10];			// Wenn 180, dann Punktlicht in alle Richtung, sonst Richtungslicht
+	float LightSpotExponents[10];
+	float SpecularHighlightPowExponent;	// Größe des Glanzpunktes
+	bool DoFlatShading;
+};
+
+cbuffer ConstantExplosionEffect
+{
+	bool ExplosionEffectIsEnabled;
+	float ExplosionsRadius;
+	int Time;
+};
+
+cbuffer ConstantBufferCommon
+{
+	float3 CameraPosition;				// Position der Kamera in Worldspace
+	bool BlendingBlackColor;
+	float TesselationFactor;			// 1.. Normale tesselation, um so größer, um so mehr Huckel entstehen
+	float HeighScaleFactor;				// um so größer, um so höher sind die Huckel
+	float LineWidth;					// Dicke der Linien
+	int PointWidth;						// Größe eines Pixels
+	bool CullFaceIsEnabled;				// Zweiseitig ja/nein
+	int MouseHitId;						// Die ObjektId, wenn der MouseHit-Test gemacht wird
+};
