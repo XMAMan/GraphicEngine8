@@ -3,6 +3,15 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# UnitTestResults Ignore all Files from UnitTestResults, ImageCreatorSaveFolder and SceneBatfiles
+Source/UnitTestResults/*
+!Source/UnitTestResults/ExpectedValues/
+!Source/UnitTestResults/ImageCreatorSaveFolder/
+Source/UnitTestResults/ImageCreatorSaveFolder/*
+!Source/UnitTestResults/MasterTestImages/
+!Source/UnitTestResults/SceneBatfiles/
+Source/UnitTestResults/SceneBatfiles/*
+
 # User-specific files
 *.rsuser
 *.suo
