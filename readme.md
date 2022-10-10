@@ -5,7 +5,7 @@ This is my hobby graphic-engine. I started 2006 with OpenGL-Games(2D / 3D) and 2
 Images
 ------
 
-![Stilllife](./ResultImages/Stilllife 50K.jpg)
+![Stilllife](./ResultImages/Stilllife_50K.jpg)
 Rendered with UPBP. Source from the scene: https://github.com/PetrVevoda/smallupbp/tree/master/scenes/stilllife
 ![Chessboard3](./ResultImages/Chessboard3.jpg)
 Depth of Field-Effect
