@@ -119,7 +119,7 @@ Usage
 -----
 * Open the Source/GraphicEngine8.sln-File with Vistual Studio 2019/2022 and Build to project
 	* Go to Common->Tools and mark this project as startproject
-	* Go to Settings->Debug->Arguments and paste SceneEditor ..\\..\\..\\..\\Data\\ ..\\SaveFolder
+	* Go to Settings->Debug->Arguments and paste SceneEditor ..\\..\\..\\..\\Data\\ SaveFolder
 	* Press Strg+F5 to start the Application
 	* Press 1,2,3,4 or 5 to create an image with OpenGL/DirectX/CPU-Rasterizer or the Raytracer
 * Batch-Tools/2DTest.bat -> Demoapplication for 2D-Graphics (OpgenGL, DirectX, CPU-Rasterizer) 

@@ -149,6 +149,7 @@ namespace Tools.Tools.SceneEditor
             //Wenn ich die Stillife-Szene mit 2000 Samples bei '160 * 2, 70 * 2' erzeuge, ist die frames.Dat-Datei 28Gb und die PixelRangeResult.txt 16 Gb groß. Renderzeit: 11 Stunden
             if (keyData == Keys.M)
             {
+                if (Directory.Exists("PixelRangeResult") == false) Directory.CreateDirectory("PixelRangeResult");
                 this.graphicPanel.StartImageAnalyser("PixelRangeResult",
                     //this.graphicPanel.Width, this.graphicPanel.Height, (result) =>
                     160*4, 70*4, new ImagePixelRange(new Point(17 * 4, 35 * 4), new Point(17 * 4 + 11, 35 * 4 + 10)), (result) => //Stillife Kerze RadianceWithGammaAndClamping = [106,121628;76,6627502;55,6862755] 
@@ -160,6 +161,10 @@ namespace Tools.Tools.SceneEditor
                     }
                 }, (error) => { this.raytracerException = error; });
             }
+
+            if (keyData == Keys.O) File.WriteAllText("Export.obj", this.graphicPanel.ExportToWavefront());
+            if (keyData == Keys.P) this.graphicPanel.GetScreenShoot().Save(@"ScreenShoot.bmp");
+            if (keyData == Keys.S) this.graphicPanel.SaveCurrentRaytracingDataToFolder();
 
             if (keyData == Keys.D6)
             {
@@ -203,9 +208,7 @@ namespace Tools.Tools.SceneEditor
             if (keyData == Keys.A) this.graphicPanel.GlobalSettings.ShadowsForRasterizer = GraphicMinimal.RasterizerShadowMode.Stencil;
             if (keyData == Keys.Y) this.graphicPanel.GlobalSettings.ShadowsForRasterizer = GraphicMinimal.RasterizerShadowMode.Shadowmap;
 
-            if (keyData == Keys.O) File.WriteAllText("Export.obj", this.graphicPanel.ExportToWavefront());
-            if (keyData == Keys.P) this.graphicPanel.GetScreenShoot().Save(@"ScreenShoot.bmp");
-            if (keyData == Keys.S) this.graphicPanel.SaveCurrentRaytracingDataToFolder();
+            
 
             if (keyData == Keys.Enter) this.graphicPanel.StopRaytracing();
 

@@ -53,10 +53,11 @@ namespace Tools
                     
                     break;
 
-                //Commandline-Arguments im VisualStudio: SceneEditor ..\..\..\..\Data\ ..\SaveFolder
+                //Commandline-Arguments im VisualStudio: SceneEditor ..\..\..\..\Data\ SaveFolder
                 case "SceneEditor":
                     {
                         var a = (parsed.ActionArgs as SceneEditorArgs);
+                        if (Directory.Exists(a.SaveFolder) == false) Directory.CreateDirectory(a.SaveFolder);
                         Application.Run(new SceneEditor(a.DataFolder, a.SaveFolder));
                     }
                     break;
