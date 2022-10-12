@@ -162,8 +162,7 @@ namespace TextureHelper
                 }
 
                 lastStepPoint = stepPoint;
-                stepPoint += stepDirection;
-                
+                stepPoint += stepDirection;                
             }
 
             Vector2D vFinalCoords = stepPoint.XY;

@@ -142,9 +142,8 @@ namespace TextureHelper
         //So hoch ist die Textur (Bei Höhe 0) im Worldspace
         private float GetTextureWorldHeigh(Triangle triangle)
         {
-            Matrix3x3 toRaw = Matrix3x3.Invert(this.textureMatrix);
-            var tex1 = (toRaw * new Vector3D(triangle.V[0].TextcoordVector, 1)).XY;
-            var tex2 = (toRaw * new Vector3D(triangle.V[1].TextcoordVector, 1)).XY;
+            var tex1 = triangle.V[0].TextcoordVector; //UV-Koordinaten ohne TexturMatrix-Transformation
+            var tex2 = triangle.V[1].TextcoordVector;
             float texDistance = (tex2 - tex1).Length();
             float worldDistance = (triangle.V[1].Position - triangle.V[0].Position).Length();
             float texHeighWorld = this.textureHeighFaktor * worldDistance / texDistance / this.textureScaleFaktorY;
@@ -185,7 +184,7 @@ namespace TextureHelper
             Size size = GetTextureSize();
 
             //Transformiere in den 0..1-Bereich
-            var tex01 = (visibleTexturMatrix * new Vector3D(tex.X, tex.Y, 1)).XY;
+            var tex01 = (this.visibleTexturMatrix * new Vector3D(tex.X, tex.Y, 1)).XY;
 
             float bias = 0.01f;
             if (tex01.X < bias || tex01.X > 1 - bias || tex01.Y < bias || tex01.Y > 1 - bias) return false;

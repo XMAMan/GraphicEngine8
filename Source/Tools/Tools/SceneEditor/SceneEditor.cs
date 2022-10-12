@@ -46,7 +46,7 @@ namespace Tools.Tools.SceneEditor
 
                 //Scenes.CreateSceneFiles(); return; //Immer wenn jemand in der Scenes-Klasse was geändert hat muss das hier gemacht werden
 
-                int testscene = 0; //Wähle hier aus, welche Scene angezeigt werden soll
+                int testscene = 15; //Wähle hier aus, welche Scene angezeigt werden soll
 
                 if (testscene == 0) Scenes.AddTestszene1_RingSphere(this.graphicPanel);
                 if (testscene == 1) Scenes.AddTestszene2_NoWindowRoom(this.graphicPanel);
@@ -84,7 +84,7 @@ namespace Tools.Tools.SceneEditor
                 if (testscene == 33) Scenes.AddTestszene27_MirrorsEdge(this.graphicPanel);
    
                 //...................
-                this.graphicPanel.Mode = Mode3D.Raytracer;
+                this.graphicPanel.Mode = Mode3D.RaytracerWithPointLights;
 
                 this.graphicPanel.GlobalSettings.SaveFolder = saveFolder;
                 //this.graphicPanel.GlobalSettings.AutoSaveMode = RaytracerAutoSaveMode.FullScreen;
