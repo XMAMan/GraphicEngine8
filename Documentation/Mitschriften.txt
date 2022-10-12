@@ -133,4 +133,3 @@ ToDo:
 -Wolken-Kanten-Problem lösen (Szene 22) this.graphicPanel.StartRaytracing(420, 328, new ImagePixelRange(new Point(309, 7), new Point(409,32)), (result) =>
 	-> Wenn man im ImageEditor die Helligkeit hochdreht und das Histo-Red aktiviert läßt, sie man noch deutlicher das Problem
 	-> Nicht die Kante sondern die Wolkenkugel sieht man (Aber nur den oberen Teil?)
--Für die ParallaxMapping-Klasse brauche ich noch eine Dokumentation mit Bildern
