@@ -11,7 +11,7 @@ Rendered with UPBP. Source from the scene: https://github.com/PetrVevoda/smallup
 Depth of Field-Effect
 ![China](./ResultImages/China100kVCM.jpg)
 Rendered with VCM.
-![PillarsOffice](./ResultImages/PillarsOffice_BeamTracer.jpg)
+![PillarsOffice](./Scenes/11_PillarsOffice.jpg)
 Scene with Godrays. 
 ![WaterBox](./ResultImages/WaterBox.JPG)
 WaterBox
