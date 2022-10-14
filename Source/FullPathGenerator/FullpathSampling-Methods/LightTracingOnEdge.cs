@@ -118,7 +118,7 @@ namespace FullPathGenerator
             SubPath lightPath = pointOnT.AssociatedPath;
 
             float cameraPdfW = this.rayCamera.GetPixelPdfW((int)pixelPosition.X, (int)pixelPosition.Y, connectData.CameraToLightPointDirection);
-            if (cameraPdfW == 0) return null;
+            if (cameraPdfW <= MagicNumbers.MinAllowedPdfW) return null;
 
             Vector3D pathContribution = Vector3D.Mult(pointOnT.PathWeight, connectData.LightBrdf.Brdf) * connectData.GeometryTerm / this.rayCamera.PixelCountFromScreen * cameraPdfW;
             pathContribution = Vector3D.Mult(pathContribution, connectData.AttenuationTerm);

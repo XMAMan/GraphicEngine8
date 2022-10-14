@@ -5,6 +5,7 @@ using SubpathGenerator;
 using GraphicGlobal;
 using RayCameraNamespace;
 using ParticipatingMedia.DistanceSampling;
+using RayTracerGlobal;
 
 namespace FullPathGenerator
 {
@@ -97,7 +98,7 @@ namespace FullPathGenerator
             SubPath lightPath = lightPoint.AssociatedPath;
 
             float cameraPdfW = this.rayCamera.GetPixelPdfW((int)pixelPosition.X, (int)pixelPosition.Y, connectData.CameraToLightPointDirection);
-            if (cameraPdfW == 0) return null;
+            if (cameraPdfW <= MagicNumbers.MinAllowedPdfW) return null;
 
             //Da beim Eye-Subpatherstellen die Division mit der Camera-PdfW fehlt, führt das implizit zur Muliplikattion mit der cameraPdfW beim Sampeln
             //Dieses Camera-PdfW-Pfadgewicht nennt man PixelFiler. D.h. ich multipliziere hier das Pfadgewicht eigentlich nicht mit der CameraPdfW
