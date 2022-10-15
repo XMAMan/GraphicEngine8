@@ -141,16 +141,21 @@ namespace RayCameraNamespace
             }
             else
             {
+                //Für Primärstrahlen mit Tiefenunschärfe werden zwei Punkte gesampelt: Ein Punkt auf der Bildebene/DepthOfFieldebene und ein CirclePunkt
+                
+                //DepthOfField-Punkt übers Bildebene-Sampeln bestimmen
                 Vector3D cameraSpaceDirection = CreatePrimaryRayDirectionInCameraSpace(x, y, rand);
                 Vector3D worldSpaceDirection = Vector3D.Normalize(this.frame.ToWorld(cameraSpaceDirection));
+                Vector3D pointOnDepthOfFieldPlane = this.Position + worldSpaceDirection * Math.Abs(this.distanceDephtOfFieldPlane);
 
-                Vector3D punktAufDeepOfFieldEbene = this.Position + worldSpaceDirection * Math.Abs(this.distanceDephtOfFieldPlane);
+                //CirclePoint über zufälliges Phi bestimmen
                 float doFFactor = 0.01f;//Um so mehr gegen 0, um so Schärfer ist das Bild, um so größer, um so mehr sieht man den Tiefenunschärfeeffekt
-                float startVerschiebungslänge = Math.Abs(this.distanceDephtOfFieldPlane) * doFFactor / Math.Abs(this.widthDephtOfField);
-                Vector3D startPoint = this.Position + Vector3D.Normalize(Vector3D.RotateVerticalDirectionAroundAxis(this.Up, this.Forward, (float)rand.NextDouble() * 360)) * startVerschiebungslänge;
-                cameraSpaceDirection = Vector3D.Normalize(punktAufDeepOfFieldEbene - startPoint);
+                float circleRadius = Math.Abs(this.distanceDephtOfFieldPlane) * doFFactor / Math.Abs(this.widthDephtOfField);
+                Vector3D circlePoint = this.Position + Vector3D.Normalize(Vector3D.RotateVerticalDirectionAroundAxis(this.Up, this.Forward, (float)rand.NextDouble() * 360)) * circleRadius;
 
-                return new Ray(startPoint, cameraSpaceDirection);
+                //Primärstrahl geht vom Circle-Punkt zum DepthOfField-Punkt
+                cameraSpaceDirection = Vector3D.Normalize(pointOnDepthOfFieldPlane - circlePoint);
+                return new Ray(circlePoint, cameraSpaceDirection);
             }
         }
 
@@ -233,6 +238,10 @@ namespace RayCameraNamespace
         public Vector2D GetPixelPositionFromEyePoint(Vector3D point)
         {
             if (this.DepthOfFieldIsEnabled) throw new Exception("LightTracing darf bei Tiefenunschärfe momentan nicht verwendet werden");
+            //Hinweis: Wenn ich ein Punkt auf der Bildebene für ein gegebenen Eye-Punkt finden will sind folgende Schritte nötig:
+            //1. Sample ein zufälligen Kreispunkt
+            //2. Gehe mit Strahl vom Kreispunkt über den Eyepoint bis zur DepthOfFieldEbene und bestimme den DoFPoint
+            //3. Gehe vom DoFPoint zum Kamera-Punkt und schaue wo auf der Bildebene dieser Strahl durchgeht. Das ist der gesuchte Punkt
 
             Vector3D toPointDirection = this.frame.ToLocal(Vector3D.Normalize(point - this.Position));
 

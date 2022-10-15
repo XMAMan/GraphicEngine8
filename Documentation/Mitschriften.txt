@@ -44,6 +44,7 @@ Ideen für Neues:
  Könnte man nicht eine Möglichkeit schaffen dass man immer 2 Lichtquellen pro Eye-Point auswählt: Vordere + Ein zufälliges Fenster?
 -.NET-Dlls mit Exe zusammenfassen ohne das Riesen-Costura.Fody (Ging bei Grafik7 ja auch) -> Mit ILMerge geht es zwar auch aber dann kann ich NewtsonSoft.Json nicht mehr verwenden. ILMerge und Newtonsoft.Json vertragen sich nicht!
 -Auf .NET Core 5.0 umstellen (Dort gibts die Single-Exe-Ausgabe schon so mit dabei) -> https://www.reddit.com/r/csharp/comments/hm8blc/single_exe_c_net_framework/
+-Lightracing um Tiefenunschärfe erweitern, indem bei GetPixelPositionFromEyePoint ein Kreispunkt gesamept wird
 
 Links:
 https://github.com/wjakob/pbrt-v3
