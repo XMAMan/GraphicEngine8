@@ -1021,7 +1021,8 @@ namespace Tools.Tools.SceneEditor
             }
 
             graphic.GetObjectByNameStartsWith("Fußboden").Color = new ColorFromTexture() { TextureFile = DataDirectory + "wood-floorboards-texture.jpg", TextureMatrix = Matrix3x3.Scale(2, 2) };
-            graphic.GetObjectByNameStartsWith("Fußboden").BrdfModel = BrdfModel.FresnelTile;
+            graphic.GetObjectByNameStartsWith("Fußboden").BrdfModel = BrdfModel.MicrofacetTile;
+            graphic.GetObjectByNameStartsWith("Fußboden").NormalSource = new NormalFromMicrofacet() { MicrofacetRoughness = new Vector2D(0.03f, 0.03f) };
             graphic.GetObjectByNameStartsWith("Fußboden").RefractionIndex = 1.5f;
             graphic.GetObjectByNameStartsWith("Fußboden").TileDiffuseFactor = 0.5f;
 

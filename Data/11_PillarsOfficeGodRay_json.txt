@@ -4875,8 +4875,15 @@
           "TextureMode": 1
         },
         "NormalSource": {
-          "$type": "GraphicMinimal.NormalFromObjectData, GraphicMinimal",
-          "Type": 0
+          "$type": "GraphicMinimal.NormalFromMicrofacet, GraphicMinimal",
+          "ConvertNormalMapFromColor": false,
+          "Type": 3,
+          "FileName": null,
+          "MicrofacetRoughness": [0.03, 0.03],
+          "RoughnessMap": null,
+          "TextureMatrix": "Ident()",
+          "TextureFilter": 0,
+          "TextureMode": 1
         },
         "NormalInterpolation": 1,
         "HasBillboardEffect": false,
@@ -4906,7 +4913,7 @@
         "MediaDescription": null,
         "MotionBlurMovment": null,
         "CreateQuads": false,
-        "BrdfModel": 7,
+        "BrdfModel": 16,
         "RefractionIndex": 1.5,
         "Albedo": 1.0,
         "SpecularAlbedo": 1.0,
@@ -5546,7 +5553,9 @@
       "HemicubeResolution": 30,
       "IlluminationStepCount": 10,
       "GenerateQuads": true,
-      "SampleCountForPatchDividerShadowTest": 40
+      "SampleCountForPatchDividerShadowTest": 40,
+      "UseShadowRaysForVisibleTest": true,
+      "VisibleMatrixFileName": null
     },
     "LightPickStepSize": 4
   },

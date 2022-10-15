@@ -503,7 +503,9 @@
       "HemicubeResolution": 30,
       "IlluminationStepCount": 10,
       "GenerateQuads": true,
-      "SampleCountForPatchDividerShadowTest": 40
+      "SampleCountForPatchDividerShadowTest": 40,
+      "UseShadowRaysForVisibleTest": true,
+      "VisibleMatrixFileName": null
     },
     "LightPickStepSize": 0
   },
