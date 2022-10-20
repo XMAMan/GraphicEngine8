@@ -1,6 +1,6 @@
 GraphicEngine8
 ==============
-This is my hobby graphic-engine. I started 2006 with OpenGL-Games(2D / 3D) and 2010 with Raytracing. The code basis for all these projects was previous version of this engine here. 
+This is my hobby graphic-engine. I started 2006 with OpenGL-Games(2D / 3D) and 2010 with Raytracing. This engine can be used for 2D- and 3D-Games using OpenGL, DirectX or CPU-Rasterisation. It has also a Raytracer supporting local- and global illumination.
 
 Images
 ------
@@ -108,6 +108,7 @@ Todo
 * Subsurface Scattering
 * Hairs / Fure
 * Collada File-Support
+* GPU-Usage for Raytracing
 
 Related work
 ------------
