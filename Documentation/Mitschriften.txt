@@ -131,6 +131,4 @@ CPU-Untersuchungen:
  Dell - 11th Gen Intel(R) Core(TM) i9 - 11950H @ 2.60GHz 2.61 GHz      -> 3 Sekunden
  
 ToDo:
--Wolken-Kanten-Problem lösen (Szene 22) this.graphicPanel.StartRaytracing(420, 328, new ImagePixelRange(new Point(309, 7), new Point(409,32)), (result) =>
-	-> Wenn man im ImageEditor die Helligkeit hochdreht und das Histo-Red aktiviert läßt, sie man noch deutlicher das Problem
-	-> Nicht die Kante sondern die Wolkenkugel sieht man (Aber nur den oberen Teil?)
+-Wolken-Kanten-Problem lösen (Szene 22) Siehe Documentation\Clouds-Error für aktuelle Überlegungen

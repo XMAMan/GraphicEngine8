@@ -69,7 +69,7 @@ namespace PdfHistogram
             List<FunctionToPlot> functions = new List<FunctionToPlot>();
             functions.Add(new FunctionToPlot() { Function = function, Color = Color.Blue, Text = "" });
             int width = 400, height = 300;
-            FunctionPlotter plotter = new FunctionPlotter(new SizeF(yValues.Length, minY), 0, yValues.Length, new Size(width, height));
+            FunctionPlotter plotter = new FunctionPlotter(new SizeF(yValues.Length, minY), 0, yValues.Length - 1, new Size(width, height));
 
             return plotter.PlotFunctions(functions, customText);
         }

@@ -7,6 +7,20 @@ namespace BitmapHelper
 {
     public static class ImageBufferHelper
     {
+        public static Vector3D[] GetRow(this ImageBuffer image, int y)
+        {
+            Vector3D[] row = new Vector3D[image.Width];
+            for (int x = 0; x < row.Length; x++) row[x] = image[x, y];
+            return row;
+        }
+
+        public static Vector3D[] GetColum(this ImageBuffer image, int x)
+        {
+            Vector3D[] col = new Vector3D[image.Height];
+            for (int y = 0; y < col.Length; y++) col[y] = image[x, y];
+            return col;
+        }
+
         //Es werden scaleFactor*scaleFactor Pixels zu ein neuen Pixel zusammen geführt
         public static ImageBuffer ScaleSizeDown(this ImageBuffer image, int scaleFactor, bool interpolate)
         {

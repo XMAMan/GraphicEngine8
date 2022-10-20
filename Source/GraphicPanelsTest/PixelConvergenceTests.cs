@@ -256,39 +256,6 @@ namespace GraphicPanelsTest
             Assert.IsTrue(d1/ d2  < 2, "Error="+error); //Die Farbdifferenz bei der Kante soll nicht mehr als doppelt so groß sein, wo die Differnz zwischen zwei Pixeln, welche direkt unter der Linie sind
         }
 
-        //Das blau vom Wolkenwürfel ist dunkler als vom Himmerl daneben
-        [TestMethod]
-        [Ignore] //Erstmal Ignor, da ich Wolken verändert habe und die Kante nun woanders liegt
-        public void CheckPixelColor_ThinMediaTracer_CloudsAtDay_CloudCube() //Misst die Farbdifferenz zwischen ein Pixel auf einer WOlken-Würfel-Kante und dem Himmel daneben
-        {
-            int sampleCount = 1000;
-            Vector3D c1 = GetPixelColor(TestScenes.TestSzene18_CloudsForTestImage, 420, 328, null, 100, 197, sampleCount, Mode3D.ThinMediaMultipleScattering).Sum() / sampleCount * 255; //Im Würfel liegend
-            Vector3D c2 = GetPixelColor(TestScenes.TestSzene18_CloudsForTestImage, 420, 328, null, 104, 198, sampleCount, Mode3D.ThinMediaMultipleScattering).Sum() / sampleCount * 255; //Neben Wüfel 1
-            Vector3D c3 = GetPixelColor(TestScenes.TestSzene18_CloudsForTestImage, 420, 328, null, 104, 195, sampleCount, Mode3D.ThinMediaMultipleScattering).Sum() / sampleCount * 255; //Neben Wüfel 2
-            float d1 = (c1 - c2).Length(); //So groß ist der Abstand zwischen Würfelkante und Himmel
-            float d2 = (c2 - c3).Length(); //So groß soll der Abstand maximal sein
-
-            float error = d1 / d2;
-            Assert.IsTrue(d1 / d2 < 2, "Error=" + error); //Die Farbdifferenz bei der Kante soll nicht mehr als doppelt so groß sein, wo die Differnz zwischen zwei Pixeln, welche direkt unter der Linie sind
-
-
-            /*int sampleCount = 1;
-            //70;154
-            List<float> colors = new List<float>();
-            for (int y=154;y < 164;y++)
-            {
-                //float color = GetPixelColor(TestbildGenerator.TestSzene25_CloudsForTestImage, Modus3D.ThinMediaMultipleScattering, 70, y, sampleCount);
-
-                List<Vector3D> colorValuesRaw = GetPixelColor(TestScenes.TestSzene18_CloudsForTestImage, 420, 328, null, 70, y, sampleCount, Mode3D.ThinMediaSingleScatteringBiased);
-                List<float> colorValues = colorValuesRaw.Select(x => x.Z).ToList();
-                float color = colorValues.Sum() / colorValues.Count;
-
-                colors.Add(color);
-            }
-
-            PdfHistogram.FunctionPlotter.PlotFloatArray(colors.ToArray(), 0.04f, "Blue").Save(WorkingDirectory + "Cload-Blue-Cube.bmp");*/
-        }
-
         [TestMethod]
         public void CheckPixelColor_Stilllife()
         {
