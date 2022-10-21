@@ -820,6 +820,7 @@ namespace Tools.Tools.SceneEditor
 
             graphic.GlobalSettings.Camera = new Camera(cameraStart, cameraDirection, 35);
 
+            graphic.GlobalSettings.CameraSamplingMode = PixelSamplingMode.Equal; //Tent-Sampling geht bei Tiefenunschärfe nicht
             graphic.GlobalSettings.Tonemapping = TonemappingMethod.None;
             graphic.GlobalSettings.SamplingCount = 1000;
             graphic.Mode = Mode3D.BidirectionalPathTracing; //Ich darf kein Verfahren nehmen, wo LightTracing dabei ist da ich Tiefenunschärfe verwende

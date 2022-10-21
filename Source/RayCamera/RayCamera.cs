@@ -44,7 +44,8 @@ namespace RayCameraNamespace
             : base(data.Camera.Position, data.Camera.Forward, data.Camera.Up, data.Camera.OpeningAngleY)
         {
             //Der PixelPdfW-Filter liefert viel zu kleine Zahlen bei der Tent-Tiefenunschärfe, da ein Primärstrahl aufeinmal viel zu weit weg vom PixelCenter entfernt ist
-            if (DepthOfFieldIsEnabled && data.SamplingMode == PixelSamplingMode.Tent) throw new Exception("Momentan darf der Tent-Filter bei Einsatz der Tiefenunschärfe nicht genutzt werden. Nutze den Equal-Filter so lange");
+            //Das sieht man, wenn man nur ein kleinen PixelRange rendert und Lighttracing nutzt. Durch den kleinen Bereich bekommt Lightracing eine größere Pdf und das Bild wird schwarz.
+            if (data.DepthOfFieldIsEnabled && data.SamplingMode == PixelSamplingMode.Tent) throw new Exception("Momentan darf der Tent-Filter bei Einsatz der Tiefenunschärfe nicht genutzt werden. Nutze den Equal-Filter so lange");
 
             this.SamplingMode = data.SamplingMode;
             this.screenWidth = data.ScreenWidth;
@@ -135,25 +136,25 @@ namespace RayCameraNamespace
                 Vector3D cameraSpaceDirection = CreatePrimaryRayDirectionInCameraSpace(x, y, rand);
                 Vector3D worldSpaceDirection = Vector3D.Normalize(this.frame.ToWorld(cameraSpaceDirection));
 
-                //GetPixelPdfW(x, y, worldSpaceDirection);
-
                 return new Ray(this.Position, worldSpaceDirection);
             }
             else
             {
-                //Für Primärstrahlen mit Tiefenunschärfe werden zwei Punkte gesampelt: Ein Punkt auf der Bildebene/DepthOfFieldebene und ein CirclePunkt
+                //Für Primärstrahlen mit Tiefenunschärfe werden zwei Punkte gesampelt: Ein Punkt auf der Bildebene/DepthOfFieldebene und der Kamerastartpunkt
                 
                 //DepthOfField-Punkt übers Bildebene-Sampeln bestimmen
                 Vector3D cameraSpaceDirection = CreatePrimaryRayDirectionInCameraSpace(x, y, rand);
                 Vector3D worldSpaceDirection = Vector3D.Normalize(this.frame.ToWorld(cameraSpaceDirection));
                 Vector3D pointOnDepthOfFieldPlane = this.Position + worldSpaceDirection * Math.Abs(this.distanceDephtOfFieldPlane);
 
-                //CirclePoint über zufälliges Phi bestimmen
+                //Ich nehme eine Lochkamera und bewege sie auf einer Kreisbahn. Durch diesen Bewegungsunschärfeeffekt von der Kamera entsteht die Tiefenunschärfe
+                float time = (float)rand.NextDouble();
+                //CirclePoint(KameraStart) über zufälliges Phi bestimmen
                 float doFFactor = 0.01f;//Um so mehr gegen 0, um so Schärfer ist das Bild, um so größer, um so mehr sieht man den Tiefenunschärfeeffekt
                 float circleRadius = Math.Abs(this.distanceDephtOfFieldPlane) * doFFactor / Math.Abs(this.widthDephtOfField);
-                Vector3D circlePoint = this.Position + Vector3D.Normalize(Vector3D.RotateVerticalDirectionAroundAxis(this.Up, this.Forward, (float)rand.NextDouble() * 360)) * circleRadius;
+                Vector3D circlePoint = this.Position + Vector3D.Normalize(Vector3D.RotateVerticalDirectionAroundAxis(this.Up, this.Forward, time * 360)) * circleRadius;
 
-                //Primärstrahl geht vom Circle-Punkt zum DepthOfField-Punkt
+                //Primärstrahl geht vom veränderten cameraStart-Punkt zum DepthOfField-Punkt
                 cameraSpaceDirection = Vector3D.Normalize(pointOnDepthOfFieldPlane - circlePoint);
                 return new Ray(circlePoint, cameraSpaceDirection);
             }
@@ -237,7 +238,6 @@ namespace RayCameraNamespace
 
         public Vector2D GetPixelPositionFromEyePoint(Vector3D point)
         {
-            if (this.DepthOfFieldIsEnabled) throw new Exception("LightTracing darf bei Tiefenunschärfe momentan nicht verwendet werden");
             //Hinweis: Wenn ich ein Punkt auf der Bildebene für ein gegebenen Eye-Punkt finden will sind folgende Schritte nötig:
             //1. Sample ein zufälligen Kreispunkt
             //2. Gehe mit Strahl vom Kreispunkt über den Eyepoint bis zur DepthOfFieldEbene und bestimme den DoFPoint

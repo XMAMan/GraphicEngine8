@@ -1202,7 +1202,7 @@
     "WidthDephtOfField": 1.43775606,
     "DepthOfFieldIsEnabled": true,
     "UseCosAtCamera": true,
-    "CameraSamplingMode": 2,
+    "CameraSamplingMode": 1,
     "SaveFolder": "",
     "AutoSaveMode": 0,
     "SamplingCount": 1000,

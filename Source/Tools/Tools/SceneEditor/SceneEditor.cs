@@ -44,9 +44,9 @@ namespace Tools.Tools.SceneEditor
             {
                 Scenes.DataDirectory = dataFolder;
 
-                //Scenes.CreateSceneFiles(); return; //Immer wenn jemand in der Scenes-Klasse was geändert hat muss das hier gemacht werden
+                Scenes.CreateSceneFiles(); return; //Immer wenn jemand in der Scenes-Klasse was geändert hat muss das hier gemacht werden
 
-                int testscene = 0; //Wähle hier aus, welche Scene angezeigt werden soll
+                int testscene = 11; //Wähle hier aus, welche Scene angezeigt werden soll
 
                 if (testscene == 0) Scenes.AddTestszene1_RingSphere(this.graphicPanel);
                 if (testscene == 1) Scenes.AddTestszene2_NoWindowRoom(this.graphicPanel);
@@ -84,16 +84,16 @@ namespace Tools.Tools.SceneEditor
                 if (testscene == 33) Scenes.AddTestszene27_MirrorsEdge(this.graphicPanel);
    
                 //...................
-                this.graphicPanel.Mode = Mode3D.Raytracer;
+                this.graphicPanel.Mode = Mode3D.BidirectionalPathTracing;
 
                 this.graphicPanel.GlobalSettings.SaveFolder = saveFolder;
                 //this.graphicPanel.GlobalSettings.AutoSaveMode = RaytracerAutoSaveMode.FullScreen; 
 
                 this.graphicPanel.GlobalSettings.Tonemapping = TonemappingMethod.None;
-                //this.graphicPanel.GlobalSettings.ThreadCount = 1;
-                this.graphicPanel.GlobalSettings.SamplingCount = 1;
+                this.graphicPanel.GlobalSettings.ThreadCount = 1;
+                this.graphicPanel.GlobalSettings.SamplingCount = 1000;
                 this.graphicPanel.GlobalSettings.PhotonCount = 60000;//100000
-                this.graphicPanel.GlobalSettings.RaytracerRenderMode = RaytracerRenderMode.SmallBoxes;
+                this.graphicPanel.GlobalSettings.RaytracerRenderMode = RaytracerRenderMode.Frame;
                 this.graphicPanel.GlobalSettings.PhotonmapPixelSettings = PhotonmapDirectPixelSetting.ShowPixelPhotons; //Einstellungen, wenn man Mode=PhotonmapPixel verwendet
                 //this.graphicPanel.GlobalSettings.MaxRenderTimeInSeconds = 9;
                 //this.graphicPanel.GlobalSettings.RecursionDepth = 3; //3 = Direktes Licht
@@ -108,7 +108,7 @@ namespace Tools.Tools.SceneEditor
                 this.graphicPanel.GlobalSettings.RadiositySettings.RadiosityColorMode = RadiosityColorMode.WithoutColorInterpolation;
                 
                 this.graphicPanel.GlobalSettings.ShadowsForRasterizer = RasterizerShadowMode.Shadowmap;
-                this.graphicPanel.GlobalSettings.CameraSamplingMode = PixelSamplingMode.Tent;
+                //this.graphicPanel.GlobalSettings.CameraSamplingMode = PixelSamplingMode.Tent;
                 //...................
 
                 //Wenn ein Fehler passiert ist, dann ersetze die xmlString-Zeile durch das, was in der Exception steht, um den Fehler im Debugger nachzustellen
@@ -133,8 +133,11 @@ namespace Tools.Tools.SceneEditor
             if (keyData == Keys.D5) { this.graphicPanel.Mode = Mode3D.Raytracer; this.graphicPanel.StartRaytracing();  }
             if (keyData == Keys.Space)
             {
-                this.graphicPanel.StartRaytracing(this.graphicPanel.Width, this.graphicPanel.Height, (result) =>
+                //this.graphicPanel.StartRaytracing(this.graphicPanel.Width, this.graphicPanel.Height, (result) =>
+                this.graphicPanel.StartRaytracing(336, 198, (result) =>
                 //this.graphicPanel.StartRaytracing(420, 328, new ImagePixelRange(new Point(309, 7), new Point(409,32)), (result) => //Szene 22 WolkenTagsüber -> Hier sieht man das Wolkenkantenproblem
+                //this.graphicPanel.StartRaytracing(1680, 987, new ImagePixelRange(new Point(643, 353), new Point(708, 409)), (result) => //Topf von der Schneemanszene -> Test für Tiefenunschärfe
+                //this.graphicPanel.StartRaytracing(1680, 987, new ImagePixelRange(new Point(382, 707), new Point(681, 804)), (result) => //Schneeplatte von der Schneemanszene -> Test für Tiefenunschärfe
                 //this.graphicPanel.StartRaytracingFromSubImage(new Bitmap("Fußboden.png"), (result) =>
                 {
                     if (result != null)
