@@ -44,9 +44,9 @@ namespace Tools.Tools.SceneEditor
             {
                 Scenes.DataDirectory = dataFolder;
 
-                Scenes.CreateSceneFiles(); return; //Immer wenn jemand in der Scenes-Klasse was geändert hat muss das hier gemacht werden
+                //Scenes.CreateSceneFiles(); return; //Immer wenn jemand in der Scenes-Klasse was geändert hat muss das hier gemacht werden
 
-                int testscene = 11; //Wähle hier aus, welche Scene angezeigt werden soll
+                int testscene = 0; //Wähle hier aus, welche Scene angezeigt werden soll
 
                 if (testscene == 0) Scenes.AddTestszene1_RingSphere(this.graphicPanel);
                 if (testscene == 1) Scenes.AddTestszene2_NoWindowRoom(this.graphicPanel);
@@ -84,7 +84,7 @@ namespace Tools.Tools.SceneEditor
                 if (testscene == 33) Scenes.AddTestszene27_MirrorsEdge(this.graphicPanel);
    
                 //...................
-                this.graphicPanel.Mode = Mode3D.BidirectionalPathTracing;
+                this.graphicPanel.Mode = Mode3D.Raytracer;
 
                 this.graphicPanel.GlobalSettings.SaveFolder = saveFolder;
                 //this.graphicPanel.GlobalSettings.AutoSaveMode = RaytracerAutoSaveMode.FullScreen; 
@@ -108,7 +108,7 @@ namespace Tools.Tools.SceneEditor
                 this.graphicPanel.GlobalSettings.RadiositySettings.RadiosityColorMode = RadiosityColorMode.WithoutColorInterpolation;
                 
                 this.graphicPanel.GlobalSettings.ShadowsForRasterizer = RasterizerShadowMode.Shadowmap;
-                //this.graphicPanel.GlobalSettings.CameraSamplingMode = PixelSamplingMode.Tent;
+                this.graphicPanel.GlobalSettings.CameraSamplingMode = PixelSamplingMode.Tent;
                 //...................
 
                 //Wenn ein Fehler passiert ist, dann ersetze die xmlString-Zeile durch das, was in der Exception steht, um den Fehler im Debugger nachzustellen
