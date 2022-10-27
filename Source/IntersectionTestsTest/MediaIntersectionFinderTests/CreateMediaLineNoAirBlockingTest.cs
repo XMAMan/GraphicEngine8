@@ -18,13 +18,14 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
     //2. Treffe Umgebungslicht nachdem Strahl durch AirCube geflogen ist
     //3. Verlasse die Scene ins Vacuum nachdem zwei Air-Cubes durchlaufen wurden
     //4. Gehe ohne Distanzsampling mit GlobalMedia durch zwei AirCubes und lande auf InfinityPoint
-    //5. Lande auf Partikel im Air-Cube und erzeuge LongRay
-    //6. Lande auf Glas-Rand
-    //7. Lande auf Diffuse-Surface
-    //8. Visible-Test zwischen Kamera und Partikel (MaxDistanz < Float.Max)
-    //9. Randfall-Segment zu kurz 1: Sample Distanz bis kurz vor MediaRand (Long-Ray-Segment geht verloren)
-    //10. Randfall-Segment zu kurz 2: Starte kurz vor MediaRand (Erstes Segment geht verloren)
-    //11. Randfall-Segment zu kurz 3: Durchlaufe Air-Objekt am Rand (Mittleres Segment geht verloren)
+    //5. Lande auf Partikel im Air-Cube und erzeuge LongRay mit ein Segment
+    //6. Lande auf Partikel im Air-Cube und erzeuge LongRay mit vielen Segmenten
+    //7. Lande auf Glas-Rand
+    //8. Lande auf Diffuse-Surface
+    //9. Visible-Test zwischen Kamera und Partikel (MaxDistanz < Float.Max)
+    //10. Randfall-Segment zu kurz 1: Sample Distanz bis kurz vor MediaRand (Long-Ray-Segment geht verloren)
+    //11. Randfall-Segment zu kurz 2: Starte kurz vor MediaRand (Erstes Segment geht verloren)
+    //12. Randfall-Segment zu kurz 3: Durchlaufe Air-Objekt am Rand (Mittleres Segment geht verloren)
 
     [TestClass]
     public class CreateMediaLineNoAirBlockingTest
@@ -69,31 +70,39 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         }
 
         [TestMethod]
-        public void CreateMediaLineNoAirBlocking_HitPartikelInSecondCube_Partikel()//5. Lande auf Partikel im Air-Cube und erzeuge LongRay
+        public void CreateMediaLineNoAirBlocking_HitPartikelInSecondCube_Partikel()//5. Lande auf Partikel im Air-Cube und erzeuge LongRay mit ein Segment
         {
-            MediaLine actual = CreateMediaAirLine(StartLocation.Camera, EndDistance.FloatMax, BlockingObject.AirCube, BlockingObject.AirCube, GlobalMedia.NoGlobalMedia, MediaIntersectionFinder.IntersectionMode.LongRayWithDistanceSampling, EnvironmentLight.Yes, DistanceValues.TwoOne);
+            MediaLine actual = CreateMediaAirLine(StartLocation.Camera, EndDistance.FloatMax, BlockingObject.AirCube, BlockingObject.AirCube, GlobalMedia.NoGlobalMedia, MediaIntersectionFinder.IntersectionMode.LongRayOneSegmentWithDistanceSampling, EnvironmentLight.Yes, DistanceValues.TwoOne);
             var expected = new ExpectedMediaLine(new S[] { new S(1, 0), new S(2, 0.1f), new S(1, 0), new S(1, 0.1f), new S(1, 0.1f) }, new P(6, 0.1f, MediaPointLocationType.MediaParticle, false));
             ExpectedMediaLine.CheckMediaLine(expected, actual);
         }
 
         [TestMethod]
-        public void CreateMediaLineNoAirBlocking_HitMediaBorderFromSecondCube_MediaBorder()//6. Lande auf Glas-Rand
+        public void CreateMediaLineNoAirBlocking_HitPartikelInFirstCube_Partikel()//6. Lande auf Partikel im Air-Cube und erzeuge LongRay mit vielen Segmenten
         {
-            MediaLine actual = CreateMediaAirLine(StartLocation.Camera, EndDistance.FloatMax, BlockingObject.AirCube, BlockingObject.GlasWithMedia, GlobalMedia.NoGlobalMedia, MediaIntersectionFinder.IntersectionMode.LongRayWithDistanceSampling, EnvironmentLight.Yes, DistanceValues.TwoOne);
+            MediaLine actual = CreateMediaAirLine(StartLocation.Camera, EndDistance.FloatMax, BlockingObject.AirCube, BlockingObject.AirCube, GlobalMedia.NoGlobalMedia, MediaIntersectionFinder.IntersectionMode.LongRayManySegmentsWithDistanceSampling, EnvironmentLight.Yes, DistanceValues.One);
+            var expected = new ExpectedMediaLine(new S[] { new S(1, 0), new S(1, 0.1f), new S(1, 0.1f), new S(1, 0), new S(2, 0.1f) }, new P(3, 0.1f, MediaPointLocationType.MediaParticle, false));
+            ExpectedMediaLine.CheckMediaLine(expected, actual);
+        }
+
+        [TestMethod]
+        public void CreateMediaLineNoAirBlocking_HitMediaBorderFromSecondCube_MediaBorder()//7. Lande auf Glas-Rand
+        {
+            MediaLine actual = CreateMediaAirLine(StartLocation.Camera, EndDistance.FloatMax, BlockingObject.AirCube, BlockingObject.GlasWithMedia, GlobalMedia.NoGlobalMedia, MediaIntersectionFinder.IntersectionMode.LongRayOneSegmentWithDistanceSampling, EnvironmentLight.Yes, DistanceValues.TwoOne);
             var expected = new ExpectedMediaLine(new S[] { new S(1, 0), new S(2, 0.1f), new S(1, 0) }, new P(5, 0, MediaPointLocationType.MediaBorder, false));
             ExpectedMediaLine.CheckMediaLine(expected, actual);
         }
 
         [TestMethod]
-        public void CreateMediaLineNoAirBlocking_HitSurfaceFromSecondCube_Surface()//7. Lande auf Diffuse-Surface
+        public void CreateMediaLineNoAirBlocking_HitSurfaceFromSecondCube_Surface()//8. Lande auf Diffuse-Surface
         {
-            MediaLine actual = CreateMediaAirLine(StartLocation.Camera, EndDistance.FloatMax, BlockingObject.AirCube, BlockingObject.Surface, GlobalMedia.NoGlobalMedia, MediaIntersectionFinder.IntersectionMode.LongRayWithDistanceSampling, EnvironmentLight.Yes, DistanceValues.TwoOne);
+            MediaLine actual = CreateMediaAirLine(StartLocation.Camera, EndDistance.FloatMax, BlockingObject.AirCube, BlockingObject.Surface, GlobalMedia.NoGlobalMedia, MediaIntersectionFinder.IntersectionMode.LongRayOneSegmentWithDistanceSampling, EnvironmentLight.Yes, DistanceValues.TwoOne);
             var expected = new ExpectedMediaLine(new S[] { new S(1, 0), new S(2, 0.1f), new S(1, 0) }, new P(5, 0, MediaPointLocationType.Surface, false));
             ExpectedMediaLine.CheckMediaLine(expected, actual);
         }
 
         [TestMethod]
-        public void CreateMediaLineNoAirBlocking_VisibleTestBetweenCameraAndParticle_Particle() //8. Visible-Test zwischen Kamera und Partikel (MaxDistanz < Float.Max)
+        public void CreateMediaLineNoAirBlocking_VisibleTestBetweenCameraAndParticle_Particle() //9. Visible-Test zwischen Kamera und Partikel (MaxDistanz < Float.Max)
         {
             MediaLine actual = CreateMediaAirLine(StartLocation.Camera, EndDistance.UpToParticle, BlockingObject.AirCube, BlockingObject.Nothing, GlobalMedia.NoGlobalMedia, MediaIntersectionFinder.IntersectionMode.NoDistanceSampling, EnvironmentLight.Yes, DistanceValues.Emtpy);
             var expected = new ExpectedMediaLine(new S[] { new S(1, 0), new S(1, 0.1f) }, new P(3, 0.1f, MediaPointLocationType.MediaParticle, false));
@@ -103,9 +112,9 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
 
         //Ich starte auf Partikel und sample eine Distanz, die ganz nah an den MediaBorder ranreicht. Dadurch kann das LongRay-Segment-Stück, was nach dem Partikel kommt nicht erstellt werden
         [TestMethod]
-        public void CreateMediaLineNoAirBlocking_StartOnParticleAndSampleDistanceNearBorder_LastSegmentFromLongRayIsMissing()//9. Randfall-Segment zu kurz 1: Sample Distanz bis kurz vor MediaRand (Long-Ray-Segment geht verloren)
+        public void CreateMediaLineNoAirBlocking_StartOnParticleAndSampleDistanceNearBorder_LastSegmentFromLongRayIsMissing()//10. Randfall-Segment zu kurz 1: Sample Distanz bis kurz vor MediaRand (Long-Ray-Segment geht verloren)
         {
-            MediaLine actual = CreateMediaAirLine(StartLocation.MediaParticle, EndDistance.FloatMax, BlockingObject.Nothing, BlockingObject.Nothing, GlobalMedia.NoGlobalMedia, MediaIntersectionFinder.IntersectionMode.LongRayWithDistanceSampling, EnvironmentLight.No, DistanceValues.NearOne);
+            MediaLine actual = CreateMediaAirLine(StartLocation.MediaParticle, EndDistance.FloatMax, BlockingObject.Nothing, BlockingObject.Nothing, GlobalMedia.NoGlobalMedia, MediaIntersectionFinder.IntersectionMode.LongRayOneSegmentWithDistanceSampling, EnvironmentLight.No, DistanceValues.NearOne);
             var expected = new ExpectedMediaLine(new S[] { new S(0.9995f, 0.1f) }, new P(0.9995f, 0.1f, MediaPointLocationType.MediaParticle, false));
             ExpectedMediaLine.CheckMediaLine(expected, actual);
         }
@@ -114,9 +123,9 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         //Ich springe also vom Partikel bis zum NullMediaBorder das kurze Stück ohne Segmenterstellung und von da treffe ich dann auf 
         //das Umgebungslicht. Meine MediaLine enthält also nur ein Segment (Vom Air-Border zur Lichtquelle). Hier muss dann gelten: LongRaySegmentCount==ShortRaySegmentCount
         [TestMethod]
-        public void CreateMediaLineNoAirBlocking_StartOnParticleNearBorder_ReturnNull() //10. Randfall-Segment zu kurz 2: Starte kurz vor MediaRand (Erstes Segment geht verloren)
+        public void CreateMediaLineNoAirBlocking_StartOnParticleNearBorder_ReturnNull() //11. Randfall-Segment zu kurz 2: Starte kurz vor MediaRand (Erstes Segment geht verloren)
         {
-            MediaLine actual = CreateMediaAirLine(StartLocation.MediaParticleNearBorder, EndDistance.FloatMax, BlockingObject.Nothing, BlockingObject.Nothing, GlobalMedia.NoGlobalMedia, MediaIntersectionFinder.IntersectionMode.LongRayWithDistanceSampling, EnvironmentLight.Yes, DistanceValues.NearOneFromNearBorder);
+            MediaLine actual = CreateMediaAirLine(StartLocation.MediaParticleNearBorder, EndDistance.FloatMax, BlockingObject.Nothing, BlockingObject.Nothing, GlobalMedia.NoGlobalMedia, MediaIntersectionFinder.IntersectionMode.LongRayOneSegmentWithDistanceSampling, EnvironmentLight.Yes, DistanceValues.NearOneFromNearBorder);
             
             //Anstatt zwei habe ich nur ein Segment, da das erste Segment vom Partikel bis zum MediaBorder fehlt da es zu kurz ist
             //Deswegen fängt Segment[0].RayMin auch nicht bei 0 sondern bei einer kleinen Zahl größer 0 an.
@@ -128,7 +137,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         }
 
         [TestMethod]
-        public void CreateMediaLineNoAirBlocking_GoThrougAirEdge_EdgeSegmentIsMissing() //11. Randfall-Segment zu kurz 3: Durchlaufe Air-Objekt am Rand (Mittleres Segment geht verloren)
+        public void CreateMediaLineNoAirBlocking_GoThrougAirEdge_EdgeSegmentIsMissing() //12. Randfall-Segment zu kurz 3: Durchlaufe Air-Objekt am Rand (Mittleres Segment geht verloren)
         {
             MediaLine actual = CreateMediaAirLine(StartLocation.CameraOnYNearOne, EndDistance.FloatMax, BlockingObject.AirSphere, BlockingObject.Surface, GlobalMedia.NoGlobalMedia, MediaIntersectionFinder.IntersectionMode.NoDistanceSampling, EnvironmentLight.Yes, DistanceValues.Emtpy);
 

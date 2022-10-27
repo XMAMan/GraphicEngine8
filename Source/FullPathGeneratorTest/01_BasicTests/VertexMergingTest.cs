@@ -164,7 +164,7 @@ namespace FullPathGeneratorTest.BasicTests
         [TestMethod]
         public void C_MediaLongRays_PathContributionSumForEachPathLengthCheck() //Test 5
         {
-            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, true);
+            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, true);
             var method = new PathSamplerFactory(testSzene).Create(SamplerEnum.VertexMerging);
 
             var expected = new PathContributionForEachPathSpace(WorkingDirectory + "ExpectedValues\\ExpectedValuesForPathSpaceRadianceWithMediaEqual.txt");

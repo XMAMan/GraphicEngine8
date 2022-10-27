@@ -37,7 +37,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_RayPastMediaCubeAndHitNothing_NullIsReturned() //1 Ohne Distancesampling; Ohne GlobalMedia; Es wurde kein Surface- oder Media-Objekte getroffen	-> Es wird null zurück gegeben
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.NoDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.NoDistanceSampling;
             var intersectionFinder = MediaIntersectionFinderTestHelper.CreateCubeRowOnXAxis(new List<Vector3D>() {
                 new Vector3D(0, 1, 0.1f),        //Media-Würfel mit X-Position = 0; Radius = 1; Mit Media
             }, 0).MediaIntersectionFinder;
@@ -51,7 +51,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_DistanceSamplingCreatesFloatMax_NullIsReturned() //2 Mit Distancesampling-Shortray;Mit GlobalMedia; Es wurde kein Surface- oder Media-Objekte getroffen; Distanzsmpler findet im Bereich des Strahls keine Partikel ung gibt Float.Max zurück -> Es wird null zurück gegeben
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.ShortRayWithDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.ShortRayWithDistanceSampling;
             Vector3D startPoint = new Vector3D(-2, 3, 0);
 
             var sut = MediaIntersectionFinderTestHelper.CreateCubeRowOnXAxis(new List<Vector3D>() {
@@ -72,7 +72,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_DistanceSamplingShortRayCreatesParticle_ParticleIsReturned() //3 Mit Distancesampling-Shortray;Mit GlobalMedia; Es wurde kein Surface- oder Media-Objekte getroffen; Distanzsmpler findet Partikel -> Es wird MediaPartikel und ein Segment zurück gegeben
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.ShortRayWithDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.ShortRayWithDistanceSampling;
             Vector3D startPoint = new Vector3D(-2, 3, 0);
 
             var sut = MediaIntersectionFinderTestHelper.CreateCubeRowOnXAxis(new List<Vector3D>() {
@@ -102,7 +102,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_NoDistanceSamplingInGlobalMedia_InfinityIsReturned() //4 Mit Distancesampling-LongRay;Mit GlobalMedia; Es wurde kein Surface- oder Media-Objekte getroffen; Distanzsmpler findet Partikel -> Es wird MediaPartikel und ein Segment zurück gegeben
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.LongRayWithDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.LongRayWithDistanceSampling;
             Vector3D startPoint = new Vector3D(-2, 3, 0);
 
             var sut = MediaIntersectionFinderTestHelper.CreateCubeRowOnXAxis(new List<Vector3D>() {
@@ -137,7 +137,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_NoDistanceSamplingGlobalMediaNoBlockingDistanceMax_ParticleIsReturned() //5 Ohne Distancesampling;Mit GlobalMedia;Es wurde kein Surface- oder Media-Objekte getroffen; -> Es wird Infinity-Punkt und ein Segment zurück gegeben
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.NoDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.NoDistanceSampling;
             Vector3D startPoint = new Vector3D(-2, 3, 0);
 
             var sut = MediaIntersectionFinderTestHelper.CreateCubeRowOnXAxis(new List<Vector3D>() {
@@ -167,7 +167,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_NoDistanceSamplingGlobalMediaNoBlockingDistanceNotMax_ParticleIsReturned() //6 Ohne Distancesampling;Mit GlobalMedia;MaxDistance < Max;Es wurde kein Surface- oder Media-Objekte getroffen; -> Es wird Partikel-Punkt und ein Segment zurück gegeben
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.NoDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.NoDistanceSampling;
             Vector3D startPoint = new Vector3D(-2, 3, 0);
 
             var sut = MediaIntersectionFinderTestHelper.CreateCubeRowOnXAxis(new List<Vector3D>() {
@@ -197,7 +197,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_DistanceSamplingShortRayCreatesParticle1_ParticleIsReturned() //7 Mit Distancesampling-Shortray;Innerhalb vom Medium;Distanzsampler bleibt vor MediaGrenze stecken -> Es wird MediaPartikel und ein Segment zurück gegeben
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.ShortRayWithDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.ShortRayWithDistanceSampling;
             Vector3D startPoint = new Vector3D(-3, 0, 0);
 
             var sut = MediaIntersectionFinderTestHelper.CreateCubeRowOnXAxis(new List<Vector3D>() {
@@ -226,7 +226,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_DistanceSamplingShortRayVeryShortDistanceSampling_ParticleIsReturned() //8 Mit Distancesampling-Shortray;Innerhalb vom Medium;Distanzsampler bleibt vor MediaGrenze stecken und kurz nach Start -> Es wird MediaPartikel und kein Segment (Segmentlänge zu kurz) zurück gegeben
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.ShortRayWithDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.ShortRayWithDistanceSampling;
             Vector3D startPoint = new Vector3D(-3, 0, 0);
 
             var sut = MediaIntersectionFinderTestHelper.CreateCubeRowOnXAxis(new List<Vector3D>() {
@@ -250,7 +250,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_DistanceSamplingLongRayCreatesParticle1_ParticleIsReturned() //9 Mit Distancesampling-LongRay;Innerhalb vom Medium;Distanzsampler bleibt vor MediaGrenze stecken -> Es wird MediaPartikel und zwei Segmente zurück gegeben
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.LongRayWithDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.LongRayWithDistanceSampling;
             Vector3D startPoint = new Vector3D(-3, 0, 0);
 
             var sut = MediaIntersectionFinderTestHelper.CreateCubeRowOnXAxis(new List<Vector3D>() {
@@ -284,7 +284,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_DistanceSamplingLongRayCreatesParticleToShortForNextBorder_ParticleIsReturned() //10 Mit Distancesampling-LongRay;Innerhalb vom Medium;Distanzsampler bleibt kurz vor MediaGrenze stecken -> Es wird MediaPartikel und ein Segmente zurück gegeben (Das zweite Segment ist zu kurz)
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.LongRayWithDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.LongRayWithDistanceSampling;
             Vector3D startPoint = new Vector3D(-3, 0, 0);
 
             var sut = MediaIntersectionFinderTestHelper.CreateCubeRowOnXAxis(new List<Vector3D>() {
@@ -313,7 +313,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_WatchOntoEarthFromAirSphere_OneSegmentIsReturned() //11 Ohne Distancesampling; Ohne GlobalMedia;Es wurde Surface aus Medium herraus getroffen -> Es wird SurfacePunkt und ein Segment zurück gegeben 
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.NoDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.NoDistanceSampling;
             var intersectionFinder = MediaIntersectionFinderTestHelper.CreateSphereRowOnXAxis(new List<Vector3D>() {
                 new Vector3D(0, 1, 0),        //Erde mit X-Position = 0; Radius = 1; Ohne Media
                 new Vector3D(0, 10, 0.1f)     //Himmel mit X-Position = 0; Radius = 10; Media mit ScatterCoeffizient = 0.1
@@ -337,7 +337,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_WatchOntoEarthFromGlobalMedia_OneSegmentIsReturned() //12 Ohne Distancesampling; Mit GlobalMedia;Es wurde Surface aus GlobalMedia herraus getroffen -> Es wird SurfacePunkt und ein Segment zurück gegeben 
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.NoDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.NoDistanceSampling;
             var intersectionFinder = MediaIntersectionFinderTestHelper.CreateSphereRowOnXAxis(new List<Vector3D>() {
                 new Vector3D(0, 1, 0),        //Erde mit X-Position = 0; Radius = 1; Ohne Media
             }, 0.2f).MediaIntersectionFinder;
@@ -360,7 +360,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_WatchIntoSkyFromEarth_OneSegmentIsReturned() //13 Ohne Distancesampling; Ohne GlobalMedia;Es wurde MediaBorder aus Medium herraus getroffen -> Es wird MediaBorder und ein Segment zurück gegeben
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.NoDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.NoDistanceSampling;
             var intersectionFinder = MediaIntersectionFinderTestHelper.CreateSphereRowOnXAxis(new List<Vector3D>() {
                 new Vector3D(0, 1, 0),        //Erde mit X-Position = 0; Radius = 1; Ohne Media
                 new Vector3D(0, 10, 0.1f)     //Himmel mit X-Position = 0; Radius = 10; Media mit ScatterCoeffizient = 0.1
@@ -385,7 +385,7 @@ namespace IntersectionTestsTest.MediaIntersectionFinderTests
         [TestMethod]
         public void GetIntersectionPoint_WatchIntoSkyFromSpace_OneSegmentIsReturned() //14 Ohne Distancesampling; Ohne GlobalMedia;Es wurde MediaBorder aus Vacuum herraus getroffen -> Es wird MediaBorder und ein Segment zurück gegeben
         {
-            var intersectionMode = MediaIntersectionFinder.IntersectionMode.NoDistanceSampling;
+            var intersectionMode = MediaIntersectionFinder.GetIntersectionPointMode.NoDistanceSampling;
             var intersectionFinder = MediaIntersectionFinderTestHelper.CreateSphereRowOnXAxis(new List<Vector3D>() {
                 new Vector3D(0, 1, 0),        //Erde mit X-Position = 0; Radius = 1; Ohne Media
                 new Vector3D(0, 10, 0.1f)     //Himmel mit X-Position = 0; Radius = 10; Media mit ScatterCoeffizient = 0.1

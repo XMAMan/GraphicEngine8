@@ -823,7 +823,7 @@ namespace Tools.Tools.SceneEditor
             graphic.GlobalSettings.CameraSamplingMode = PixelSamplingMode.Equal; //Tent-Sampling geht bei Tiefenunschärfe nicht
             graphic.GlobalSettings.Tonemapping = TonemappingMethod.None;
             graphic.GlobalSettings.SamplingCount = 1000;
-            graphic.Mode = Mode3D.BidirectionalPathTracing; //Ich darf kein Verfahren nehmen, wo LightTracing dabei ist da ich Tiefenunschärfe verwende
+            graphic.Mode = Mode3D.FullBidirectionalPathTracing; //Lighttracing ist erlaubt so lange ich Equal-Kamera-Sampling nutze
         }
 
         //Raum mit eckigen Säulen
@@ -1322,7 +1322,7 @@ namespace Tools.Tools.SceneEditor
 
             graphic.GlobalSettings.DepthOfFieldIsEnabled = true;
             graphic.GlobalSettings.CameraSamplingMode = PixelSamplingMode.Equal; //Tent-Sampling geht bei Tiefenunschärfe nicht
-            graphic.Mode = Mode3D.BidirectionalPathTracing; //Lighttracing verträgt sich nicht mit Tiefenunschärfe
+            graphic.Mode = Mode3D.FullBidirectionalPathTracing; //Lighttracing ist erlaubt so lange ich Equal-Kamera-Sampling nutze
 
             graphic.GlobalSettings.Camera = new Camera(cameraStart, cameraDirection, 20);
 

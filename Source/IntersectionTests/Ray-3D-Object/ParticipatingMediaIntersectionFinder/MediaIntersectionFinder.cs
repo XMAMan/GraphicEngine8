@@ -27,7 +27,8 @@ namespace IntersectionTests
         {
             NoDistanceSampling,             //Strahl geht bis zum nächsten Surface/Infinity oder MediaBorder-Punkt aber niemals auf MediaPartikel
             ShortRayWithDistanceSampling,   //In dem Medium, wo der Strahl startet, wird Distanzsampling gemacht und Surface/Mediaborder oder MediaPartikel zurück gegeben
-            LongRayWithDistanceSampling     //Suche nächsten Surfacepunkt/MediaInfinity/MediaBorder aber bleibe dann vielleicht irgendwo in der Mitte mit Distancesampling stecken
+            LongRayOneSegmentWithDistanceSampling,     //Suche nächsten Surfacepunkt/MediaInfinity/MediaBorder aber bleibe dann vielleicht irgendwo in der Mitte mit Distancesampling stecken
+            LongRayManySegmentsWithDistanceSampling //Suche per Distanzsampling Partikel und füge von dort über alle MediaAir-Borderpunkte hinausgehend alle restlichen Segmente noch an
         }
         private readonly IntersectionFinder intersectionFinder;
         private readonly IntersectionFinder mediaObjects;        //Für den GetMediaObjectPointIsInside()-Test
@@ -91,6 +92,8 @@ namespace IntersectionTests
         //Erzeugt eine MediaLine die vom Start-Punkt bis zum nächsten Partikel/Surface/Light/EnvironmentLight/Infinity-Punkt reicht (Wird für den SubPathSampler benötigt)
         public MediaLine CreateMediaLineNoAirBlocking(MediaIntersectionPoint startPoint, Vector3D direction, IRandom rand, IntersectionMode intersectionMode, float pathCreationTime, float maxDistance, IIntersectableEnvironmentLight light)
         {
+            var mode = TransformIntersectionMode(intersectionMode);
+
             MediaIntersectionPoint runningPoint = new MediaIntersectionPoint(startPoint);
 
             List<VolumeSegment> segments = new List<VolumeSegment>();
@@ -104,7 +107,7 @@ namespace IntersectionTests
                 {
                     maxiDistance = Math.Max(0, maxDistance - rayMin);
                 }
-                var result = this.GetIntersectionPoint(runningPoint, new Ray(runningPoint.Position, direction), runningPoint.SurfacePoint?.IntersectedObject, rand, intersectionMode, pathCreationTime, maxiDistance);
+                var result = this.GetIntersectionPoint(runningPoint, new Ray(runningPoint.Position, direction), runningPoint.SurfacePoint?.IntersectedObject, rand, mode, pathCreationTime, maxiDistance);
                 if (result == null)
                 {
                     if (light != null && light.ContainsEnvironmentLight)
@@ -138,25 +141,82 @@ namespace IntersectionTests
 
             if (segments.Any() == false) return null; //Wenn Partikel zu nah am Rand liegt, dann klappt VisibleTest nicht
 
-            if (intersectionMode == IntersectionMode.LongRayWithDistanceSampling)
+            if (intersectionMode == IntersectionMode.LongRayOneSegmentWithDistanceSampling || intersectionMode == IntersectionMode.LongRayManySegmentsWithDistanceSampling)
             {
-                //Das letzte Segment von der LongRay existiert nur dann, wenn es länger als MagicNumbers.MinAllowedPathPointDistance ist
-                //Nur dann gilt ShortRaySegmentCount ist eins kleiner als die LongRaySegmentCount. Ansonsten ist es gleich.
-
                 //Ein Longray-Segment kann nur existieren, wenn der Endpunkt auf ein Partikel liegt und der letzte GetIntersectionPoint-Aufruf zwei Segmente zurück gegeben hat
                 //Das wird er nur dann tun, wenn das Partikel zum MediaBorder-Eingangs- und Ausgangspunkt ein größeren Abstand als MagicNumbers.MinAllowedPathPointDistance hat
                 bool isThereAreSegmentAfterShortRayLength = lastSegmentCount == 2 && runningPoint.Location == MediaPointLocationType.MediaParticle;
+                int shortRaySegmentCount = segments.Count - (isThereAreSegmentAfterShortRayLength ? 1 : 0);
 
-                return MediaLine.CreateLongRayLine(new Ray(startPoint.Position, direction), startPoint, runningPoint, segments, segments.Count - (isThereAreSegmentAfterShortRayLength ? 1 : 0));
+                if (intersectionMode == IntersectionMode.LongRayManySegmentsWithDistanceSampling)
+                {
+                    //Ermittle noch alle restlichen Segmente innerhalb aller nachfolgenden AirMedias
+                    if (isThereAreSegmentAfterShortRayLength) segments.RemoveAt(segments.Count - 1);
+                    var runningExtra = new MediaIntersectionPoint(runningPoint);
+                    AddManyLongRaySegemnts(segments, maxDistance, runningExtra, new Ray(startPoint.Position, direction), rand, pathCreationTime);
+                }
+
+                return MediaLine.CreateLongRayLine(new Ray(startPoint.Position, direction), startPoint, runningPoint, segments, shortRaySegmentCount);
             }                
             else
                 return MediaLine.CreateShortRayLine(new Ray(startPoint.Position, direction), startPoint, runningPoint, segments);
         }
 
-        public MediaIntersectionPointResult GetIntersectionPoint(MediaIntersectionPoint startPoint, Ray ray, IIntersecableObject excludedObject, IRandom rand, IntersectionMode intersectionMode, float pathCreationTime, float maxDistance)
+        //Geht durch alle AirMedias durch und sucht nach nächsten Surface/Infinity-Punkt
+        private void AddManyLongRaySegemnts(List<VolumeSegment> segments, float maxDistance, MediaIntersectionPoint runningExtra, Ray ray, IRandom rand, float pathCreationTime)
         {
-            bool useDistanceSampling = intersectionMode == IntersectionMode.ShortRayWithDistanceSampling || intersectionMode == IntersectionMode.LongRayWithDistanceSampling;
-            bool createAllSegemntsToTheNextSurfacePointForLongRayCreation = intersectionMode == IntersectionMode.LongRayWithDistanceSampling;
+            for (int i = 0; i < 100; i++) //Verhindere Unendlichschleife
+            {
+                float maxiDistance = maxDistance;
+                if (maxDistance < float.MaxValue)
+                {
+                    float rayMin = (runningExtra.Position - ray.Start).Length();
+                    maxiDistance = Math.Max(0, maxDistance - rayMin);
+                }
+                var result = this.GetIntersectionPoint(runningExtra, new Ray(runningExtra.Position, ray.Direction), runningExtra.SurfacePoint?.IntersectedObject, rand, GetIntersectionPointMode.NoDistanceSampling, pathCreationTime, maxiDistance);
+                if (result == null) break;
+                runningExtra = new MediaIntersectionPoint(result.EndPoint);
+
+                float max = segments.Any() ? segments.Last().RayMax : 0;
+                foreach (var s in result.Segments)
+                {
+                    s.RayMin += max;
+                    s.RayMax += max;
+                    segments.Add(s);
+                }
+
+                bool isOnAirMediaBorder = result.EndPoint.Location == MediaPointLocationType.NullMediaBorder;
+                if (isOnAirMediaBorder) runningExtra.JumpToNextMediaBorder(result.EndPoint.SurfacePoint);
+
+                if (isOnAirMediaBorder == false) break;
+            }
+        }
+
+        private GetIntersectionPointMode TransformIntersectionMode(IntersectionMode mode)
+        {
+            switch(mode)
+            {
+                case IntersectionMode.NoDistanceSampling:
+                    return GetIntersectionPointMode.NoDistanceSampling;
+                case IntersectionMode.ShortRayWithDistanceSampling:
+                    return GetIntersectionPointMode.ShortRayWithDistanceSampling;
+                case IntersectionMode.LongRayOneSegmentWithDistanceSampling:
+                case IntersectionMode.LongRayManySegmentsWithDistanceSampling:
+                    return GetIntersectionPointMode.LongRayWithDistanceSampling;
+            }
+            throw new Exception("Unknown mode " + mode);
+        }
+
+        internal enum GetIntersectionPointMode
+        {
+            NoDistanceSampling,             //Strahl geht bis zum nächsten Surface/Infinity oder MediaBorder-Punkt aber niemals auf MediaPartikel
+            ShortRayWithDistanceSampling,   //In dem Medium, wo der Strahl startet, wird Distanzsampling gemacht und Surface/Mediaborder oder MediaPartikel zurück gegeben
+            LongRayWithDistanceSampling     //Suche nächsten Surfacepunkt/MediaInfinity/MediaBorder aber bleibe dann vielleicht irgendwo in der Mitte mit Distancesampling stecken
+        }
+        internal MediaIntersectionPointResult GetIntersectionPoint(MediaIntersectionPoint startPoint, Ray ray, IIntersecableObject excludedObject, IRandom rand, GetIntersectionPointMode intersectionMode, float pathCreationTime, float maxDistance)
+        {
+            bool useDistanceSampling = intersectionMode == GetIntersectionPointMode.ShortRayWithDistanceSampling || intersectionMode == GetIntersectionPointMode.LongRayWithDistanceSampling;
+            bool createSegmentFromParticleToNextIntersectionPoint = intersectionMode == GetIntersectionPointMode.LongRayWithDistanceSampling;
 
             var point = this.intersectionFinder.GetIntersectionPoint(ray, pathCreationTime, excludedObject, maxDistance);
 
@@ -176,7 +236,7 @@ namespace IntersectionTests
 
                     MediaIntersectionPointResult result = new MediaIntersectionPointResult() { EndPoint = sampledParticle, Segments = new List<VolumeSegment>() };
                     if (sampleResult.RayPosition >= MagicNumbers.MinAllowedPathPointDistance) result.Segments.Add(new VolumeSegment(ray, startPoint, sampleResult, 0, sampleResult.RayPosition));
-                    if (createAllSegemntsToTheNextSurfacePointForLongRayCreation) result.Segments.Add(new VolumeSegment(ray, sampledParticle, new RaySampleResult() { RayPosition = medialineLengthIfHittingNothing, PdfL = 1, ReversePdfL = 1 }, sampleResult.RayPosition, medialineLengthIfHittingNothing));
+                    if (createSegmentFromParticleToNextIntersectionPoint) result.Segments.Add(new VolumeSegment(ray, sampledParticle, new RaySampleResult() { RayPosition = medialineLengthIfHittingNothing, PdfL = 1, ReversePdfL = 1 }, sampleResult.RayPosition, medialineLengthIfHittingNothing));
                     return result;                    
                 }else //Kein Distanzsampling im GlobalMedia
                 {
@@ -206,7 +266,7 @@ namespace IntersectionTests
                     var sampledParticle = MediaIntersectionPoint.CreateMediaPoint(startPoint, ray.Start + ray.Direction * sampleResult.RayPosition, MediaPointLocationType.MediaParticle);
                     MediaIntersectionPointResult result = new MediaIntersectionPointResult() { EndPoint = sampledParticle, Segments = new List<VolumeSegment>() };
                     if (sampleResult.RayPosition >= MagicNumbers.MinAllowedPathPointDistance) result.Segments.Add(new VolumeSegment(ray, startPoint, sampleResult, 0, sampleResult.RayPosition));
-                    if (createAllSegemntsToTheNextSurfacePointForLongRayCreation)
+                    if (createSegmentFromParticleToNextIntersectionPoint)
                     {
                         float lengthFromSecondSegment = Math.Max(0, distanceToPoint - sampleResult.RayPosition);
                         if (lengthFromSecondSegment >= MagicNumbers.MinAllowedPathPointDistance) result.Segments.Add(new VolumeSegment(ray, startPoint, new RaySampleResult() { RayPosition = distanceToPoint, PdfL = 1, ReversePdfL = 1 }, sampleResult.RayPosition, distanceToPoint));

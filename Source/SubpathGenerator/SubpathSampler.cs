@@ -17,7 +17,8 @@ namespace SubpathGenerator
         None,
         NoMedia,
         ParticipatingMediaShortRayWithDistanceSampling,     //Erzeuge die Segmente nur bis zum Distanz-Samplepunkt
-        ParticipatingMediaLongRayWithDistanceSampling,      //Suche über den Distanz-Samplepunkt hinaus noch den nächsten Surface-Punkt und füge die Segmente noch mit dran (Line-Endpoint liegt somit in der Mitte von der Linie)
+        ParticipatingMediaLongRayOneSegmentWithDistanceSampling,      //Suche über den Distanz-Samplepunkt hinaus noch den nächsten Surface-Punkt und füge das Segment noch mit dran (Line-Endpoint liegt somit in der Mitte von der Linie)
+        ParticipatingMediaLongRayManySegmentsWithDistanceSampling,  //Suche per Distanzsampling Partikel und füge von dort über alle MediaAir-Borderpunkte hinausgehend alle restlichen Segmente noch an
         ParticipatingMediaWithoutDistanceSampling,
     }
 
@@ -66,16 +67,33 @@ namespace SubpathGenerator
                     return null;
                 case PathSamplingType.NoMedia:
                     return new StandardSubPathPointsSampler(data.IntersectionFinder, data.LightSourceSampler, data.MaxPathLength, data.BrdfSampler);
+                
+                //Media
                 case PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling:
-                    return new MediaSubPathPointsSampler(data.MediaIntersectionFinder, data.LightSourceSampler, data.MaxPathLength, MediaIntersectionFinder.IntersectionMode.ShortRayWithDistanceSampling, data.BrdfSampler, data.PhaseFunction, data.RayCamera);
-                case PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling:
-                    return new MediaSubPathPointsSampler(data.MediaIntersectionFinder, data.LightSourceSampler, data.MaxPathLength, MediaIntersectionFinder.IntersectionMode.LongRayWithDistanceSampling, data.BrdfSampler, data.PhaseFunction, data.RayCamera);
+                case PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling:
+                case PathSamplingType.ParticipatingMediaLongRayManySegmentsWithDistanceSampling:
                 case PathSamplingType.ParticipatingMediaWithoutDistanceSampling:
-                    return new MediaSubPathPointsSampler(data.MediaIntersectionFinder, data.LightSourceSampler, data.MaxPathLength, MediaIntersectionFinder.IntersectionMode.NoDistanceSampling, data.BrdfSampler, data.PhaseFunction, data.RayCamera);
+                    return new MediaSubPathPointsSampler(data.MediaIntersectionFinder, data.LightSourceSampler, data.MaxPathLength, TransformPathSamplingTypeToMediaMode(data.PathSamplingType), data.BrdfSampler, data.PhaseFunction, data.RayCamera);
             }
             throw new Exception("Unknown PathSamplingType " + data.PathSamplingType);
         }
-        
+
+        private static MediaIntersectionFinder.IntersectionMode TransformPathSamplingTypeToMediaMode(PathSamplingType type)
+        {
+            switch (type)
+            {
+                case PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling:
+                    return MediaIntersectionFinder.IntersectionMode.ShortRayWithDistanceSampling;
+                case PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling:
+                    return MediaIntersectionFinder.IntersectionMode.LongRayOneSegmentWithDistanceSampling;
+                case PathSamplingType.ParticipatingMediaLongRayManySegmentsWithDistanceSampling:
+                    return MediaIntersectionFinder.IntersectionMode.LongRayManySegmentsWithDistanceSampling;
+                case PathSamplingType.ParticipatingMediaWithoutDistanceSampling:
+                    return MediaIntersectionFinder.IntersectionMode.NoDistanceSampling;
+            }
+            throw new Exception($"Can not transform {type} to {nameof(MediaIntersectionFinder.IntersectionMode)}");
+        }
+
         public SubPath SamplePathFromCamera(int pixX, int pixY, IRandom rand)
         {
             var primaryRay = this.rayCamera.CreatePrimaryRay(pixX, pixY, rand);

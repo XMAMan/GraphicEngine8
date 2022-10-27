@@ -246,6 +246,11 @@ namespace GraphicMinimal
             return Math.Max(Math.Max(this.X, this.Y), this.Z);
         }
 
+        public Vector3D Abs()
+        {
+            return new Vector3D(Math.Abs(this.X), Math.Abs(this.Y), Math.Abs(this.Z));
+        }
+
         public float AbsMax()
         {
             return Math.Max(Math.Max(Math.Abs(this.X), Math.Abs(this.Y)), Math.Abs(this.Z));
@@ -274,6 +279,15 @@ namespace GraphicMinimal
         public Vector3D ToInt()
         {
             return new Vector3D((int)this.X, (int)this.Y, (int)this.Z);
+        }
+
+        public static Vector3D[] Diff(Vector3D[] list1, Vector3D[] list2)
+        {
+            if (list1.Length != list2.Length) throw new Exception("Both array must to be the same length");
+
+            Vector3D[] result = new Vector3D[list1.Length];
+            for (int i = 0; i < result.Length; i++) result[i] = (list1[i] - list2[i]).Abs();
+            return result;
         }
 
         //Rechte-Hand-Regel: v1 ist der Daum, v2 ist der Zeigefinger, Der Rückgabewert ist der Mittelfinger

@@ -57,7 +57,7 @@ namespace RaytracingLightSourceTest.Fullpathsampling
 
             var rayObjects = CreateRayObjects(lightsourceType, withMediaSphere);
             this.IntersectionFinder = PixelRadianceCreationHelper.CreateIntersectionFinder(rayObjects, null);
-            MediaIntersectionFinder mediaIntersectionFinder = pathSamplingType == PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling ? CreateMediaIntersectionFinder(rayObjects, withGlobalMedia) : null;
+            MediaIntersectionFinder mediaIntersectionFinder = pathSamplingType == PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling ? CreateMediaIntersectionFinder(rayObjects, withGlobalMedia) : null;
 
             this.LightSourceSampler = CreateLightSourceSampler(rayCamera, this.IntersectionFinder, mediaIntersectionFinder, rayObjects);
             

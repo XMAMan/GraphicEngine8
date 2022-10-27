@@ -42,7 +42,7 @@ namespace FullPathGeneratorTest
         public void SampleFullPaths_DirectLightingOnEdge_RadianceForEachPathSpaceCheck()
         {
             //Multiple Scattering
-            SkyTestSzene data = new SkyTestSzene(SubpathGenerator.PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            SkyTestSzene data = new SkyTestSzene(SubpathGenerator.PathSamplingType.ParticipatingMediaLongRayManySegmentsWithDistanceSampling);
             FullPathSampler fullPathSampler = new FullPathSampler(data.FullPathKonstruktorData, new FullPathSettings()
             {
                 UseDirectLightingOnEdge = true,

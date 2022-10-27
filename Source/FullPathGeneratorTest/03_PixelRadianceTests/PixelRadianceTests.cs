@@ -45,7 +45,7 @@ namespace FullPathGeneratorTest.PixelRadianceTests
         [TestMethod]
         public void UnbiasedMedia_WithMedia() //Test 7 (Pixelradiance)
         {
-            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling, true, PixelSamplingMode.Tent);
+            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayManySegmentsWithDistanceSampling, true, PixelSamplingMode.Tent);
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UsePathTracing = true,
@@ -75,7 +75,7 @@ namespace FullPathGeneratorTest.PixelRadianceTests
         {
             int photonenCount = 1000;
             
-            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, CreateMediaBox = true, PixelMode = PixelSamplingMode.Tent, PhotonenCount = photonenCount });
+            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, CreateMediaBox = true, PixelMode = PixelSamplingMode.Tent, PhotonenCount = photonenCount });
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UsePathTracing = true,

@@ -235,7 +235,7 @@ namespace FullPathGeneratorTest.MultipleImportanceTests
         [TestMethod]
         public void MediaLongRays_WithPathTracing() //Test 6 (Alle Verfahren als Summe mit MIS-Gewicht)
         {
-            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, true, PixelSamplingMode.Equal);
+            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, true, PixelSamplingMode.Equal);
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UsePathTracing = true,
@@ -257,7 +257,7 @@ namespace FullPathGeneratorTest.MultipleImportanceTests
         [TestMethod]
         public void MediaLongRays_WithDirectLighting() //Test 6 (Alle Verfahren als Summe mit MIS-Gewicht)
         {
-            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, true, PixelSamplingMode.Equal);
+            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, true, PixelSamplingMode.Equal);
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UseDirectLighting = true,
@@ -279,7 +279,7 @@ namespace FullPathGeneratorTest.MultipleImportanceTests
         [TestMethod]
         public void MediaLongRays_WithLightTracing() //Test 6 (Alle Verfahren als Summe mit MIS-Gewicht)
         {
-            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, true, PixelSamplingMode.Equal);
+            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, true, PixelSamplingMode.Equal);
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UseLightTracing = true,
@@ -301,7 +301,7 @@ namespace FullPathGeneratorTest.MultipleImportanceTests
         [TestMethod]
         public void MediaLongRays_WithDirectLightingOnEdge() //Test 6 (Alle Verfahren als Summe mit MIS-Gewicht)
         {
-            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, true, PixelSamplingMode.Equal);
+            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, true, PixelSamplingMode.Equal);
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UseDirectLightingOnEdge = true,
@@ -323,7 +323,7 @@ namespace FullPathGeneratorTest.MultipleImportanceTests
         [TestMethod]
         public void MediaLongRays_WithLightTracingOnEdge() //Test 6 (Alle Verfahren als Summe mit MIS-Gewicht)
         {
-            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, true, PixelSamplingMode.Equal);
+            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, true, PixelSamplingMode.Equal);
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UseLightTracingOnEdge = true,

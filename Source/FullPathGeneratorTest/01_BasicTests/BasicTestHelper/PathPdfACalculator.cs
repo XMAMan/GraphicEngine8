@@ -329,7 +329,10 @@ namespace FullPathGeneratorTest._01_BasicTests.BasicTestHelper
 
         private float GetPdfLForEyeDirection(FullPathPoint p1, FullPathPoint p2)
         {
-            bool useDistanceSampling = this.data.EyePathSamplingType == PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling || this.data.EyePathSamplingType == PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling;
+            bool useDistanceSampling =
+                this.data.EyePathSamplingType == PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling ||
+                this.data.EyePathSamplingType == PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling ||
+                this.data.EyePathSamplingType == PathSamplingType.ParticipatingMediaLongRayManySegmentsWithDistanceSampling;
 
             float pdfL = 1;
             if (this.data.SceneHasMedia)
@@ -345,7 +348,10 @@ namespace FullPathGeneratorTest._01_BasicTests.BasicTestHelper
 
         private float GetPdfLForLightDirection(FullPathPoint p1, FullPathPoint p2)
         {
-            bool useDistanceSampling = this.data.LightPathSamplingType == PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling || this.data.LightPathSamplingType == PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling;
+            bool useDistanceSampling =
+                this.data.LightPathSamplingType == PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling ||
+                this.data.LightPathSamplingType == PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling ||
+                this.data.LightPathSamplingType == PathSamplingType.ParticipatingMediaLongRayManySegmentsWithDistanceSampling;
 
             float pdfL = 1;
             if (this.data.SceneHasMedia)

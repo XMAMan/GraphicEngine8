@@ -69,7 +69,7 @@ namespace RaytracingMethods
                     subPathSettings = new SubPathSettings()
                     {
                         //UPBP
-                        EyePathType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling,
+                        EyePathType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling,
                         LightPathType = PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling,
                         MaxEyePathLength = maxLightPathLengthIsOne ? 1 : -1
                     };                    

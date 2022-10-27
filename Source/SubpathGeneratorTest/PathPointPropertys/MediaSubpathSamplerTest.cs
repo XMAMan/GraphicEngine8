@@ -455,7 +455,7 @@ namespace SubpathGeneratorTest.PathPointPropertys
                     ExpectedMediaPointsForDistanceSampling = new List<Vector3D>() { new Vector3D(-1, 0, 0) },
                     ScatteringCoeffizient = 0.1f
                 }),
-                SubpathGenerator.PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling,
+                SubpathGenerator.PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling,
                 null,
                 new DirectionSamplingMockData()
                 {
@@ -607,7 +607,7 @@ namespace SubpathGeneratorTest.PathPointPropertys
                     ScatteringCoeffizient = 0.1f
                 }
                 ),
-                SubpathGenerator.PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling,
+                SubpathGenerator.PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling,
                 null,
                 new DirectionSamplingMockData()
                 {

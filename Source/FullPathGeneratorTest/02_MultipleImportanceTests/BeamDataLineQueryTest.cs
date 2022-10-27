@@ -16,7 +16,7 @@ namespace FullPathGeneratorTest.MultipleImportanceTests
         public void Media_WithPathTracing() //Test 6 (Alle Verfahren als Summe mit MIS-Gewicht)
         {
             int photonenCount = 1000;            
-            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
+            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UsePathTracing = true,
@@ -38,7 +38,7 @@ namespace FullPathGeneratorTest.MultipleImportanceTests
         public void WithDistanceSampling_WithDirectLighting() //Test 6 (Alle Verfahren als Summe mit MIS-Gewicht)
         {
             int photonenCount = 1000;            
-            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
+            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UseDirectLighting = true,
@@ -61,7 +61,7 @@ namespace FullPathGeneratorTest.MultipleImportanceTests
         public void WithDistanceSampling_WithLighTracing() //Test 6 (Alle Verfahren als Summe mit MIS-Gewicht)
         {
             int photonenCount = 1000;            
-            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
+            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UseLightTracing = true,
@@ -84,7 +84,7 @@ namespace FullPathGeneratorTest.MultipleImportanceTests
         public void WithDistanceSampling_WithVertexConnection() //Test 6 (Alle Verfahren als Summe mit MIS-Gewicht)
         {
             int photonenCount = 1000;            
-            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
+            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UseVertexConnection = true,
@@ -106,7 +106,7 @@ namespace FullPathGeneratorTest.MultipleImportanceTests
         public void WithDistanceSampling_WithDirectLightingOnEdge() //Test 6 (Alle Verfahren als Summe mit MIS-Gewicht)
         {
             int photonenCount = 1000;            
-            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
+            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UseDirectLightingOnEdge = true,
@@ -128,7 +128,7 @@ namespace FullPathGeneratorTest.MultipleImportanceTests
         public void WithDistanceSampling_WithDirectPointDataPointQuery() //Test 6 (Alle Verfahren als Summe mit MIS-Gewicht)
         {
             int photonenCount = 10000;            
-            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
+            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UsePointDataPointQuery = true,
@@ -150,7 +150,7 @@ namespace FullPathGeneratorTest.MultipleImportanceTests
         public void WithDistanceSampling_WithPointDataBeamQuery() //Test 6 (Alle Verfahren als Summe mit MIS-Gewicht)
         {
             int photonenCount = 10000;            
-            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
+            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
             var fullPathSampler = PathContributionCalculator.CreateFullPathSampler(testSzene, new FullPathSettings()
             {
                 UsePointDataBeamQuery = true,

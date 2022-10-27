@@ -3,6 +3,7 @@ using GraphicMinimal;
 using ParticipatingMedia;
 using ParticipatingMedia.DistanceSampling;
 using ParticipatingMedia.Media;
+using RayTracerGlobal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -184,10 +185,15 @@ namespace IntersectionTests
             return CreateMediaSubLine(distanceToRayStart, true);
         }
 
-        //Gibt ein Teilstück von der Gesamtlinie zurück. distanceToRayStart muss kleiner als die ShortRayLength sein
+        //Gibt ein Teilstück von der Gesamtlinie zurück. distanceToRayStart muss kleiner als die ShortRayLength sein wenn man eine korrekte PdfL von allen Segmenten will
         //wenn keepRemainingSegmentsAfterDistanceToRayStartPoint, dann werden die restlichen Segmente, welcher nach dem distanceToRayStart auch noch beibehalten
         private MediaLine CreateMediaSubLine(float distanceToRayStart, bool keepRemainingSegmentsAfterDistanceToRayStartPoint)
         {
+            //Segment.RayMax errechnet sich über Distanzsampling und ShortRayLength über EndPoint-Start-Point-Distanz
+            //Wegen unterschiedlicher Rechnung kommt es zu kleinen Abweichung so dass ich hier noch +1 für die Kontrolle rechne
+            //Ich prüfe hier doch nicht, da DirectLightingOnEdge auch für LongRay-Segmente sampelt und dann selber die PdfL errechnet
+            //if (distanceToRayStart > this.ShortRayLength + 1) throw new ArgumentException($"{nameof(distanceToRayStart)} have to be smaller then {nameof(ShortRayLength)}");
+
             int i = 0;
             List<VolumeSegment> newSegments = new List<VolumeSegment>();
             while (distanceToRayStart > this.Segments[i].RayMax)

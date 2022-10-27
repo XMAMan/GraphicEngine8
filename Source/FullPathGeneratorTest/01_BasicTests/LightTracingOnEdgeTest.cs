@@ -24,7 +24,7 @@ namespace FullPathGeneratorTest.BasicTests
         public void A_LongRays_PathLengthOK_PathPdfA_PathContribution() //Test 1,2
         {
             //var testSzene = new BoxTestSzene(PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, true);
-            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling, CreateMediaBox = true, ScreenWidth = 30, ScreenHeight = 30, PixX = 10, PixY = 10, MaxPathLength = 20, ScatteringFromMedia = 15f, AnisotrophyCoeffizient = 0.5f });
+            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayManySegmentsWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling, CreateMediaBox = true, ScreenWidth = 30, ScreenHeight = 30, PixX = 10, PixY = 10, MaxPathLength = 20, ScatteringFromMedia = 15f, AnisotrophyCoeffizient = 0.5f });
             var method = new PathSamplerFactory(testSzene).Create(SamplerEnum.LightTracingOnEdge);
             var maxError = SinglePathCheck.ComparePathContributionWithGeometrySum(method, testSzene);
             //maxError = {EyePdfA=0; LightPdfA=0; GeometryTerm=2,08140838023071E-24}
@@ -43,7 +43,7 @@ namespace FullPathGeneratorTest.BasicTests
         [TestMethod]
         public void B_LongRays_PathPdfAMatchWithFunctionAndHistogramPdfA() //Test 3,4
         {
-            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, true);
+            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayManySegmentsWithDistanceSampling, true);
             var method = new PathSamplerFactory(testSzene).Create(SamplerEnum.LightTracingOnEdge);
             var result = PathPdfAHistogram.ComparePathPdfAWithFunctionPdfAAndHistogram(method, testSzene, testSzene.SampleCountForPathPdfACheck);
             result.Image.Save(WorkingDirectory + "DirectLightingOnEdgeWithDistanceSampling.bmp");
@@ -70,7 +70,7 @@ namespace FullPathGeneratorTest.BasicTests
         [TestMethod]
         public void C_LongRays_PathContributionSumForEachPathLengthCheck() //Test 5
         {
-            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, true);
+            var testSzene = new BoxTestScene(PathSamplingType.ParticipatingMediaLongRayManySegmentsWithDistanceSampling, true);
             var method = new PathSamplerFactory(testSzene).Create(SamplerEnum.LightTracingOnEdge);
 
             var expected = new PathContributionForEachPathSpace(WorkingDirectory + "ExpectedValues\\ExpectedValuesForPathSpaceRadianceWithMediaEqual.txt");

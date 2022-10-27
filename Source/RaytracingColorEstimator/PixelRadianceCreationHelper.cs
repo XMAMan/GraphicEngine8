@@ -69,7 +69,8 @@ namespace RaytracingColorEstimator
 
             MediaIntersectionFinder mediaIntersectionFinder = null;            
             if (subPathSettings.EyePathType == PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling || subPathSettings.LightPathType == PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling ||
-                subPathSettings.EyePathType == PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling || subPathSettings.LightPathType == PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling ||
+                subPathSettings.EyePathType == PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling || subPathSettings.LightPathType == PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling ||
+                subPathSettings.EyePathType == PathSamplingType.ParticipatingMediaLongRayManySegmentsWithDistanceSampling || subPathSettings.LightPathType == PathSamplingType.ParticipatingMediaLongRayManySegmentsWithDistanceSampling ||
                 subPathSettings.EyePathType == PathSamplingType.ParticipatingMediaWithoutDistanceSampling || subPathSettings.LightPathType == PathSamplingType.ParticipatingMediaWithoutDistanceSampling)
             {
                 var globalMedia = new ParticipatingMediaBuilder().CreateGlobalMedia(data.GlobalObjektPropertys.GlobalParticipatingMedia);

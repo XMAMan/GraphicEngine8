@@ -26,7 +26,7 @@ namespace FullPathGeneratorTest.BasicTests
         public void A_WithDistanceSampling_PathLengthOK_PathPdfA_PathContribution() //Test 1,2
         {
             int photonenCount = 1000;            
-            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, CreateMediaBox = true, ScreenWidth = 30, ScreenHeight = 30, PixX = 10, PixY = 10, MaxPathLength = 20, ScatteringFromMedia = 15f, AnisotrophyCoeffizient = 0.5f , PhotonenCount = photonenCount });
+            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, CreateMediaBox = true, ScreenWidth = 30, ScreenHeight = 30, PixX = 10, PixY = 10, MaxPathLength = 20, ScatteringFromMedia = 15f, AnisotrophyCoeffizient = 0.5f , PhotonenCount = photonenCount });
             var method = new PathSamplerFactory(testSzene).Create(SamplerEnum.BeamDataLineQuery);
             var maxError = SinglePathCheck.ComparePathContributionWithGeometrySum(method, testSzene, 1000);
             //maxError = {EyePdfA=0; LightPdfA=0; GeometryTerm=5,66218891684057E-12}
@@ -47,7 +47,7 @@ namespace FullPathGeneratorTest.BasicTests
         public void B_WithDistanceSampling_PathPdfAMatchWithFunctionAndHistogramPdfA() //Test 3,4
         {
             int photonenCount = 1000;            
-            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
+            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
             var method = new PathSamplerFactory(testSzene).Create(SamplerEnum.BeamDataLineQuery);
             var result = PathPdfAHistogram.ComparePathPdfAWithFunctionPdfAAndHistogram(method, testSzene, testSzene.SampleCountForPathPdfACheck / 10);
             result.Image.Save(WorkingDirectory + "BeamDataLineQuery2.bmp");
@@ -71,7 +71,7 @@ namespace FullPathGeneratorTest.BasicTests
         public void C_WithDistanceSampling_PathContributionSumForEachPathLengthCheck() //Test 5
         {
             int photonenCount = 1000;            
-            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
+            var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, CreateMediaBox = true, PhotonenCount = photonenCount });
             var method = new PathSamplerFactory(testSzene).Create(SamplerEnum.BeamDataLineQuery);
 
             var expected = new PathContributionForEachPathSpace(WorkingDirectory + "ExpectedValues\\ExpectedValuesForPathSpaceRadianceWithMediaEqual.txt");

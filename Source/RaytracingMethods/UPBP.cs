@@ -18,7 +18,7 @@ namespace RaytracingMethods
             this.pixelRadianceCalculator = PixelRadianceCreationHelper.CreatePixelRadianceCalculator(data,
                 new SubPathSettings()
                 {
-                    EyePathType = PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling,
+                    EyePathType = PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling,
                     LightPathType = PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling
                 },
                 new FullPathSettings()

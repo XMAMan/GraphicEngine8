@@ -122,7 +122,7 @@ namespace FullPathGenerator
 
             Vector3D pathContribution = Vector3D.Mult(pointOnT.PathWeight, connectData.LightBrdf.Brdf) * connectData.GeometryTerm / this.rayCamera.PixelCountFromScreen * cameraPdfW;
             pathContribution = Vector3D.Mult(pathContribution, connectData.AttenuationTerm);
-            double pathPdfA = pointOnT.PdfA * pdfForSamplingT * this.rayCamera.PixelCountFromScreen;
+            double pathPdfA = lightPoint.PdfA * lightPoint.BrdfSampleEventOnThisPoint.PdfW * pdfForSamplingT * this.rayCamera.PixelCountFromScreen;
 
             var points = new FullPathPoint[pointOnT.Index + 2];
             double eyePdfA = 1;
@@ -195,9 +195,8 @@ namespace FullPathGenerator
             //t liegt zwischen den Segmenten ti und (ti+1)
             float pdfForSamplingT = segments[ti].Media.DistanceSampler.GetSamplePdfFromRayMinToRayMax(segments[ti].Ray, segments[ti].RayMin, segments[ti + 1].RayMax, segments[ti].RayMax).PdfL;
 
-            double lightPointPdfA = path.Points[2].LightPdfA;
-            double pointOnTPdfA = PdfHelper.PdfWToPdfAOrV(path.Points[2].LightPdfWOnThisPoint, path.Points[2].Point, path.Points[1].Point);
-            return lightPointPdfA * pointOnTPdfA * pdfForSamplingT * this.rayCamera.PixelCountFromScreen;
+            var lightPoint = path.Points[2];
+            return lightPoint.LightPdfA * lightPoint.LightPdfWOnThisPoint * pdfForSamplingT * this.rayCamera.PixelCountFromScreen;
         }
     }
 }

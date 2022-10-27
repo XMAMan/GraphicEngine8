@@ -35,7 +35,7 @@ namespace UnitTestHelper
             return errorImage;
         }
 
-        public static bool CompareTwoBitmaps(Bitmap img1, Bitmap img2)
+        public static bool CompareTwoBitmaps(Bitmap img1, Bitmap img2, bool throwException = true)
         {
             if (img1.Width != img2.Width || img1.Height != img2.Height) throw new Exception($"img1.Width={img1.Width}, img1.Height={img1.Height} <-> img2.Width={img2.Width}, img2.Height={img2.Height}");
 
@@ -65,7 +65,7 @@ namespace UnitTestHelper
                     }
                 }
 
-            if (errors.Count > maxPixelCount)
+            if (throwException && errors.Count > maxPixelCount)
             {
                 errorImage.Save(UnitTestHelper.FilePaths.WorkingDirectory + "ErrorImage.bmp");
                 throw new Exception($"ErrorCount={errors.Count}");

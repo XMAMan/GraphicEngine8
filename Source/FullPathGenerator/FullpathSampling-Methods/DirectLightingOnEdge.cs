@@ -134,7 +134,7 @@ namespace FullPathGenerator
 
 
                 PathPoint pointOnT = PathPoint.CreateMediaParticlePoint(subLine.EndPoint, pathweightOnPointT);
-                pointOnT.PdfA = eyePoint.PdfA * pdfForSamplingT * PdfHelper.PdfWToPdfAOrV(eyePoint.BrdfSampleEventOnThisPoint.PdfW, eyePoint, pointOnT);
+                pointOnT.PdfA = eyePoint.PdfA * pdfForSamplingT * eyePoint.BrdfSampleEventOnThisPoint.PdfW;
                 pointOnT.AssociatedPath = eyePoint.AssociatedPath;
                 pointOnT.Predecessor = eyePoint;
 
@@ -144,7 +144,7 @@ namespace FullPathGenerator
                 pointOnT.LineToNextPoint = connectData.LineFromEyePointToLightSource;
 
                 //Der LightPoint, welcher durch den Visible-Test erzeugt wurde liegt nicht exakt dort, wo der gesampelte LightPoint liegt. Deswegen kommt es zu PdfA-Abweichungen/MIS-OutOfRange-Exception. Hiermit vermeide ich diesen Fehler.
-                double directLightingPdfA = this.lightSourceSampler.GetDirectLightingPdfA(subLine.EndPoint.Position, connectData.LightPoint, eyePoint.AssociatedPath.PathCreationTime);
+                double directLightingPdfA = this.lightSourceSampler.GetDirectLightingPdfA(pointOnT.Position, connectData.LightPoint, eyePoint.AssociatedPath.PathCreationTime);
                 if (directLightingPdfA == 0) continue;
 
                 var path = CreatePath(new PathPoint(eyePoint) { LineToNextPoint = subLine }, pointOnT, connectData, directLightingPdfA);
@@ -233,9 +233,8 @@ namespace FullPathGenerator
                 pdfForSamplingT = 1;
             }
 
-            double eyePointPdfA = path.Points[path.Points.Length - 3].EyePdfA;
-            double pointOnTPdfA = PdfHelper.PdfWToPdfAOrV(path.Points[path.Points.Length - 3].EyePdfWOnThisPoint, path.Points[path.Points.Length - 3].Point, path.Points[path.Points.Length - 2].Point);
-            return eyePointPdfA * pointOnTPdfA * directLightingPdfA * pdfForSamplingT * this.stepsPerSegment;
+            var eyePoint = path.Points[path.Points.Length - 3];
+            return eyePoint.EyePdfA * eyePoint.EyePdfWOnThisPoint * directLightingPdfA * pdfForSamplingT * this.stepsPerSegment;
         }
     }
 }

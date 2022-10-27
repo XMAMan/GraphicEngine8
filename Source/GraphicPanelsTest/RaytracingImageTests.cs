@@ -61,7 +61,7 @@ namespace GraphicPanelsTest
 
                 //SingleScattering
                 GetSkyImage(Mode3D.ThinMediaSingleScattering, samplingCount * 8, width, height),
-                GetSkyImage(Mode3D.ThinMediaSingleScatteringBiased, samplingCount, width, height)
+                GetSkyImage(Mode3D.ThinMediaSingleScatteringBiased, 1, width, height)
             };
             Bitmap result = BitmapHelp.TransformBitmapListToRow(images);
             result.Save(WorkingDirectory + "SkyCompare.bmp");
@@ -75,14 +75,14 @@ namespace GraphicPanelsTest
         private Bitmap GetSkyImage(Mode3D mode, int samplingCount, int width, int height)
         {
             GraphicPanel3D graphic = new GraphicPanel3D() { Width = width, Height = height };
-
+            TestScenes.AddTestszene_SkyMedia(graphic, 50);
             graphic.Mode = mode;
             graphic.GlobalSettings.SamplingCount = samplingCount;
             //graphic.GlobalSettings.ThreadCount = 1;
             graphic.GlobalSettings.PhotonCount = 1;
             graphic.GlobalSettings.RecursionDepth = 7;
             graphic.GlobalSettings.BackgroundImage = "#000000";
-            TestScenes.AddTestszene_SkyMedia(graphic, 50);
+            
             Bitmap image = graphic.GetRaytracingImageSynchron(graphic.Width, graphic.Height).Bitmap;
             return BitmapHelp.WriteToBitmap(image, mode.ToString(), Color.Black);
         }

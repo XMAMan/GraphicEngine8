@@ -79,7 +79,7 @@ namespace RaytracingLightSourceTest.Fullpathsampling
         [TestMethod]
         public void DirectionFromInfinity_UseMediaSampler()
         {
-            CheckSinglePixelColorOnlyForDirectLightingAndLightTracing(LightsourceType.DirectionFromInfinity, 127, 0, false, false, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColorOnlyForDirectLightingAndLightTracing(LightsourceType.DirectionFromInfinity, 127, 0, false, false, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
@@ -91,7 +91,7 @@ namespace RaytracingLightSourceTest.Fullpathsampling
         [TestMethod]
         public void Environment_UseMediaSampler()
         {
-            CheckSinglePixelColor(LightsourceType.Environment, 396, 0, false, false, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColor(LightsourceType.Environment, 396, 0, false, false, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
@@ -112,44 +112,44 @@ namespace RaytracingLightSourceTest.Fullpathsampling
         [TestMethod]
         public void Surface_WithMediaSphere()
         {
-            CheckSinglePixelColor(LightsourceType.Surface, 355, 36, true, false, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColor(LightsourceType.Surface, 355, 36, true, false, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
         public void Sphere_WithMediaSphere()
         {
-            CheckSinglePixelColor(LightsourceType.Sphere, 33, 1, true, false, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColor(LightsourceType.Sphere, 33, 1, true, false, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
         [Ignore]
         public void SphereWithSpot_WithMediaSphere()
         {
-            CheckSinglePixelColor(LightsourceType.SphereWithSpot, 36, 0, true, false, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColor(LightsourceType.SphereWithSpot, 36, 0, true, false, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
         public void SurfaceWithSpot_WithMediaSphere()
         {
-            CheckSinglePixelColor(LightsourceType.SurfaceWithSpot, 153, 7, true, false, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColor(LightsourceType.SurfaceWithSpot, 153, 7, true, false, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
         public void ImportanceSurface_WithMediaSphere()
         {
-            CheckSinglePixelColor(LightsourceType.ImportanceSurface, 353, 39, true, false, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColor(LightsourceType.ImportanceSurface, 353, 39, true, false, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
         public void DirectionFromInfinity_WithMediaSphere()
         {
-            CheckSinglePixelColorOnlyForDirectLightingAndLightTracing(LightsourceType.DirectionFromInfinity, 74, 1, true, false, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColorOnlyForDirectLightingAndLightTracing(LightsourceType.DirectionFromInfinity, 74, 1, true, false, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
         public void Environment_WithMediaSphere()
         {
-            CheckSinglePixelColor(LightsourceType.Environment, 229, 14, true, false, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColor(LightsourceType.Environment, 229, 14, true, false, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
         #endregion
 
@@ -158,45 +158,45 @@ namespace RaytracingLightSourceTest.Fullpathsampling
         [TestMethod]
         public void Surface_WithGlobalMedia()
         {
-            CheckSinglePixelColor(LightsourceType.Surface, 173, 134, false, true, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColor(LightsourceType.Surface, 173, 134, false, true, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
         public void Sphere_WithGlobalMedia()
         {
-            CheckSinglePixelColor(LightsourceType.Sphere, 11, 4, false, true, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColor(LightsourceType.Sphere, 11, 4, false, true, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
         [Ignore]
         public void SphereWithSpot_WithGlobalMedia()
         {
-            CheckSinglePixelColor(LightsourceType.SphereWithSpot, 36, 0, false, true, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColor(LightsourceType.SphereWithSpot, 36, 0, false, true, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
         public void SurfaceWithSpot_WithGlobalMedia()
         {
-            CheckSinglePixelColor(LightsourceType.SurfaceWithSpot, 82, 31, false, true, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColor(LightsourceType.SurfaceWithSpot, 82, 31, false, true, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
         [Ignore] //Das Importancelicht verwendet intern ein ImportanePhotonSender, welcher ohne Media arbeitet. Dadurch können L P C-Pfade nicht erkannt werden, was dazu führt, dass die Lampe weniger Importancecellen aktiviert
         public void ImportanceSurface_WithGlobalMedia()
         {
-            CheckSinglePixelColor(LightsourceType.ImportanceSurface, 172, 131, false, true, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColor(LightsourceType.ImportanceSurface, 172, 131, false, true, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
         public void DirectionFromInfinity_WithGlobalMedia()
         {
-            CheckSinglePixelColorOnlyForDirectLightingAndLightTracing(LightsourceType.DirectionFromInfinity, 0, 0, false, true, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling);
+            CheckSinglePixelColorOnlyForDirectLightingAndLightTracing(LightsourceType.DirectionFromInfinity, 0, 0, false, true, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling);
         }
 
         [TestMethod]
         public void Environment_WithGlobalMedia()
         {
-            CheckSinglePixelColorOnlyForDirectLightingAndLightTracing(LightsourceType.Environment, 9, 3, false, true, PathSamplingType.ParticipatingMediaLongRayWithDistanceSampling, 10000);
+            CheckSinglePixelColorOnlyForDirectLightingAndLightTracing(LightsourceType.Environment, 9, 3, false, true, PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling, 10000);
         }
         #endregion
 

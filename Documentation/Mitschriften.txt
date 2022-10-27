@@ -130,4 +130,4 @@ CPU-Untersuchungen:
  Dell - 11th Gen Intel(R) Core(TM) i9 - 11950H @ 2.60GHz 2.61 GHz      -> 3 Sekunden
  
 ToDo:
--Wolken-Kanten-Problem lösen (Szene 22) Siehe Documentation\Clouds-Error für aktuelle Überlegungen
+-effektivere Implementierung für WoodCockTrackingDistanceSampler.SampleRayPositionWithPdfFromRayMinToRayMax

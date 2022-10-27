@@ -44,7 +44,7 @@ namespace RasterizerTest
             result.Save(WorkingDirectory + "Pipeline.bmp");
 
             Bitmap expected = new Bitmap(WorkingDirectory + "ExpectedValues\\Pipeline_Expected.bmp"); 
-            if (UnitTestHelper.BitmapHelper.CompareTwoBitmaps(expected, result) == false)
+            if (UnitTestHelper.BitmapHelper.CompareTwoBitmaps(expected, result, false) == false)
             {
                 //OpenGL1 mit großer Schrift (Aus ein unbekannten Grund wird die durch ein mir unbekannten vorherigen Test groß wenn ich RunAll mache)
                 Bitmap expected1 = new Bitmap(WorkingDirectory + "ExpectedValues\\Pipeline_ExpectedBigFont.bmp");
