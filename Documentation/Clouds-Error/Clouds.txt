@@ -1,5 +1,0 @@
--Selbst bei 10k sehe ich die Kugelkante bei ThinMediaMultipleScattering 
--Es gibt einerseits das Problem, dass Helligkeitsunterschiede in der ganzen Wolke sind (ThinMediaMultipleScattering ist dunkler; ThinMediaSingleScatteringBiased ist heller)
--Die linke Wolke hat direkt an der Kante noch das Problem, dass sie dunkler ist; Bei ThinMediaSingleScatteringBiased sind einzelne Pixel sogar schwarz
--Betrachte ich die 9 Pixeln von [351,10] bis [351,19] (CloudErrorTest.CreateSingleLineFromCloud) hat Biased und MultipeScattering eine Kante aber SingleScattering nicht 
-	-> Schaue ob das im großen Bild so zu sehen ist
