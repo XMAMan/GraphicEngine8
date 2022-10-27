@@ -1231,5 +1231,5 @@
     },
     "LightPickStepSize": 0
   },
-  "Modus": 9
+  "Modus": 10
 }
