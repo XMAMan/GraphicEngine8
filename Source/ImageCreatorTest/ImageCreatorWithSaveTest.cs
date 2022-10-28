@@ -60,7 +60,7 @@ namespace ImageCreatorTest
 
             foreach (FileInfo file in new DirectoryInfo(saveFolder).GetFiles())
             {
-                file.Delete();
+                if (file.Name != ".gitkeep") file.Delete();
             }
 
             if (pixelRange == null) pixelRange = new ImagePixelRange(0, 0, fullImage.Width, fullImage.Height);

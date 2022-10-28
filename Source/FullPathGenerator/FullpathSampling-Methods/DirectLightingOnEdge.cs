@@ -129,9 +129,12 @@ namespace FullPathGenerator
                 else
                     pathweightOnPointT *= stepSize;
 
-                //Der GeometryTerm und der PdfW-To-PdfA-Umrechnungsfaktor zwischen dem eyePoint und dem pointOnT kürzen sich gegenseitig weg. Somit bleibt nur noch der AttenuationTerm übrig
+                //Bei der PfadPdfA rechne ich die EyePdfW nicht durch die t²-Division in eine PdfA um da sonst der CloudEdgeTest.ThinMediaMulti_SkyPixelColors_MatchWithExpected rot wird.
+                //Würde ich die PfadPdfA durch t² dividieren, würde es ja auch bedeuten, dass die Segmente, die weiter weg sind unwahrscheinlicher sind, was aber nicht stimmt, da ich ja
+                //alle Segmente ohne Extra-Zufall durchlaufe.
+                //Im pathweightOnPointT darf die t²-Division auch nicht auftauchen, da die Strahlen, die der EyePoint aussendet parallel zum T-Punkt ausgesendet werden. 
+                //Siehe Dokumentation.odt -> "DirectLightingOnEdge und die fehlende t²-Division" für genauere Erklärung
                 pathweightOnPointT = Vector3D.Mult(pathweightOnPointT, subLine.AttenuationWithoutPdf());
-
 
                 PathPoint pointOnT = PathPoint.CreateMediaParticlePoint(subLine.EndPoint, pathweightOnPointT);
                 pointOnT.PdfA = eyePoint.PdfA * pdfForSamplingT * eyePoint.BrdfSampleEventOnThisPoint.PdfW;
