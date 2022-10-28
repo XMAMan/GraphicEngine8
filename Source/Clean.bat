@@ -1,5 +1,5 @@
-del UnitTestResults\ImageCreatorSaveFolder\* /Q
-del UnitTestResults\SceneBatfiles\* /Q
+for %%f in (UnitTestResults\ImageCreatorSaveFolder\*) do if not [%%f] == [UnitTestResults\ImageCreatorSaveFolder\.gitkeep] del /Q "%%f"
+for %%f in (UnitTestResults\SceneBatfiles\*) do if not [%%f] == [UnitTestResults\SceneBatfiles\.gitkeep] del /Q "%%f"
 del BitmapHelper\bin\Debug\BitmapHelper.dll
 del BitmapHelper\bin\Debug\BitmapHelper.pdb
 del BitmapHelper\bin\Debug\GraphicGlobal.dll

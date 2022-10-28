@@ -48,8 +48,8 @@ namespace Tools.Tools
             files.AddRange(Directory.GetFiles(projectFolder + "\\UnitTestResults").Select(x => x.Remove(0, (projectFolder + "\\").Length)));
 
             StringBuilder str = new StringBuilder();
-            str.AppendLine(@"del UnitTestResults\ImageCreatorSaveFolder\* /Q");
-            str.AppendLine(@"del UnitTestResults\SceneBatfiles\* /Q");
+            str.AppendLine("for %%f in (UnitTestResults\\ImageCreatorSaveFolder\\*) do if not [%%f] == [UnitTestResults\\ImageCreatorSaveFolder\\.gitkeep] del /Q \"%%f\"");
+            str.AppendLine("for %%f in (UnitTestResults\\SceneBatfiles\\*) do if not [%%f] == [UnitTestResults\\SceneBatfiles\\.gitkeep] del /Q \"%%f\"");
             foreach (var file in files)
             {
                 str.Append("del " + file + System.Environment.NewLine);
