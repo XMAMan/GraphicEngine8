@@ -56,7 +56,11 @@ del FullPathGeneratorTest\bin\Debug\GraphicMinimal.dll
 del FullPathGeneratorTest\bin\Debug\GraphicMinimal.pdb
 del FullPathGeneratorTest\bin\Debug\IntersectionTests.dll
 del FullPathGeneratorTest\bin\Debug\IntersectionTests.pdb
+del FullPathGeneratorTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del FullPathGeneratorTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del FullPathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del FullPathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del FullPathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del FullPathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del FullPathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del FullPathGeneratorTest\bin\Debug\ObjectDivider.dll
@@ -93,6 +97,12 @@ del FullPathGeneratorTest\bin\Debug\TriangleObjectGeneration.dll
 del FullPathGeneratorTest\bin\Debug\TriangleObjectGeneration.pdb
 del FullPathGeneratorTest\bin\Debug\UnitTestHelper.dll
 del FullPathGeneratorTest\bin\Debug\UnitTestHelper.pdb
+del FullPathGeneratorTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del FullPathGeneratorTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del FullPathGeneratorTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del FullPathGeneratorTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del FullPathGeneratorTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del FullPathGeneratorTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del FullPathGeneratorTest\obj\Debug\FullPathGeneratorTest.dll
 del FullPathGeneratorTest\obj\Debug\FullPathGeneratorTest.pdb
 del Graphic2DTest\bin\Debug\BitmapHelper.dll
@@ -179,11 +189,21 @@ del GraphicGlobalTest\bin\Debug\GraphicGlobalTest.dll
 del GraphicGlobalTest\bin\Debug\GraphicGlobalTest.pdb
 del GraphicGlobalTest\bin\Debug\GraphicMinimal.dll
 del GraphicGlobalTest\bin\Debug\GraphicMinimal.pdb
+del GraphicGlobalTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del GraphicGlobalTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del GraphicGlobalTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del GraphicGlobalTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del GraphicGlobalTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del GraphicGlobalTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del GraphicGlobalTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del GraphicGlobalTest\bin\Debug\UnitTestHelper.dll
 del GraphicGlobalTest\bin\Debug\UnitTestHelper.pdb
+del GraphicGlobalTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del GraphicGlobalTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del GraphicGlobalTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del GraphicGlobalTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del GraphicGlobalTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del GraphicGlobalTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del GraphicGlobalTest\obj\Debug\GraphicGlobalTest.dll
 del GraphicGlobalTest\obj\Debug\GraphicGlobalTest.pdb
 del GraphicMinimal\bin\Debug\GraphicMinimal.dll
@@ -196,9 +216,19 @@ del GraphicMinimalTest\bin\Debug\GraphicMinimal.dll
 del GraphicMinimalTest\bin\Debug\GraphicMinimal.pdb
 del GraphicMinimalTest\bin\Debug\GraphicMinimalTest.dll
 del GraphicMinimalTest\bin\Debug\GraphicMinimalTest.pdb
+del GraphicMinimalTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del GraphicMinimalTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del GraphicMinimalTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del GraphicMinimalTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del GraphicMinimalTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del GraphicMinimalTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del GraphicMinimalTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+del GraphicMinimalTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del GraphicMinimalTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del GraphicMinimalTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del GraphicMinimalTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del GraphicMinimalTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del GraphicMinimalTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del GraphicMinimalTest\obj\Debug\GraphicMinimalTest.dll
 del GraphicMinimalTest\obj\Debug\GraphicMinimalTest.pdb
 del GraphicPanels\bin\Debug\BitmapHelper.dll
@@ -295,7 +325,11 @@ del GraphicPanelsTest\bin\Debug\ImageCreator.dll
 del GraphicPanelsTest\bin\Debug\ImageCreator.pdb
 del GraphicPanelsTest\bin\Debug\IntersectionTests.dll
 del GraphicPanelsTest\bin\Debug\IntersectionTests.pdb
+del GraphicPanelsTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del GraphicPanelsTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del GraphicPanelsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del GraphicPanelsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del GraphicPanelsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del GraphicPanelsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del GraphicPanelsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del GraphicPanelsTest\bin\Debug\Newtonsoft.Json.dll
@@ -346,6 +380,12 @@ del GraphicPanelsTest\bin\Debug\TriangleObjectGeneration.dll
 del GraphicPanelsTest\bin\Debug\TriangleObjectGeneration.pdb
 del GraphicPanelsTest\bin\Debug\UnitTestHelper.dll
 del GraphicPanelsTest\bin\Debug\UnitTestHelper.pdb
+del GraphicPanelsTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del GraphicPanelsTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del GraphicPanelsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del GraphicPanelsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del GraphicPanelsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del GraphicPanelsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del GraphicPanelsTest\obj\Debug\GraphicPanelsTest.dll
 del GraphicPanelsTest\obj\Debug\GraphicPanelsTest.pdb
 del GraphicPipelineCPU\bin\Debug\BitmapHelper.dll
@@ -370,13 +410,23 @@ del GraphicPipelineCPUTest\bin\Debug\GraphicPipelineCPU.dll
 del GraphicPipelineCPUTest\bin\Debug\GraphicPipelineCPU.pdb
 del GraphicPipelineCPUTest\bin\Debug\GraphicPipelineCPUTest.dll
 del GraphicPipelineCPUTest\bin\Debug\GraphicPipelineCPUTest.pdb
+del GraphicPipelineCPUTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del GraphicPipelineCPUTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del GraphicPipelineCPUTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del GraphicPipelineCPUTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del GraphicPipelineCPUTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del GraphicPipelineCPUTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del GraphicPipelineCPUTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del GraphicPipelineCPUTest\bin\Debug\TextureHelper.dll
 del GraphicPipelineCPUTest\bin\Debug\TextureHelper.pdb
 del GraphicPipelineCPUTest\bin\Debug\UnitTestHelper.dll
 del GraphicPipelineCPUTest\bin\Debug\UnitTestHelper.pdb
+del GraphicPipelineCPUTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del GraphicPipelineCPUTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del GraphicPipelineCPUTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del GraphicPipelineCPUTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del GraphicPipelineCPUTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del GraphicPipelineCPUTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del GraphicPipelineCPUTest\obj\Debug\GraphicPipelineCPUTest.dll
 del GraphicPipelineCPUTest\obj\Debug\GraphicPipelineCPUTest.pdb
 del GraphicPipelineDirect3D11\bin\Debug\BitmapHelper.dll
@@ -471,7 +521,11 @@ del ImageCreatorTest\bin\Debug\ImageCreatorTest.dll
 del ImageCreatorTest\bin\Debug\ImageCreatorTest.pdb
 del ImageCreatorTest\bin\Debug\IntersectionTests.dll
 del ImageCreatorTest\bin\Debug\IntersectionTests.pdb
+del ImageCreatorTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del ImageCreatorTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del ImageCreatorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del ImageCreatorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del ImageCreatorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del ImageCreatorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del ImageCreatorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del ImageCreatorTest\bin\Debug\ObjectDivider.dll
@@ -502,6 +556,12 @@ del ImageCreatorTest\bin\Debug\TextureHelper.dll
 del ImageCreatorTest\bin\Debug\TextureHelper.pdb
 del ImageCreatorTest\bin\Debug\UnitTestHelper.dll
 del ImageCreatorTest\bin\Debug\UnitTestHelper.pdb
+del ImageCreatorTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del ImageCreatorTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del ImageCreatorTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del ImageCreatorTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del ImageCreatorTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del ImageCreatorTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del ImageCreatorTest\obj\Debug\ImageCreatorTest.dll
 del ImageCreatorTest\obj\Debug\ImageCreatorTest.pdb
 del IntersectionTests\bin\Debug\BitmapHelper.dll
@@ -536,7 +596,11 @@ del IntersectionTestsTest\bin\Debug\IntersectionTests.dll
 del IntersectionTestsTest\bin\Debug\IntersectionTests.pdb
 del IntersectionTestsTest\bin\Debug\IntersectionTestsTest.dll
 del IntersectionTestsTest\bin\Debug\IntersectionTestsTest.pdb
+del IntersectionTestsTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del IntersectionTestsTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del IntersectionTestsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del IntersectionTestsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del IntersectionTestsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del IntersectionTestsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del IntersectionTestsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del IntersectionTestsTest\bin\Debug\ObjectDivider.dll
@@ -573,6 +637,12 @@ del IntersectionTestsTest\bin\Debug\TriangleObjectGeneration.dll
 del IntersectionTestsTest\bin\Debug\TriangleObjectGeneration.pdb
 del IntersectionTestsTest\bin\Debug\UnitTestHelper.dll
 del IntersectionTestsTest\bin\Debug\UnitTestHelper.pdb
+del IntersectionTestsTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del IntersectionTestsTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del IntersectionTestsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del IntersectionTestsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del IntersectionTestsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del IntersectionTestsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del IntersectionTestsTest\obj\Debug\IntersectionTestsTest.dll
 del IntersectionTestsTest\obj\Debug\IntersectionTestsTest.pdb
 del ObjectDivider\bin\Debug\GraphicGlobal.dll
@@ -589,7 +659,11 @@ del ObjectDividerTest\bin\Debug\GraphicGlobal.dll
 del ObjectDividerTest\bin\Debug\GraphicGlobal.pdb
 del ObjectDividerTest\bin\Debug\GraphicMinimal.dll
 del ObjectDividerTest\bin\Debug\GraphicMinimal.pdb
+del ObjectDividerTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del ObjectDividerTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del ObjectDividerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del ObjectDividerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del ObjectDividerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del ObjectDividerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del ObjectDividerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del ObjectDividerTest\bin\Debug\ObjectDivider.dll
@@ -598,6 +672,12 @@ del ObjectDividerTest\bin\Debug\ObjectDividerTest.dll
 del ObjectDividerTest\bin\Debug\ObjectDividerTest.pdb
 del ObjectDividerTest\bin\Debug\TriangleObjectGeneration.dll
 del ObjectDividerTest\bin\Debug\TriangleObjectGeneration.pdb
+del ObjectDividerTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del ObjectDividerTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del ObjectDividerTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del ObjectDividerTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del ObjectDividerTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del ObjectDividerTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del ObjectDividerTest\obj\Debug\ObjectDividerTest.dll
 del ObjectDividerTest\obj\Debug\ObjectDividerTest.pdb
 del ParticipatingMedia\bin\Debug\BitmapHelper.dll
@@ -628,7 +708,11 @@ del ParticipatingMediaTest\bin\Debug\GraphicMinimal.dll
 del ParticipatingMediaTest\bin\Debug\GraphicMinimal.pdb
 del ParticipatingMediaTest\bin\Debug\IntersectionTests.dll
 del ParticipatingMediaTest\bin\Debug\IntersectionTests.pdb
+del ParticipatingMediaTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del ParticipatingMediaTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del ParticipatingMediaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del ParticipatingMediaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del ParticipatingMediaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del ParticipatingMediaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del ParticipatingMediaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del ParticipatingMediaTest\bin\Debug\ObjectDivider.dll
@@ -665,6 +749,12 @@ del ParticipatingMediaTest\bin\Debug\TriangleObjectGeneration.dll
 del ParticipatingMediaTest\bin\Debug\TriangleObjectGeneration.pdb
 del ParticipatingMediaTest\bin\Debug\UnitTestHelper.dll
 del ParticipatingMediaTest\bin\Debug\UnitTestHelper.pdb
+del ParticipatingMediaTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del ParticipatingMediaTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del ParticipatingMediaTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del ParticipatingMediaTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del ParticipatingMediaTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del ParticipatingMediaTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del ParticipatingMediaTest\obj\Debug\ParticipatingMediaTest.dll
 del ParticipatingMediaTest\obj\Debug\ParticipatingMediaTest.pdb
 del PdfHistogram\bin\Debug\BitmapHelper.dll
@@ -749,7 +839,11 @@ del PointSearch\obj\Debug\PointSearch.dll
 del PointSearch\obj\Debug\PointSearch.pdb
 del PointSearchTest\bin\Debug\GraphicMinimal.dll
 del PointSearchTest\bin\Debug\GraphicMinimal.pdb
+del PointSearchTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del PointSearchTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del PointSearchTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del PointSearchTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del PointSearchTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del PointSearchTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del PointSearchTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del PointSearchTest\bin\Debug\PointSearch.dll
@@ -758,6 +852,12 @@ del PointSearchTest\bin\Debug\PointSearchTest.dll
 del PointSearchTest\bin\Debug\PointSearchTest.pdb
 del PointSearchTest\bin\Debug\RayTracerGlobal.dll
 del PointSearchTest\bin\Debug\RayTracerGlobal.pdb
+del PointSearchTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del PointSearchTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del PointSearchTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del PointSearchTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del PointSearchTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del PointSearchTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del PointSearchTest\obj\Debug\PointSearchTest.dll
 del PointSearchTest\obj\Debug\PointSearchTest.pdb
 del Radiosity\bin\Debug\BitmapHelper.dll
@@ -820,7 +920,11 @@ del RadiosityTest\bin\Debug\ImageCreator.dll
 del RadiosityTest\bin\Debug\ImageCreator.pdb
 del RadiosityTest\bin\Debug\IntersectionTests.dll
 del RadiosityTest\bin\Debug\IntersectionTests.pdb
+del RadiosityTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del RadiosityTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del RadiosityTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del RadiosityTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del RadiosityTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del RadiosityTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del RadiosityTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del RadiosityTest\bin\Debug\ObjectDivider.dll
@@ -859,6 +963,12 @@ del RadiosityTest\bin\Debug\TriangleObjectGeneration.dll
 del RadiosityTest\bin\Debug\TriangleObjectGeneration.pdb
 del RadiosityTest\bin\Debug\UnitTestHelper.dll
 del RadiosityTest\bin\Debug\UnitTestHelper.pdb
+del RadiosityTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del RadiosityTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del RadiosityTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del RadiosityTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del RadiosityTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del RadiosityTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del RadiosityTest\obj\Debug\RadiosityTest.dll
 del RadiosityTest\obj\Debug\RadiosityTest.pdb
 del Rasterizer\bin\Debug\BitmapHelper.dll
@@ -893,7 +1003,11 @@ del RasterizerTest\bin\Debug\ImageCreator.dll
 del RasterizerTest\bin\Debug\ImageCreator.pdb
 del RasterizerTest\bin\Debug\IntersectionTests.dll
 del RasterizerTest\bin\Debug\IntersectionTests.pdb
+del RasterizerTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del RasterizerTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del RasterizerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del RasterizerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del RasterizerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del RasterizerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del RasterizerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del RasterizerTest\bin\Debug\Newtonsoft.Json.dll
@@ -944,6 +1058,12 @@ del RasterizerTest\bin\Debug\TriangleObjectGeneration.dll
 del RasterizerTest\bin\Debug\TriangleObjectGeneration.pdb
 del RasterizerTest\bin\Debug\UnitTestHelper.dll
 del RasterizerTest\bin\Debug\UnitTestHelper.pdb
+del RasterizerTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del RasterizerTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del RasterizerTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del RasterizerTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del RasterizerTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del RasterizerTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del RasterizerTest\obj\Debug\RasterizerTest.dll
 del RasterizerTest\obj\Debug\RasterizerTest.pdb
 del RayCamera\bin\Debug\GraphicGlobal.dll
@@ -966,7 +1086,11 @@ del RayCameraTest\bin\Debug\GraphicMinimal.dll
 del RayCameraTest\bin\Debug\GraphicMinimal.pdb
 del RayCameraTest\bin\Debug\IntersectionTests.dll
 del RayCameraTest\bin\Debug\IntersectionTests.pdb
+del RayCameraTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del RayCameraTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del RayCameraTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del RayCameraTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del RayCameraTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del RayCameraTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del RayCameraTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del RayCameraTest\bin\Debug\ObjectDivider.dll
@@ -999,6 +1123,12 @@ del RayCameraTest\bin\Debug\TextureHelper.dll
 del RayCameraTest\bin\Debug\TextureHelper.pdb
 del RayCameraTest\bin\Debug\UnitTestHelper.dll
 del RayCameraTest\bin\Debug\UnitTestHelper.pdb
+del RayCameraTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del RayCameraTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del RayCameraTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del RayCameraTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del RayCameraTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del RayCameraTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del RayCameraTest\obj\Debug\RayCameraTest.dll
 del RayCameraTest\obj\Debug\RayCameraTest.pdb
 del RayObjects\bin\Debug\BitmapHelper.dll
@@ -1031,7 +1161,11 @@ del RayObjectTests\bin\Debug\GraphicMinimal.dll
 del RayObjectTests\bin\Debug\GraphicMinimal.pdb
 del RayObjectTests\bin\Debug\IntersectionTests.dll
 del RayObjectTests\bin\Debug\IntersectionTests.pdb
+del RayObjectTests\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del RayObjectTests\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del RayObjectTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del RayObjectTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del RayObjectTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del RayObjectTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del RayObjectTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del RayObjectTests\bin\Debug\ObjectDivider.dll
@@ -1048,6 +1182,12 @@ del RayObjectTests\bin\Debug\TextureHelper.dll
 del RayObjectTests\bin\Debug\TextureHelper.pdb
 del RayObjectTests\bin\Debug\UnitTestHelper.dll
 del RayObjectTests\bin\Debug\UnitTestHelper.pdb
+del RayObjectTests\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del RayObjectTests\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del RayObjectTests\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del RayObjectTests\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del RayObjectTests\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del RayObjectTests\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del RayObjectTests\obj\Debug\RayObjectTests.dll
 del RayObjectTests\obj\Debug\RayObjectTests.pdb
 del RayTracerGlobal\bin\Debug\GraphicGlobal.dll
@@ -1140,7 +1280,11 @@ del RaytracingBrdfTest\bin\Debug\GraphicMinimal.dll
 del RaytracingBrdfTest\bin\Debug\GraphicMinimal.pdb
 del RaytracingBrdfTest\bin\Debug\IntersectionTests.dll
 del RaytracingBrdfTest\bin\Debug\IntersectionTests.pdb
+del RaytracingBrdfTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del RaytracingBrdfTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del RaytracingBrdfTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del RaytracingBrdfTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del RaytracingBrdfTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del RaytracingBrdfTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del RaytracingBrdfTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del RaytracingBrdfTest\bin\Debug\ObjectDivider.dll
@@ -1173,6 +1317,12 @@ del RaytracingBrdfTest\bin\Debug\TextureHelper.dll
 del RaytracingBrdfTest\bin\Debug\TextureHelper.pdb
 del RaytracingBrdfTest\bin\Debug\UnitTestHelper.dll
 del RaytracingBrdfTest\bin\Debug\UnitTestHelper.pdb
+del RaytracingBrdfTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del RaytracingBrdfTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del RaytracingBrdfTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del RaytracingBrdfTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del RaytracingBrdfTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del RaytracingBrdfTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del RaytracingBrdfTest\obj\Debug\RaytracingBrdfTest.dll
 del RaytracingBrdfTest\obj\Debug\RaytracingBrdfTest.pdb
 del RaytracingColorEstimator\bin\Debug\BitmapHelper.dll
@@ -1251,7 +1401,11 @@ del RaytracingLightSourceTest\bin\Debug\GraphicMinimal.dll
 del RaytracingLightSourceTest\bin\Debug\GraphicMinimal.pdb
 del RaytracingLightSourceTest\bin\Debug\IntersectionTests.dll
 del RaytracingLightSourceTest\bin\Debug\IntersectionTests.pdb
+del RaytracingLightSourceTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del RaytracingLightSourceTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del RaytracingLightSourceTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del RaytracingLightSourceTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del RaytracingLightSourceTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del RaytracingLightSourceTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del RaytracingLightSourceTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del RaytracingLightSourceTest\bin\Debug\ObjectDivider.dll
@@ -1288,6 +1442,12 @@ del RaytracingLightSourceTest\bin\Debug\TriangleObjectGeneration.dll
 del RaytracingLightSourceTest\bin\Debug\TriangleObjectGeneration.pdb
 del RaytracingLightSourceTest\bin\Debug\UnitTestHelper.dll
 del RaytracingLightSourceTest\bin\Debug\UnitTestHelper.pdb
+del RaytracingLightSourceTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del RaytracingLightSourceTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del RaytracingLightSourceTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del RaytracingLightSourceTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del RaytracingLightSourceTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del RaytracingLightSourceTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del RaytracingLightSourceTest\obj\Debug\RaytracingLightSourceTest.dll
 del RaytracingLightSourceTest\obj\Debug\RaytracingLightSourceTest.pdb
 del RaytracingMethods\bin\Debug\BitmapHelper.dll
@@ -1352,7 +1512,11 @@ del RaytracingRandomTest\bin\Debug\GraphicMinimal.dll
 del RaytracingRandomTest\bin\Debug\GraphicMinimal.pdb
 del RaytracingRandomTest\bin\Debug\IntersectionTests.dll
 del RaytracingRandomTest\bin\Debug\IntersectionTests.pdb
+del RaytracingRandomTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del RaytracingRandomTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del RaytracingRandomTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del RaytracingRandomTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del RaytracingRandomTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del RaytracingRandomTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del RaytracingRandomTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del RaytracingRandomTest\bin\Debug\ObjectDivider.dll
@@ -1385,6 +1549,12 @@ del RaytracingRandomTest\bin\Debug\TextureHelper.dll
 del RaytracingRandomTest\bin\Debug\TextureHelper.pdb
 del RaytracingRandomTest\bin\Debug\UnitTestHelper.dll
 del RaytracingRandomTest\bin\Debug\UnitTestHelper.pdb
+del RaytracingRandomTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del RaytracingRandomTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del RaytracingRandomTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del RaytracingRandomTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del RaytracingRandomTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del RaytracingRandomTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del RaytracingRandomTest\obj\Debug\RaytracingRandomTest.dll
 del RaytracingRandomTest\obj\Debug\RaytracingRandomTest.pdb
 del SubpathGenerator\bin\Debug\BitmapHelper.dll
@@ -1429,7 +1599,11 @@ del SubpathGeneratorTest\bin\Debug\GraphicMinimal.dll
 del SubpathGeneratorTest\bin\Debug\GraphicMinimal.pdb
 del SubpathGeneratorTest\bin\Debug\IntersectionTests.dll
 del SubpathGeneratorTest\bin\Debug\IntersectionTests.pdb
+del SubpathGeneratorTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del SubpathGeneratorTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del SubpathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del SubpathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del SubpathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del SubpathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del SubpathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del SubpathGeneratorTest\bin\Debug\ObjectDivider.dll
@@ -1468,6 +1642,12 @@ del SubpathGeneratorTest\bin\Debug\TriangleObjectGeneration.dll
 del SubpathGeneratorTest\bin\Debug\TriangleObjectGeneration.pdb
 del SubpathGeneratorTest\bin\Debug\UnitTestHelper.dll
 del SubpathGeneratorTest\bin\Debug\UnitTestHelper.pdb
+del SubpathGeneratorTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del SubpathGeneratorTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del SubpathGeneratorTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del SubpathGeneratorTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del SubpathGeneratorTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del SubpathGeneratorTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del SubpathGeneratorTest\obj\Debug\SubpathGeneratorTest.dll
 del SubpathGeneratorTest\obj\Debug\SubpathGeneratorTest.pdb
 del TextureHelper\bin\Debug\BitmapHelper.dll
@@ -1647,7 +1827,6 @@ del Tools\bin\Debug\TextureHelper.pdb
 del Tools\bin\Debug\TriangleObjectGeneration.dll
 del Tools\bin\Debug\TriangleObjectGeneration.pdb
 del Tools\obj\x86\Debug\GraphicTool.pdb
-del Tools\obj\x86\Debug\TempPE\Properties.Resources.Designer.cs.dll
 del ToolsTest\bin\Debug\BitmapHelper.dll
 del ToolsTest\bin\Debug\BitmapHelper.pdb
 del ToolsTest\bin\Debug\FluentAssertions.dll
@@ -1675,7 +1854,11 @@ del ToolsTest\bin\Debug\ImageCreator.dll
 del ToolsTest\bin\Debug\ImageCreator.pdb
 del ToolsTest\bin\Debug\IntersectionTests.dll
 del ToolsTest\bin\Debug\IntersectionTests.pdb
+del ToolsTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del ToolsTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del ToolsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del ToolsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del ToolsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del ToolsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del ToolsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del ToolsTest\bin\Debug\Microsoft.Win32.Primitives.dll
@@ -1825,6 +2008,12 @@ del ToolsTest\bin\Debug\TriangleObjectGeneration.dll
 del ToolsTest\bin\Debug\TriangleObjectGeneration.pdb
 del ToolsTest\bin\Debug\UnitTestHelper.dll
 del ToolsTest\bin\Debug\UnitTestHelper.pdb
+del ToolsTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del ToolsTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del ToolsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del ToolsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del ToolsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del ToolsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del ToolsTest\obj\Debug\ToolsTest.dll
 del ToolsTest\obj\Debug\ToolsTest.pdb
 del TriangleObjectGeneration\bin\Debug\BitmapHelper.dll
@@ -1843,7 +2032,11 @@ del TriangleObjectGenerationTest\bin\Debug\GraphicGlobal.dll
 del TriangleObjectGenerationTest\bin\Debug\GraphicGlobal.pdb
 del TriangleObjectGenerationTest\bin\Debug\GraphicMinimal.dll
 del TriangleObjectGenerationTest\bin\Debug\GraphicMinimal.pdb
+del TriangleObjectGenerationTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
 del TriangleObjectGenerationTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del TriangleObjectGenerationTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del TriangleObjectGenerationTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del TriangleObjectGenerationTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 del TriangleObjectGenerationTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 del TriangleObjectGenerationTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 del TriangleObjectGenerationTest\bin\Debug\TriangleObjectGeneration.dll
@@ -1852,6 +2045,12 @@ del TriangleObjectGenerationTest\bin\Debug\TriangleObjectGenerationTest.dll
 del TriangleObjectGenerationTest\bin\Debug\TriangleObjectGenerationTest.pdb
 del TriangleObjectGenerationTest\bin\Debug\UnitTestHelper.dll
 del TriangleObjectGenerationTest\bin\Debug\UnitTestHelper.pdb
+del TriangleObjectGenerationTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del TriangleObjectGenerationTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del TriangleObjectGenerationTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del TriangleObjectGenerationTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del TriangleObjectGenerationTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del TriangleObjectGenerationTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 del TriangleObjectGenerationTest\obj\Debug\TriangleObjectGenerationTest.dll
 del TriangleObjectGenerationTest\obj\Debug\TriangleObjectGenerationTest.pdb
 del UnitTestHelper\bin\Debug\BitmapHelper.dll
@@ -1864,7 +2063,6 @@ del UnitTestHelper\obj\Debug\UnitTestHelper.dll
 del UnitTestHelper\obj\Debug\UnitTestHelper.pdb
 del FullPathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del FullPathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
-del FullPathGeneratorTest\bin\Debug\ParallaxVisibleMap.bmp
 del Graphic2DTest\bin\Debug\Newtonsoft.Json.xml
 del GraphicGlobalTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del GraphicGlobalTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
@@ -1875,7 +2073,6 @@ del GraphicPanelsTest\bin\Debug\GraphicPanelsTest.dll.config
 del GraphicPanelsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del GraphicPanelsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 del GraphicPanelsTest\bin\Debug\Newtonsoft.Json.xml
-del GraphicPanelsTest\bin\Debug\TopLevelTests.dll.config
 del GraphicPipelineCPUTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del GraphicPipelineCPUTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 del ImageCreatorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
@@ -1884,14 +2081,10 @@ del IntersectionTestsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFram
 del IntersectionTestsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 del ObjectDividerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del ObjectDividerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
-del ObjectDividerTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
-del ObjectDividerTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 del ParticipatingMediaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del ParticipatingMediaTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 del PointSearchTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del PointSearchTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
-del PointSearchTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
-del PointSearchTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 del RadiosityTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del RadiosityTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 del RasterizerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
@@ -1899,18 +2092,10 @@ del RasterizerTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.x
 del RasterizerTest\bin\Debug\Newtonsoft.Json.xml
 del RayCameraTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del RayCameraTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
-del RayCameraTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
-del RayCameraTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 del RayObjectTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del RayObjectTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
-del RaytracingBrdfTest\bin\Debug\HeizBeckmann-NormalDistribution.bmp
-del RaytracingBrdfTest\bin\Debug\HeizGGX-NormalDistribution.bmp
 del RaytracingBrdfTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del RaytracingBrdfTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
-del RaytracingBrdfTest\bin\Debug\WalterBeckmann-NormalDistribution.bmp
-del RaytracingBrdfTest\bin\Debug\WalterGGX-NormalDistribution.bmp
-del RaytracingBrdfTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
-del RaytracingBrdfTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 del RaytracingLightSourceTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del RaytracingLightSourceTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 del RaytracingRandomTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
@@ -1934,58 +2119,113 @@ del ToolsTest\bin\Debug\System.Threading.Tasks.Extensions.xml
 del ToolsTest\bin\Debug\ToolsTest.dll.config
 del TriangleObjectGenerationTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del TriangleObjectGenerationTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
-del TriangleObjectGenerationTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
-del TriangleObjectGenerationTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 rmdir BitmapHelper\obj\Debug /s /q
+rmdir BitmapHelper\obj\Release /s /q
 rmdir FullPathGenerator\obj\Debug /s /q
+rmdir FullPathGenerator\obj\Release /s /q
 rmdir FullPathGeneratorTest\obj\Debug /s /q
+rmdir FullPathGeneratorTest\obj\Release /s /q
+rmdir FullPathTestHelper\obj\Debug /s /q
+rmdir FullPathTestHelper\obj\Release /s /q
 rmdir Graphic2DTest\obj\Debug /s /q
+rmdir Graphic2DTest\obj\Release /s /q
 rmdir GraphicGlobal\obj\Debug /s /q
+rmdir GraphicGlobal\obj\Release /s /q
 rmdir GraphicGlobalTest\obj\Debug /s /q
+rmdir GraphicGlobalTest\obj\Release /s /q
 rmdir GraphicMinimal\obj\Debug /s /q
+rmdir GraphicMinimal\obj\Release /s /q
 rmdir GraphicMinimalTest\obj\Debug /s /q
+rmdir GraphicMinimalTest\obj\Release /s /q
 rmdir GraphicPanels\obj\Debug /s /q
+rmdir GraphicPanels\obj\Release /s /q
 rmdir GraphicPanelsTest\obj\Debug /s /q
+rmdir GraphicPanelsTest\obj\Release /s /q
 rmdir GraphicPipelineCPU\obj\Debug /s /q
+rmdir GraphicPipelineCPU\obj\Release /s /q
 rmdir GraphicPipelineCPUTest\obj\Debug /s /q
+rmdir GraphicPipelineCPUTest\obj\Release /s /q
 rmdir GraphicPipelineDirect3D11\obj\Debug /s /q
+rmdir GraphicPipelineDirect3D11\obj\Release /s /q
 rmdir GraphicPipelineOpenGLv1_0\obj\Debug /s /q
+rmdir GraphicPipelineOpenGLv1_0\obj\Release /s /q
 rmdir GraphicPipelineOpenGLv3_0\obj\Debug /s /q
+rmdir GraphicPipelineOpenGLv3_0\obj\Release /s /q
 rmdir ImageCreator\obj\Debug /s /q
+rmdir ImageCreator\obj\Release /s /q
 rmdir ImageCreatorTest\obj\Debug /s /q
+rmdir ImageCreatorTest\obj\Release /s /q
 rmdir IntersectionTests\obj\Debug /s /q
+rmdir IntersectionTests\obj\Release /s /q
 rmdir IntersectionTestsTest\obj\Debug /s /q
+rmdir IntersectionTestsTest\obj\Release /s /q
+rmdir LineIntersectionTest\obj\Debug /s /q
+rmdir LineIntersectionTest\obj\Release /s /q
 rmdir ObjectDivider\obj\Debug /s /q
+rmdir ObjectDivider\obj\Release /s /q
 rmdir ObjectDividerTest\obj\Debug /s /q
+rmdir ObjectDividerTest\obj\Release /s /q
 rmdir ParticipatingMedia\obj\Debug /s /q
+rmdir ParticipatingMedia\obj\Release /s /q
 rmdir ParticipatingMediaTest\obj\Debug /s /q
+rmdir ParticipatingMediaTest\obj\Release /s /q
 rmdir PdfHistogram\obj\Debug /s /q
+rmdir PdfHistogram\obj\Release /s /q
 rmdir Photonusmap\obj\Debug /s /q
+rmdir Photonusmap\obj\Release /s /q
 rmdir PointSearch\obj\Debug /s /q
+rmdir PointSearch\obj\Release /s /q
 rmdir PointSearchTest\obj\Debug /s /q
+rmdir PointSearchTest\obj\Release /s /q
 rmdir Radiosity\obj\Debug /s /q
+rmdir Radiosity\obj\Release /s /q
 rmdir RadiosityTest\obj\Debug /s /q
+rmdir RadiosityTest\obj\Release /s /q
 rmdir Rasterizer\obj\Debug /s /q
+rmdir Rasterizer\obj\Release /s /q
 rmdir RasterizerTest\obj\Debug /s /q
+rmdir RasterizerTest\obj\Release /s /q
 rmdir RayCamera\obj\Debug /s /q
+rmdir RayCamera\obj\Release /s /q
 rmdir RayCameraTest\obj\Debug /s /q
+rmdir RayCameraTest\obj\Release /s /q
 rmdir RayObjects\obj\Debug /s /q
+rmdir RayObjects\obj\Release /s /q
 rmdir RayObjectTests\obj\Debug /s /q
+rmdir RayObjectTests\obj\Release /s /q
 rmdir RayTracerGlobal\obj\Debug /s /q
+rmdir RayTracerGlobal\obj\Release /s /q
 rmdir RaytracerMain\obj\Debug /s /q
+rmdir RaytracerMain\obj\Release /s /q
 rmdir RaytracingBrdf\obj\Debug /s /q
+rmdir RaytracingBrdf\obj\Release /s /q
 rmdir RaytracingBrdfTest\obj\Debug /s /q
+rmdir RaytracingBrdfTest\obj\Release /s /q
 rmdir RaytracingColorEstimator\obj\Debug /s /q
+rmdir RaytracingColorEstimator\obj\Release /s /q
 rmdir RaytracingLightSource\obj\Debug /s /q
+rmdir RaytracingLightSource\obj\Release /s /q
 rmdir RaytracingLightSourceTest\obj\Debug /s /q
+rmdir RaytracingLightSourceTest\obj\Release /s /q
 rmdir RaytracingMethods\obj\Debug /s /q
+rmdir RaytracingMethods\obj\Release /s /q
 rmdir RaytracingRandom\obj\Debug /s /q
+rmdir RaytracingRandom\obj\Release /s /q
 rmdir RaytracingRandomTest\obj\Debug /s /q
+rmdir RaytracingRandomTest\obj\Release /s /q
 rmdir SubpathGenerator\obj\Debug /s /q
+rmdir SubpathGenerator\obj\Release /s /q
 rmdir SubpathGeneratorTest\obj\Debug /s /q
+rmdir SubpathGeneratorTest\obj\Release /s /q
 rmdir TextureHelper\obj\Debug /s /q
+rmdir TextureHelper\obj\Release /s /q
+rmdir Tools\obj\x64 /s /q
 rmdir Tools\obj\x86 /s /q
 rmdir ToolsTest\obj\Debug /s /q
+rmdir ToolsTest\obj\Release /s /q
 rmdir TriangleObjectGeneration\obj\Debug /s /q
+rmdir TriangleObjectGeneration\obj\Release /s /q
 rmdir TriangleObjectGenerationTest\obj\Debug /s /q
+rmdir TriangleObjectGenerationTest\obj\Release /s /q
 rmdir UnitTestHelper\obj\Debug /s /q
+rmdir UnitTestHelper\obj\Release /s /q
