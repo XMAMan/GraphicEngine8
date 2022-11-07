@@ -407,7 +407,7 @@ namespace ParticipatingMedia.Media
         {
             double length = (p2 - p1).Length();
             if (length == 0) return 0;
-            double theta = Math.Acos(Math.Min(1, Vector3D.Normalize(p1 - this.layerOfAir.EarthCenter) * Vector3D.Normalize(p2 - p1)));
+            double theta = Math.Acos(Math.Max(-1, Math.Min(1, Vector3D.Normalize(p1 - this.layerOfAir.EarthCenter) * Vector3D.Normalize(p2 - p1))));
             var scanHeigh = this.heighFunction.GetScanPosition(HeighFrom3DPoint(p1));
             return this.tFunctions[scanHeigh.Index].GetIntegralFromRay(theta, length) * (1 - scanHeigh.F) + this.tFunctions[scanHeigh.Index + 1].GetIntegralFromRay(theta, length) * scanHeigh.F;
         }
