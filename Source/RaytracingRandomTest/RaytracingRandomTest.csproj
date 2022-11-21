@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Distribution2DTest.cs" />
+    <Compile Include="MetropolisPbrTest.cs" />
     <Compile Include="MetropolisTest.cs" />
     <Compile Include="NonLinearFunctionScannerTest.cs" />
     <Compile Include="PdfWithTableSamplerTest.cs" />

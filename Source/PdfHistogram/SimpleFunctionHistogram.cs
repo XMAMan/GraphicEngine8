@@ -166,5 +166,15 @@ namespace PdfHistogram
             error = (int)FunctionComparer.GetMaxDifferenceAreaBetweenFunctions(this.minSampleValue, this.maxSampleValue, GetPdfFunctionFromHistogram(), GetPdfFunctionFromPdfProperty());
             return plotter.PlotFunctions(functions, "Error=" + error);
         }
+
+        public Bitmap GetPlotterImage(int width, int height, SimpleFunction pdf, string customText)
+        {
+            List<FunctionToPlot> functions = new List<FunctionToPlot>();
+            functions.Add(new FunctionToPlot() { Function = GetPdfFunctionFromHistogram(), Color = Color.Blue, Text = "Histogram" });
+            functions.Add(new FunctionToPlot() { Function = GetPdfFunctionFromPdfProperty(), Color = Color.Red, Text = "SamplePdfL" });
+            if (pdf != null) functions.Add(new FunctionToPlot() { Function = pdf, Color = Color.Green, Text = "FunctionPdf" });
+            FunctionPlotter plotter = new FunctionPlotter(this.minSampleValue, this.maxSampleValue, new Size(width, height));
+            return plotter.PlotFunctions(functions, customText);
+        }
     }
 }
