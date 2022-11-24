@@ -72,14 +72,14 @@ namespace GraphicPanelsTest
 
             List<SceneTestData> tests = new List<SceneTestData>()
             {
-                new SceneTestData(TestScenes.AddTestszene1_RingSphere, "RingSphere"){ Pixels = new List<Pixel>(){ new Pixel(129, 228, 102)}}, //Gelb am Boden
-                new SceneTestData(TestScenes.AddTestszene1_RingSphere, "RingSphere"){ Pixels = new List<Pixel>(){ new Pixel(254, 123, 143) }}, //Grüner Ring
-                new SceneTestData(TestScenes.AddTestszene1_RingSphere, "RingSphere"){ Pixels = new List<Pixel>(){ new Pixel(90, 310, 143) }}, //Gelbe Mariospiegelung
-                new SceneTestData(TestScenes.AddTestszene2_NoWindowRoom, "NoWindowRoom"){ Pixels = new List<Pixel>(){ new Pixel(303, 175, 242) }},//Grüne Kugel (Lichtquelle zu klein für Pathtracer?)
-                new SceneTestData(TestScenes.AddTestszene2_NoWindowRoom, "NoWindowRoom"){ Pixels = new List<Pixel>(){ new Pixel(178, 169, 208) }},//Schrank
-                new SceneTestData(TestScenes.AddTestszene5_Cornellbox, "Cornellbox"){ Pixels = new List<Pixel>(){ new Pixel(343, 113, 164) }},//Grüne Wand
-                new SceneTestData(TestScenes.AddTestszene5_Cornellbox, "Cornellbox"){ Pixels = new List<Pixel>(){ new Pixel(53, 177, 43)}},//Großer Würfel vorne
-                new SceneTestData(TestScenes.AddTestszene5_Cornellbox, "Cornellbox"){ Pixels = new List<Pixel>(){ new Pixel(129, 209, 158) }},//Glaskugel heller Fleck über der Rechteckspiegelung
+                new SceneTestData(TestScenes.AddTestscene1_RingSphere, "RingSphere"){ Pixels = new List<Pixel>(){ new Pixel(129, 228, 102)}}, //Gelb am Boden
+                new SceneTestData(TestScenes.AddTestscene1_RingSphere, "RingSphere"){ Pixels = new List<Pixel>(){ new Pixel(254, 123, 143) }}, //Grüner Ring
+                new SceneTestData(TestScenes.AddTestscene1_RingSphere, "RingSphere"){ Pixels = new List<Pixel>(){ new Pixel(90, 310, 143) }}, //Gelbe Mariospiegelung
+                new SceneTestData(TestScenes.AddTestscene2_NoWindowRoom, "NoWindowRoom"){ Pixels = new List<Pixel>(){ new Pixel(303, 175, 242) }},//Grüne Kugel (Lichtquelle zu klein für Pathtracer?)
+                new SceneTestData(TestScenes.AddTestscene2_NoWindowRoom, "NoWindowRoom"){ Pixels = new List<Pixel>(){ new Pixel(178, 169, 208) }},//Schrank
+                new SceneTestData(TestScenes.AddTestscene5_Cornellbox, "Cornellbox"){ Pixels = new List<Pixel>(){ new Pixel(343, 113, 164) }},//Grüne Wand
+                new SceneTestData(TestScenes.AddTestscene5_Cornellbox, "Cornellbox"){ Pixels = new List<Pixel>(){ new Pixel(53, 177, 43)}},//Großer Würfel vorne
+                new SceneTestData(TestScenes.AddTestscene5_Cornellbox, "Cornellbox"){ Pixels = new List<Pixel>(){ new Pixel(129, 209, 158) }},//Glaskugel heller Fleck über der Rechteckspiegelung
             };
 
             StringBuilder str = new StringBuilder();

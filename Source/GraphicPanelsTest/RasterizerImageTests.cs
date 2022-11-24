@@ -28,7 +28,7 @@ namespace GraphicPanelsTest
         {
             var resultList = RenderSzeneWithMultipleModi(modesToTest, 420, 328, (graphic) =>
             {
-                TestScenes.AddTestszene1_RingSphereWithParallaxGround(graphic);
+                TestScenes.AddTestscene1_RingSphereWithParallaxGround(graphic);
             });
 
             resultList.Add(new ImageResult()
@@ -36,7 +36,7 @@ namespace GraphicPanelsTest
                 Text = Mode3D.Direct3D_11.ToString() + " with Displacementmapping",
                 Image = CreateImage(Mode3D.Direct3D_11, 420, 328, (graphic) =>
                 {
-                    TestScenes.AddTestszene1_RingSphereWithParallaxGround(graphic);
+                    TestScenes.AddTestscene1_RingSphereWithParallaxGround(graphic);
 
                     var tex = graphic.GetObjectById(1).Color.As<ColorFromTexture>();
                     graphic.GetObjectById(1).NormalSource = new NormalFromMap() { NormalMap = tex.TextureFile, TextureMatrix = tex.TextureMatrix, ConvertNormalMapFromColor = true };
@@ -62,7 +62,7 @@ namespace GraphicPanelsTest
         {
             Bitmap result = TransformImagesToBitmap(RenderSzeneWithMultipleModi(modesToTest, 420, 328, (graphic) =>
             {
-                TestScenes.AddTestszene2_NoWindowRoom(graphic);
+                TestScenes.AddTestscene2_NoWindowRoom(graphic);
                 graphic.GlobalSettings.ShadowsForRasterizer = RasterizerShadowMode.Stencil;
             }));
 
@@ -78,7 +78,7 @@ namespace GraphicPanelsTest
         {
             Bitmap result = TransformImagesToBitmap(RenderSzeneWithMultipleModi(modesToTest, 420, 328, (graphic) =>
             {
-                TestScenes.AddTestszene22_ToyBox(graphic);
+                TestScenes.AddTestscene22_ToyBox(graphic);
                 graphic.GlobalSettings.ShadowsForRasterizer = RasterizerShadowMode.Shadowmap;
             }));
             
@@ -92,9 +92,9 @@ namespace GraphicPanelsTest
         [TestMethod]
         public void ShadowsAndBlending()
         {
-            Bitmap resultShadowMap = TransformImagesToBitmap(RenderSzeneWithMultipleModi(modesToTest, 420, 328, (graphic) => { TestScenes.AddTestszene23_MirrorShadowNoSphere(graphic); graphic.GlobalSettings.ShadowsForRasterizer = RasterizerShadowMode.Shadowmap; graphic.GlobalSettings.Time = 0; }));
+            Bitmap resultShadowMap = TransformImagesToBitmap(RenderSzeneWithMultipleModi(modesToTest, 420, 328, (graphic) => { TestScenes.AddTestscene23_MirrorShadowNoSphere(graphic); graphic.GlobalSettings.ShadowsForRasterizer = RasterizerShadowMode.Shadowmap; graphic.GlobalSettings.Time = 0; }));
 
-            Bitmap resultStencilShadow = TransformImagesToBitmap(RenderSzeneWithMultipleModi(modesToTest, 420, 328, (graphic) => { TestScenes.AddTestszene23_MirrorShadowNoSphere(graphic); graphic.GlobalSettings.ShadowsForRasterizer = RasterizerShadowMode.Stencil; graphic.GlobalSettings.Time = 7000; }));
+            Bitmap resultStencilShadow = TransformImagesToBitmap(RenderSzeneWithMultipleModi(modesToTest, 420, 328, (graphic) => { TestScenes.AddTestscene23_MirrorShadowNoSphere(graphic); graphic.GlobalSettings.ShadowsForRasterizer = RasterizerShadowMode.Stencil; graphic.GlobalSettings.Time = 7000; }));
             Bitmap result = BitmapHelp.TransformBitmapListToCollum(new List<Bitmap>() { resultShadowMap, resultStencilShadow });
 
             result.Save(WorkingDirectory + "Rasterizer_ShadowsAndBlending.bmp");
@@ -113,8 +113,8 @@ namespace GraphicPanelsTest
         [TestMethod]
         public void MirrorSphere()
         {
-            Bitmap resultShadowMap = TransformImagesToBitmap(RenderSzeneWithMultipleModi(modesToTest, 420, 328, (graphic) => { TestScenes.AddTestszene23_MirrorShadowWithSphere(graphic); graphic.GlobalSettings.ShadowsForRasterizer = RasterizerShadowMode.Shadowmap; graphic.GlobalSettings.Time = 0; }));
-            Bitmap resultStencilShadow = TransformImagesToBitmap(RenderSzeneWithMultipleModi(modesToTest, 420, 328, (graphic) => { TestScenes.AddTestszene23_MirrorShadowWithSphere(graphic); graphic.GlobalSettings.ShadowsForRasterizer = RasterizerShadowMode.Stencil; graphic.GlobalSettings.Time = 7000; }));
+            Bitmap resultShadowMap = TransformImagesToBitmap(RenderSzeneWithMultipleModi(modesToTest, 420, 328, (graphic) => { TestScenes.AddTestscene23_MirrorShadowWithSphere(graphic); graphic.GlobalSettings.ShadowsForRasterizer = RasterizerShadowMode.Shadowmap; graphic.GlobalSettings.Time = 0; }));
+            Bitmap resultStencilShadow = TransformImagesToBitmap(RenderSzeneWithMultipleModi(modesToTest, 420, 328, (graphic) => { TestScenes.AddTestscene23_MirrorShadowWithSphere(graphic); graphic.GlobalSettings.ShadowsForRasterizer = RasterizerShadowMode.Stencil; graphic.GlobalSettings.Time = 7000; }));
             Bitmap result = BitmapHelp.TransformBitmapListToCollum(new List<Bitmap>() { resultShadowMap, resultStencilShadow });
 
             result.Save(WorkingDirectory + "Rasterizer_MirrorSphere.bmp");
@@ -129,7 +129,7 @@ namespace GraphicPanelsTest
         {
             Bitmap result = CreateImage(Mode3D.DepthOfField, 420, 328, (graphic) => 
             { 
-                TestScenes.AddTestszene7_Chessboard(graphic);
+                TestScenes.AddTestscene7_Chessboard(graphic);
             });
 
             result.Save(WorkingDirectory + "Rasterizer_DepthOfFieldGrid.bmp");
@@ -151,8 +151,8 @@ namespace GraphicPanelsTest
 
             foreach (var mode in modesForMouseHitTest)
             {
-                string ground = MouseHitTest(mode, 420, 328, TestScenes.AddTestszene1_RingSphere, new Point(223, 267));
-                string bottle = MouseHitTest(mode, 420, 328, TestScenes.AddTestszene1_RingSphere, new Point(235, 268));
+                string ground = MouseHitTest(mode, 420, 328, TestScenes.AddTestscene1_RingSphere, new Point(223, 267));
+                string bottle = MouseHitTest(mode, 420, 328, TestScenes.AddTestscene1_RingSphere, new Point(235, 268));
 
                 Assert.AreEqual("CreateSquareXY:1:1:1", ground, $"{mode} -> {ground} != CreateSquareXY:1:1:1");
                 Assert.AreEqual("CreateBottle:1:2:6", bottle, $"{mode} -> {bottle} != CreateBottle:1:2:6");
@@ -162,7 +162,7 @@ namespace GraphicPanelsTest
         [TestMethod]
         public void OpenGL1WithOldShaders()
         {
-            Bitmap result = CreateImage(Mode3D.OpenGL_Version_1_0_OldShaders, 420, 328, TestScenes.AddTestszene1_RingSphereWithParallaxGround);
+            Bitmap result = CreateImage(Mode3D.OpenGL_Version_1_0_OldShaders, 420, 328, TestScenes.AddTestscene1_RingSphereWithParallaxGround);
             result.Save(WorkingDirectory + "Rasterizer_OpenGL1WithOldShaders.bmp");
             Bitmap expected = new Bitmap(WorkingDirectory + "ExpectedValues\\Rasterizer_OpenGL1WithOldShaders_Expected.bmp");
             Assert.IsTrue(UnitTestHelper.BitmapHelper.CompareTwoBitmaps(expected, result));
@@ -171,7 +171,7 @@ namespace GraphicPanelsTest
         [TestMethod]
         public void AnisotrophTextureFilter()
         {
-            Bitmap result = CreateImage(Mode3D.CPU, 100, 400, TestScenes.AddTestszene_AnisotrophTextureFilter);
+            Bitmap result = CreateImage(Mode3D.CPU, 100, 400, TestScenes.AddTestscene_AnisotrophTextureFilter);
             result.Save(WorkingDirectory + "Rasterizer_AnisotrophTextureFilter.bmp");
             Bitmap expected = new Bitmap(WorkingDirectory + "ExpectedValues\\Rasterizer_AnisotrophTextureFilter_Expected.bmp");
             Assert.IsTrue(UnitTestHelper.BitmapHelper.CompareTwoBitmaps(expected, result));

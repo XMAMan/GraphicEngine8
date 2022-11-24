@@ -96,7 +96,7 @@ namespace GraphicPanelsTest
         {
             GraphicPanel3D graphic = new GraphicPanel3D() { Width = (int)(this.imageSize.Width * size), Height = (int)(this.imageSize.Height * size) };
 
-            TestScenes.AddTestszene_LegoMan(graphic, material);
+            TestScenes.AddTestscene_LegoMan(graphic, material);
 
             graphic.Mode = mode;
             graphic.GlobalSettings.SamplingCount = this.sampleCount;

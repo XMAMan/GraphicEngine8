@@ -13,7 +13,7 @@ namespace GraphicPanelsTest
         [TestMethod]
         public void ProceduralImage()
         {
-            Bitmap result = CreateImage(Mode3D.Raytracer, 420, 328, (grafik) => { TestScenes.AddTestszene4_ProceduralTextures(grafik); });
+            Bitmap result = CreateImage(Mode3D.Raytracer, 420, 328, (grafik) => { TestScenes.AddTestscene4_ProceduralTextures(grafik); });
             result.Save(WorkingDirectory + "ProceduralTextures.bmp");
 
             Bitmap expected = new Bitmap(WorkingDirectory + "ExpectedValues\\ProceduralTextures_Expected.bmp");

@@ -18,46 +18,46 @@ namespace GraphicPanelsTest
             graphic.LoadExportDataFromJson(File.ReadAllText(DataDirectory + sceneFile).Replace("<DataFolder>", DataDirectory.Replace("\\", "\\\\")));
         }
 
-        public static void AddTestszene1_RingSphere(GraphicPanel3D graphic) => LoadScene(graphic, "01_RingSphere_json.txt");
-        public static void AddTestszene2_NoWindowRoom(GraphicPanel3D graphic) => LoadScene(graphic, "02_NoWindowRoom_json.txt");
-        public static void AddTestszene3_SpheresWithTexture(GraphicPanel3D graphic) => LoadScene(graphic, "03_SpheresWithTexture_json.txt");
-        public static void AddTestszene4_ProceduralTextures(GraphicPanel3D graphic) => LoadScene(graphic, "04_ProceduralTextures_json.txt");
-        public static void AddTestszene5_Cornellbox(GraphicPanel3D graphic) => LoadScene(graphic, "05_Cornellbox_json.txt");
-        public static void AddTestszene5_BlenderCornellbox(GraphicPanel3D graphic) => LoadScene(graphic, "05_BlenderCornellbox_json.txt");
-        public static void AddTestszene5_WaterNoMediaCornellbox(GraphicPanel3D graphic) => LoadScene(graphic, "05_WaterNoMediaCornellbox_json.txt");
-        public static void AddTestszene5_WaterCornellbox(GraphicPanel3D graphic) => LoadScene(graphic, "05_WaterCornellbox_json.txt");
-        public static void AddTestszene5_MirrorCornellbox(GraphicPanel3D graphic) => LoadScene(graphic, "05_MirrorCornellbox_json.txt");
-        public static void AddTestszene5_RisingSmokeCornellbox(GraphicPanel3D graphic) => LoadScene(graphic, "05_RisingSmokeCornellbox_json.txt");
-        public static void AddTestszene6_ChinaRoom(GraphicPanel3D graphic) => LoadScene(graphic, "06_ChinaRoom_json.txt");
-        public static void AddTestszene7_Chessboard(GraphicPanel3D graphic) => LoadScene(graphic, "07_Chessboard_json.txt");
-        public static void AddTestszene8_WindowRoom(GraphicPanel3D graphic) => LoadScene(graphic, "08_WindowRoom_json.txt");
-        public static void AddTestszene9_MultipleImportanceSampling(GraphicPanel3D graphic) => LoadScene(graphic, "09_MultipleImportanceSampling_json.txt"); 
-        public static void AddTestszene10_MirrorGlassCaustic(GraphicPanel3D graphic) => LoadScene(graphic, "10_MirrorGlassCaustic_json.txt");
-        public static void AddTestszene11_PillarsOfficeGodRay(GraphicPanel3D graphic) => LoadScene(graphic, "11_PillarsOfficeGodRay_json.txt");
-        public static void AddTestszene11_PillarsOfficeMedia(GraphicPanel3D graphic) => LoadScene(graphic, "11_PillarsOfficeMedia_json.txt");
-        public static void AddTestszene11_PillarsOfficeNoMedia(GraphicPanel3D graphic) => LoadScene(graphic, "11_PillarsOfficeNoMedia_json.txt");
-        public static void AddTestszene11_PillarsOfficeNight(GraphicPanel3D graphic) => LoadScene(graphic, "11_PillarsOfficeNight_json.txt");
-        public static void AddTestszene12_Snowman(GraphicPanel3D graphic) => LoadScene(graphic, "12_Snowman_json.txt");
-        public static void AddTestszene13_MicrofacetGlas(GraphicPanel3D graphic) => LoadScene(graphic, "13_MicrofacetGlas_json.txt");
-        public static void AddTestszene14_MicrofacetSundial(GraphicPanel3D graphic) => LoadScene(graphic, "14_MicrofacetSundial_json.txt");
-        public static void AddTestszene15_MicrofacetSphereBox(GraphicPanel3D graphic) => LoadScene(graphic, "15_MicrofacetSphereBox_json.txt");
-        public static void AddTestszene16_Graphic6Memories(GraphicPanel3D graphic) => LoadScene(graphic, "16_Graphic6Memories_json.txt");
-        public static void AddTestszene17_TheFifthElement(GraphicPanel3D graphic) => LoadScene(graphic, "17_TheFifthElement_json.txt");
-        public static void TestSzene18_CloudsForTestImage(GraphicPanel3D graphic) => LoadScene(graphic, "18_CloudsForTestImage_json.txt");
-        public static void AddTestszene19_StillLife(GraphicPanel3D graphic) => LoadScene(graphic, "19_Stilllife_json.txt");
-        public static void AddTestszene20_Mirrorballs(GraphicPanel3D graphic) => LoadScene(graphic, "20_Mirrorballs_json.txt");
-        public static void AddTestszene21_Candle(GraphicPanel3D graphic) => LoadScene(graphic, "21_Candle_json.txt");
-        public static void AddTestszene22_ToyBox(GraphicPanel3D graphic) => LoadScene(graphic, "22_ToyBox_json.txt");
-        public static void AddTestszene23_MirrorShadowWithSphere(GraphicPanel3D graphic) => LoadScene(graphic, "23_MirrorShadowWithSphere_json.txt");
-        public static void AddTestszene23_MirrorShadowNoSphere(GraphicPanel3D graphic) => LoadScene(graphic, "23_MirrorShadowNoSphere_json.txt");
-        public static void AddTestszene24_EnvironmentMaterialTest(GraphicPanel3D graphic) => LoadScene(graphic, "24_EnvironmentMaterialTest_json.txt");
-        public static void AddTestszene25_SingleSphereForRapso(GraphicPanel3D graphic) => LoadScene(graphic, "25_SingleSphereForRapso_json.txt");
-        public static void AddTestszene26_SkyEnvironmapCreator(GraphicPanel3D graphic) => LoadScene(graphic, "26_SkyEnvironmapCreator_json.txt");
-        public static void AddTestszene27_MirrorsEdge(GraphicPanel3D graphic) => LoadScene(graphic, "27_MirrorsEdge_json.txt");
+        public static void AddTestscene1_RingSphere(GraphicPanel3D graphic) => LoadScene(graphic, "01_RingSphere_json.txt");
+        public static void AddTestscene2_NoWindowRoom(GraphicPanel3D graphic) => LoadScene(graphic, "02_NoWindowRoom_json.txt");
+        public static void AddTestscene3_SpheresWithTexture(GraphicPanel3D graphic) => LoadScene(graphic, "03_SpheresWithTexture_json.txt");
+        public static void AddTestscene4_ProceduralTextures(GraphicPanel3D graphic) => LoadScene(graphic, "04_ProceduralTextures_json.txt");
+        public static void AddTestscene5_Cornellbox(GraphicPanel3D graphic) => LoadScene(graphic, "05_Cornellbox_json.txt");
+        public static void AddTestscene5_BlenderCornellbox(GraphicPanel3D graphic) => LoadScene(graphic, "05_BlenderCornellbox_json.txt");
+        public static void AddTestscene5_WaterNoMediaCornellbox(GraphicPanel3D graphic) => LoadScene(graphic, "05_WaterNoMediaCornellbox_json.txt");
+        public static void AddTestscene5_WaterCornellbox(GraphicPanel3D graphic) => LoadScene(graphic, "05_WaterCornellbox_json.txt");
+        public static void AddTestscene5_MirrorCornellbox(GraphicPanel3D graphic) => LoadScene(graphic, "05_MirrorCornellbox_json.txt");
+        public static void AddTestscene5_RisingSmokeCornellbox(GraphicPanel3D graphic) => LoadScene(graphic, "05_RisingSmokeCornellbox_json.txt");
+        public static void AddTestscene6_ChinaRoom(GraphicPanel3D graphic) => LoadScene(graphic, "06_ChinaRoom_json.txt");
+        public static void AddTestscene7_Chessboard(GraphicPanel3D graphic) => LoadScene(graphic, "07_Chessboard_json.txt");
+        public static void AddTestscene8_WindowRoom(GraphicPanel3D graphic) => LoadScene(graphic, "08_WindowRoom_json.txt");
+        public static void AddTestscene9_MultipleImportanceSampling(GraphicPanel3D graphic) => LoadScene(graphic, "09_MultipleImportanceSampling_json.txt"); 
+        public static void AddTestscene10_MirrorGlassCaustic(GraphicPanel3D graphic) => LoadScene(graphic, "10_MirrorGlassCaustic_json.txt");
+        public static void AddTestscene11_PillarsOfficeGodRay(GraphicPanel3D graphic) => LoadScene(graphic, "11_PillarsOfficeGodRay_json.txt");
+        public static void AddTestscene11_PillarsOfficeMedia(GraphicPanel3D graphic) => LoadScene(graphic, "11_PillarsOfficeMedia_json.txt");
+        public static void AddTestscene11_PillarsOfficeNoMedia(GraphicPanel3D graphic) => LoadScene(graphic, "11_PillarsOfficeNoMedia_json.txt");
+        public static void AddTestscene11_PillarsOfficeNight(GraphicPanel3D graphic) => LoadScene(graphic, "11_PillarsOfficeNight_json.txt");
+        public static void AddTestscene12_Snowman(GraphicPanel3D graphic) => LoadScene(graphic, "12_Snowman_json.txt");
+        public static void AddTestscene13_MicrofacetGlas(GraphicPanel3D graphic) => LoadScene(graphic, "13_MicrofacetGlas_json.txt");
+        public static void AddTestscene14_MicrofacetSundial(GraphicPanel3D graphic) => LoadScene(graphic, "14_MicrofacetSundial_json.txt");
+        public static void AddTestscene15_MicrofacetSphereBox(GraphicPanel3D graphic) => LoadScene(graphic, "15_MicrofacetSphereBox_json.txt");
+        public static void AddTestscene16_Graphic6Memories(GraphicPanel3D graphic) => LoadScene(graphic, "16_Graphic6Memories_json.txt");
+        public static void AddTestscene17_TheFifthElement(GraphicPanel3D graphic) => LoadScene(graphic, "17_TheFifthElement_json.txt");
+        public static void AddTestScene18_CloudsForTestImage(GraphicPanel3D graphic) => LoadScene(graphic, "18_CloudsForTestImage_json.txt");
+        public static void AddTestscene19_StillLife(GraphicPanel3D graphic) => LoadScene(graphic, "19_Stilllife_json.txt");
+        public static void AddTestscene20_Mirrorballs(GraphicPanel3D graphic) => LoadScene(graphic, "20_Mirrorballs_json.txt");
+        public static void AddTestscene21_Candle(GraphicPanel3D graphic) => LoadScene(graphic, "21_Candle_json.txt");
+        public static void AddTestscene22_ToyBox(GraphicPanel3D graphic) => LoadScene(graphic, "22_ToyBox_json.txt");
+        public static void AddTestscene23_MirrorShadowWithSphere(GraphicPanel3D graphic) => LoadScene(graphic, "23_MirrorShadowWithSphere_json.txt");
+        public static void AddTestscene23_MirrorShadowNoSphere(GraphicPanel3D graphic) => LoadScene(graphic, "23_MirrorShadowNoSphere_json.txt");
+        public static void AddTestscene24_EnvironmentMaterialTest(GraphicPanel3D graphic) => LoadScene(graphic, "24_EnvironmentMaterialTest_json.txt");
+        public static void AddTestscene25_SingleSphereForRapso(GraphicPanel3D graphic) => LoadScene(graphic, "25_SingleSphereForRapso_json.txt");
+        public static void AddTestscene26_SkyEnvironmapCreator(GraphicPanel3D graphic) => LoadScene(graphic, "26_SkyEnvironmapCreator_json.txt");
+        public static void AddTestscene27_MirrorsEdge(GraphicPanel3D graphic) => LoadScene(graphic, "27_MirrorsEdge_json.txt");
 
-        public static void AddTestszene1_RingSphereWithParallaxGround(GraphicPanel3D graphic)
+        public static void AddTestscene1_RingSphereWithParallaxGround(GraphicPanel3D graphic)
         {
-            AddTestszene1_RingSphere(graphic);
+            AddTestscene1_RingSphere(graphic);
 
             //Fußboden
             graphic.GetObjectById(1).NormalSource = new NormalFromParallax() { ParallaxMap = DataDirectory + "Decal.bmp", TextureMatrix = Matrix3x3.Scale(1, 3), ConvertNormalMapFromColor = true, IsParallaxEdgeCutoffEnabled = true, TexturHeightFactor = 0.14f };
@@ -78,7 +78,7 @@ namespace GraphicPanelsTest
 
 
         //Erde + Atmospähre + Richtungslicht für die Sonne
-        public static void AddTestszene_SkyMedia(GraphicPanel3D graphic, float sunDegree)
+        public static void AddTestscene_SkyMedia(GraphicPanel3D graphic, float sunDegree)
         {
             graphic.RemoveAllObjekts();
 
@@ -92,7 +92,7 @@ namespace GraphicPanelsTest
         }
 
         //Eine Szene, die aus lauter Vierecken besteht, welche in der XY-Ebene betrachet so aussehen: < _ - _ -
-        public static void AddTestszene_SubpathSamplerTestSzene(GraphicPanel3D graphic)
+        public static void AddTestscene_SubpathSamplerTestScene(GraphicPanel3D graphic)
         {
             graphic.RemoveAllObjekts();
 
@@ -114,7 +114,7 @@ namespace GraphicPanelsTest
         }
 
         //Wie die Cornellbox nur ohne Würfel und mit nur 5 Vierecken
-        public static void AddTestszene_FullPathSamplerTestSzene(GraphicPanel3D graphic, bool withMediaBox)
+        public static void AddTestscene_FullPathSamplerTestScene(GraphicPanel3D graphic, bool withMediaBox)
         {
             graphic.RemoveAllObjekts();
 
@@ -168,7 +168,7 @@ namespace GraphicPanelsTest
             Diffuse, Plastic1, Plastic2, RoughMetal, SmoothMetal1, SmoothMetal2, Glas, ProceduralMirror, Copper, BlockMode, Parallax, Rust, MirrorRust, Spider, BumpGlas,
             MotionBlure, MicofacetGlas, RoughnessmapGlas, Anisotroph, Coffee, WaterBoy, Wax, WaterIce, Cloud
         }
-        public static void AddTestszene_LegoMan(GraphicPanel3D graphic, LegoMaterial material)
+        public static void AddTestscene_LegoMan(GraphicPanel3D graphic, LegoMaterial material)
         {
             //Wird von außen vorgegeben
             bool useEnvironmentLight = true;
@@ -506,7 +506,7 @@ namespace GraphicPanelsTest
             graphic.GlobalSettings.Tonemapping = TonemappingMethod.GammaOnly;
         }
 
-        public static void AddTestszene_AnisotrophTextureFilter(GraphicPanel3D graphic)
+        public static void AddTestscene_AnisotrophTextureFilter(GraphicPanel3D graphic)
         {
             graphic.RemoveAllObjekts();
             graphic.GlobalSettings.BackgroundImage = "#FFFFFF";

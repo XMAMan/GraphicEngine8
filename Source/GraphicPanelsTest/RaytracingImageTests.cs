@@ -32,7 +32,7 @@ namespace GraphicPanelsTest
             List<Bitmap> images = new List<Bitmap>();
             for (int i = 0; i < stepCount; i++)
             {
-                TestScenes.AddTestszene_SkyMedia(graphic, ((float)i / stepCount * 140 - 40));
+                TestScenes.AddTestscene_SkyMedia(graphic, ((float)i / stepCount * 140 - 40));
                 var image = graphic.GetRaytracingImageSynchron(graphic.Width, graphic.Height);
                 images.Add(image.Bitmap);
             }
@@ -75,7 +75,7 @@ namespace GraphicPanelsTest
         private Bitmap GetSkyImage(Mode3D mode, int samplingCount, int width, int height)
         {
             GraphicPanel3D graphic = new GraphicPanel3D() { Width = width, Height = height };
-            TestScenes.AddTestszene_SkyMedia(graphic, 50);
+            TestScenes.AddTestscene_SkyMedia(graphic, 50);
             graphic.Mode = mode;
             graphic.GlobalSettings.SamplingCount = samplingCount;
             //graphic.GlobalSettings.ThreadCount = 1;
@@ -160,9 +160,9 @@ namespace GraphicPanelsTest
             images.Add(BitmapHelp.TransformBitmapListToCollum(new List<Bitmap>()
             {
                 BitmapHelp.GetEmptyImage(width, height - stillLife.Height, Color.White),
-                GetImage(Mode3D.UPBP, samplingCount, stillLife.Width, stillLife.Height, TestScenes.AddTestszene19_StillLife, useRadiosityQuickSettings),                
-                GetImage(Mode3D.ThinMediaMultipleScattering, samplingCount, width, height, TestScenes.TestSzene18_CloudsForTestImage, useRadiosityQuickSettings),
-                GetImage(Mode3D.MediaFullBidirectionalPathTracing, samplingCount, width, height, TestScenes.AddTestszene5_MirrorCornellbox, useRadiosityQuickSettings),
+                GetImage(Mode3D.UPBP, samplingCount, stillLife.Width, stillLife.Height, TestScenes.AddTestscene19_StillLife, useRadiosityQuickSettings),                
+                GetImage(Mode3D.ThinMediaMultipleScattering, samplingCount, width, height, TestScenes.AddTestScene18_CloudsForTestImage, useRadiosityQuickSettings),
+                GetImage(Mode3D.MediaFullBidirectionalPathTracing, samplingCount, width, height, TestScenes.AddTestscene5_MirrorCornellbox, useRadiosityQuickSettings),
             }));
 
             Bitmap result = BitmapHelp.TransformBitmapListToRow(images);
@@ -185,11 +185,11 @@ namespace GraphicPanelsTest
             {
                 GetImage(mode, samplingCount, width, height, (graphic)=>
                 {
-                    TestScenes.AddTestszene1_RingSphere(graphic);
+                    TestScenes.AddTestscene1_RingSphere(graphic);
                     graphic.GlobalSettings.ShadowsForRasterizer = RasterizerShadowMode.Shadowmap;
                 }, useRadiosityQuickSettings),
-                GetImage(mode, samplingCount, width, height, TestScenes.AddTestszene2_NoWindowRoom, useRadiosityQuickSettings),
-                GetImage(mode, samplingCount, width, height, TestScenes.AddTestszene5_Cornellbox, useRadiosityQuickSettings),
+                GetImage(mode, samplingCount, width, height, TestScenes.AddTestscene2_NoWindowRoom, useRadiosityQuickSettings),
+                GetImage(mode, samplingCount, width, height, TestScenes.AddTestscene5_Cornellbox, useRadiosityQuickSettings),
             };
             Bitmap image = BitmapHelp.TransformBitmapListToCollum(images);
             return BitmapHelp.WriteToBitmap(image, mode.ToString(), Color.Black);
@@ -238,14 +238,14 @@ namespace GraphicPanelsTest
 
             List<Bitmap> images = new List<Bitmap>
             {
-                GetRaytracingImage(samplingCount, sizeFactor, 97, 95, TestScenes.AddTestszene5_WaterCornellbox),
-                GetRaytracingImage(samplingCount, sizeFactor, 168, 98, TestScenes.AddTestszene6_ChinaRoom),
-                GetRaytracingImage(samplingCount, sizeFactor, 168, 98, TestScenes.AddTestszene7_Chessboard),
-                GetRaytracingImage(samplingCount, sizeFactor, 192, 101, TestScenes.AddTestszene11_PillarsOfficeGodRay),
-                GetRaytracingImage(samplingCount, sizeFactor, 168, 98, TestScenes.AddTestszene12_Snowman),
-                GetRaytracingImage(samplingCount, sizeFactor, 108, 94, TestScenes.AddTestszene15_MicrofacetSphereBox),
-                GetRaytracingImage(samplingCount, sizeFactor, 160, 83, TestScenes.AddTestszene16_Graphic6Memories),
-                GetRaytracingImage(samplingCount, sizeFactor, 192, 101, TestScenes.AddTestszene27_MirrorsEdge)
+                GetRaytracingImage(samplingCount, sizeFactor, 97, 95, TestScenes.AddTestscene5_WaterCornellbox),
+                GetRaytracingImage(samplingCount, sizeFactor, 168, 98, TestScenes.AddTestscene6_ChinaRoom),
+                GetRaytracingImage(samplingCount, sizeFactor, 168, 98, TestScenes.AddTestscene7_Chessboard),
+                GetRaytracingImage(samplingCount, sizeFactor, 192, 101, TestScenes.AddTestscene11_PillarsOfficeGodRay),
+                GetRaytracingImage(samplingCount, sizeFactor, 168, 98, TestScenes.AddTestscene12_Snowman),
+                GetRaytracingImage(samplingCount, sizeFactor, 108, 94, TestScenes.AddTestscene15_MicrofacetSphereBox),
+                GetRaytracingImage(samplingCount, sizeFactor, 160, 83, TestScenes.AddTestscene16_Graphic6Memories),
+                GetRaytracingImage(samplingCount, sizeFactor, 192, 101, TestScenes.AddTestscene27_MirrorsEdge)
             };
 
             Bitmap result = BitmapHelp.TransformBitmapListToRow(images);

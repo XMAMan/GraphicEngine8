@@ -64,10 +64,10 @@ namespace GraphicPanelsTest
             
             List<Bitmap> images = new List<Bitmap>
             {
-                GetRaytracingImage(mode, 420, 328, TestScenes.AddTestszene1_RingSphere,maxPatchArea, hemiCubeResolution),
-                GetRaytracingImage(mode, 420, 328, TestScenes.AddTestszene2_NoWindowRoom,maxPatchArea, hemiCubeResolution),
-                GetRaytracingImage(mode, 420, 328, (g)=>{ TestScenes.AddTestszene5_Cornellbox(g); g.RemoveObjekt(8); },maxPatchArea / 4, hemiCubeResolution),
-                GetRaytracingImage(mode, 420, 328, TestScenes.AddTestszene8_WindowRoom, maxPatchArea * 2, hemiCubeResolution),
+                GetRaytracingImage(mode, 420, 328, TestScenes.AddTestscene1_RingSphere,maxPatchArea, hemiCubeResolution),
+                GetRaytracingImage(mode, 420, 328, TestScenes.AddTestscene2_NoWindowRoom,maxPatchArea, hemiCubeResolution),
+                GetRaytracingImage(mode, 420, 328, (g)=>{ TestScenes.AddTestscene5_Cornellbox(g); g.RemoveObjekt(8); },maxPatchArea / 4, hemiCubeResolution),
+                GetRaytracingImage(mode, 420, 328, TestScenes.AddTestscene8_WindowRoom, maxPatchArea * 2, hemiCubeResolution),
             };
 
             return BitmapHelp.TransformBitmapListToRow(images);

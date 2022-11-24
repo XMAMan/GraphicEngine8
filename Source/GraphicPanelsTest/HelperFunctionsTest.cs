@@ -87,7 +87,7 @@ namespace GraphicPanelsTest
         public void GetColorFromSinglePixel()
         {
             GraphicPanel3D panel = new GraphicPanel3D() { Width = 420, Height = 328 };
-            TestScenes.AddTestszene5_Cornellbox(panel);
+            TestScenes.AddTestscene5_Cornellbox(panel);
             panel.Mode = Mode3D.BidirectionalPathTracing;            
             string color = panel.GetColorFromSinglePixel(420, 328, null, 53, 177, 10000).ToShortString();
             panel.Dispose();
@@ -109,7 +109,7 @@ namespace GraphicPanelsTest
         public void GetPixelConvergenzImage()
         {
             GraphicPanel3D panel = new GraphicPanel3D() { Width = 420, Height = 328 };
-            TestScenes.AddTestszene5_Cornellbox(panel);
+            TestScenes.AddTestscene5_Cornellbox(panel);
 
             //Pixel [53, 177] = BigCubeInFront
             PixelConvergenceHelper.WritePixelDataToFile(panel, "PathTracer", Mode3D.PathTracer, 53, 177, 100000, WorkingDirectory + "ConvergenceData_PT.txt"); 
@@ -131,7 +131,7 @@ namespace GraphicPanelsTest
         public void GetFullPathsFromSinglePixel()
         {
             GraphicPanel3D panel = new GraphicPanel3D() { Width = 420, Height = 328 };
-            TestScenes.AddTestszene5_Cornellbox(panel);
+            TestScenes.AddTestscene5_Cornellbox(panel);
             panel.Mode = Mode3D.BidirectionalPathTracing;
             string paths = panel.GetFullPathsFromSinglePixel(420, 328, null, 53, 177, 1);
             panel.Dispose();
@@ -144,7 +144,7 @@ namespace GraphicPanelsTest
         public void GetPathContributionsForSinglePixel()
         {
             GraphicPanel3D panel = new GraphicPanel3D() { Width = 420, Height = 328 };
-            TestScenes.AddTestszene5_Cornellbox(panel);
+            TestScenes.AddTestscene5_Cornellbox(panel);
             panel.Mode = Mode3D.BidirectionalPathTracing;
             string pathSpace = panel.GetPathContributionsForSinglePixel(420, 328, null, 53, 177, 1000);
             panel.Dispose();
@@ -162,7 +162,7 @@ namespace GraphicPanelsTest
         public void CompareManyPathSpaceFiles()
         {
             GraphicPanel3D panel = new GraphicPanel3D() { Width = 420, Height = 328 };
-            TestScenes.AddTestszene5_Cornellbox(panel);
+            TestScenes.AddTestscene5_Cornellbox(panel);
             panel.Mode = Mode3D.PathTracer;
             string pathSpacePT = panel.GetPathContributionsForSinglePixel(420, 328, null, 53, 177, 10000);
 
@@ -189,7 +189,7 @@ namespace GraphicPanelsTest
         public void GetBrightnessFactor()
         {
             GraphicPanel3D panel = new GraphicPanel3D() { Width = 420, Height = 328 };
-            TestScenes.AddTestszene5_Cornellbox(panel);
+            TestScenes.AddTestscene5_Cornellbox(panel);
             panel.Mode = Mode3D.BidirectionalPathTracing;
             panel.GlobalSettings.BrightnessFactor = panel.GetBrightnessFactor(panel.Width, panel.Height);
             panel.Dispose();

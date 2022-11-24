@@ -50,7 +50,7 @@ namespace GraphicPanelsTest
         private Vector3D[] GetPixelLine(Mode3D mode)
         {
             GraphicPanel3D graphic = new GraphicPanel3D() { Width = 420, Height = 328 };
-            TestScenes.TestSzene18_CloudsForTestImage(graphic);
+            TestScenes.AddTestScene18_CloudsForTestImage(graphic);
             graphic.Mode = mode;
             graphic.GlobalSettings.SamplingCount = mode == Mode3D.ThinMediaSingleScatteringBiased ? 1 : 1000;
 
@@ -107,7 +107,7 @@ namespace GraphicPanelsTest
         private Vector3D[] GetColorFromPixels(Mode3D mode, int sampleCount, Point[] pixels, bool useHomogenMedia)
         {
             GraphicPanel3D graphic = new GraphicPanel3D() { Width = 420, Height = 328 };
-            TestScenes.TestSzene18_CloudsForTestImage(graphic);
+            TestScenes.AddTestScene18_CloudsForTestImage(graphic);
             graphic.Mode = mode;
             //graphic.GlobalSettings.RecursionDepth = 3;
 
