@@ -32,7 +32,7 @@ namespace RaytracingBrdf.SampleAndRequest
             float continuationPdf = Math.Min(1, Math.Max(MagicNumbers.MinSurfaceContinuationPdf, brdfPoint.ContinuationPdf));
             //float continuationPdf = Math.Min(1, Math.Max(0, brdfPoint.ContinuationPdf)); //Nach dieser Formal arbeitet SmallUPBP
 
-            if (rand.NextDouble() >= continuationPdf)      // Absorbation; wenn hier > steht kann eine continuationPdf zur 0-Division führen; bei >= kann eine Spekular-Reflektion zur Absorbation führen (weniger schlimm)
+            if (continuationPdf != 1 && rand.NextDouble() >= continuationPdf)      // Absorbation; wenn hier > steht kann eine continuationPdf zur 0-Division führen; bei >= kann eine Spekular-Reflektion zur Absorbation führen (weniger schlimm)
                 return null;            
 
             var d = brdfPoint.Brdf.SampleDirection(brdfPoint.DirectionToThisPoint, rand.NextDouble(), rand.NextDouble(), rand.NextDouble());

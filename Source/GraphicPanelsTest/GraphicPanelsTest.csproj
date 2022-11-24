@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CloudEdgeTest.cs" />
+    <Compile Include="FullPathSamplerTest.cs" />
     <Compile Include="GlasSphereTest.cs" />
     <Compile Include="HelperFunctionsTest.cs" />
     <Compile Include="PhotonmapDirectPixelTest.cs" />

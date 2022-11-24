@@ -51,6 +51,7 @@
     <Compile Include="MediaEdgeSampler.cs" />
     <Compile Include="MediaFullBidirectionalPathTracing.cs" />
     <Compile Include="MediaPathTracer.cs" />
+    <Compile Include="MMLT\MultiplexedMetropolisLightTransport.cs" />
     <Compile Include="RaytracerWithPointLights.cs" />
     <Compile Include="UPBP.cs" />
     <Compile Include="ThinMediaTracer.cs" />
@@ -115,6 +116,10 @@
     <ProjectReference Include="..\RaytracingColorEstimator\RaytracingColorEstimator.csproj">
       <Project>{2A5B4F56-580F-418C-AB3B-545D7A7E81CB}</Project>
       <Name>RaytracingColorEstimator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RaytracingLightSource\RaytracingLightSource.csproj">
+      <Project>{94DAF9D6-E416-4964-B1C8-7A80B259BAA9}</Project>
+      <Name>RaytracingLightSource</Name>
     </ProjectReference>
     <ProjectReference Include="..\SubpathGenerator\SubpathGenerator.csproj">
       <Project>{200904B4-8BCC-4895-9647-64122B668FDE}</Project>

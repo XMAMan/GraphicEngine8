@@ -50,6 +50,7 @@
     <Compile Include="FullPathSampler.cs" />
     <Compile Include="FullpathSampling-Methods\BeamDataLineQuery.cs" />
     <Compile Include="FullpathSampling-Methods\DirectLightingOnEdge.cs" />
+    <Compile Include="FullpathSampling-Methods\ISingleFullPathSampler.cs" />
     <Compile Include="FullpathSampling-Methods\LightTracingOnEdge.cs" />
     <Compile Include="FullpathSampling-Methods\PointDataPointQuery.cs" />
     <Compile Include="FullpathSampling-Methods\SpecularPathtracing.cs" />

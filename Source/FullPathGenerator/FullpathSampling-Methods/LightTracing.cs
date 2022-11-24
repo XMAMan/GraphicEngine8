@@ -6,6 +6,7 @@ using GraphicGlobal;
 using RayCameraNamespace;
 using ParticipatingMedia.DistanceSampling;
 using RayTracerGlobal;
+using FullPathGenerator.FullpathSampling_Methods;
 
 namespace FullPathGenerator
 {
@@ -13,7 +14,7 @@ namespace FullPathGenerator
     //beim Equal-Sampling läßt der PixelFilter nur ein Pixel, und beim Tent-Sampling 9 Pixel durch. Aus dem Grund 
     //kommt in der Pfad-PdfA lediglich die Anzahl der erzeugten LightFullPaths(==PixelCount) vor aber keine Unterscheidung
     //zwischen Equal- und Tent-Sampling. Außerdem ist die CameraPdfW-Multiplikation beim Pfadgewicht der PixelFilter.
-    public class LightTracing : IFullPathSamplingMethod
+    public class LightTracing : IFullPathSamplingMethod, ISingleFullPathSampler
     {
         private readonly IRayCamera rayCamera;
         private readonly PointToPointConnector pointToPointConnector;
@@ -160,5 +161,42 @@ namespace FullPathGenerator
             }
             return 0;
         }
+
+        #region ISingleFullPathSampler
+        public FullPathSamplingStrategy[] GetAvailableStrategiesForFullPathLength(int fullPathLength)
+        {
+            if (fullPathLength <= 2) return new FullPathSamplingStrategy[0];
+
+            return new FullPathSamplingStrategy[]
+            {
+                new FullPathSamplingStrategy()
+                {
+                    NeededEyePathLength = 0,
+                    NeededLightPathLength = fullPathLength - 1,
+                    StrategyIndex = 0
+                }
+            };
+        }
+        public FullPath SampleFullPathFromSingleStrategy(SubPath eyePath, SubPath lightPath, int fullPathLength, int strategyIndex, IRandom rand)
+        {
+            var lightPoint = lightPath.Points[fullPathLength - 2];
+            if (lightPoint.IsDiffusePoint == false || lightPoint.IsLocatedOnLightSource) return null;
+
+            var connectData = this.pointToPointConnector.TryToConnectToCamera(lightPoint);
+
+            if (connectData != null)
+            {
+                var cameraPoint = connectData.CameraPoint;
+                cameraPoint.AssociatedPath = lightPath.Points[0].AssociatedPath;
+                cameraPoint.LineToNextPoint = connectData.LineFromCameraToLightPoint;
+
+                if (this.noDistanceSampling) connectData.PdfLForCameraToLightPoint = new DistancePdf() { PdfL = 1, ReversePdfL = 1 };
+
+                return CreatePath(cameraPoint, lightPoint, connectData.PixelPosition, connectData);
+            }
+
+            return null;
+        }
+        #endregion 
     }
 }

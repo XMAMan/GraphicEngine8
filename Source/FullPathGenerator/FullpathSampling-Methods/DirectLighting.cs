@@ -4,10 +4,11 @@ using RaytracingLightSource;
 using SubpathGenerator;
 using GraphicMinimal;
 using GraphicGlobal;
+using FullPathGenerator.FullpathSampling_Methods;
 
 namespace FullPathGenerator
 {
-    public class DirectLighting : IFullPathSamplingMethod
+    public class DirectLighting : IFullPathSamplingMethod, ISingleFullPathSampler
     {
         protected LightSourceSampler lightSourceSampler;
         protected int maximumDirectLightingEyeIndex;
@@ -114,5 +115,26 @@ namespace FullPathGenerator
             }
             return 0;
         }
+
+        #region ISingleFullPathSampler
+        public FullPathSamplingStrategy[] GetAvailableStrategiesForFullPathLength(int fullPathLength)
+        {
+            if (fullPathLength <= 2) return new FullPathSamplingStrategy[0];
+
+            return new FullPathSamplingStrategy[] 
+            {
+                new FullPathSamplingStrategy()
+                {
+                    NeededEyePathLength = fullPathLength - 1,
+                    NeededLightPathLength = 0,
+                    StrategyIndex = 0
+                }
+            };
+        }
+        public FullPath SampleFullPathFromSingleStrategy(SubPath eyePath, SubPath lightPath, int fullPathLength, int strategyIndex, IRandom rand)
+        {
+            return TryToCreatePath(eyePath.Points[fullPathLength - 2], rand);
+        }
+        #endregion 
     }
 }

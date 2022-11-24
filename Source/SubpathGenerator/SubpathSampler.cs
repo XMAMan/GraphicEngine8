@@ -39,6 +39,7 @@ namespace SubpathGenerator
         public int MaxPathLength;
         public IBrdfSampler BrdfSampler;
         public IPhaseFunctionSampler PhaseFunction;
+        public bool CreateAbsorbationEvent = true; //Soll beim Brdf-Sampeln laut der ContinuationPdf auch mal Null zurück gegeben werden um somit die Pfadlänge zu begrenzen?
     }
 
     public class SubpathSampler
@@ -66,14 +67,14 @@ namespace SubpathGenerator
                 case PathSamplingType.None:
                     return null;
                 case PathSamplingType.NoMedia:
-                    return new StandardSubPathPointsSampler(data.IntersectionFinder, data.LightSourceSampler, data.MaxPathLength, data.BrdfSampler);
+                    return new StandardSubPathPointsSampler(data.IntersectionFinder, data.LightSourceSampler, data.MaxPathLength, data.BrdfSampler, data.CreateAbsorbationEvent);
                 
                 //Media
                 case PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling:
                 case PathSamplingType.ParticipatingMediaLongRayOneSegmentWithDistanceSampling:
                 case PathSamplingType.ParticipatingMediaLongRayManySegmentsWithDistanceSampling:
                 case PathSamplingType.ParticipatingMediaWithoutDistanceSampling:
-                    return new MediaSubPathPointsSampler(data.MediaIntersectionFinder, data.LightSourceSampler, data.MaxPathLength, TransformPathSamplingTypeToMediaMode(data.PathSamplingType), data.BrdfSampler, data.PhaseFunction, data.RayCamera);
+                    return new MediaSubPathPointsSampler(data.MediaIntersectionFinder, data.LightSourceSampler, data.MaxPathLength, TransformPathSamplingTypeToMediaMode(data.PathSamplingType), data.BrdfSampler, data.PhaseFunction, data.RayCamera, data.CreateAbsorbationEvent);
             }
             throw new Exception("Unknown PathSamplingType " + data.PathSamplingType);
         }

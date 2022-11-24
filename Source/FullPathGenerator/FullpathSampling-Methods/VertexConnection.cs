@@ -2,10 +2,11 @@
 using SubpathGenerator;
 using GraphicMinimal;
 using GraphicGlobal;
+using FullPathGenerator.FullpathSampling_Methods;
 
 namespace FullPathGenerator
 {
-    public class VertexConnection : IFullPathSamplingMethod
+    public class VertexConnection : IFullPathSamplingMethod, ISingleFullPathSampler
     {
         private readonly PointToPointConnector pointToPointConnector;
         private readonly bool checkThatEachPointIsASurfacePoint;
@@ -118,5 +119,45 @@ namespace FullPathGenerator
             }
             return sum;
         }
+
+        #region ISingleFullPathSampler
+        public FullPathSamplingStrategy[] GetAvailableStrategiesForFullPathLength(int fullPathLength)
+        {
+            if (fullPathLength <= 3) return new FullPathSamplingStrategy[0];
+
+            //Beispiel wo fullPathLength 5 ist; Es gibt die Points [0] .. [4] und die Edges e0..e3
+            //VC sampelt die Edges e1,e2 (Alle außer erste und letzte Kante)
+            //e1 => EyePathLength = 2; LightPathLength = 3
+            //e2 => EyePathLength = 3; LightPathLength = 2
+            //[0]---e0---[1]---e1---[2]---e2---[3]---e3---[4]
+            FullPathSamplingStrategy[] strategies = new FullPathSamplingStrategy[fullPathLength - 3];
+            for (int edge = 1;edge <= fullPathLength - 3; edge++ )
+            {
+                strategies[edge - 1] = new FullPathSamplingStrategy()
+                {
+                    NeededEyePathLength = edge + 1,
+                    NeededLightPathLength =  fullPathLength - (edge + 1),
+                    StrategyIndex = edge - 1
+                };
+            }
+            return strategies;
+        }
+        public FullPath SampleFullPathFromSingleStrategy(SubPath eyePath, SubPath lightPath, int fullPathLength, int strategyIndex, IRandom rand)
+        {
+            var eyePoint = eyePath.Points[strategyIndex + 1];
+            if (eyePoint.IsDiffusePoint == false || eyePoint.IsLocatedOnLightSource) return null;
+
+            var lightPoint = lightPath.Points[fullPathLength - 3 - strategyIndex];
+            if (lightPoint.IsDiffusePoint == false) return null;
+
+            var connectData = this.pointToPointConnector.TryToConnectTwoPoints(eyePoint, lightPoint);
+            if (connectData != null)
+            {
+                return CreatePath(eyePoint, lightPoint, connectData);
+            }
+
+            return null;
+        }
+        #endregion 
     }
 }

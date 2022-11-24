@@ -29,6 +29,8 @@
         ThinMediaSingleScattering,          //Ohne Distanzsampling beim SubPatherzeugen; Mit Distanzsampling beim erzeugen eines Segmentpunktes: DirectLighting, DirectLightingOnEdge
         ThinMediaSingleScatteringBiased,    //Ohne Distanzsampling beim SubPatherzeugen; Ohne Distanzsampling beim Segmentpunkterstellen: DirectLighting, DirectLightingOnEdge
         ThinMediaMultipleScattering,        //Mit Distanzsampling: DirectLighting, DirectLightingOnEdge
+        MMLT,                               //Multiplexed Metropolis Light Transport (Ohne Media)
+        MMLT_WithMedia                      //Multiplexed Metropolis Light Transport (Mit Media)
     }
 
     public enum Mode2D

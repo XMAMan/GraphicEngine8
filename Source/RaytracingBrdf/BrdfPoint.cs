@@ -18,13 +18,16 @@ namespace RaytracingBrdf
         public float RefractionIndexOtherSide { get; private set; }
         public IBrdf Brdf { get; private set; }
 
-        public BrdfPoint(IntersectionPoint surfacePoint, Vector3D directionToThisPoint, float refractionIndexFromRayComesFrom, float refractionIndexOtherSide)
+        private bool createAbsorbationEvent; //Soll beim Richtungssampeln laut der ContinuationPdf ein Absorbationsevent gesampelt werden um somit per Russia Rollete die Subpfadlänge zu begrenzen?
+
+        public BrdfPoint(IntersectionPoint surfacePoint, Vector3D directionToThisPoint, float refractionIndexFromRayComesFrom, float refractionIndexOtherSide, bool createAbsorbationEvent = true)
         {
             this.SurfacePoint = surfacePoint;
             this.DirectionToThisPoint = directionToThisPoint;
             this.RefractionIndexFromRayComesFrom = refractionIndexFromRayComesFrom;
             this.RefractionIndexOtherSide = refractionIndexOtherSide;
             this.Brdf = BrdfFactory.CreateBrdf(surfacePoint, directionToThisPoint, refractionIndexFromRayComesFrom, refractionIndexOtherSide);
+            this.createAbsorbationEvent = createAbsorbationEvent;
         }
 
         //Wie viel Prozent des Lichtes wird reflektiert/gebrochen? Der Rest wird absorbiert
@@ -32,7 +35,7 @@ namespace RaytracingBrdf
         {
             get
             {
-                return this.Brdf.ContinuationPdf; //Führt zu langen BBB-Pfaden wenn das Glas MirrorColor von 1 hat
+                return createAbsorbationEvent ? this.Brdf.ContinuationPdf : 1; //Führt zu langen BBB-Pfaden wenn das Glas MirrorColor von 1 hat
                 //return Math.Min(MagicNumbers.MaxSurfaceContinuationPdf, this.Brdf.ContinuationPdf); //Hiermit habe ich probiert die Fireflys zu verringern aber es hat nicht geklappt. Außerdem fallen viele Media-Fullpathtests wegen Missing-Path um
             }
         }

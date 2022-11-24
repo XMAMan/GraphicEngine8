@@ -4,6 +4,7 @@ using SubpathGenerator;
 
 namespace FullPathGenerator
 {
+    //Erzeugt potentiell für jede Pfadlänge mehrere Fullpaths
     public interface IFullPathSamplingMethod
     {
         SamplingMethod Name { get; }

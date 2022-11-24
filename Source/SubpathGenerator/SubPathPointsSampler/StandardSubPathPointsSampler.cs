@@ -15,13 +15,15 @@ namespace SubpathGenerator.SubPathSampler
         private readonly LightSourceSampler lightSourceSampler;
         private readonly int maxLength;
         private readonly IBrdfSampler sampleDirectionHandler;
+        private readonly bool createAbsorbationEvent;
 
-        public StandardSubPathPointsSampler(IntersectionFinder intersectionFinder, LightSourceSampler lightSourceSampler, int maxLength, IBrdfSampler sampleDirectionHandler)
+        public StandardSubPathPointsSampler(IntersectionFinder intersectionFinder, LightSourceSampler lightSourceSampler, int maxLength, IBrdfSampler sampleDirectionHandler, bool createAbsorbationEvent)
         {
             this.intersectionFinder = intersectionFinder;
             this.lightSourceSampler = lightSourceSampler;
             this.maxLength = maxLength;
             this.sampleDirectionHandler = sampleDirectionHandler;
+            this.createAbsorbationEvent = createAbsorbationEvent;
         }
 
         public PathPoint[] SamplePointsFromCamera(Vector3D cameraForward, BrdfSampleEvent sampleEvent, Vector3D pathWeight, float pathCreationTime, IRandom rand)
@@ -72,7 +74,7 @@ namespace SubpathGenerator.SubPathSampler
                     rayWalkData.RefractionIndexNextMedium = 1;
                 }
 
-                var pathPoint = PathPoint.CreateSurfacePointWithoutSurroundingMedia(new BrdfPoint(point, rayWalkData.RayDirection, rayWalkData.RefractionIndexCurrentMedium, rayWalkData.RefractionIndexNextMedium), rayWalkData.PathWeight);
+                var pathPoint = PathPoint.CreateSurfacePointWithoutSurroundingMedia(new BrdfPoint(point, rayWalkData.RayDirection, rayWalkData.RefractionIndexCurrentMedium, rayWalkData.RefractionIndexNextMedium, this.createAbsorbationEvent), rayWalkData.PathWeight);
                 AddPoint(rayWalkData.Points, pathPoint, rayWalkData.SampleEvent);
 
                 if (pathPoint.PdfA  == 0) return rayWalkData.Points.ToArray(); //Abbruch, da Pfad zu unwahrscheinlich

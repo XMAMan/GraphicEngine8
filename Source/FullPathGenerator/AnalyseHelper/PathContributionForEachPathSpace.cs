@@ -20,15 +20,30 @@ namespace FullPathGenerator.AnalyseHelper
         }
 
         public PathContributionForEachPathSpace() { }
-        public PathContributionForEachPathSpace(string textFile)
+        private PathContributionForEachPathSpace(Dictionary<string, Vector3D> pathContribution)
         {
-            string[] lines = File.ReadAllText(textFile).Split(new[] { System.Environment.NewLine }, StringSplitOptions.None);
+            this.pathContribution = pathContribution;
+        }
+
+        public PathContributionForEachPathSpace(string textFile)
+            :this(ParseString(File.ReadAllText(textFile)))
+        {
+        }
+        public static PathContributionForEachPathSpace FromString(string pathSpace)
+        {
+            return new PathContributionForEachPathSpace(ParseString(pathSpace));
+        }
+
+        private static Dictionary<string, Vector3D> ParseString(string pathSpace)
+        {
+            string[] lines = pathSpace.Split(new[] { System.Environment.NewLine }, StringSplitOptions.None);
             var firstFreeLineObj = lines.Select((value, index) => new { value, index }).FirstOrDefault(x => x.value == "");
             if (firstFreeLineObj != null)
             {
                 lines = lines.Skip(firstFreeLineObj.index + 1).ToArray(); //Entferne alle Zeilen über der Leerzeile (wenn Leerzeile vorhanden ist)
             }
-            
+
+            Dictionary<string, Vector3D> pathContribution = new Dictionary<string, Vector3D>();
             foreach (var line in lines)
             {
                 if (line.StartsWith("#")) continue; //Kommentarzeile
@@ -36,6 +51,7 @@ namespace FullPathGenerator.AnalyseHelper
                 var fields = line.Split('=');
                 pathContribution.Add(fields[0], Vector3D.Parse(fields[1]));
             }
+            return pathContribution;
         }
 
         public Vector3D SumOverAllPathSpaces()

@@ -22,8 +22,9 @@ namespace SubpathGenerator.SubPathPointsSampler.Media
         private readonly int maxLength;
         private readonly MediaIntersectionPoint cameraMediaPoint = null;
         private readonly MediaIntersectionFinder.IntersectionMode intersectionMode;
+        private readonly bool createAbsorbationEvent;
 
-        public MediaSubPathPointsSampler(MediaIntersectionFinder intersectionFinder, LightSourceSampler lightSourceSampler, int maxLength, MediaIntersectionFinder.IntersectionMode intersectionMode, IBrdfSampler standardBrdfSampler, IPhaseFunctionSampler phaseFunction, IRayCamera rayCamera)
+        public MediaSubPathPointsSampler(MediaIntersectionFinder intersectionFinder, LightSourceSampler lightSourceSampler, int maxLength, MediaIntersectionFinder.IntersectionMode intersectionMode, IBrdfSampler standardBrdfSampler, IPhaseFunctionSampler phaseFunction, IRayCamera rayCamera, bool createAbsorbationEvent)
         {
             this.intersectionFinder = intersectionFinder;
             this.lightSourceSampler = lightSourceSampler;
@@ -31,6 +32,7 @@ namespace SubpathGenerator.SubPathPointsSampler.Media
             this.maxLength = maxLength;
             this.cameraMediaPoint = intersectionFinder.CreateCameraMediaStartPoint(rayCamera.Position);
             this.intersectionMode = intersectionMode;
+            this.createAbsorbationEvent = createAbsorbationEvent;
         }
 
         public PathPoint[] SamplePointsFromCamera(Vector3D cameraForward, BrdfSampleEvent sampleEvent, Vector3D pathWeight, float pathCreationTime, IRandom rand)
@@ -94,15 +96,15 @@ namespace SubpathGenerator.SubPathPointsSampler.Media
         }
 
         //Erzeugt ein Pfadpunkt auf ein Surface oder Partikel welcher vom aktuellen Ray aus erzeugt wurde
-        private static PathPoint CreatePathPoint(RayWalkData rayWalkData, MediaIntersectionPoint point)
+        private PathPoint CreatePathPoint(RayWalkData rayWalkData, MediaIntersectionPoint point)
         {
             switch (point.Location)
             {
                 case MediaPointLocationType.Surface:
-                    return PathPoint.CreateSurfacePointWithSurroundingMedia(new BrdfPoint(point.SurfacePoint, rayWalkData.RayDirection, rayWalkData.RefractionIndexCurrentMedium, rayWalkData.RefractionIndexNextMedium), rayWalkData.PathWeight, point);
+                    return PathPoint.CreateSurfacePointWithSurroundingMedia(new BrdfPoint(point.SurfacePoint, rayWalkData.RayDirection, rayWalkData.RefractionIndexCurrentMedium, rayWalkData.RefractionIndexNextMedium, this.createAbsorbationEvent), rayWalkData.PathWeight, point);
                 case MediaPointLocationType.MediaBorder:
                 case MediaPointLocationType.NullMediaBorder:
-                    return PathPoint.CreateMediaBorderPoint(new BrdfPoint(point.SurfacePoint, rayWalkData.RayDirection, rayWalkData.RefractionIndexCurrentMedium, rayWalkData.RefractionIndexNextMedium), rayWalkData.PathWeight, point);
+                    return PathPoint.CreateMediaBorderPoint(new BrdfPoint(point.SurfacePoint, rayWalkData.RayDirection, rayWalkData.RefractionIndexCurrentMedium, rayWalkData.RefractionIndexNextMedium, this.createAbsorbationEvent), rayWalkData.PathWeight, point);
                 case MediaPointLocationType.MediaParticle:
                     return PathPoint.CreateMediaParticlePoint(point, rayWalkData.PathWeight);
                 case MediaPointLocationType.MediaInfinity:

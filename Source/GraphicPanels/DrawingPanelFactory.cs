@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using RaytracingMethods;
 using GraphicGlobal;
+using RaytracingMethods.MMLT;
 
 namespace GraphicPanels
 {
@@ -67,6 +68,10 @@ namespace GraphicPanels
                     return new RaytracerMain.RaytracerMain(new ThinMediaTracer(false, true));
                 case Mode3D.ThinMediaMultipleScattering:
                     return new RaytracerMain.RaytracerMain(new ThinMediaTracer(true, false));
+                case Mode3D.MMLT:
+                    return new RaytracerMain.RaytracerMain(new MultiplexedMetropolisLightTransport(false));
+                case Mode3D.MMLT_WithMedia:
+                    return new RaytracerMain.RaytracerMain(new MultiplexedMetropolisLightTransport(true));
             }
 
             throw new Exception("Unknown modus:" + modus.ToString());
