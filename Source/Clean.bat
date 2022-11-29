@@ -1498,6 +1498,63 @@ del RaytracingMethods\bin\Debug\TriangleObjectGeneration.dll
 del RaytracingMethods\bin\Debug\TriangleObjectGeneration.pdb
 del RaytracingMethods\obj\Debug\RaytracingMethods.dll
 del RaytracingMethods\obj\Debug\RaytracingMethods.pdb
+del RaytracingMethodsTest\bin\Debug\BitmapHelper.dll
+del RaytracingMethodsTest\bin\Debug\BitmapHelper.pdb
+del RaytracingMethodsTest\bin\Debug\FullPathGenerator.dll
+del RaytracingMethodsTest\bin\Debug\FullPathGenerator.pdb
+del RaytracingMethodsTest\bin\Debug\GraphicGlobal.dll
+del RaytracingMethodsTest\bin\Debug\GraphicGlobal.pdb
+del RaytracingMethodsTest\bin\Debug\GraphicMinimal.dll
+del RaytracingMethodsTest\bin\Debug\GraphicMinimal.pdb
+del RaytracingMethodsTest\bin\Debug\GraphicPipelineCPU.dll
+del RaytracingMethodsTest\bin\Debug\GraphicPipelineCPU.pdb
+del RaytracingMethodsTest\bin\Debug\IntersectionTests.dll
+del RaytracingMethodsTest\bin\Debug\IntersectionTests.pdb
+del RaytracingMethodsTest\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
+del RaytracingMethodsTest\bin\Debug\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+del RaytracingMethodsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+del RaytracingMethodsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+del RaytracingMethodsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+del RaytracingMethodsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+del RaytracingMethodsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+del RaytracingMethodsTest\bin\Debug\ObjectDivider.dll
+del RaytracingMethodsTest\bin\Debug\ObjectDivider.pdb
+del RaytracingMethodsTest\bin\Debug\ParticipatingMedia.dll
+del RaytracingMethodsTest\bin\Debug\ParticipatingMedia.pdb
+del RaytracingMethodsTest\bin\Debug\Photonusmap.dll
+del RaytracingMethodsTest\bin\Debug\Photonusmap.pdb
+del RaytracingMethodsTest\bin\Debug\PointSearch.dll
+del RaytracingMethodsTest\bin\Debug\PointSearch.pdb
+del RaytracingMethodsTest\bin\Debug\RayCamera.dll
+del RaytracingMethodsTest\bin\Debug\RayCamera.pdb
+del RaytracingMethodsTest\bin\Debug\RayObjects.dll
+del RaytracingMethodsTest\bin\Debug\RayObjects.pdb
+del RaytracingMethodsTest\bin\Debug\RayTracerGlobal.dll
+del RaytracingMethodsTest\bin\Debug\RayTracerGlobal.pdb
+del RaytracingMethodsTest\bin\Debug\RaytracingBrdf.dll
+del RaytracingMethodsTest\bin\Debug\RaytracingBrdf.pdb
+del RaytracingMethodsTest\bin\Debug\RaytracingColorEstimator.dll
+del RaytracingMethodsTest\bin\Debug\RaytracingColorEstimator.pdb
+del RaytracingMethodsTest\bin\Debug\RaytracingLightSource.dll
+del RaytracingMethodsTest\bin\Debug\RaytracingLightSource.pdb
+del RaytracingMethodsTest\bin\Debug\RaytracingMethods.dll
+del RaytracingMethodsTest\bin\Debug\RaytracingMethods.pdb
+del RaytracingMethodsTest\bin\Debug\RaytracingMethodsTest.dll
+del RaytracingMethodsTest\bin\Debug\RaytracingMethodsTest.pdb
+del RaytracingMethodsTest\bin\Debug\RaytracingRandom.dll
+del RaytracingMethodsTest\bin\Debug\RaytracingRandom.pdb
+del RaytracingMethodsTest\bin\Debug\SubpathGenerator.dll
+del RaytracingMethodsTest\bin\Debug\SubpathGenerator.pdb
+del RaytracingMethodsTest\bin\Debug\TextureHelper.dll
+del RaytracingMethodsTest\bin\Debug\TextureHelper.pdb
+del RaytracingMethodsTest\bin\Debug\de\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+del RaytracingMethodsTest\bin\Debug\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+del RaytracingMethodsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+del RaytracingMethodsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+del RaytracingMethodsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+del RaytracingMethodsTest\bin\Debug\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+del RaytracingMethodsTest\obj\Debug\RaytracingMethodsTest.dll
+del RaytracingMethodsTest\obj\Debug\RaytracingMethodsTest.pdb
 del RaytracingRandom\bin\Debug\RaytracingRandom.dll
 del RaytracingRandom\bin\Debug\RaytracingRandom.pdb
 del RaytracingRandom\obj\Debug\RaytracingRandom.dll
@@ -2098,14 +2155,18 @@ del RaytracingBrdfTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramewo
 del RaytracingBrdfTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 del RaytracingLightSourceTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del RaytracingLightSourceTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+del RaytracingMethodsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+del RaytracingMethodsTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 del RaytracingRandomTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del RaytracingRandomTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 del SubpathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del SubpathGeneratorTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+del Tools\bin\Debug\ausgabe.bmp
 del Tools\bin\Debug\GraphicTool.exe
 del Tools\bin\Debug\GraphicTool.exe.config
 del Tools\bin\Debug\Newtonsoft.Json.xml
 del Tools\bin\Debug\PowerArgs.xml
+del Tools\bin\Debug\rawImageData.raw
 del Tools\bin\Debug\~$KerzePathLength.xlsx
 del ToolsTest\bin\Debug\FluentAssertions.xml
 del ToolsTest\bin\Debug\GraphicTool.exe
@@ -2119,113 +2180,58 @@ del ToolsTest\bin\Debug\System.Threading.Tasks.Extensions.xml
 del ToolsTest\bin\Debug\ToolsTest.dll.config
 del TriangleObjectGenerationTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 del TriangleObjectGenerationTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+del UnitTestResults\MetropolisPbr.bmp
 rmdir BitmapHelper\obj\Debug /s /q
-rmdir BitmapHelper\obj\Release /s /q
 rmdir FullPathGenerator\obj\Debug /s /q
-rmdir FullPathGenerator\obj\Release /s /q
 rmdir FullPathGeneratorTest\obj\Debug /s /q
-rmdir FullPathGeneratorTest\obj\Release /s /q
-rmdir FullPathTestHelper\obj\Debug /s /q
-rmdir FullPathTestHelper\obj\Release /s /q
 rmdir Graphic2DTest\obj\Debug /s /q
-rmdir Graphic2DTest\obj\Release /s /q
 rmdir GraphicGlobal\obj\Debug /s /q
-rmdir GraphicGlobal\obj\Release /s /q
 rmdir GraphicGlobalTest\obj\Debug /s /q
-rmdir GraphicGlobalTest\obj\Release /s /q
 rmdir GraphicMinimal\obj\Debug /s /q
-rmdir GraphicMinimal\obj\Release /s /q
 rmdir GraphicMinimalTest\obj\Debug /s /q
-rmdir GraphicMinimalTest\obj\Release /s /q
 rmdir GraphicPanels\obj\Debug /s /q
-rmdir GraphicPanels\obj\Release /s /q
 rmdir GraphicPanelsTest\obj\Debug /s /q
-rmdir GraphicPanelsTest\obj\Release /s /q
 rmdir GraphicPipelineCPU\obj\Debug /s /q
-rmdir GraphicPipelineCPU\obj\Release /s /q
 rmdir GraphicPipelineCPUTest\obj\Debug /s /q
-rmdir GraphicPipelineCPUTest\obj\Release /s /q
 rmdir GraphicPipelineDirect3D11\obj\Debug /s /q
-rmdir GraphicPipelineDirect3D11\obj\Release /s /q
 rmdir GraphicPipelineOpenGLv1_0\obj\Debug /s /q
-rmdir GraphicPipelineOpenGLv1_0\obj\Release /s /q
 rmdir GraphicPipelineOpenGLv3_0\obj\Debug /s /q
-rmdir GraphicPipelineOpenGLv3_0\obj\Release /s /q
 rmdir ImageCreator\obj\Debug /s /q
-rmdir ImageCreator\obj\Release /s /q
 rmdir ImageCreatorTest\obj\Debug /s /q
-rmdir ImageCreatorTest\obj\Release /s /q
 rmdir IntersectionTests\obj\Debug /s /q
-rmdir IntersectionTests\obj\Release /s /q
 rmdir IntersectionTestsTest\obj\Debug /s /q
-rmdir IntersectionTestsTest\obj\Release /s /q
-rmdir LineIntersectionTest\obj\Debug /s /q
-rmdir LineIntersectionTest\obj\Release /s /q
 rmdir ObjectDivider\obj\Debug /s /q
-rmdir ObjectDivider\obj\Release /s /q
 rmdir ObjectDividerTest\obj\Debug /s /q
-rmdir ObjectDividerTest\obj\Release /s /q
 rmdir ParticipatingMedia\obj\Debug /s /q
-rmdir ParticipatingMedia\obj\Release /s /q
 rmdir ParticipatingMediaTest\obj\Debug /s /q
-rmdir ParticipatingMediaTest\obj\Release /s /q
 rmdir PdfHistogram\obj\Debug /s /q
-rmdir PdfHistogram\obj\Release /s /q
 rmdir Photonusmap\obj\Debug /s /q
-rmdir Photonusmap\obj\Release /s /q
 rmdir PointSearch\obj\Debug /s /q
-rmdir PointSearch\obj\Release /s /q
 rmdir PointSearchTest\obj\Debug /s /q
-rmdir PointSearchTest\obj\Release /s /q
 rmdir Radiosity\obj\Debug /s /q
-rmdir Radiosity\obj\Release /s /q
 rmdir RadiosityTest\obj\Debug /s /q
-rmdir RadiosityTest\obj\Release /s /q
 rmdir Rasterizer\obj\Debug /s /q
-rmdir Rasterizer\obj\Release /s /q
 rmdir RasterizerTest\obj\Debug /s /q
-rmdir RasterizerTest\obj\Release /s /q
 rmdir RayCamera\obj\Debug /s /q
-rmdir RayCamera\obj\Release /s /q
 rmdir RayCameraTest\obj\Debug /s /q
-rmdir RayCameraTest\obj\Release /s /q
 rmdir RayObjects\obj\Debug /s /q
-rmdir RayObjects\obj\Release /s /q
 rmdir RayObjectTests\obj\Debug /s /q
-rmdir RayObjectTests\obj\Release /s /q
 rmdir RayTracerGlobal\obj\Debug /s /q
-rmdir RayTracerGlobal\obj\Release /s /q
 rmdir RaytracerMain\obj\Debug /s /q
-rmdir RaytracerMain\obj\Release /s /q
 rmdir RaytracingBrdf\obj\Debug /s /q
-rmdir RaytracingBrdf\obj\Release /s /q
 rmdir RaytracingBrdfTest\obj\Debug /s /q
-rmdir RaytracingBrdfTest\obj\Release /s /q
 rmdir RaytracingColorEstimator\obj\Debug /s /q
-rmdir RaytracingColorEstimator\obj\Release /s /q
 rmdir RaytracingLightSource\obj\Debug /s /q
-rmdir RaytracingLightSource\obj\Release /s /q
 rmdir RaytracingLightSourceTest\obj\Debug /s /q
-rmdir RaytracingLightSourceTest\obj\Release /s /q
 rmdir RaytracingMethods\obj\Debug /s /q
-rmdir RaytracingMethods\obj\Release /s /q
+rmdir RaytracingMethodsTest\obj\Debug /s /q
 rmdir RaytracingRandom\obj\Debug /s /q
-rmdir RaytracingRandom\obj\Release /s /q
 rmdir RaytracingRandomTest\obj\Debug /s /q
-rmdir RaytracingRandomTest\obj\Release /s /q
 rmdir SubpathGenerator\obj\Debug /s /q
-rmdir SubpathGenerator\obj\Release /s /q
 rmdir SubpathGeneratorTest\obj\Debug /s /q
-rmdir SubpathGeneratorTest\obj\Release /s /q
 rmdir TextureHelper\obj\Debug /s /q
-rmdir TextureHelper\obj\Release /s /q
-rmdir Tools\obj\x64 /s /q
 rmdir Tools\obj\x86 /s /q
 rmdir ToolsTest\obj\Debug /s /q
-rmdir ToolsTest\obj\Release /s /q
 rmdir TriangleObjectGeneration\obj\Debug /s /q
-rmdir TriangleObjectGeneration\obj\Release /s /q
 rmdir TriangleObjectGenerationTest\obj\Debug /s /q
-rmdir TriangleObjectGenerationTest\obj\Release /s /q
 rmdir UnitTestHelper\obj\Debug /s /q
-rmdir UnitTestHelper\obj\Release /s /q
