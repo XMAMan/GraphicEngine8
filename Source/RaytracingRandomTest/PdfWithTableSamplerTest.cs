@@ -185,5 +185,18 @@ namespace RaytracingRandomTest
         {
             return 1;
         }
+
+        [TestMethod]
+        public void SampleDiscrete_CalledWithConstantPdf_ReturnValueMatchWithCastInt()
+        {
+            PdfWithTableSampler sut = PdfWithTableSampler.CreateFromUnnormalisizedFunctionArray(new double[]{ 1,1,1});
+            Assert.AreEqual(0, sut.SampleDiscrete(0));
+            Assert.AreEqual((int)0.5, sut.SampleDiscrete(0.5 / 3));
+            Assert.AreEqual((int)1.0, sut.SampleDiscrete(1.0 / 3));
+            Assert.AreEqual((int)1.5, sut.SampleDiscrete(1.5 / 3));
+            Assert.AreEqual((int)2.0, sut.SampleDiscrete(2.0 / 3));
+            Assert.AreEqual((int)2.5, sut.SampleDiscrete(2.5 / 3));
+            Assert.AreEqual(2, sut.SampleDiscrete(3.0 / 3)); //Hier wird 2 und nicht 3 zurück gegeben, da der Returnwert immer ein gültigen Indexwert aus dem Inputarray liefern soll
+        }
     }
 }

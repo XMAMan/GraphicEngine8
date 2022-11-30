@@ -180,7 +180,15 @@ namespace RaytracingRandom
 
             double f = (u - this.cdf[index]) / (this.cdf[index + 1] - this.cdf[index]);
             return this.xValues[index] + f * this.deltaX;
-        }       
+        }
+
+        //Gibt ein Index aus yValues zurück
+        //u = Zufällige Zahl im Bereich von 0 bis 1
+        public int SampleDiscrete(double u)
+        {
+            if (u == 1) return this.cdf.Length - 2;
+            return BinarySeach(u);
+        }
 
         private int BinarySeach(double u)
         {
