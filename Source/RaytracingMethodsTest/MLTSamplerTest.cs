@@ -112,6 +112,9 @@ namespace RaytracingMethodsTest
                 0.2,
                 0.2,
                 0.2,
+
+                0.3,
+                0.3
             });
 
             MLTSampler sut = new MLTSampler(randMock, 0.01f, 0.3f, 1);
@@ -137,6 +140,18 @@ namespace RaytracingMethodsTest
             Assert.AreEqual(0.2, X[0].Value);
             Assert.AreEqual(0.2, X[1].Value);
             Assert.AreEqual(0.2, X[2].Value);
+
+            //Dritte Iteration mit LargeStep
+            sut.Reject();
+            sut.StartIteration();
+
+            sut.StartStream(0);
+            for (int i = 0; i < 2; i++) sut.NextDouble(); //Nimm 2 Zahlen
+
+            X = sut.GetX();
+            Assert.IsTrue(sut.IsLargeStep);
+            Assert.AreEqual(0.3, X[0].Value);
+            Assert.AreEqual(0.3, X[1].Value);
         }
 
         //-Wenn ein SmallStep erfolgen soll, dann stelle sicher, dass die Pertubation auf einer gültigen Small- oder Large-Step-Zahl erfolgt und
