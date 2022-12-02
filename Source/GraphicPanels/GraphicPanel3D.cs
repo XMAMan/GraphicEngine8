@@ -691,16 +691,15 @@ namespace GraphicPanels
             if (pixelRange == null) pixelRange = new ImagePixelRange(0, 0, imageWidth, imageHeight);
             return panel.GetRaytracingImageSynchron(GetCurrentFrame(), imageWidth, imageHeight, pixelRange);
         }
-        public Vector3D GetColorFromSinglePixelForDebuggingPurpose(RaytracingDebuggingData debuggingData, ImagePixelRange pixelRange = null)
+        public Vector3D GetColorFromSinglePixelForDebuggingPurpose(RaytracingDebuggingData debuggingData)
         {
             var panel = GetPanel<IRaytracingHelper>();
-            if (pixelRange == null) pixelRange = new ImagePixelRange(0, 0, debuggingData.ScreenSize.Width, debuggingData.ScreenSize.Height);
-            
+
             var globalMedia = this.GlobalSettings.GlobalParticipatingMedia;
             this.GlobalSettings = debuggingData.GlobalSettings;
             this.GlobalSettings.GlobalParticipatingMedia = globalMedia; //Achtung: GlobalParticipatingMedia kann nicht XML-Serialisiert werden!
 
-            return panel.GetColorFromSinglePixelForDebuggingPurpose(GetCurrentFrame(), debuggingData.ScreenSize.Width, debuggingData.ScreenSize.Height, pixelRange, debuggingData);
+            return panel.GetColorFromSinglePixelForDebuggingPurpose(GetCurrentFrame(), debuggingData);
         }
 
         //Synchrone Ausgabe von ein Bild

@@ -59,7 +59,7 @@ namespace RaytracingMethods
             return new MediaBeamTracer(this);
         }
 
-        public void DoFramePrepareStep(ImagePixelRange range, int frameIterationCount, IRandom rand)
+        public void DoFramePrepareStep(int frameIterationCount, IRandom rand)
         {
             //this.pixelRadianceCalculator.PixelPhotonenCounter.FrameIterationCount = frameIterationCount;
             if (this.createNewBeamMapInEachFrame) CreateBeamMap(rand);

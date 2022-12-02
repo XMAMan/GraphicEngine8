@@ -41,7 +41,7 @@ namespace RaytracingMethods
             return new ProgressivePhotonmapping(this);
         }
 
-        public void DoFramePrepareStep(ImagePixelRange range, int frameIterationCount, IRandom rand)
+        public void DoFramePrepareStep(int frameIterationCount, IRandom rand)
         {
             this.pixelRadianceCalculator.PixelPhotonenCounter.FrameIterationCount = frameIterationCount;
             this.pixelRadianceCalculator.FrameData.PhotonMaps = new Photonmaps() { GlobalSurfacePhotonmap = this.pixelRadianceCalculator.CreateSurfacePhotonmapWithSingleThread(rand) };

@@ -93,7 +93,7 @@ namespace GraphicGlobal
         string GetFullPathsFromSinglePixel(Frame3DData data, int imageWidth, int imageHeight, ImagePixelRange pixelRange, int pixX, int pixY, int sampleCount);
         string GetPathContributionsForSinglePixel(Frame3DData data, int imageWidth, int imageHeight, ImagePixelRange pixelRange, int pixX, int pixY, int sampleCount);
         float GetBrightnessFactor(Frame3DData data, int imageWidth, int imageHeight);
-        Vector3D GetColorFromSinglePixelForDebuggingPurpose(Frame3DData data, int imageWidth, int imageHeight, ImagePixelRange pixelRange, RaytracingDebuggingData debuggingData); //Zum nachstellen von Fehlern
+        Vector3D GetColorFromSinglePixelForDebuggingPurpose(Frame3DData data, RaytracingDebuggingData debuggingData); //Zum nachstellen von Fehlern
         string GetFlippedWavefrontFile(Frame3DData data, int imageWidth, int imageHeight); //Dreht alle Dreiecke so, dass die Normale nach außen zeigt. Außen ist da, wo die Kamera und Lichtquellen ist
     }
 

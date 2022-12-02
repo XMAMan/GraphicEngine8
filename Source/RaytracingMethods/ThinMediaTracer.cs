@@ -45,7 +45,7 @@ namespace RaytracingMethods
         
 
         public FullPathSampleResult GetFullPathSampleResult(int x, int y, IRandom rand)
-        {
+        {            
             return this.pixelRadianceCalculator.SampleSingleEyePath(x, y, rand);
         }
     }

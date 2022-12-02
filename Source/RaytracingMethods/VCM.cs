@@ -44,7 +44,7 @@ namespace RaytracingMethods
             return new VCM(this);
         }
 
-        public void DoFramePrepareStep(ImagePixelRange range, int frameIterationCount, IRandom rand)
+        public void DoFramePrepareStep(int frameIterationCount, IRandom rand)
         {
             this.pixelRadianceCalculator.PixelPhotonenCounter.FrameIterationCount = frameIterationCount;
             this.pixelRadianceCalculator.FrameData.PhotonMaps = new Photonmaps() { GlobalSurfacePhotonmap = this.pixelRadianceCalculator.CreateSurfacePhotonmapWithSingleThread(rand) };
@@ -54,7 +54,8 @@ namespace RaytracingMethods
         }
 
         public FullPathSampleResult GetFullPathSampleResult(int x, int y, IRandom rand)
-        {     
+        {
+            if (x == 309 && y == 7) throw new System.Exception("Hallo");
             this.pixelRadianceCalculator.FrameData.PhotonMaps.GlobalSurfacePhotonmap.SearchRadius = this.pixelRadianceCalculator.PixelPhotonenCounter.GetSearchRadiusForPixel(x, y);
             var result = this.pixelRadianceCalculator.SampleSingleEyeAndLightPath(x, y, rand);
             this.pixelRadianceCalculator.PixelPhotonenCounter.AddPhotonCounterForPixel(x, y, result.CollectedVertexMergingPhotonCount);

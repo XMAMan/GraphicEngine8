@@ -71,9 +71,9 @@ namespace RaytracerMain
 
         #region IRaytracingHelper
         //Für synchrone Verfahren die ohne Stoptrigger arbeiten (einzelnes Pixel analysieren; Helligkeitswert bestimmen)
-        public Vector3D GetColorFromSinglePixelForDebuggingPurpose(Frame3DData data, int imageWidth, int imageHeight, ImagePixelRange pixelRange, RaytracingDebuggingData debuggingData)
+        public Vector3D GetColorFromSinglePixelForDebuggingPurpose(Frame3DData data, RaytracingDebuggingData debuggingData)
         {
-            return this.raytracingHelper.GetColorFromSinglePixelForDebuggingPurpose(data, imageWidth, imageHeight, pixelRange, debuggingData);
+            return this.raytracingHelper.GetColorFromSinglePixelForDebuggingPurpose(data, debuggingData);
         }        
         public Vector3D GetColorFromSinglePixel(Frame3DData data, int imageWidth, int imageHeight, ImagePixelRange pixelRange, int pixX, int pixY, int sampleCount)
         {

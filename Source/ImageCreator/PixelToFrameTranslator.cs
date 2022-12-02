@@ -27,7 +27,7 @@ namespace ImageCreator
             return this.pixelEstimator.GetFullPathSampleResult(x, y, rand);
         }
 
-        public void DoFramePrepareStep(ImagePixelRange range, int frameIterationCount, IRandom rand)
+        public void DoFramePrepareStep(int frameIterationCount, IRandom rand)
         {
         }
 

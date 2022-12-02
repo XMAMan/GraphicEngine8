@@ -86,18 +86,18 @@ namespace ImageCreator
 
                 try
                 {
-                    this.masterFrame.DoFramePrepareStep(this.data.PixelRange, i, rand);
+                    this.masterFrame.DoFramePrepareStep(i, rand);
                 }
                 catch (Exception ex)
                 {
                     var debugData = new RaytracingDebuggingData(
                         new RaytracingDebuggingData.DoFramePrepareStepParameter() 
                         { 
-                            PixelRange = data.PixelRange, 
                             FrameIterationNumber = i, 
                             RandomObjectBase64Coded = randomObjectBase64CodedForFramePrepare 
                         }, 
                         new Size(this.data.ScreenWidth, this.data.ScreenHeight),
+                        data.PixelRange,
                         this.data.GlobalObjektPropertys);
                     throw new Exception(debugData.ToXmlString(), ex);
                 }
@@ -144,7 +144,6 @@ namespace ImageCreator
                             var debugData = new RaytracingDebuggingData(
                                 new RaytracingDebuggingData.DoFramePrepareStepParameter()
                                 {
-                                    PixelRange = data.PixelRange,
                                     FrameIterationNumber = i,
                                     RandomObjectBase64Coded = randomObjectBase64CodedForFramePrepare
                                 },
@@ -155,6 +154,7 @@ namespace ImageCreator
                                     RandomObjectBase64Coded = randomObjectBase64Coded
                                 },
                                 new Size(this.data.ScreenWidth, this.data.ScreenHeight),
+                                data.PixelRange,
                                 this.data.GlobalObjektPropertys);
                             throw new Exception(debugData.ToXmlString(), ex);
                         }

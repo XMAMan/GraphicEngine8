@@ -62,7 +62,7 @@ namespace ImageCreatorTest
             this.pixelSleepTime = pixelSleepTime;
         }
 
-        public void DoFramePrepareStep(ImagePixelRange range, int frameIterationNumber, IRandom rand)
+        public void DoFramePrepareStep(int frameIterationNumber, IRandom rand)
         {
             Thread.Sleep(10);
         }

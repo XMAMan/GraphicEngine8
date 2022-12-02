@@ -173,7 +173,7 @@ namespace RaytracerMain
                 for (int i = 0; i < this.sampleCount; i++)
                 {
                     if (this.colorEstimator is IFrameEstimator)
-                        (this.colorEstimator as IFrameEstimator).DoFramePrepareStep(this.pixelRange, i, rand);
+                        (this.colorEstimator as IFrameEstimator).DoFramePrepareStep(i, rand);
 
                     for (int x = 0; x < this.pixelRange.Width; x++)
                         for (int y = 0; y < this.pixelRange.Height; y++)

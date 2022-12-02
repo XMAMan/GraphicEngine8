@@ -157,6 +157,7 @@ namespace ImageCreator
                         RandomObjectBase64Coded = randomObjectBase64Coded
                     },
                     new Size(this.data.ScreenWidth, this.data.ScreenHeight),
+                    this.data.PixelRange,
                     this.data.GlobalObjektPropertys);
                     throw new Exception(debugData.ToXmlString(), ex);
                 }

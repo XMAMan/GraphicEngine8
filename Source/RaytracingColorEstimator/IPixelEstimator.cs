@@ -15,7 +15,7 @@ namespace RaytracingColorEstimator
 
     public interface IFrameEstimator : IPixelEstimator
     {
-        void DoFramePrepareStep(ImagePixelRange range, int frameIterationNumber, IRandom rand);
+        void DoFramePrepareStep(int frameIterationNumber, IRandom rand);
         IFrameEstimator CreateCopy(); //Damit können viele Threads hintereinander ein und die selben PixelPhotonenCounter/FrameIterationCounter-Daten nutzen
     }
 }

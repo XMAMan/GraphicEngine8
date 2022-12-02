@@ -18,13 +18,13 @@ namespace GraphicMinimal
         }
 
         public class DoFramePrepareStepParameter
-        {
-            public ImagePixelRange PixelRange { get; set; }
+        {            
             public int FrameIterationNumber { get; set; }
             public string RandomObjectBase64Coded { get; set; }
         }
 
         public Size ScreenSize { get; set; }
+        public ImagePixelRange PixelRange { get; set; }
         public GetFullPathSampleResultParameter PixelData { get; set; }
         public DoFramePrepareStepParameter FramePrepareData { get; set; }
         public GlobalObjectPropertys GlobalSettings { get; set; }
@@ -33,27 +33,30 @@ namespace GraphicMinimal
 
 
         //Wenn der Fehler bei ein Pixelverfahren auftritt
-        public RaytracingDebuggingData(GetFullPathSampleResultParameter data, Size screenSize, GlobalObjectPropertys globalSettings)
+        public RaytracingDebuggingData(GetFullPathSampleResultParameter data, Size screenSize, ImagePixelRange pixelRange, GlobalObjectPropertys globalSettings)
         {
             this.PixelData = data;
             this.ScreenSize = screenSize;
+            this.PixelRange = pixelRange;
             this.GlobalSettings = globalSettings;
         }
 
         //Wenn der Fehler beim Frame-PrepareStep auftritt
-        public RaytracingDebuggingData(DoFramePrepareStepParameter data, Size screenSize, GlobalObjectPropertys globalSettings)
+        public RaytracingDebuggingData(DoFramePrepareStepParameter data, Size screenSize, ImagePixelRange pixelRange, GlobalObjectPropertys globalSettings)
         {
             this.FramePrepareData = data;
             this.ScreenSize = screenSize;
+            this.PixelRange = pixelRange;
             this.GlobalSettings = globalSettings;
         }
 
         //Wenn der Fehler beim Frame-Pixelstep auftritt
-        public RaytracingDebuggingData(DoFramePrepareStepParameter frameData, GetFullPathSampleResultParameter pixelData, Size screenSize, GlobalObjectPropertys globalSettings)
+        public RaytracingDebuggingData(DoFramePrepareStepParameter frameData, GetFullPathSampleResultParameter pixelData, Size screenSize, ImagePixelRange pixelRange, GlobalObjectPropertys globalSettings)
         {
             this.FramePrepareData = frameData;
             this.PixelData = pixelData;
             this.ScreenSize = screenSize;
+            this.PixelRange = pixelRange;
             this.GlobalSettings = globalSettings;
         }
 

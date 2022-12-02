@@ -150,17 +150,17 @@ namespace ImageCreator
             string randomObjectBase64Coded = taskData.Rand.ToBase64String();
             try
             {
-                taskData.FrameEstimator.DoFramePrepareStep(this.imageRange, taskData.FrameIterationNumber, taskData.Rand);
+                taskData.FrameEstimator.DoFramePrepareStep(taskData.FrameIterationNumber, taskData.Rand);
             }
             catch (RandomException createLightPahtsException)
             {
                 var debugData = new RaytracingDebuggingData(new RaytracingDebuggingData.DoFramePrepareStepParameter()
-                {
-                    PixelRange = this.imageRange,
+                {                    
                     FrameIterationNumber = taskData.FrameIterationNumber,
                     RandomObjectBase64Coded = createLightPahtsException.RandomObjectBase64Coded
                 },
                 new Size(this.data.ScreenWidth, this.data.ScreenHeight),
+                this.imageRange,
                 this.data.GlobalObjektPropertys);
                 throw new Exception(debugData.ToXmlString(), createLightPahtsException);
             }
@@ -168,11 +168,11 @@ namespace ImageCreator
             {
                 var debugData = new RaytracingDebuggingData(new RaytracingDebuggingData.DoFramePrepareStepParameter()
                 {
-                    PixelRange = this.imageRange,
                     FrameIterationNumber = taskData.FrameIterationNumber,
                     RandomObjectBase64Coded = randomObjectBase64Coded
                 },
                 new Size(this.data.ScreenWidth, this.data.ScreenHeight),
+                this.imageRange,
                 this.data.GlobalObjektPropertys);
                 throw new Exception(debugData.ToXmlString(), ex);
             }
@@ -226,7 +226,6 @@ namespace ImageCreator
                         var debugData = new RaytracingDebuggingData(
                             new RaytracingDebuggingData.DoFramePrepareStepParameter()
                             {
-                                PixelRange = this.imageRange,
                                 FrameIterationNumber = taskData.FrameIterationNumber,
                                 RandomObjectBase64Coded = randomObjectBase64CodedForFramePrepare
                             },
@@ -237,6 +236,7 @@ namespace ImageCreator
                                 RandomObjectBase64Coded = randomObjectBase64Coded
                             },
                             new Size(this.data.ScreenWidth, this.data.ScreenHeight),
+                            this.imageRange,
                             this.data.GlobalObjektPropertys);
                         throw new Exception(debugData.ToXmlString(), ex);
                     }
@@ -279,7 +279,7 @@ namespace ImageCreator
             IRandom randPixel = debuggingData.PixelData == null ? null : new Rand(debuggingData.PixelData.RandomObjectBase64Coded);
 
             var frameEstimator = this.masterEstimator.CreateCopy();
-            frameEstimator.DoFramePrepareStep(debuggingData.FramePrepareData.PixelRange, debuggingData.FramePrepareData.FrameIterationNumber, randPrepare); //Wenn die Exception im PrepareStep passierte
+            frameEstimator.DoFramePrepareStep(debuggingData.FramePrepareData.FrameIterationNumber, randPrepare); //Wenn die Exception im PrepareStep passierte
             if (randPixel != null)
             {
                 return frameEstimator.GetFullPathSampleResult(debuggingData.PixelData.PixX, debuggingData.PixelData.PixY, randPixel).RadianceFromRequestetPixel; //Wenn die Exception im PixelLoop-Step passierte

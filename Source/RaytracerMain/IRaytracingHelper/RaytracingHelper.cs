@@ -15,9 +15,9 @@ namespace RaytracerMain
             this.pixelEstimator = pixelEstimator;
         }
 
-        public Vector3D GetColorFromSinglePixelForDebuggingPurpose(Frame3DData data, int imageWidth, int imageHeight, ImagePixelRange pixelRange, RaytracingDebuggingData debuggingData)
+        public Vector3D GetColorFromSinglePixelForDebuggingPurpose(Frame3DData data, RaytracingDebuggingData debuggingData)
         {
-            var raytracingFrameData = CreateRaytracingData(data, imageWidth, imageHeight, pixelRange);
+            var raytracingFrameData = CreateRaytracingData(data, debuggingData.ScreenSize.Width, debuggingData.ScreenSize.Height, debuggingData.PixelRange);
             var imageCreator = this.pixelEstimator.CreateImageCreator(raytracingFrameData);
             return imageCreator.GetColorFromSinglePixelForDebuggingPurpose(debuggingData);
         }
