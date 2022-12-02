@@ -11,33 +11,23 @@ using System.Drawing;
 
 namespace RaytracingMethods
 {
-    public class PhotonmapDirectPixel : IFrameEstimator
+    public class PhotonmapDirectPixel : IPixelEstimator
     {
-        private List<SubPath> lightPaths;
-        private RaytracingFrame3DData frameData;
+        private Point pixRangeTopLeft;
         private ImageBuffer image;
-        private ImagePixelRange pixelRange;
 
         public PhotonmapDirectPixel() { }
         private PhotonmapDirectPixel(PhotonmapDirectPixel copy)
         {
-            this.lightPaths = copy.lightPaths;
-            this.frameData = copy.frameData;
+            this.pixRangeTopLeft = copy.pixRangeTopLeft;
             this.image = copy.image;
-            this.pixelRange = copy.pixelRange;
         }
-        public IFrameEstimator CreateCopy()
-        {
-            return new PhotonmapDirectPixel(this);
-        }
-
-        public bool CreatesLigthPaths { get; } = true;
+        public bool CreatesLigthPaths { get; } = false;
 
         public void BuildUp(RaytracingFrame3DData data)
         {
-            this.frameData = data;
-
-            var settings = this.frameData.GlobalObjektPropertys.PhotonmapPixelSettings;
+            this.pixRangeTopLeft = data.PixelRange.TopLeft;
+            var settings = data.GlobalObjektPropertys.PhotonmapPixelSettings;
 
             bool hasMedia = PixelRadianceCalculator.HasSceneAnyMedia(data);
             if (settings == PhotonmapDirectPixelSetting.ShowNoMediaCaustics) hasMedia = false;
@@ -85,39 +75,39 @@ namespace RaytracingMethods
                     UseVertexMerging = false,
                 });
 
-            //this.lightPaths = pixelRadianceCalculator.CreateLightPathListWithMultipleThreads(data);
-            this.lightPaths = pixelRadianceCalculator.CreateLightPathListWithSingleThread(new Rand(0)); //Wenn ich den MediaBeamTracer nachstellen will
+            //var lightPaths = pixelRadianceCalculator.CreateLightPathListWithMultipleThreads(data);
+            var lightPaths = pixelRadianceCalculator.CreateLightPathListWithSingleThread(new Rand(0)); //Wenn ich den MediaBeamTracer nachstellen will
 
             if (settings == PhotonmapDirectPixelSetting.CountHowManyPhotonsAreInFieldOfView)
             {
-                //System.IO.File.WriteAllText("photonmapPixel.txt", this.lightPaths.Where(x => x.Points.Length >= 2 && pixelRadianceCalculator.IsPointInVieldOfFiew(x.Points[1].Position)).Count() / (float)data.GlobalObjektPropertys.PhotonCount + "");
-                System.IO.File.WriteAllText("photonmapPixel.txt", this.lightPaths.Where(x => x.Points.Any(y => y.Index > 0 && pixelRadianceCalculator.IsPointInFieldOfView(y.Position))).Count() / (float)data.GlobalObjektPropertys.PhotonCount + "");
+                //System.IO.File.WriteAllText("photonmapPixel.txt", lightPaths.Where(x => x.Points.Length >= 2 && pixelRadianceCalculator.IsPointInVieldOfFiew(x.Points[1].Position)).Count() / (float)data.GlobalObjektPropertys.PhotonCount + "");
+                System.IO.File.WriteAllText("photonmapPixel.txt", lightPaths.Where(x => x.Points.Any(y => y.Index > 0 && pixelRadianceCalculator.IsPointInFieldOfView(y.Position))).Count() / (float)data.GlobalObjektPropertys.PhotonCount + "");
             }
-            
+
+
+            this.image = GetPhotonmapDirectImage(data, lightPaths);
         }
 
         
-
-
-        public void DoFramePrepareStep(ImagePixelRange range, int frameIterationCount, IRandom rand)
+        private static ImageBuffer GetPhotonmapDirectImage(RaytracingFrame3DData frameData, List<SubPath> lightPaths)
         {
-            Rasterizer rasterizer = new Rasterizer(this.frameData.GlobalObjektPropertys.Camera, this.frameData.ScreenWidth, this.frameData.ScreenHeight, range);
+            Rasterizer rasterizer = new Rasterizer(frameData.GlobalObjektPropertys.Camera, frameData.ScreenWidth, frameData.ScreenHeight, frameData.PixelRange);
 
-            switch (this.frameData.GlobalObjektPropertys.PhotonmapPixelSettings)
+            switch (frameData.GlobalObjektPropertys.PhotonmapPixelSettings)
             {
                 case PhotonmapDirectPixelSetting.ShowGodRays:
                     {
-                        var beams = this.lightPaths.SelectMany(x => x.Points).Where(x => x.LineToNextPoint != null && x.LineToNextPoint.HasScattering() && x.Index == 0).Select(x => x.LineToNextPoint).ToList(); //MediaBeamTracer
+                        var beams = lightPaths.SelectMany(x => x.Points).Where(x => x.LineToNextPoint != null && x.LineToNextPoint.HasScattering() && x.Index == 0).Select(x => x.LineToNextPoint).ToList(); //MediaBeamTracer
                         foreach (var b in beams)
                         {
                             rasterizer.DrawLine(b.StartPoint.Position, b.Ray.Start + b.Ray.Direction * b.LongRayLength, new Vector3D(1, 1, 1));
-                        }                        
+                        }
                     }
                     break;
 
                 case PhotonmapDirectPixelSetting.ShowMediaShortBeams:
                     {
-                        var beams = this.lightPaths.SelectMany(x => x.Points).Where(x => x.LineToNextPoint != null && x.LineToNextPoint.HasScattering()).Select(x => x.LineToNextPoint).ToList();
+                        var beams = lightPaths.SelectMany(x => x.Points).Where(x => x.LineToNextPoint != null && x.LineToNextPoint.HasScattering()).Select(x => x.LineToNextPoint).ToList();
                         foreach (var b in beams)
                         {
                             rasterizer.DrawLine(b.StartPoint.Position, b.Ray.Start + b.Ray.Direction * b.ShortRayLength, new Vector3D(1, 1, 1));
@@ -127,7 +117,7 @@ namespace RaytracingMethods
 
                 case PhotonmapDirectPixelSetting.ShowMediaLongBeams:
                     {
-                        var beams = this.lightPaths.SelectMany(x => x.Points).Where(x => x.LineToNextPoint != null && x.LineToNextPoint.HasScattering()).Select(x => x.LineToNextPoint).ToList();
+                        var beams = lightPaths.SelectMany(x => x.Points).Where(x => x.LineToNextPoint != null && x.LineToNextPoint.HasScattering()).Select(x => x.LineToNextPoint).ToList();
                         foreach (var b in beams)
                         {
                             rasterizer.DrawLine(b.StartPoint.Position, b.Ray.Start + b.Ray.Direction * b.LongRayLength, new Vector3D(1, 1, 1));
@@ -137,17 +127,17 @@ namespace RaytracingMethods
 
                 case PhotonmapDirectPixelSetting.ShowNoMediaCaustics:
                     {
-                        //var photons = this.lightPaths.Where(x => x.Points.Any(y => y.BrdfSampleEventOnThisPoint.IsSpecualarReflected == true)).SelectMany(x => x.Points).Where(x => x.DirectionToThisPoint != null && x.BrdfSampleEventOnThisPoint.IsSpecualarReflected && x.Index == 2).ToList();
+                        //var photons = lightPaths.Where(x => x.Points.Any(y => y.BrdfSampleEventOnThisPoint.IsSpecualarReflected == true)).SelectMany(x => x.Points).Where(x => x.DirectionToThisPoint != null && x.BrdfSampleEventOnThisPoint.IsSpecualarReflected && x.Index == 2).ToList();
 
                         //Spekularpfade (Lichtquelle strahlt Glasobjekt an)
-                        foreach (var path in this.lightPaths.Where(x => x.Points.Length > 3 && x.Points[1].BrdfPoint.IsOnlySpecular && x.Points[2].BrdfPoint.IsOnlySpecular))
+                        foreach (var path in lightPaths.Where(x => x.Points.Length > 3 && x.Points[1].BrdfPoint.IsOnlySpecular && x.Points[2].BrdfPoint.IsOnlySpecular))
                         {
 
-                            for (int i=0;i<path.Points.Length - 1;i++)
+                            for (int i = 0; i < path.Points.Length - 1; i++)
                             {
-                                rasterizer.DrawLine(path.Points[i].Position, path.Points[i+1].Position, new Vector3D(1, 1, 1));
+                                rasterizer.DrawLine(path.Points[i].Position, path.Points[i + 1].Position, new Vector3D(1, 1, 1));
                                 rasterizer.DrawPoint(path.Points[i].Position, new Vector3D(1, 0, 0));
-                                rasterizer.DrawPoint(path.Points[i+1].Position, new Vector3D(1, 0, 0));
+                                rasterizer.DrawPoint(path.Points[i + 1].Position, new Vector3D(1, 0, 0));
                             }
                         }
                     }
@@ -155,7 +145,7 @@ namespace RaytracingMethods
 
                 case PhotonmapDirectPixelSetting.ShowPixelPhotons:
                     {
-                        var photons = this.lightPaths.SelectMany(x => x.Points).Where(x => x.Index >= 0 /*&& x.IsLocatedOnSurvace == true*/).ToList();    //Direkt + Indirekt
+                        var photons = lightPaths.SelectMany(x => x.Points).Where(x => x.Index >= 0 /*&& x.IsLocatedOnSurvace == true*/).ToList();    //Direkt + Indirekt
                         for (int i = 0; i < photons.Count; i++)
                         {
                             //rasterizer.DrawPoint(photons[i].Position, photons[i].PathWeight);
@@ -166,7 +156,7 @@ namespace RaytracingMethods
 
                 case PhotonmapDirectPixelSetting.ShowParticlePhotons:
                     {
-                        var photons = this.lightPaths.SelectMany(x => x.Points).Where(x => x.LocationType == MediaPointLocationType.MediaParticle).ToList();
+                        var photons = lightPaths.SelectMany(x => x.Points).Where(x => x.LocationType == MediaPointLocationType.MediaParticle).ToList();
                         for (int i = 0; i < photons.Count; i++)
                         {
                             rasterizer.DrawPoint(photons[i].Position, new Vector3D(1, 1, 1));
@@ -176,7 +166,7 @@ namespace RaytracingMethods
 
                 case PhotonmapDirectPixelSetting.ShowDirectLightPhotons:
                     {
-                        var photons = this.lightPaths.SelectMany(x => x.Points).Where(x => /*x.IsLocatedOnSurvace == true &&*/ x.Index == 1).ToList();  //Nur Direktes Licht
+                        var photons = lightPaths.SelectMany(x => x.Points).Where(x => /*x.IsLocatedOnSurvace == true &&*/ x.Index == 1).ToList();  //Nur Direktes Licht
                         for (int i = 0; i < photons.Count; i++)
                         {
                             //rasterizer.DrawPoint(photons[i].Position, photons[i].PathWeight);
@@ -184,17 +174,14 @@ namespace RaytracingMethods
                         }
                     }
                     break;
-
             }
 
-
-            this.pixelRange = range;
-            this.image = rasterizer.ImageBuffer;
+            return rasterizer.ImageBuffer;
         }
 
         public FullPathSampleResult GetFullPathSampleResult(int x, int y, IRandom rand)
         {
-            return new FullPathSampleResult() { RadianceFromRequestetPixel = this.image[x - this.pixelRange.XStart, y - this.pixelRange.YStart] };
+            return new FullPathSampleResult() { RadianceFromRequestetPixel = this.image[x - this.pixRangeTopLeft.X, y - this.pixRangeTopLeft.Y] };
         }
     }
 
