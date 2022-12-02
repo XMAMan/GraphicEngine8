@@ -50,6 +50,7 @@
     <Compile Include="DrawingObject.cs" />
     <Compile Include="DrawingPanelSynchron.cs" />
     <Compile Include="MathHelper\SystemOfLinearEquations.cs" />
+    <Compile Include="ParallelForData.cs" />
     <Compile Include="Plane.cs" />
     <Compile Include="Frame.cs" />
     <Compile Include="Frame3DData.cs" />

@@ -68,6 +68,10 @@
     <Compile Include="VCM.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BitmapHelper\BitmapHelper.csproj">
+      <Project>{61FDFE91-0853-47E7-9F76-DF885C28CEF0}</Project>
+      <Name>BitmapHelper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FullPathGenerator\FullPathGenerator.csproj">
       <Project>{EF2029DA-FCD8-433D-8E19-E9E41D31ED1A}</Project>
       <Name>FullPathGenerator</Name>
@@ -123,6 +127,10 @@
     <ProjectReference Include="..\RaytracingLightSource\RaytracingLightSource.csproj">
       <Project>{94DAF9D6-E416-4964-B1C8-7A80B259BAA9}</Project>
       <Name>RaytracingLightSource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RaytracingRandom\RaytracingRandom.csproj">
+      <Project>{98A73AC3-620F-4520-89EA-B97A75573A3C}</Project>
+      <Name>RaytracingRandom</Name>
     </ProjectReference>
     <ProjectReference Include="..\SubpathGenerator\SubpathGenerator.csproj">
       <Project>{200904B4-8BCC-4895-9647-64122B668FDE}</Project>

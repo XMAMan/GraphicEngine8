@@ -156,6 +156,13 @@ namespace BitmapHelper
             return Add(image1, image2);
         }
 
+        public static ImageBuffer Sum(this List<ImageBuffer> images)
+        {
+            ImageBuffer sum = new ImageBuffer(images[0].Width, images[0].Height, new Vector3D(0, 0, 0));
+            foreach (var image in images) sum.AddFrame(image);
+            return sum;
+        }
+
         public static void AddFrame(this ImageBuffer image, ImageBuffer frame)
         {
             for (int x = 0; x < frame.Width; x++)

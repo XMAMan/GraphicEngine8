@@ -18,7 +18,7 @@ namespace RaytracingMethods.MMLT
         public bool CreatesLigthPaths { get; } = true;
 
         private SingleFullPathSampler singleFullPathSampler;
-        private ImagePixelRange pixelRange;
+        
         private bool withMedia;
 
         public MultiplexedMetropolisLightTransport(bool withMedia)
@@ -26,14 +26,25 @@ namespace RaytracingMethods.MMLT
             this.withMedia = withMedia;
         }
 
+        private ImageBuffer image;
+
         public void BuildUp(RaytracingFrame3DData data)
-        {
-            this.pixelRange = data.PixelRange;
+        {            
             this.singleFullPathSampler = new SingleFullPathSampler(data, this.withMedia);
+
+            //MLTIntegrator mLTIntegrator = new MLTIntegrator(this.singleFullPathSampler, 100000, 1000, 100, 0.01f, 0.3f);
+            MLTIntegrator mLTIntegrator = new MLTIntegrator(this.singleFullPathSampler, 100000, 1000, data.GlobalObjektPropertys.SamplingCount, 0.01f, 0.3f);
+            var bootstrap = mLTIntegrator.CreateBootstrapSamples();
+            this.image = mLTIntegrator.RunMarkovChains(bootstrap);
+
+            Vector3D pixelRadiance = image[0,0]; //expected = 712.3121337890625 
         }
 
         public FullPathSampleResult GetFullPathSampleResult(int x, int y, IRandom rand)
         {
+            var r = this.singleFullPathSampler.PixelRange;
+            return new FullPathSampleResult() { RadianceFromRequestetPixel = this.image[x - r.XStart, y - r.YStart] };
+
             FullPathSampleResult result = new FullPathSampleResult();
             result.RadianceFromRequestetPixel = new Vector3D(0, 0, 0);
 
@@ -45,31 +56,12 @@ namespace RaytracingMethods.MMLT
                 if (strategy == null) continue;
 
                 //3. Erzeuge Eyepfad mit genau der Länge, wie es der Fullpathsampler braucht
-                SubPath eyePath;
-                Point pix = new Point(-1, -1);
-                if (strategy.NeededEyePathLength > 0)
-                {
-                    //Wähle zufälligen Pixel aus
-                    pix.X = this.pixelRange.XStart + rand.Next(this.pixelRange.Width);
-                    pix.Y = this.pixelRange.YStart + rand.Next(this.pixelRange.Height);
-                    eyePath = this.singleFullPathSampler.SampleEyeSubPath(strategy.NeededEyePathLength, pix.X, pix.Y, rand);
-                    if (eyePath.Points.Length != strategy.NeededEyePathLength) continue;
-                }else
-                {
-                    eyePath = new SubPath(new PathPoint[0], 0);
-                }
+                SubPath eyePath = this.singleFullPathSampler.SampleEyeSubPath(strategy.NeededEyePathLength, rand, out Point pix);
+                if (eyePath == null) continue;
 
                 //4. Erzeuge Lightpfad mit genau der Länge, wie es der Fullpathsampler braucht
-                SubPath lightPath;
-                if (strategy.NeededLightPathLength > 0)
-                {
-                    lightPath = this.singleFullPathSampler.SampleLightSubPath(strategy.NeededLightPathLength, rand);
-                    if (lightPath.Points.Length != strategy.NeededLightPathLength) continue;
-                }
-                else
-                {
-                    lightPath = new SubPath(new PathPoint[0], 0);
-                }
+                SubPath lightPath = this.singleFullPathSampler.SampleLightSubPath(strategy.NeededLightPathLength, rand);
+                if (lightPath == null) continue;                
 
                 //5. Erzeuge Fullpfad laut ausgewählter Strategie
                 var fullPath = strategy.Sampler.SampleFullPathFromSingleStrategy(eyePath, lightPath, fullPathLength, strategy.StrategyIndex, rand);

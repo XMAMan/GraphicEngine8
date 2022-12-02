@@ -148,7 +148,7 @@ namespace GraphicPanelsTest
             if (data.UsePathSpaceCompare)
             {
                 //Auf PathSpace-Ebene vergleichen
-                var actualSpace = PathContributionForEachPathSpace.FromString(graphic.GetPathContributionsForSinglePixel(3, 3, null, 1, 1, data.SamplingCount));
+                var actualSpace = PathContributionForEachPathSpace.FromString(graphic.GetPathContributionsForSinglePixel(3, 3, new ImagePixelRange(1,1,1,1), 0, 0, data.SamplingCount));
                 string compare = expectedSpace.CompareWithOther(actualSpace);
                 string error = expectedSpace.CompareAllPathsWithOther(actualSpace, maxContributionError);
                 Assert.IsTrue(string.IsNullOrEmpty(error), error, error);

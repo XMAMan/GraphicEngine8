@@ -1,12 +1,14 @@
 ﻿using FullPathGenerator;
 using FullPathGenerator.FullpathSampling_Methods;
 using GraphicGlobal;
+using GraphicMinimal;
 using RaytracingBrdf;
 using RaytracingBrdf.SampleAndRequest;
 using RaytracingColorEstimator;
 using SubpathGenerator;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +18,14 @@ namespace RaytracingMethods.MMLT
     class SingleFullPathSampler
     {
         private SinglePathLengthData[] pathLengthData; //Der Index steht sowohl für die die Länge, die der Subpfadsampler erzeugt als auch für die Fullpfadlänge
-
+        
+        public readonly ImagePixelRange PixelRange;
         public int MaxFullPathLength => this.pathLengthData.Length - 1;
 
         public SingleFullPathSampler(RaytracingFrame3DData data, bool withMedia)
         {
+            this.PixelRange = data.PixelRange;
+
             PathSamplingType pathSamplingType = withMedia ? PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling : PathSamplingType.NoMedia;
 
             PixelRadianceData radianceData = PixelRadianceCreationHelper.CreatePixelRadianceData(data, new SubPathSettings()
@@ -76,14 +81,43 @@ namespace RaytracingMethods.MMLT
             return strategy;
         }
 
-        public SubPath SampleEyeSubPath(int pathLength, int pixX, int pixY, IRandom rand)
+        public int GetStrategyCountForFullPathLength(int fullPathLength)
         {
-            return this.pathLengthData[pathLength].EyePathSampler.SamplePathFromCamera(pixX, pixY, rand);
+            return this.pathLengthData[fullPathLength].Strategies.Length;
         }
 
+        //Erzeugt ein EyeSubpfad für ein zufällig ausgewählten Pixel mit genau der gewünschten Länge
+        public SubPath SampleEyeSubPath(int pathLength, IRandom rand, out Point pix)
+        {
+            pix = new Point(-1, -1);
+            if (pathLength > 0)
+            {
+                //Wähle zufälligen Pixel aus
+                pix.X = this.PixelRange.XStart + rand.Next(this.PixelRange.Width);
+                pix.Y = this.PixelRange.YStart + rand.Next(this.PixelRange.Height);
+                var eyePath = this.pathLengthData[pathLength].EyePathSampler.SamplePathFromCamera(pix.X, pix.Y, rand);
+                if (eyePath.Points.Length != pathLength) return null;
+                return eyePath;
+            }
+            else
+            {
+                return new SubPath(new PathPoint[0], 0);
+            }            
+        }
+
+        //Erzeugt ein LightSubpfad mit genau der gewünschten Länge
         public SubPath SampleLightSubPath(int pathLength, IRandom rand)
         {
-            return this.pathLengthData[pathLength].LightPathSampler.SamplePathFromLighsource(rand);
+            if (pathLength > 0)
+            {
+                var lightPath = this.pathLengthData[pathLength].LightPathSampler.SamplePathFromLighsource(rand);
+                if (lightPath.Points.Length != pathLength) return null;
+                return lightPath;
+            }
+            else
+            {
+                return new SubPath(new PathPoint[0], 0);
+            }
         }
     }
 
