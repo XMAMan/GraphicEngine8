@@ -40,8 +40,8 @@ namespace RayCameraTestNamespace
             Assert.IsTrue((centerRay.Start - cameraPosition).Length() < maxError);
             Assert.IsTrue(Math.Abs(centerRay.Direction * forward - 1) < maxError);
 
-            Ray leftRay = sut.CreatePrimaryRay(pixel / 2- 10, pixel / 2, rand);
-            Assert.IsTrue(leftRay.Direction * forward > 0 && leftRay.Direction.X < 0 && Math.Abs(leftRay.Direction.Y) < maxError && leftRay.Direction.Z < 0 );
+            Ray leftRay = sut.CreatePrimaryRay(pixel / 2 - 10, pixel / 2, rand);
+            Assert.IsTrue(leftRay.Direction * forward > 0 && leftRay.Direction.X < 0 && Math.Abs(leftRay.Direction.Y) < maxError && leftRay.Direction.Z < 0);
 
             Ray upRay = sut.CreatePrimaryRay(pixel / 2, pixel / 2 - 10, rand);
             Assert.IsTrue(upRay.Direction * forward > 0 && upRay.Direction.Y > 0 && Math.Abs(upRay.Direction.X) < maxError && upRay.Direction.Z < 0);
@@ -54,7 +54,7 @@ namespace RayCameraTestNamespace
             Vector3D cameraPosition = new Vector3D(1, 2, 3);
             Vector3D forward = Vector3D.Normalize(new Vector3D(0, 0, -1));
             var sut = new RayCamera(new CameraConstructorData() { Camera = new Camera(cameraPosition, forward, 45), ScreenWidth = pixel, ScreenHeight = pixel, PixelRange = new ImagePixelRange(0, 0, pixel, pixel), SamplingMode = PixelSamplingMode.None });
-            Ray centerRay = sut.CreatePrimaryRayWithPixi(pixel / 2, pixel / 2, new Vector2D(0,0));
+            Ray centerRay = sut.CreatePrimaryRayWithPixi(pixel / 2, pixel / 2, new Vector2D(0, 0));
             Assert.IsTrue((centerRay.Start - cameraPosition).Length() < maxError);
             Assert.IsTrue(Math.Abs(centerRay.Direction * forward - 1) < maxError);
         }
@@ -62,7 +62,7 @@ namespace RayCameraTestNamespace
         [TestMethod]
         public void IsPointInVieldOfFiew_CalledMultipeTimes_PointCountIsPyramidVolume()
         {
-            float qx=1.5f,qy=1,qz = 1;
+            float qx = 1.5f, qy = 1, qz = 1;
             float aspectRatio = qx / qy;
 
             int pixel = 100;
@@ -84,12 +84,12 @@ namespace RayCameraTestNamespace
             Assert.IsTrue(sut.IsPointInVieldOfFiew(new Vector3D(0, qy / 2 - maxError, -1)));
 
             //Rechte Grenze Test
-            Assert.IsFalse(sut.IsPointInVieldOfFiew(new Vector3D(qx / 2 + maxError, 0, -1))); 
+            Assert.IsFalse(sut.IsPointInVieldOfFiew(new Vector3D(qx / 2 + maxError, 0, -1)));
             Assert.IsTrue(sut.IsPointInVieldOfFiew(new Vector3D(qx / 2 - maxError, 0, -1)));
 
-            for (int i=0;i<pointCount;i++)
+            for (int i = 0; i < pointCount; i++)
             {
-                Vector3D point = new Vector3D((float)(-0.5  + rand.NextDouble()) * qx, (float)(-0.5 + rand.NextDouble()) * qy, -(float)rand.NextDouble() * qz);
+                Vector3D point = new Vector3D((float)(-0.5 + rand.NextDouble()) * qx, (float)(-0.5 + rand.NextDouble()) * qy, -(float)rand.NextDouble() * qz);
                 if (sut.IsPointInVieldOfFiew(point)) counter++;
             }
 
@@ -98,7 +98,7 @@ namespace RayCameraTestNamespace
             float quaderVolume = qx * qy * qz;
 
             //Pyramide ist 1/3 so groß wie der Quader, der sie umschließt. ALso müssen 1/3 alle im Quader erzeugten Punkte in der Pyramide(ViewFrustum) liegen
-            int expectedCount = (int)(pointCount /3);
+            int expectedCount = (int)(pointCount / 3);
 
             Assert.IsTrue(Math.Abs(counter - expectedCount) <= maxIntError);
         }
@@ -261,7 +261,7 @@ namespace RayCameraTestNamespace
 
         private float GetPixelpdfWError(int sampleCount, PixelSamplingMode samplingMode)
         {
-            int histogramSize = 100;          
+            int histogramSize = 100;
             int screenWidth = 3;
             int screenHeight = 3;
             float imagePlaneSize = 1, imagePlaneDistance = 1; //imagePlaneSize = Breite/Höhe von der Bildebene
@@ -327,7 +327,7 @@ namespace RayCameraTestNamespace
                     image.SetPixel(field.X + histogramSize, field.Y, color2);
                 }
             }
-            image.Save(WorkingDirectory + "cameraPdfW"+samplingMode+".bmp"); //Die beiden Kästchen müssen gleich aussehen
+            image.Save(WorkingDirectory + "cameraPdfW" + samplingMode + ".bmp"); //Die beiden Kästchen müssen gleich aussehen
 
             float error = histogram.EntryCollection().Where(x => x.PdfAs.Any()).Select(x => Math.Abs(x.PdfAFromCamera - x.PdfAFromHistogram)).Average();
             string resultText = string.Join(System.Environment.NewLine, histogram.EntryCollection().Where(x => x.PdfAs.Any()).Select(x => x.PdfAFromCamera + "\t" + x.PdfAFromHistogram));
@@ -339,6 +339,35 @@ namespace RayCameraTestNamespace
             public List<float> PdfAs = new List<float>(); //Das sind die PdfW-Werte von der Kamera, welche in eine PdfA umgerechnet wurden
             public float PdfAFromCamera;
             public float PdfAFromHistogram;
+        }
+
+        [TestMethod]
+        public void CreatePrimaryRayWithPixi_Image11IsTheSameAsImage33()
+        {
+            var sut1 = new RayCamera(new CameraConstructorData()
+            {
+                Camera = new Camera(new Vector3D(0, 0, 0), new Vector3D(0, 0, 1), 45),
+                ScreenWidth = 1,
+                ScreenHeight = 1,
+                PixelRange = new ImagePixelRange(0, 0, 1, 1),
+                SamplingMode = PixelSamplingMode.Equal
+            });
+            var sut2 = new RayCamera(new CameraConstructorData()
+            {
+                Camera = new Camera(new Vector3D(0, 0, 0), new Vector3D(0, 0, 1), 45),
+                ScreenWidth = 3,
+                ScreenHeight = 3,
+                PixelRange = new ImagePixelRange(0, 0, 3, 3),
+                SamplingMode = PixelSamplingMode.Equal
+            });
+
+            var leftUpperCorner1 = sut1.CreatePrimaryRayWithPixi(0, 0, new Vector2D(-0.5f, -0.5f));          
+            var leftUpperCorner2 = sut2.CreatePrimaryRayWithPixi(0, 0, new Vector2D(-0.5f, -0.5f));
+            var centerUpperCorner1 = sut1.CreatePrimaryRayWithPixi(0, 0, new Vector2D(0, -0.5f));
+            var centerUpperCorner2 = sut2.CreatePrimaryRayWithPixi(1, 0, new Vector2D(0, -0.5f));
+
+            Assert.IsTrue((leftUpperCorner1.Direction - leftUpperCorner2.Direction).Length() < 6.664003E-08);
+            Assert.IsTrue((centerUpperCorner1.Direction - centerUpperCorner2.Direction).Length() < 6.664003E-08);
         }
     }
 }
