@@ -198,5 +198,27 @@ namespace RaytracingRandomTest
             Assert.AreEqual((int)2.5, sut.SampleDiscrete(2.5 / 3));
             Assert.AreEqual(2, sut.SampleDiscrete(3.0 / 3)); //Hier wird 2 und nicht 3 zurück gegeben, da der Returnwert immer ein gültigen Indexwert aus dem Inputarray liefern soll
         }
+
+        [TestMethod]
+        public void SampleDiscrete_MatchWithHistogram()
+        {
+            PdfWithTableSampler sut = PdfWithTableSampler.CreateFromUnnormalisizedFunctionArray(new double[] { 1, 2, 3 });
+            double[] expectedPdfs = new double[] { 1.0 / 6, 2.0 / 6, 3.0 / 6 };
+            int[] histogram = new int[] { 0, 0, 0 };
+            int sampleCount = 10000;
+            Random rand = new Random(0);
+            for (int i=0;i<sampleCount;i++)
+            {
+                int index = sut.SampleDiscrete(rand.NextDouble());
+                double pdf = sut.PdfValue(index);
+
+                Assert.AreEqual(expectedPdfs[index], pdf);
+                histogram[index]++;
+            }
+            for (int i=0;i<histogram.Length;i++)
+            {
+                Assert.IsTrue(Math.Abs(histogram[i] / (double)sampleCount - expectedPdfs[i]) < 0.001f);
+            }
+        }
     }
 }

@@ -155,6 +155,11 @@ namespace RaytracingRandom
             }           
         }
 
+        public double PdfValue(int xIndex)
+        {
+            return this.pdfValues[xIndex + 1];
+        }
+
         //x muss im Bereich von minXValue und maxXValue liegen
         public double CdfValue(double x)
         {
