@@ -9,6 +9,7 @@ using RayCameraNamespace;
 using SubpathGenerator.SubPathSampler;
 using RaytracingBrdf.SampleAndRequest;
 using SubpathGenerator.SubPathPointsSampler.Media;
+using System.Drawing;
 
 namespace SubpathGenerator
 {
@@ -97,18 +98,33 @@ namespace SubpathGenerator
 
         public SubPath SamplePathFromCamera(int pixX, int pixY, IRandom rand)
         {
+            return SamplePathFromCamera(pixX, pixY, rand, 1);
+        }
+
+        //Innerhalb vom PixelRange wird ein zufälliges Pixel ausgewählt und per out-Parameter zurück gegeben
+        public SubPath SamplePathFromCamera(ImagePixelRange pixelRange, IRandom rand, out Point pix)
+        {
+            pix = new Point(-1, -1);
+            pix.X = pixelRange.XStart + rand.Next(pixelRange.Width);
+            pix.Y = pixelRange.YStart + rand.Next(pixelRange.Height);
+            float pixelSelectionPmf = 1f / this.rayCamera.PixelCountFromScreen;
+            return SamplePathFromCamera(pix.X, pix.Y, rand, pixelSelectionPmf);
+        }
+
+        private SubPath SamplePathFromCamera(int pixX, int pixY, IRandom rand, float pixelSelectionPmf)
+        {
             var primaryRay = this.rayCamera.CreatePrimaryRay(pixX, pixY, rand);
 
             float cosAtCamera = this.rayCamera.UseCosAtCamera ? this.rayCamera.Forward * primaryRay.Direction : 1;
             //Hier muss nicht durch die cameraPdfW dividiert werden, da der PixelFilter == CameraPdfW entspricht. Das Pfadgewicht ergibt sich aus PixelFilter / CameraPdfW = 1. Somit kürzt es sich weg.
-            Vector3D pathWeight = new Vector3D(1, 1, 1) * cosAtCamera;// / cameraPdfW;      
+            Vector3D pathWeight = new Vector3D(1, 1, 1) * cosAtCamera  / pixelSelectionPmf;// / cameraPdfW;      
 
             float cameraPdfW = this.rayCamera.GetPixelPdfW(pixX, pixY, primaryRay.Direction);
             var sampleEvent = new BrdfSampleEvent()
             {
                 Ray = primaryRay,
                 ExcludedObject = null,
-                PdfW = cameraPdfW,
+                PdfW = cameraPdfW * pixelSelectionPmf,
                 Brdf = pathWeight
             };
             

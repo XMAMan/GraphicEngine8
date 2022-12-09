@@ -68,8 +68,12 @@ namespace GraphicPanels
                     return new RaytracerMain.RaytracerMain(new ThinMediaTracer(false, true));
                 case Mode3D.ThinMediaMultipleScattering:
                     return new RaytracerMain.RaytracerMain(new ThinMediaTracer(true, false));
+                case Mode3D.SinglePathBPT:
+                    return new RaytracerMain.RaytracerMain(new SingleFullPathBPT(false));
+                case Mode3D.SinglePathBPT_WithMedia:
+                    return new RaytracerMain.RaytracerMain(new SingleFullPathBPT(true));
                 case Mode3D.MMLT:
-                    return new RaytracerMain.RaytracerMain(new MultiplexedMetropolisLightTransport(false));
+                    return new RaytracerMain.RaytracerMain(new MultiplexedMetropolisLightTransport(false));                    
                 case Mode3D.MMLT_WithMedia:
                     return new RaytracerMain.RaytracerMain(new MultiplexedMetropolisLightTransport(true));
             }

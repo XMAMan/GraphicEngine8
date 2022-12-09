@@ -19,6 +19,8 @@ namespace GraphicMinimal
         public int Bottom { get { return this.YStart + this.Height; } }
         public Point TopLeft { get { return new Point(this.XStart, this.YStart); } }
 
+        public long Count { get => (long)this.Width * this.Height; }
+
         public ImagePixelRange() { }//Braucht der XML-Serialisierer
 
         public ImagePixelRange(int x, int y, int width, int height)

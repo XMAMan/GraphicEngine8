@@ -49,7 +49,7 @@ namespace FullPathGeneratorTest
                 case SamplerEnum.Lighttracing:
                     return new Sampler()
                     {
-                        SamplerMethod = new LightTracing(testSzene.Camera, testSzene.PointToPointConnector, testSzene.EyePathSamplingType),
+                        SamplerMethod = new LightTracing(testSzene.Camera, testSzene.PointToPointConnector, testSzene.EyePathSamplingType, false),
                         CreateLightPath = true
                     };                
                 case SamplerEnum.DirectLighting:

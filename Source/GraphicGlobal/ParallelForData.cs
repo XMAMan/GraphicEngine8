@@ -5,6 +5,8 @@ namespace GraphicGlobal
 {
     //Wenn ich bei einer Parallel.For-Anweisung Daten erzeuge, welche ich nach außen geben will, dann kann ich ich hiermit für jeden
     //Thread aus der Parallel-For-Schleife ein T-Objekt speichern
+    //var threadIdCreator = new ParallelForData<object>(() => new object());    -> So könnte man mit threadIdCreator.GetThreadId() für jeden Renderthread ein Random-Seed-Wert ermitteln
+    //var frames = new ParallelForData<ImageBuffer>(() => new ImageBuffer(100,100)); -> Die For-Schleife geht über alle Samples; Die Frame-Threads speichern alle in eigenen Bildpuffer ihre Daten
     public class ParallelForData<T> : List<T>
     {
         //https://stackoverflow.com/questions/32253912/get-a-thread-id-inside-parallel-foreach-loop

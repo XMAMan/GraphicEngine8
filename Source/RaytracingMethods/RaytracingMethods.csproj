@@ -51,11 +51,14 @@
     <Compile Include="MediaEdgeSampler.cs" />
     <Compile Include="MediaFullBidirectionalPathTracing.cs" />
     <Compile Include="MediaPathTracer.cs" />
-    <Compile Include="MMLT\MLTIntegrator.cs" />
+    <Compile Include="MMLT\MarkovChain.cs" />
+    <Compile Include="MMLT\MarkovChainCreator.cs" />
+    <Compile Include="MMLT\MLTFullPathSampler.cs" />
     <Compile Include="MMLT\MLTSampler.cs" />
     <Compile Include="MMLT\MultiplexedMetropolisLightTransport.cs" />
-    <Compile Include="MMLT\SingleFullPathSampler.cs" />
+    <Compile Include="MMLT\SinglePathSampler.cs" />
     <Compile Include="RaytracerWithPointLights.cs" />
+    <Compile Include="SingleFullPathBPT.cs" />
     <Compile Include="UPBP.cs" />
     <Compile Include="ThinMediaTracer.cs" />
     <Compile Include="PathTracer.cs" />

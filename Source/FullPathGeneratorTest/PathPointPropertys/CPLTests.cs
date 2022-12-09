@@ -44,7 +44,7 @@ namespace FullPathGeneratorTest.PathPointPropertys
         {
             var data = FullPathTestHelper.CreateFullPathConstructorData();
             var e = data.ExpectedValues;
-            var fullPathSampler = new LightTracing(data.Full.FullPathKonstruktorData.RayCamera, data.Full.FullPathKonstruktorData.PointToPointConnector,  data.Full.FullPathKonstruktorData.EyePathSamplingType);
+            var fullPathSampler = new LightTracing(data.Full.FullPathKonstruktorData.RayCamera, data.Full.FullPathKonstruktorData.PointToPointConnector,  data.Full.FullPathKonstruktorData.EyePathSamplingType, false);
             var fullPath = fullPathSampler.SampleFullPaths(data.Full.EyePath, data.Full.LightPath, data.Full.FrameData, new Rand(0))[0];
             var points = fullPath.Points;
 

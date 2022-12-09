@@ -93,7 +93,7 @@ namespace RaytracingLightSourceTest.Fullpathsampling
             this.PathtracingSampler = new PathTracing(this.LightSourceSampler, pathSamplingType);  
             this.DirectLightingSampler = new DirectLighting(this.LightSourceSampler, maxPathLength - 2, pointToPointConnector, pathSamplingType);
             this.DirectLightingOnEdgeSampler = mediaIntersectionFinder != null ? new DirectLightingOnEdge(this.LightSourceSampler, pointToPointConnector, pathSamplingType, maxPathLength, true) : null;
-            this.LightTracingSampler = new LightTracing(rayCamera, pointToPointConnector, pathSamplingType);
+            this.LightTracingSampler = new LightTracing(rayCamera, pointToPointConnector, pathSamplingType, false);
         }
 
         private MediaIntersectionFinder CreateMediaIntersectionFinder(List<IRayObject> rayObjects, bool withGlobalMedia)

@@ -20,13 +20,13 @@ namespace GraphicPanelsTest
         [TestMethod]
         public void FullBidirectionalPathTracing()
         {
-            DoTest(new TestData() { Mode = Mode3D.FullBidirectionalPathTracing, WithMediaBox = false, SamplingCount = 20000 });            
+            DoTest(new TestData() { Mode = Mode3D.FullBidirectionalPathTracing, WithMediaBox = false, SamplingCount = 20000, UseCameraTentFilter = true, UsePathSpaceCompare = true });            
         }
 
         [TestMethod]
         public void BidirectionalPathTracing()
         {
-            DoTest(new TestData() { Mode = Mode3D.BidirectionalPathTracing, WithMediaBox = false, SamplingCount = 20000 });
+            DoTest(new TestData() { Mode = Mode3D.BidirectionalPathTracing, WithMediaBox = false, SamplingCount = 20000, UsePathSpaceCompare = true });
         }
 
         [TestMethod]
@@ -36,15 +36,27 @@ namespace GraphicPanelsTest
         }
 
         [TestMethod]
+        public void SinglePathBPT_NoMedia()
+        {
+            DoTest(new TestData() { Mode = Mode3D.SinglePathBPT, WithMediaBox = false, SamplingCount = 40000, UseCameraTentFilter = true, UsePathSpaceCompare = true });
+        }
+
+        [TestMethod]
+        public void SinglePathBPT_WithMedia()
+        {
+            DoTest(new TestData() { Mode = Mode3D.SinglePathBPT_WithMedia, WithMediaBox = true, SamplingCount = 10000, UseCameraTentFilter = false, UsePathSpaceCompare = true });
+        }
+
+        [TestMethod]
         public void MultiplexedMetropolisLightTransport_NoMedia()
         {
-            DoTest(new TestData() { Mode = Mode3D.MMLT, WithMediaBox = false, SamplingCount = 20000, UseCameraTentFilter = false, UsePathSpaceCompare =true });
+            DoTest(new TestData() { Mode = Mode3D.MMLT, WithMediaBox = false, SamplingCount = 10000, UseCameraTentFilter = false, UsePathSpaceCompare =true, MaxContributionError = 20 });
         }
 
         [TestMethod]
         public void MultiplexedMetropolisLightTransport_WithMedia()
         {
-            DoTest(new TestData() { Mode = Mode3D.MMLT_WithMedia, WithMediaBox = true, SamplingCount = 10000, UseCameraTentFilter = false, UsePathSpaceCompare = true });
+            DoTest(new TestData() { Mode = Mode3D.MMLT_WithMedia, WithMediaBox = true, SamplingCount = 10000, UseCameraTentFilter = false, UsePathSpaceCompare = false, MaxContributionError = 21 });
         }
 
         [TestMethod]
@@ -111,6 +123,7 @@ namespace GraphicPanelsTest
             public int SamplingCount = 20000;
             public bool UseCameraTentFilter = true;
             public bool UsePathSpaceCompare = false;
+            public float MaxContributionError = 10;
         }
         private void DoTest(TestData data)
         {
@@ -144,21 +157,22 @@ namespace GraphicPanelsTest
                     expectedSpace = new PathContributionForEachPathSpace(WorkingDirectory + "ExpectedValues\\ExpectedValuesForPathSpaceRadianceNoMediaEqual.txt");
             }
 
-            float maxContributionError = 10;
             if (data.UsePathSpaceCompare)
             {
                 //Auf PathSpace-Ebene vergleichen
-                var actualSpace = PathContributionForEachPathSpace.FromString(graphic.GetPathContributionsForSinglePixel(3, 3, new ImagePixelRange(1,1,1,1), 0, 0, data.SamplingCount));
+                //var actualSpace = PathContributionForEachPathSpace.FromString(graphic.GetPathContributionsForSinglePixel(3, 3, new ImagePixelRange(1,1,1,1), 0, 0, data.SamplingCount)); //So geht MMLT problemlos
+                var actualSpace = PathContributionForEachPathSpace.FromString(graphic.GetPathContributionsForSinglePixel(3, 3, new ImagePixelRange(0, 0, 3, 3), 1, 1, data.SamplingCount)); //So hat es schon mehr Schwierigkeiten
                 string compare = expectedSpace.CompareWithOther(actualSpace);
-                string error = expectedSpace.CompareAllPathsWithOther(actualSpace, maxContributionError);
+                string error = expectedSpace.CompareAllPathsWithOther(actualSpace, data.MaxContributionError);
                 Assert.IsTrue(string.IsNullOrEmpty(error), error, error);
             }else
             {
                 //Auf Pixel-Color-Ebene vergleichen
-                var image = graphic.GetRaytracingImageSynchron(graphic.Width, graphic.Height, new ImagePixelRange(graphic.Width / 2, graphic.Height / 2, 1, 1));
-                float pixelColor = image.RawImage[0, 0].X;
+                var image = graphic.GetRaytracingImageSynchron(3, 3, new ImagePixelRange(0, 0, 3, 3));
+                float imagePlane = image.RawImage.GetSumOverAllPixels().X;
+                float pixelColor = image.RawImage[1, 1].X;
                 double expected = expectedSpace.SumOverAllPathSpaces().X;
-                Assert.IsTrue(Math.Abs(pixelColor - expected) < maxContributionError, "pixelColor=" + pixelColor + " Expected: " + expected);// Wenn das Bild 3*3 groß ist
+                Assert.IsTrue(Math.Abs(pixelColor - expected) < data.MaxContributionError, "pixelColor=" + pixelColor + " Expected: " + expected);// Wenn das Bild 3*3 groß ist
             }                     
         }
     }

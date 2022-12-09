@@ -1,90 +1,103 @@
 ﻿using RaytracingColorEstimator;
 using FullPathGenerator;
 using GraphicGlobal;
-using SubpathGenerator;
-using FullPathGenerator.FullpathSampling_Methods;
-using RaytracingBrdf.SampleAndRequest;
-using RaytracingBrdf;
 using System.Linq;
 using GraphicMinimal;
-using System.Drawing;
+using RaytracingRandom;
 
 namespace RaytracingMethods.MMLT
 {
-    //https://cs.uwaterloo.ca/~thachisu/mmlt.pdf
-    //https://github.com/mmp/pbrt-v3/blob/master/src/integrators/mlt.cpp
-    public class MultiplexedMetropolisLightTransport : IPixelEstimator
+    //Mittels Markov-Ketten wird für jede Pfadlänge ein Histogram(Jeder Pixel bekommt Wichtung laut Helligkeit) erstellt,
+    //was über die AvgLuminance-Multiplikation ein fertiges Bild ergibt.  
+    //https://cs.uwaterloo.ca/~thachisu/mmlt.pdf    
+    //https://github.com/mmp/pbrt-v3/blob/master/src/integrators/mlt.cpp -> Von hier habe ich die Idee für den MLTSampler. Achtung diese Lösung enthält einige Fehler und darf nicht ohne weiteres übernommen werden
+    //https://cs.uwaterloo.ca/~thachisu/smallmmlt.cpp -> Von hier stammt die Idee mit dem "mis * inverseStrategySelectionPmf"-Term und der modifizierten Accept-Gleichung 
+    public class MultiplexedMetropolisLightTransport : IFrameEstimator
     {
         public bool CreatesLigthPaths { get; } = true;
 
-        private SingleFullPathSampler singleFullPathSampler;
-        
+        //Daten für alle Threads vom Konstruktor
         private bool withMedia;
+
+        //Daten für alle Threads aus dem BuildUp
+        private MLTFullPathSampler fullPathSampler;
+        private MarkovChainCreator chainCreator;        
+
+        //Daten pro Thread
+        private MarkovChain[] chains; //Für jede Pfadlänge eine eigene Kette. In den Array sind die Pfadlängen [2,3,4,..]
+        private PdfWithTableSampler chainSelector; //Jeder Thread hat leicht unterschiedliche Ketten-Normalisierungswerte und braucht somit sein eigenen ChainSelector
 
         public MultiplexedMetropolisLightTransport(bool withMedia)
         {
-            this.withMedia = withMedia;
+            this.withMedia = withMedia;            
         }
-
-        private ImageBuffer image;
 
         public void BuildUp(RaytracingFrame3DData data)
-        {            
-            this.singleFullPathSampler = new SingleFullPathSampler(data, this.withMedia);
-
-            //MLTIntegrator mLTIntegrator = new MLTIntegrator(this.singleFullPathSampler, 100000, 1000, 100, 0.01f, 0.3f);
-            MLTIntegrator mLTIntegrator = new MLTIntegrator(this.singleFullPathSampler, 100000, 1000, data.GlobalObjektPropertys.SamplingCount, 0.01f, 0.3f);
-            var bootstrap = mLTIntegrator.CreateBootstrapSamples();
-            this.image = mLTIntegrator.RunMarkovChains(bootstrap);
-
-            Vector3D pixelRadiance = image[0,0]; //expected = 712.3121337890625 
+        {
+            this.fullPathSampler = new MLTFullPathSampler(new SinglePathSampler(data, withMedia));
+            this.chainCreator = new MarkovChainCreator(this.fullPathSampler, 100000, 0.01f, 0.3f);
         }
 
+        public MultiplexedMetropolisLightTransport() { }
+        private MultiplexedMetropolisLightTransport(MultiplexedMetropolisLightTransport copy)
+        {
+            this.withMedia = copy.withMedia;
+            this.fullPathSampler = copy.fullPathSampler;
+            this.chainCreator = copy.chainCreator;
+        }
+        public IFrameEstimator CreateCopy()
+        {
+            return new MultiplexedMetropolisLightTransport(this);
+        }
+
+
+        public void DoFramePrepareStep(int frameIterationNumber, IRandom rand)
+        {
+            //Erzeuge pro Thread ein MarkovChain-Array
+            if (this.chains == null)
+            {
+                //Es gibt pro Pfadlänge genau eine Markovkette
+                this.chains = this.chainCreator.CreateChainForEachPathLength(rand);
+                this.chainSelector = PdfWithTableSampler.CreateFromUnnormalisizedFunctionArray(this.chains.Select(x => (double)x.ImagePlaneLuminance).ToArray());
+            }         
+        }
+
+        //Diese Funktion wird pro Pixel gerufen. Pro Pixel erzeuge ich für eine zufällig ausgewählte Kette (Steht für eine Pfadlänge)
+        //ein Markovchain-Mutationsschritt, was ein zufälligen Fullpath der durch ein zufälliges Pixel geht, erzeugt
         public FullPathSampleResult GetFullPathSampleResult(int x, int y, IRandom rand)
         {
-            var r = this.singleFullPathSampler.PixelRange;
-            return new FullPathSampleResult() { RadianceFromRequestetPixel = this.image[x - r.XStart, y - r.YStart] };
-
             FullPathSampleResult result = new FullPathSampleResult();
             result.RadianceFromRequestetPixel = new Vector3D(0, 0, 0);
 
-            //1. Gehe über alle Fullpfadlängen
-            for (int fullPathLength = 2; fullPathLength <= this.singleFullPathSampler.MaxFullPathLength; fullPathLength++)
+            //Wähle zufällig eine Kette (Fullpfad) aus
+            int chainIndex = this.chainSelector.SampleDiscrete(rand.NextDouble());
+            float chainSelectionPdf = (float)this.chainSelector.PdfValue(chainIndex);
+            var chain = this.chains[chainIndex];
+
+            //Durch das mutieren des Pfades entsteht ein neuer Pfad
+            var chainResult = chain.RunIteration(this.fullPathSampler);
+
+            //zuletzt accepted Pfad
+            if (chainResult.CurrentPath != null)
             {
-                //2. Wähle für jede Fullpfadlänge eine zufällige Samplingstrategie aus
-                var strategy = this.singleFullPathSampler.SampleFullpathStrategy(fullPathLength, rand);
-                if (strategy == null) continue;
+                SetRadiance(chainResult.CurrentPath, chainResult.CurrentWeight, chainSelectionPdf);
+                result.LighttracingPaths.Add(chainResult.CurrentPath);
+            }
 
-                //3. Erzeuge Eyepfad mit genau der Länge, wie es der Fullpathsampler braucht
-                SubPath eyePath = this.singleFullPathSampler.SampleEyeSubPath(strategy.NeededEyePathLength, rand, out Point pix);
-                if (eyePath == null) continue;
-
-                //4. Erzeuge Lightpfad mit genau der Länge, wie es der Fullpathsampler braucht
-                SubPath lightPath = this.singleFullPathSampler.SampleLightSubPath(strategy.NeededLightPathLength, rand);
-                if (lightPath == null) continue;                
-
-                //5. Erzeuge Fullpfad laut ausgewählter Strategie
-                var fullPath = strategy.Sampler.SampleFullPathFromSingleStrategy(eyePath, lightPath, fullPathLength, strategy.StrategyIndex, rand);
-
-                //6. Füge Fullpath in Liste ein (Summe über alle Fullpaths wird im ImageCreatorFrame gemacht)
-                if (fullPath != null)
-                {
-                    //Dividiere durch die Strategie-SelectionPdf indem mit der Strategieanzahl multipliziert wird
-                    fullPath.MisWeight = 1;// pathLength.Strategies.Length; //Wenn ich den PathSpace mit GetPathContributionsForSinglePixel prüfe, dann rechntet der SinglePixelAnalyser mit der PathContribution und dem MIS-Gewicht die Radiance selber aus
-                    fullPath.Radiance = fullPath.PathContribution;// * pathLength.Strategies.Length;
-                    
-
-                    //Wenn der Fullpathsampler kein Lighttracing ist, dann nimm die oben zufällig erzeugte Pixelposition
-                    if (fullPath.PixelPosition == null) 
-                        fullPath.PixelPosition = new Vector2D(pix.X + 0.5f, pix.Y + 0.5f);
-
-                    result.LighttracingPaths.Add(fullPath);
-                }
+            //durch Mutation entstanden aber noch nicht akzeptiert
+            if (chainResult.ProposedPath != null)
+            {
+                SetRadiance(chainResult.ProposedPath, chainResult.ProposedWeight, chainSelectionPdf);
+                result.LighttracingPaths.Add(chainResult.ProposedPath);
             }
 
             return result;
         }
-    }
 
-    
+        private void SetRadiance(FullPath path, float acceptWeight, float chainSelectionPdf)
+        {
+            path.MisWeight *= acceptWeight * this.chains[path.PathLength - 2].ImagePlaneLuminance / chainSelectionPdf / this.fullPathSampler.PixelCount;
+            path.Radiance = path.PathContribution * path.MisWeight;
+        }
+    }
 }

@@ -4,7 +4,7 @@ using SubpathGenerator;
 namespace FullPathGenerator.FullpathSampling_Methods
 {
     //Mit diesen Interface kann eine einzelne Fullpath-Sampling-Strategie benutzt werden (Wird fürs Multiplex Metropolis Sampling benötigt)
-    public interface ISingleFullPathSampler
+    public interface ISingleFullPathSampler : IFullPathSamplingMethod
     {
         FullPathSamplingStrategy[] GetAvailableStrategiesForFullPathLength(int fullPathLength);
         FullPath SampleFullPathFromSingleStrategy(SubPath eyePath, SubPath lightPath, int fullPathLength, int strategyIndex, IRandom rand);

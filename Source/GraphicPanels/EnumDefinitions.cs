@@ -30,7 +30,9 @@
         ThinMediaSingleScatteringBiased,    //Ohne Distanzsampling beim SubPatherzeugen; Ohne Distanzsampling beim Segmentpunkterstellen: DirectLighting, DirectLightingOnEdge
         ThinMediaMultipleScattering,        //Mit Distanzsampling: DirectLighting, DirectLightingOnEdge
         MMLT,                               //Multiplexed Metropolis Light Transport (Ohne Media)
-        MMLT_WithMedia                      //Multiplexed Metropolis Light Transport (Mit Media)
+        MMLT_WithMedia,                     //Multiplexed Metropolis Light Transport (Mit Media)
+        SinglePathBPT,                      //BPT wo pro Sampleschritt nur ein einzelner Fullpfad erzeugt wird, der durch ein zufälliges Pixel geht
+        SinglePathBPT_WithMedia,            
     }
 
     public enum Mode2D

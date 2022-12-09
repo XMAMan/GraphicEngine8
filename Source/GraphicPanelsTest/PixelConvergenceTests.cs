@@ -257,11 +257,12 @@ namespace GraphicPanelsTest
         }
 
         [TestMethod]
+        [Ignore] //Der Test dauert 9.7 Minuten (Zu lange)
         public void CheckPixelColor_Stilllife()
         {
             PixelData[] pixels = new PixelData[]
             {
-                new PixelData(){Description = "Candle", Position = new Point(60, 170), Expected = new Vector3D(255, 204, 148), SampleCount = 70000}, //Actual: [0] = {new Vector3D(255f, 201f, 144f)}
+                new PixelData(){Description = "Candle", Position = new Point(60, 170), Expected = new Vector3D(255, 204, 148), SampleCount = 70000}, //Actual: [0] = {new Vector3D(255f, 201f, 144f)}; Wenn im BrdfSampler die "continuationPdf != 1"-Bedingung drin ist kommt hier [255;195;144]
                 new PixelData(){Description = "Ground", Position = new Point(600, 210), Expected = new Vector3D(198, 196, 193), SampleCount = 40000},//Actual: [1] = {new Vector3D(199f, 197f, 193f)}
                 new PixelData(){Description = "Juice Glass", Position = new Point(420, 100), Expected = new Vector3D(151, 157, 155), SampleCount = 10000},//Actual: [2] = {new Vector3D(150f, 157f, 154f)}
                 new PixelData(){Description = "Green pot window reflection", Position = new Point(538, 134), Expected = new Vector3D(152, 180, 162), SampleCount = 20000}, //Actual: [3] = {new Vector3D(151f, 180f, 161f)}
@@ -282,6 +283,7 @@ namespace GraphicPanelsTest
         }
 
         [TestMethod]
+        [Ignore] //Der Test dauert 2.5 Minuten (Zu lange)
         public void CheckPixelColor_Mirrorballs()
         {
             //Wegen der Glaslinse an den Lampen muss ich mit Lightracing arbeiten. Deswegen darf das Bild nur 80*80 groß sein, um die Pixel-Treffer-Wahrscheinlichkeit zu erhöhen.
