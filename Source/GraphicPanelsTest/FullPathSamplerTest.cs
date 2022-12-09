@@ -32,7 +32,7 @@ namespace GraphicPanelsTest
         [TestMethod]
         public void MediaFullBidirectionalPathTracing()
         {
-            DoTest(new TestData() { Mode = Mode3D.MediaFullBidirectionalPathTracing, WithMediaBox = true, SamplingCount = 20000, Check = TestData.Compare.PixelRadiance });
+            DoTest(new TestData() { Mode = Mode3D.MediaFullBidirectionalPathTracing, WithMediaBox = true, SamplingCount = 10000, Check = TestData.Compare.PixelRadiance });
         }
 
         [TestMethod]
@@ -44,7 +44,7 @@ namespace GraphicPanelsTest
         [TestMethod]
         public void SinglePathBPT_WithMedia()
         {
-            DoTest(new TestData() { Mode = Mode3D.SinglePathBPT_WithMedia, WithMediaBox = true, SamplingCount = 10000, UseCameraTentFilter = false, Check = TestData.Compare.PathLength });
+            DoTest(new TestData() { Mode = Mode3D.SinglePathBPT_WithMedia, WithMediaBox = true, SamplingCount = 40000, UseCameraTentFilter = false, Check = TestData.Compare.PathLength });
         }
 
         [TestMethod]
@@ -56,7 +56,7 @@ namespace GraphicPanelsTest
         [TestMethod]
         public void MultiplexedMetropolisLightTransport_WithMedia()
         {
-            DoTest(new TestData() { Mode = Mode3D.MMLT_WithMedia, WithMediaBox = true, SamplingCount = 10000, UseCameraTentFilter = false, Check = TestData.Compare.PathLength, MaxContributionError = 21 });
+            DoTest(new TestData() { Mode = Mode3D.MMLT_WithMedia, WithMediaBox = true, SamplingCount = 20000, UseCameraTentFilter = false, Check = TestData.Compare.PathLength, MaxContributionError = 21 });
         }
 
         [TestMethod]
@@ -175,8 +175,8 @@ namespace GraphicPanelsTest
                     {
                         var expectedLength = new PathContributionForEachPathLength(expectedSpace);
                         //Auf PathSpace-Ebene vergleichen
-                        //var actualSpace = new PathContributionForEachPathLengthPathContributionForEachPathSpace.FromString(graphic.GetPathContributionsForSinglePixel(3, 3, new ImagePixelRange(1,1,1,1), 0, 0, data.SamplingCount))); //So geht MMLT problemlos
-                        var actualSpace = new PathContributionForEachPathLength(PathContributionForEachPathSpace.FromString(graphic.GetPathContributionsForSinglePixel(3, 3, new ImagePixelRange(0, 0, 3, 3), 1, 1, data.SamplingCount))); //So hat es schon mehr Schwierigkeiten
+                        //var actualSpace = new PathContributionForEachPathLength(PathContributionForEachPathSpace.FromString(graphic.GetPathContributionsForSinglePixel(1, 1, new ImagePixelRange(0,0,1,1), 0, 0, data.SamplingCount))); //Ganze Bildebene (Damit kann ich die MMLT-Bootstrap-Werte kontrollieren)
+                        var actualSpace = new PathContributionForEachPathLength(PathContributionForEachPathSpace.FromString(graphic.GetPathContributionsForSinglePixel(3, 3, new ImagePixelRange(0, 0, 3, 3), 1, 1, data.SamplingCount)));
                         string compare = expectedLength.CompareWithOther(actualSpace);
                         string error = expectedLength.CompareAllPathsWithOther(actualSpace, data.MaxContributionError);
                         Assert.IsTrue(string.IsNullOrEmpty(error), error, error);
