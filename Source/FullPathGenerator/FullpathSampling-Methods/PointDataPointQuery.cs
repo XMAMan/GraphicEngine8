@@ -12,10 +12,12 @@ namespace FullPathGenerator
     public class PointDataPointQuery : IFullPathSamplingMethod
     {
         private readonly int maxPathLength;
+        private readonly IPhaseFunctionSampler phaseFunction;
 
-        public PointDataPointQuery(int maxPathLength)
+        public PointDataPointQuery(int maxPathLength, IPhaseFunctionSampler phaseFunction)
         {
             this.maxPathLength = maxPathLength;
+            this.phaseFunction = phaseFunction;
         }
         public SamplingMethod Name => SamplingMethod.PointDataPointQuery;
         public int SampleCountForGivenPath(FullPath path)
@@ -51,7 +53,7 @@ namespace FullPathGenerator
                 {
                     if (lightPoint.Index + eyePoint.Index < this.maxPathLength)
                     {
-                        var eyeBrdf = PhaseFunction.EvaluateBsdf(eyePoint.DirectionToThisPoint, eyePoint.MediaPoint, -lightPoint.DirectionToThisPoint); //Point2Point-Merging
+                        var eyeBrdf = this.phaseFunction.EvaluateBsdf(eyePoint.DirectionToThisPoint, eyePoint.MediaPoint, -lightPoint.DirectionToThisPoint); //Point2Point-Merging
 
                         if (eyeBrdf != null)
                         {

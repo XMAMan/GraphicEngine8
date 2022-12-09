@@ -106,21 +106,21 @@ namespace FullPathGeneratorTest
                 case SamplerEnum.PointDataPointQuery:
                     return new Sampler()
                     {
-                        SamplerMethod = new PointDataPointQuery(testSzene.MaxPathLength),
+                        SamplerMethod = new PointDataPointQuery(testSzene.MaxPathLength, testSzene.PointToPointConnector.PhaseFunction),
                         CreateEyePath = true,
                         PhotonSettings = new PhotonmapSettings() { CreatePointDataPointQueryMap = true }
                     };
                 case SamplerEnum.PointDataBeamQuery:
                     return new Sampler()
                     {
-                        SamplerMethod = new PointDataBeamQuery(testSzene.EyePathSamplingType, testSzene.MaxPathLength),
+                        SamplerMethod = new PointDataBeamQuery(testSzene.EyePathSamplingType, testSzene.MaxPathLength, testSzene.PointToPointConnector.PhaseFunction),
                         CreateEyePath = true,
                         PhotonSettings = new PhotonmapSettings() { CreatePointDataBeamQueryMap = true }
                     };
                 case SamplerEnum.BeamDataLineQuery:
                     return new Sampler()
                     {
-                        SamplerMethod = new BeamDataLineQuery(testSzene.EyePathSamplingType, testSzene.MaxPathLength),
+                        SamplerMethod = new BeamDataLineQuery(testSzene.EyePathSamplingType, testSzene.MaxPathLength, testSzene.PointToPointConnector.PhaseFunction),
                         CreateEyePath = true,
                         PhotonSettings = new PhotonmapSettings() { CreateBeamDataLineQueryMap = true, BeamDataLineQueryReductionFactor = 1 }
                     };                    

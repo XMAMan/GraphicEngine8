@@ -11,10 +11,17 @@ namespace RaytracingBrdf
     public interface IPhaseFunctionSampler
     {
         BrdfSampleEvent SampleDirection(MediaIntersectionPoint mediaPoint, Vector3D directionToMediaPoint, IRandom rand);
+        BrdfEvaluateResult EvaluateBsdf(Vector3D directionToBrdfPoint, MediaIntersectionPoint brdfPoint, Vector3D outDirection);
     }
 
     public class PhaseFunction : IPhaseFunctionSampler
     {
+        private readonly bool createAbsorbationEvent;
+        public PhaseFunction(bool createAbsorbationEvent = true)
+        {
+            this.createAbsorbationEvent = createAbsorbationEvent;
+        }
+
         public BrdfSampleEvent SampleDirection(MediaIntersectionPoint mediaPoint, Vector3D directionToMediaPoint, IRandom rand)
         {
             IParticipatingMedia medium = mediaPoint.CurrentMedium;
@@ -25,7 +32,7 @@ namespace RaytracingBrdf
 
             if (os.Max() == 0) return null; //Es gibt hier keine Scatterteilchen, welche die Richtung ändern könnten
 
-            if (rand != null && rand.NextDouble() >= continuationPdf)      // Absorbation
+            if (this.createAbsorbationEvent && rand != null && continuationPdf != 1 && rand.NextDouble() >= continuationPdf)      // Absorbation
                 return null;
 
             var phaseResult = medium.PhaseFunction.SampleDirection(mediaPoint.Position, directionToMediaPoint, rand);
@@ -42,7 +49,7 @@ namespace RaytracingBrdf
         }
 
         //Gibt das Produk aus Phasenfunktion und Scattering-Coeffizient zurück
-        public static BrdfEvaluateResult EvaluateBsdf(Vector3D directionToBrdfPoint, MediaIntersectionPoint brdfPoint, Vector3D outDirection)
+        public BrdfEvaluateResult EvaluateBsdf(Vector3D directionToBrdfPoint, MediaIntersectionPoint brdfPoint, Vector3D outDirection)
         {
             var medium = brdfPoint.CurrentMedium;
 
@@ -65,6 +72,8 @@ namespace RaytracingBrdf
 
         private static float MediaContinuationPdf(Vector3D os, Vector3D oa)
         {
+            return 1;
+
             //SmallUPBP->Scene.hxx->Zeile 1219 hier steht die Formel für die Media-ContinationPdf
             float continuationPdf = Math.Max(Math.Max(os.X / (os.X + oa.X), os.Y / (os.Y + oa.Y)), os.Z / (os.Z + oa.Z));
             if (float.IsNaN(continuationPdf) || float.IsInfinity(continuationPdf))

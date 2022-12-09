@@ -1,6 +1,7 @@
 ﻿using FullPathGenerator;
 using IntersectionTests;
 using RayCameraNamespace;
+using RaytracingBrdf;
 using RaytracingLightSource;
 using SubpathGenerator;
 
@@ -17,5 +18,6 @@ namespace RaytracingColorEstimator
         public SubpathSampler EyePathSampler;
         public SubpathSampler LightPathSampler;
         public FullPathSampler FullPathSampler;
+        public IPhaseFunctionSampler PhaseFunction;
     }
 }

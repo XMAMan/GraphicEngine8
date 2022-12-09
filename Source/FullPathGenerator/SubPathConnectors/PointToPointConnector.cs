@@ -20,12 +20,14 @@ namespace FullPathGenerator
         private readonly IRayCamera rayCamera;
         private readonly MediaIntersectionPoint cameraMediaPoint = null; //An diesen Punkt befindet sich die Kamera
         private readonly bool noDistanceSampling;
+        public readonly IPhaseFunctionSampler PhaseFunction;
 
-        public PointToPointConnector(RayVisibleTester visibleTester, IRayCamera rayCamera, PathSamplingType usedSubPathType)
+        public PointToPointConnector(RayVisibleTester visibleTester, IRayCamera rayCamera, PathSamplingType usedSubPathType, IPhaseFunctionSampler phaseFunction)
         {
             this.noDistanceSampling = usedSubPathType == PathSamplingType.ParticipatingMediaWithoutDistanceSampling;
             this.visibleTester = visibleTester;
             this.rayCamera = rayCamera;
+            this.PhaseFunction = phaseFunction;
 
             if (this.visibleTester.ContainsMedia)
             {
@@ -247,7 +249,7 @@ namespace FullPathGenerator
             }
             else
             {
-                return PhaseFunction.EvaluateBsdf(directionToBrdfPoint, brdfPoint.MediaPoint, outDirection);
+                return this.PhaseFunction.EvaluateBsdf(directionToBrdfPoint, brdfPoint.MediaPoint, outDirection);
             }
         }
     }

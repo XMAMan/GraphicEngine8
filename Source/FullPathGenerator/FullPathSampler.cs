@@ -30,9 +30,9 @@ namespace FullPathGenerator
             if (settings.UseVertexConnection) sampler.Add(new VertexConnection(data.MaxPathLength, data.PointToPointConnector, data.EyePathSamplingType));
             if (settings.UseVertexMerging) sampler.Add(new VertexMerging(data.MaxPathLength, data.EyePathSamplingType));
             if (settings.UseLightTracing) sampler.Add(new LightTracing(data.RayCamera, data.PointToPointConnector, data.LightPathSamplingType, false));
-            if (settings.UsePointDataPointQuery) sampler.Add(new PointDataPointQuery(data.MaxPathLength));
-            if (settings.UsePointDataBeamQuery) sampler.Add(new PointDataBeamQuery(data.EyePathSamplingType, data.MaxPathLength));
-            if (settings.UseBeamDataLineQuery) sampler.Add(new BeamDataLineQuery(data.EyePathSamplingType, maxMediaPathLength));
+            if (settings.UsePointDataPointQuery) sampler.Add(new PointDataPointQuery(data.MaxPathLength, data.PointToPointConnector.PhaseFunction));
+            if (settings.UsePointDataBeamQuery) sampler.Add(new PointDataBeamQuery(data.EyePathSamplingType, data.MaxPathLength, data.PointToPointConnector.PhaseFunction));
+            if (settings.UseBeamDataLineQuery) sampler.Add(new BeamDataLineQuery(data.EyePathSamplingType, maxMediaPathLength, data.PointToPointConnector.PhaseFunction));
 
             this.SamplingMethods = sampler.ToArray();
         }

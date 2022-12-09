@@ -128,7 +128,7 @@ namespace FullPathGeneratorTest._01_BasicTests.BasicTestHelper
                 {
                     Vector3D inDirection = Vector3D.Normalize(path.Points[i].Position - path.Points[i - 1].Position);
                     Vector3D outDirection = Vector3D.Normalize(path.Points[i + 1].Position - path.Points[i].Position);
-                    var brdfResult = PhaseFunction.EvaluateBsdf(inDirection, path.Points[i].MediaPoint, outDirection);
+                    var brdfResult = testSzene.PointToPointConnector.PhaseFunction.EvaluateBsdf(inDirection, path.Points[i].MediaPoint, outDirection);
 
                     DifferenceCheck(brdfResult.PdfW, path.Points[i].BrdfSampleEventOnThisPoint.PdfW);
                     DifferenceCheck(brdfResult.PdfWReverse, path.Points[i].BrdfSampleEventOnThisPoint.PdfWReverse);

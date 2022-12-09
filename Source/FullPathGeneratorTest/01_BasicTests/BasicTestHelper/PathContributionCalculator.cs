@@ -134,7 +134,7 @@ namespace FullPathGeneratorTest.BasicTests.BasicTestHelper
             {
                 EyePathSamplingType = testSzene.EyePathSampler.PathSamplingType,
                 LightPathSamplingType = testSzene.LightPathSampler.PathSamplingType,
-                PointToPointConnector = new PointToPointConnector(new RayVisibleTester(testSzene.IntersectionFinder, testSzene.MediaIntersectionFinder), testSzene.Camera, testSzene.EyePathSampler.PathSamplingType),
+                PointToPointConnector = testSzene.PointToPointConnector,
                 RayCamera = testSzene.Camera,
                 LightSourceSampler = testSzene.LightSourceSampler,
                 MaxPathLength = testSzene.MaxPathLength,

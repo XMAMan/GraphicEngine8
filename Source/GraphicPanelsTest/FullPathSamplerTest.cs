@@ -56,7 +56,7 @@ namespace GraphicPanelsTest
         [TestMethod]
         public void MultiplexedMetropolisLightTransport_WithMedia()
         {
-            DoTest(new TestData() { Mode = Mode3D.MMLT_WithMedia, WithMediaBox = true, SamplingCount = 10000, UseCameraTentFilter = false, UsePathSpaceCompare = false, MaxContributionError = 21 });
+            DoTest(new TestData() { Mode = Mode3D.MMLT_WithMedia, WithMediaBox = true, SamplingCount = 10000, UseCameraTentFilter = false, UsePathSpaceCompare = true, MaxContributionError = 21 });
         }
 
         [TestMethod]

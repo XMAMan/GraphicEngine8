@@ -39,7 +39,10 @@ namespace RaytracingMethods.MMLT
                 LightPathType = pathSamplingType,
             }, null);
 
-            var pointToPointConnector = new PointToPointConnector(new RayVisibleTester(radianceData.IntersectionFinder, radianceData.MediaIntersectionFinder), radianceData.RayCamera, pathSamplingType);
+            bool createAbsorbationEvent = false;
+            IPhaseFunctionSampler phaseFunction = new PhaseFunction(createAbsorbationEvent);
+
+            var pointToPointConnector = new PointToPointConnector(new RayVisibleTester(radianceData.IntersectionFinder, radianceData.MediaIntersectionFinder), radianceData.RayCamera, pathSamplingType, phaseFunction);
             this.fullPathSampler = new ISingleFullPathSampler[]
             {
                 new PathTracing(radianceData.LightSourceSampler, pathSamplingType),
@@ -61,8 +64,8 @@ namespace RaytracingMethods.MMLT
                     PathSamplingType = pathSamplingType,
                     MaxPathLength = depth,
                     BrdfSampler = new BrdfSampler(),
-                    PhaseFunction = new PhaseFunction(),
-                    CreateAbsorbationEvent = false,
+                    PhaseFunction = phaseFunction,
+                    CreateAbsorbationEvent = createAbsorbationEvent,
                 });
 
                 //Gehe durch alle Fullpathsampler und frage jeden wie viele Samplingstrategien er hat um ein

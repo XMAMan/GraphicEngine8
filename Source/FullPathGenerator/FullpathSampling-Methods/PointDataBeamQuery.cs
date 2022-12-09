@@ -22,11 +22,13 @@ namespace FullPathGenerator
     {
         private readonly bool noDistanceSampling;
         private readonly int maxPathLength;
+        private readonly IPhaseFunctionSampler phaseFunction;
 
-        public PointDataBeamQuery(PathSamplingType usedEyeSubPathType, int maxPathLength)
+        public PointDataBeamQuery(PathSamplingType usedEyeSubPathType, int maxPathLength, IPhaseFunctionSampler phaseFunction)
         {
             this.noDistanceSampling = usedEyeSubPathType == PathSamplingType.ParticipatingMediaWithoutDistanceSampling;
             this.maxPathLength = maxPathLength;
+            this.phaseFunction = phaseFunction;
         }
 
         public SamplingMethod Name => SamplingMethod.PointDataBeamQuery;
@@ -97,7 +99,7 @@ namespace FullPathGenerator
             pointOnT.AssociatedPath = eyePoint.AssociatedPath;
             pointOnT.Predecessor = eyePoint;
 
-            var pointTBsdf = PhaseFunction.EvaluateBsdf(pointOnT.DirectionToThisPoint, lightPoint.MediaPoint, -lightPoint.DirectionToThisPoint);
+            var pointTBsdf = this.phaseFunction.EvaluateBsdf(pointOnT.DirectionToThisPoint, lightPoint.MediaPoint, -lightPoint.DirectionToThisPoint);
 
 
             //float kernel2D = 1.0f / photon.SquareDistanceToRayline * VolumetricPhotonmap.SilvermanTwoDimensinalBiweightKernel((float)Math.Sqrt(photon.SquareDistanceToRayline) / photon.PhotonRadius);

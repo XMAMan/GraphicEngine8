@@ -59,6 +59,8 @@ namespace FullPathGeneratorTest
             };
             var lightSourceSampler = new LightSourceSampler(lightCreationData);
 
+            IPhaseFunctionSampler phaseFunction = new PhaseFunction();
+
             var eyePathSampler = new SubpathSampler(new SubpathSamplerConstruktorData()
             {
                 RayCamera = rayCamera,
@@ -79,14 +81,14 @@ namespace FullPathGeneratorTest
                 PathSamplingType = pathSamplingType,
                 MaxPathLength = MaxPathLength - 1,
                 BrdfSampler = new BrdfSampler(),
-                PhaseFunction = new PhaseFunction()
+                PhaseFunction = phaseFunction
             });
 
             FullPathKonstruktorData fullPathKonstruktorData = new FullPathKonstruktorData()
             {
                 EyePathSamplingType = eyePathSampler.PathSamplingType,
                 LightPathSamplingType = lightPathSampler.PathSamplingType,
-                PointToPointConnector = new PointToPointConnector(new RayVisibleTester(intersectionFinder, mediaIntersectionFinder), rayCamera, eyePathSampler.PathSamplingType),
+                PointToPointConnector = new PointToPointConnector(new RayVisibleTester(intersectionFinder, mediaIntersectionFinder), rayCamera, eyePathSampler.PathSamplingType, phaseFunction),
                 RayCamera = rayCamera,
                 LightSourceSampler = lightSourceSampler,
                 MaxPathLength = MaxPathLength,

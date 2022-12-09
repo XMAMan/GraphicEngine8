@@ -2,6 +2,7 @@
 using GraphicGlobal;
 using GraphicMinimal;
 using Photonusmap;
+using RaytracingBrdf;
 using RaytracingColorEstimator;
 using SubpathGenerator;
 using System;
@@ -113,7 +114,7 @@ namespace FullPathGeneratorTest.PathPointPropertys
             {
                 EyePathSamplingType = data.EyePathSampler.PathSamplingType,
                 LightPathSamplingType = data.LightPathSampler.PathSamplingType,
-                PointToPointConnector = new PointToPointConnector(new RayVisibleTester(data.IntersectionFinder, data.MediaIntersectionFinder), data.RayCamera, data.EyePathSampler.PathSamplingType),
+                PointToPointConnector = new PointToPointConnector(new RayVisibleTester(data.IntersectionFinder, data.MediaIntersectionFinder), data.RayCamera, data.EyePathSampler.PathSamplingType, new PhaseFunction()),
                 RayCamera = data.RayCamera,
                 LightSourceSampler = data.LightSourceSampler,
                 MaxPathLength = 5

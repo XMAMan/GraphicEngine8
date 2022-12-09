@@ -167,7 +167,9 @@ namespace FullPathGeneratorTest
                 StopTriggerForColorEstimatorCreation = new CancellationTokenSource()
             };
 
-            this.LightSourceSampler = new LightSourceSampler(lightCreationData);            
+            this.LightSourceSampler = new LightSourceSampler(lightCreationData);
+
+            IPhaseFunctionSampler phaseFunction = new PhaseFunction();
 
             this.EyePathSampler = new SubpathSampler(new SubpathSamplerConstruktorData()
             {
@@ -178,7 +180,7 @@ namespace FullPathGeneratorTest
                 PathSamplingType = data.EyePathSamplingType,
                 MaxPathLength = this.MaxPathLength,
                 BrdfSampler = new BrdfSampler(),
-                PhaseFunction = new PhaseFunction()
+                PhaseFunction = phaseFunction
             });
             this.LightPathSampler = new SubpathSampler(new SubpathSamplerConstruktorData()
             {
@@ -195,7 +197,7 @@ namespace FullPathGeneratorTest
             this.Camera = rayCamera;
 
             
-            this.PointToPointConnector = new PointToPointConnector(new RayVisibleTester(this.IntersectionFinder, this.MediaIntersectionFinder), this.Camera, data.EyePathSamplingType);
+            this.PointToPointConnector = new PointToPointConnector(new RayVisibleTester(this.IntersectionFinder, this.MediaIntersectionFinder), this.Camera, data.EyePathSamplingType, phaseFunction);
         }
 
         //Achtung, wenn diese Zahl verändert wird, dann bei CheckPathPdfADifferenceToHistogram nochmal reinschauen

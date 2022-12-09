@@ -70,7 +70,7 @@ namespace FullPathGeneratorTest.PathPointPropertys
         {
             var data = FullPathTestHelper.CreateFullPathConstructorData();
             var e = data.ExpectedValues;
-            var fullPathSampler = new PointDataBeamQuery(data.Full.FullPathKonstruktorData.EyePathSamplingType, data.Full.FullPathKonstruktorData.MaxPathLength);
+            var fullPathSampler = new PointDataBeamQuery(data.Full.FullPathKonstruktorData.EyePathSamplingType, data.Full.FullPathKonstruktorData.MaxPathLength, data.Full.FullPathKonstruktorData.PointToPointConnector.PhaseFunction);
             var fullPath = fullPathSampler.SampleFullPaths(data.Full.EyePath, data.Full.LightPath, data.Full.FrameData, new Rand(0))[0];
             var points = fullPath.Points;
 
@@ -98,7 +98,7 @@ namespace FullPathGeneratorTest.PathPointPropertys
         {
             var data = FullPathTestHelper.CreateFullPathConstructorData();
             var e = data.ExpectedValues;
-            var fullPathSampler = new PointDataPointQuery(data.Full.FullPathKonstruktorData.MaxPathLength);
+            var fullPathSampler = new PointDataPointQuery(data.Full.FullPathKonstruktorData.MaxPathLength, data.Full.FullPathKonstruktorData.PointToPointConnector.PhaseFunction);
             var fullPath = fullPathSampler.SampleFullPaths(data.Full.EyePath, data.Full.LightPath, data.Full.FrameData, new Rand(0))[0];
             var points = fullPath.Points;
 

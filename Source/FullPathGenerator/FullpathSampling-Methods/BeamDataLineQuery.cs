@@ -17,11 +17,13 @@ namespace FullPathGenerator
     {
         private readonly bool noDistanceSampling;
         private readonly int maxPathLength;
+        private readonly IPhaseFunctionSampler phaseFunction;
 
-        public BeamDataLineQuery(PathSamplingType usedEyeSubPathType, int maxPathLength)
+        public BeamDataLineQuery(PathSamplingType usedEyeSubPathType, int maxPathLength, IPhaseFunctionSampler phaseFunction)
         {
             this.noDistanceSampling = usedEyeSubPathType == PathSamplingType.ParticipatingMediaWithoutDistanceSampling;
             this.maxPathLength = maxPathLength;
+            this.phaseFunction = phaseFunction;
         }
 
         public SamplingMethod Name => SamplingMethod.BeamDataLineQuery;
@@ -110,7 +112,7 @@ namespace FullPathGenerator
 
 
             //Merging-Bsdf
-            var pointTBsdf = PhaseFunction.EvaluateBsdf(pointOnT.DirectionToThisPoint, pointOnT.MediaPoint, -lightPoint.LineToNextPoint.Ray.Direction);
+            var pointTBsdf = this.phaseFunction.EvaluateBsdf(pointOnT.DirectionToThisPoint, pointOnT.MediaPoint, -lightPoint.LineToNextPoint.Ray.Direction);
 
             float kernel1D = 1.0f / (photonmap.SearchRadius * 2);
             float acceptancePdf = 1.0f / kernel1D;

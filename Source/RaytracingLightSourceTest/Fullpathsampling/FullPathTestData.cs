@@ -73,6 +73,7 @@ namespace RaytracingLightSourceTest.Fullpathsampling
                 BrdfSampler = new BrdfSampler(),
                 PhaseFunction = new PhaseFunction()
             });
+            IPhaseFunctionSampler phaseFunction = new PhaseFunction();
             var lightPathSampler = new SubpathSampler(new SubpathSamplerConstruktorData()
             {
                 RayCamera = rayCamera,
@@ -82,10 +83,10 @@ namespace RaytracingLightSourceTest.Fullpathsampling
                 PathSamplingType = pathSamplingType,
                 MaxPathLength = maxPathLength - 1,
                 BrdfSampler = new BrdfSampler(),
-                PhaseFunction = new PhaseFunction()
+                PhaseFunction = phaseFunction
             });
 
-            PointToPointConnector pointToPointConnector = new PointToPointConnector(new RayVisibleTester(this.IntersectionFinder, mediaIntersectionFinder), rayCamera, pathSamplingType);
+            PointToPointConnector pointToPointConnector = new PointToPointConnector(new RayVisibleTester(this.IntersectionFinder, mediaIntersectionFinder), rayCamera, pathSamplingType, phaseFunction);
 
             this.Camera = rayCamera;
             this.EyePathSampler = eyePathSampler;

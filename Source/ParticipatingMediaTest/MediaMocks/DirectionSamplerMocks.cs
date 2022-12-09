@@ -23,13 +23,15 @@ namespace ParticipatingMediaTest.MediaMocks
         private int index = -1;
         private readonly List<Vector3D> returnValuesForBrdfDirectionSampling;
         private readonly List<Vector3D> expectedSurfacePointsForDirectionSampling;
+        private readonly PhaseFunction phaseFunctionNoMock;
         public PhaseFunctionMock(DirectionSamplingMockData data)
         {
             if (data != null)
             {
                 this.returnValuesForBrdfDirectionSampling = data.ReturnValuesForDirectionSampling;
                 this.expectedSurfacePointsForDirectionSampling = data.ExpectedPointLocationForDirectionSampling;
-            }            
+            }
+            this.phaseFunctionNoMock = new PhaseFunction();
         }
 
         public BrdfSampleEvent SampleDirection(MediaIntersectionPoint mediaPoint, Vector3D directionToMediaPoint, IRandom rand)
@@ -48,6 +50,11 @@ namespace ParticipatingMediaTest.MediaMocks
                 Ray = new Ray(mediaPoint.Position, this.returnValuesForBrdfDirectionSampling[this.index]),
                 RayWasRefracted = false
             };
+        }
+
+        public BrdfEvaluateResult EvaluateBsdf(Vector3D directionToBrdfPoint, MediaIntersectionPoint brdfPoint, Vector3D outDirection)
+        {
+            return this.phaseFunctionNoMock.EvaluateBsdf(directionToBrdfPoint, brdfPoint, outDirection);
         }
     }
 

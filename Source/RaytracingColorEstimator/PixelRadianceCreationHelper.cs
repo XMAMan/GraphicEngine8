@@ -84,6 +84,8 @@ namespace RaytracingColorEstimator
 
             data.ProgressChanged("Fertig mit Erstellung des LightSourceSamplers", 100);
 
+            IPhaseFunctionSampler phaseFunction = new PhaseFunction();
+
             var eyePathSampler = new SubpathSampler(new SubpathSamplerConstruktorData()
             {
                 RayCamera = rayCamera,
@@ -93,10 +95,10 @@ namespace RaytracingColorEstimator
                 PathSamplingType = subPathSettings.EyePathType,
                 MaxPathLength = subPathSettings.MaxEyePathLength != -1 ? subPathSettings.MaxEyePathLength : data.GlobalObjektPropertys.RecursionDepth,
                 BrdfSampler = new BrdfSampler(),
-                PhaseFunction = new PhaseFunction()
+                PhaseFunction = phaseFunction
             });
 
-            data.ProgressChanged("Fertig mit Erstellung des EyePathSampler", 100);
+            data.ProgressChanged("Fertig mit Erstellung des EyePathSampler", 100);            
 
             var lightPathSampler = new SubpathSampler(new SubpathSamplerConstruktorData()
             {
@@ -107,7 +109,7 @@ namespace RaytracingColorEstimator
                 PathSamplingType = subPathSettings.LightPathType,
                 MaxPathLength = data.GlobalObjektPropertys.RecursionDepth - 1,
                 BrdfSampler = new BrdfSampler(),
-                PhaseFunction = new PhaseFunction()
+                PhaseFunction = phaseFunction
             });
 
             data.ProgressChanged("Fertig mit Erstellung des LightPathSamplers", 100);
@@ -119,7 +121,7 @@ namespace RaytracingColorEstimator
                 {
                     EyePathSamplingType = eyePathSampler.PathSamplingType,
                     LightPathSamplingType = lightPathSampler.PathSamplingType,
-                    PointToPointConnector = new PointToPointConnector(new RayVisibleTester(intersectionFinder, mediaIntersectionFinder), rayCamera, eyePathSampler.PathSamplingType),
+                    PointToPointConnector = new PointToPointConnector(new RayVisibleTester(intersectionFinder, mediaIntersectionFinder), rayCamera, eyePathSampler.PathSamplingType, phaseFunction),
                     RayCamera = rayCamera,
                     LightSourceSampler = lightSourceSampler,
                     MaxPathLength = data.GlobalObjektPropertys.RecursionDepth,
