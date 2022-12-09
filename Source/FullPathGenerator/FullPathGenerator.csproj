@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalyseHelper\PathContributionForEachPathLength.cs" />
     <Compile Include="AnalyseHelper\PathContributionForEachPathSpace.cs" />
     <Compile Include="FullPath.cs" />
     <Compile Include="FullPathFrameData.cs" />

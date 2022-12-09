@@ -72,8 +72,6 @@ namespace RaytracingBrdf
 
         private static float MediaContinuationPdf(Vector3D os, Vector3D oa)
         {
-            return 1;
-
             //SmallUPBP->Scene.hxx->Zeile 1219 hier steht die Formel für die Media-ContinationPdf
             float continuationPdf = Math.Max(Math.Max(os.X / (os.X + oa.X), os.Y / (os.Y + oa.Y)), os.Z / (os.Z + oa.Z));
             if (float.IsNaN(continuationPdf) || float.IsInfinity(continuationPdf))

@@ -1,5 +1,6 @@
 ﻿using GraphicMinimal;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace FullPathGenerator.AnalyseHelper
 {
-    public class PathContributionForEachPathSpace
+    public class PathContributionForEachPathSpace : IEnumerable<string>
     {
         private readonly Dictionary<string, Vector3D> pathContribution = new Dictionary<string, Vector3D>();
 
@@ -226,6 +227,16 @@ namespace FullPathGenerator.AnalyseHelper
         {
             Vector3D v = new Vector3D(Math.Abs(v1.X - v2.X), Math.Abs(v1.Y - v2.Y), Math.Abs(v1.Z - v2.Z));
             return Math.Max(Math.Max(v.X, v.Y), v.Z);
+        }
+
+        public IEnumerator<string> GetEnumerator()
+        {
+            return this.pathContribution.Keys.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.pathContribution.Keys.GetEnumerator();
         }
     }
 }
