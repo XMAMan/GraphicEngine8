@@ -73,7 +73,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandLineParsing.cs" />
+    <Compile Include="CommandLineParsing\CollectImageConvergenceArgs.cs" />
+    <Compile Include="CommandLineParsing\CommandLineExecutor.cs" />
+    <Compile Include="CommandLineParsing\CommandLineParser.cs" />
+    <Compile Include="CommandLineParsing\CopyOnlyUsedDataArgs.cs" />
+    <Compile Include="CommandLineParsing\CountLineOfCodesArgs.cs" />
+    <Compile Include="CommandLineParsing\CreateCleanBatFileArgs.cs" />
+    <Compile Include="CommandLineParsing\CreateILMergeBatFileArgs.cs" />
+    <Compile Include="CommandLineParsing\CreateImageArgs.cs" />
+    <Compile Include="CommandLineParsing\DataFolderArgs.cs" />
+    <Compile Include="CommandLineParsing\MasterTestArgs.cs" />
+    <Compile Include="CommandLineParsing\RemoveFireFlyArgs.cs" />
+    <Compile Include="CommandLineParsing\ScaleImageDownArgs.cs" />
+    <Compile Include="CommandLineParsing\SceneEditorArgs.cs" />
+    <Compile Include="CommandLineParsing\TonemappingArgs.cs" />
+    <Compile Include="CommandLineParsing\TonemappingTwoAreasArgs.cs" />
     <Compile Include="Tools\CleanBatCreator.cs" />
     <Compile Include="Tools\CopyOnlyUsedFilesFromDataFolder.cs" />
     <Compile Include="Tools\FilePaths.cs" />
@@ -84,6 +98,7 @@
       <DependentUpon>Form3DTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ILMergeBatCreator.cs" />
+    <Compile Include="Tools\ImageConvergence\DataCollector.cs" />
     <Compile Include="Tools\ImagePostProcessing\ImagePostProcessingHelper.cs" />
     <Compile Include="Tools\ImagePostProcessing\HistogramPanel.cs">
       <SubType>Component</SubType>

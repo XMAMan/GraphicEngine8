@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using GraphicPanels;
 using GraphicMinimal;
 using System.IO;
+using Tools.CommandLineParsing;
 
 namespace Tools.Tools
 {
