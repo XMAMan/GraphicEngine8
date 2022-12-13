@@ -449,6 +449,7 @@ namespace BitmapHelper
             Bitmap imgage = new Bitmap(width, height);
 
             Graphics grx = Graphics.FromImage(imgage);
+            grx.Clear(Color.White);
             int xPos = 0;
             foreach (var img in images)
             {
@@ -479,6 +480,7 @@ namespace BitmapHelper
             Bitmap imgage = new Bitmap(width, height);
 
             Graphics grx = Graphics.FromImage(imgage);
+            grx.Clear(Color.White);
             int yPos = 0;
             foreach (var img in images)
             {

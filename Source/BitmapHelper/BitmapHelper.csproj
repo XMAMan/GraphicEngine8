@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="BitmapHelper.cs" />
     <Compile Include="ColorTextureCache.cs" />
+    <Compile Include="DifferenceImage.cs" />
     <Compile Include="ImageBoolMask.cs" />
     <Compile Include="FortuneVoronio\FortuneVoronoi.cs" />
     <Compile Include="FortuneVoronio\HashSet.cs" />

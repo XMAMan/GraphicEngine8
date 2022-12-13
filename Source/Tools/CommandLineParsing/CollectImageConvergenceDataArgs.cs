@@ -8,30 +8,28 @@ using System.Text.RegularExpressions;
 
 namespace Tools.CommandLineParsing
 {
-    internal class CollectImageConvergenceArgs
+    internal class CollectImageConvergenceDataArgs
     {
         [ArgRequired, ArgDescription("Json-File which describes the scene"), ArgExistingFile, ArgRegex(@".*json\.txt$"), ArgPosition(1)]
         public string SceneFile { get; set; }
-
-
-        [ArgRequired, ArgDescription("Filepath for the raw-image to be created"), ArgRegex(@".*\.raw")]
-        public string RawImageOutputFile { get; set; }
-
-
-        [ArgRequired, ArgDescription("Filepath for the DifferencePerTime-File to be created"), ArgRegex(@".*\.txt")]
-        public string DifferencePerTimeOutputFile { get; set; }
-
 
         [ArgRequired, ArgDescription("Filepath for the image which is used for comparing. Supported Filestyps: bmp, png, jpg"), ArgRegex(@".*\.(bmp|png|jpg)$")]
         public string ReferenceImageInputFile { get; set; }
 
 
-        [ArgDefaultValue(""), ArgDescription("Folder with all the obj- and texturefiles. If not defined, the folder from the Json-File will be taken")]
-        public string DataFolder { get; set; }
+        [ArgRequired, ArgDescription("Folder where the ProgessImages and MAPE-File is saved")]
+        public string OutputFolder { get; set; }
 
 
-        [ArgDefaultValue(-1), ArgDescription("How many samples will be calculated for each pixel")]
+        [ArgDefaultValue(1), ArgDescription("How many samples will be calculated for each pixel")]
         public int SampleCount { get; set; }
+
+        [ArgDefaultValue(10), ArgDescription("Timer-Tick-Rate in seconds for creating a MAPE-Samplepoint")]
+        public int CollectionTimerTick { get; set; }
+
+        [ArgDefaultValue(1), ArgDescription("After 'ProgressImageSaveRate' CollectionTimerTicks one ProgressImage will be saved")]
+        public int ProgressImageSaveRate { get; set; }
+
 
         //So bekommt man die ganzen Werte hier: string.Join("\n", Enum.GetValues(typeof(Mode3D)).Cast<Mode3D>())
 

@@ -73,7 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandLineParsing\CollectImageConvergenceArgs.cs" />
+    <Compile Include="CommandLineParsing\CollectImageConvergenceDataArgs.cs" />
     <Compile Include="CommandLineParsing\CommandLineExecutor.cs" />
     <Compile Include="CommandLineParsing\CommandLineParser.cs" />
     <Compile Include="CommandLineParsing\CopyOnlyUsedDataArgs.cs" />
@@ -83,6 +83,7 @@
     <Compile Include="CommandLineParsing\CreateImageArgs.cs" />
     <Compile Include="CommandLineParsing\DataFolderArgs.cs" />
     <Compile Include="CommandLineParsing\MasterTestArgs.cs" />
+    <Compile Include="CommandLineParsing\PrintImageConvergenceDataArgs.cs" />
     <Compile Include="CommandLineParsing\RemoveFireFlyArgs.cs" />
     <Compile Include="CommandLineParsing\ScaleImageDownArgs.cs" />
     <Compile Include="CommandLineParsing\SceneEditorArgs.cs" />
@@ -98,7 +99,16 @@
       <DependentUpon>Form3DTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Tools\ILMergeBatCreator.cs" />
+    <Compile Include="Tools\ImageConvergence\CsvFile.cs" />
     <Compile Include="Tools\ImageConvergence\DataCollector.cs" />
+    <Compile Include="Tools\ImageConvergence\CollectImageConvergenceData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tools\ImageConvergence\CollectImageConvergenceData.Designer.cs">
+      <DependentUpon>CollectImageConvergenceData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\ImageConvergence\DataVisualizer.cs" />
+    <Compile Include="Tools\ImageConvergence\ErrorCurve.cs" />
     <Compile Include="Tools\ImagePostProcessing\ImagePostProcessingHelper.cs" />
     <Compile Include="Tools\ImagePostProcessing\HistogramPanel.cs">
       <SubType>Component</SubType>
@@ -150,8 +160,12 @@
     <Compile Include="Tools\SceneFileRenderer.Designer.cs">
       <DependentUpon>SceneFileRenderer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tools\TimeSpanExtensions.cs" />
     <EmbeddedResource Include="Tools\Form3DTest.resx">
       <DependentUpon>Form3DTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\ImageConvergence\CollectImageConvergenceData.resx">
+      <DependentUpon>CollectImageConvergenceData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tools\ImagePostProcessing\TrackbarFloat.resx">
       <DependentUpon>TrackbarFloat.cs</DependentUpon>
@@ -216,6 +230,14 @@
     <ProjectReference Include="..\ImageCreator\ImageCreator.csproj">
       <Project>{727a7d5a-22b5-4018-9769-ab5de9b57e01}</Project>
       <Name>ImageCreator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PdfHistogram\PdfHistogram.csproj">
+      <Project>{24743C8C-A488-499C-ABA1-040D596DABD7}</Project>
+      <Name>PdfHistogram</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RaytracingRandom\RaytracingRandom.csproj">
+      <Project>{98A73AC3-620F-4520-89EA-B97A75573A3C}</Project>
+      <Name>RaytracingRandom</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

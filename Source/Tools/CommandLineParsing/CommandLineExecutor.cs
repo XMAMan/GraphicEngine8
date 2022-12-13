@@ -10,6 +10,8 @@ using System.Drawing;
 using GraphicMinimal;
 using System.IO;
 using Tools.Tools.ImagePostProcessing;
+using Tools.Tools.ImageConvergence;
+using System.Collections.Generic;
 
 namespace Tools.CommandLineParsing
 {
@@ -162,6 +164,43 @@ namespace Tools.CommandLineParsing
                     {
                         var a = (parsed.ActionArgs as CreateILMergeBatFileArgs);
                         ILMergeBatCreator.CreateILMergeBatFile(a.ExeFolder, a.IlMergeFilePath, a.OutputFileName);
+                    }
+                    break;
+
+                //Commandline-Arguments im VisualStudio: CollectImageConvergenceData ..\..\..\..\Data\05_MirrorCornellbox_json.txt -referenceImageInputFile ..\..\..\..\Scenes\05_MirrorCornellboxPixRange_Reference.bmp -outputFolder ..\..\..\..\Scenes\05_MirrorCornellBoxPixRangeData_BPT -sampleCount 1000 -collectionTimerTick 1 -renderMod MediaBidirectionalPathTracing -width 1073 -height 940 -pixelRange [730;819;746;835]
+                case "CollectImageConvergenceData":
+                    {
+                        var form = new CollectImageConvergenceData(parsed.ActionArgs as CollectImageConvergenceDataArgs);
+                        if (form.IsDisposed == false) Application.Run(form);
+                    }
+                    break;
+
+                //Commandline-Arguments im VisualStudio: PrintImageConvergenceData -referenceImageInputFile ..\..\..\..\Scenes\05_MirrorCornellboxPixRange_Reference.bmp -dataFolder1 ..\..\..\..\Scenes\05_MirrorCornellBoxPixRangeData_BPT -label1 "Bidirectional Path Tracing" -dataFolder2 ..\..\..\..\Scenes\05_MirrorCornellBoxPixRangeData_MMLT -label2 "Multiplexed Metropolis Light Transport" -width 800 -height 600 -scaleUpFactor 20 -outputImageFile  ..\..\..\..\Scenes\05_MirrorCornellboxPixRange_BPT_MMLT_Compare.jpg
+                case "PrintImageConvergenceData":
+                    {
+                        var a = (parsed.ActionArgs as PrintImageConvergenceDataArgs);
+
+                        List<DataVisualizer.Folder> files = new List<DataVisualizer.Folder>();
+                        files.Add(new DataVisualizer.Folder(a.DataFolder1, a.Label1));
+
+                        if (string.IsNullOrEmpty(a.DataFolder2) == false)
+                            files.Add(new DataVisualizer.Folder(a.DataFolder2, a.Label2));
+
+                        if (string.IsNullOrEmpty(a.DataFolder3) == false)
+                            files.Add(new DataVisualizer.Folder(a.DataFolder3, a.Label3));
+
+                        if (string.IsNullOrEmpty(a.DataFolder4) == false)
+                            files.Add(new DataVisualizer.Folder(a.DataFolder4, a.Label4));
+
+                        if (string.IsNullOrEmpty(a.DataFolder5) == false)
+                            files.Add(new DataVisualizer.Folder(a.DataFolder5, a.Label5));
+
+                        if (string.IsNullOrEmpty(a.DataFolder6) == false)
+                            files.Add(new DataVisualizer.Folder(a.DataFolder6, a.Label6));
+
+                        new DataVisualizer(files.ToArray(), new Bitmap(a.ReferenceImageInputFile))
+                            .GetCompareImage(a.Width, a.Height, a.ScaleUpFactor)
+                            .Save(a.OutputImageFile, System.Drawing.Imaging.ImageFormat.Jpeg);
                     }
                     break;
 

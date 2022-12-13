@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BitmapHelper;
 using Tools.Tools.SceneEditor;
+using Tools.Tools;
 
 namespace Tools
 {
@@ -67,35 +68,10 @@ namespace Tools
                     exceptionHandler(t.Exception.InnerException);
                 }
                 this.finish = true;
-                this.progressPrefix = "Fertig: " + TimeSpanToString(DateTime.Now - startTime);
+                this.progressPrefix = "Fertig: " + (DateTime.Now - startTime).ToNiceString();
             }, this.uiContext);
 
             task.Start();
-        }
-
-        private static string TimeSpanToString(TimeSpan diff)
-        {
-            List<KeyValuePair<int, string[]>> list = new List<KeyValuePair<int, string[]>>()
-            {
-                new KeyValuePair<int, string[]>(diff.Days, new string[]{"Day","Days"}),
-                new KeyValuePair<int, string[]>(diff.Hours, new string[]{"Hour", "Hours"}),
-                new KeyValuePair<int, string[]>(diff.Minutes, new string[]{"Minute", "Minutes"}),
-                new KeyValuePair<int, string[]>(diff.Seconds, new string[]{"Second","Seconds"}),
-            };
-
-            try
-            {
-                int i1 = list.FindIndex(x => x.Key > 0);
-                int i2 = list.FindIndex(i1 + 1, x => x.Key > 0);
-                if (i1 == -1) return (int)diff.TotalSeconds + " Seconds";
-                string s1 = list[i1].Key + " " + (list[i1].Key == 0 ? list[i1].Value[0] : list[i1].Value[1]);
-                string s2 = i2 >= 0 ? (list[i2].Key + " " + (list[i2].Key == 0 ? list[i2].Value[0] : list[i2].Value[1])) : "";
-                return s1 + ", " + s2;
-            }
-            catch
-            {
-                return (int)diff.TotalSeconds + " Seconds";
-            }
         }
 
         private Bitmap GetResultSynchron()
@@ -227,7 +203,7 @@ namespace Tools
                     images.Add(BitmapHelp.TransformBitmapListToRow(bitmaps));
                 }
 
-                images.Insert(0, GetBitmapText(mode.ToString() + "\n" + TimeSpanToString(DateTime.Now - startTime), images.Any() ? images.Max(x => x.Width) : 100, 10));
+                images.Insert(0, GetBitmapText(mode.ToString() + "\n" + (DateTime.Now - startTime).ToNiceString(), images.Any() ? images.Max(x => x.Width) : 100, 10));
                 resultList.Add(images);
             }
 

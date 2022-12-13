@@ -114,6 +114,8 @@ namespace PdfHistogram
             Bitmap image = new Bitmap(this.imageSize.Width, this.imageSize.Height);
             Graphics grx = Graphics.FromImage(image);
 
+            grx.Clear(Color.White);
+
             //Automatische Einstellung des ViewRecs
             if (this.useAutoScale)
             {
@@ -171,10 +173,13 @@ namespace PdfHistogram
                 var points = GetNPointsFromFunction(func.Function, this.imageSize.Width);
                 for (int i = 0; i < points.Length - 1; i++)
                 {
-                    var p1 = TransformPointToImage(points[i]);
-                    var p2 = TransformPointToImage(points[i + 1]);
-                   
-                    grx.DrawLine(new Pen(func.Color), p1, p2);
+                    if (points[i] != null && points[i+1] != null)
+                    {
+                        var p1 = TransformPointToImage(points[i]);
+                        var p2 = TransformPointToImage(points[i + 1]);
+
+                        grx.DrawLine(new Pen(func.Color), p1, p2);
+                    }                    
                 }
             }
         }
@@ -299,7 +304,8 @@ namespace PdfHistogram
             {
                 double x = (double)i / (points.Length - 1) * (this.maxX - this.minX) + this.minX;
                 double y = function(x);
-                points[i] = new PointD(x, y);
+                if (double.IsNaN(y) == false)
+                    points[i] = new PointD(x, y);
             }
 
             return points;

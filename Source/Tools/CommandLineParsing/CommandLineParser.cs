@@ -75,5 +75,15 @@ namespace Tools.CommandLineParsing
         {
         }
 
+
+        [ArgActionMethod]
+        public void CollectImageConvergenceData(CollectImageConvergenceDataArgs args)
+        {
+        }
+
+        [ArgActionMethod]
+        public void PrintImageConvergenceData(PrintImageConvergenceDataArgs args)
+        {
+        }        
     }
 }

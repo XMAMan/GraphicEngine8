@@ -5,6 +5,7 @@ using Tools;
 using System.IO;
 using GraphicPanels;
 using FluentAssertions;
+using Tools.CommandLineParsing;
 
 namespace ToolsTest
 {
