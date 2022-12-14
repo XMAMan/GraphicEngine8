@@ -44,7 +44,7 @@ namespace RaytracingMethods.MMLT
             //Für jeden bootstrapWeights-Eintrag wird ein Fullpfad erzeugt und dessen Luminancewert im Array gespeichert
             double[] bootstrapWeights = new double[nBootstrap];
 
-            Parallel.For(0, nBootstrap, (i) => //Entspricht for (int i=0;i<this.nBootstrap;i++)
+            Parallel.For(0, nBootstrap, (i) => //Entspricht for (int i=0;i<nBootstrap;i++)
             {
                 MLTSampler sampler = new MLTSampler(new Rand(i), this.sigma, this.largeStepProbability, StreamCount);
 
@@ -62,9 +62,9 @@ namespace RaytracingMethods.MMLT
 
         public MarkovChain CreateMarkovChain(IRandom rand)
         {
-            //Wähle zufällig von den 600k Fullpaths einen aus
+            //Wähle zufällig von den 100k Fullpaths einen aus
             int bootstrapIndex = this.bootstrap.SampleDiscrete(rand.NextDouble());
- 
+
             //sampler entspricht den X-Wert
             MLTSampler sampler = new MLTSampler(new Rand(bootstrapIndex), this.sigma, this.largeStepProbability, StreamCount);
             FullPath path = this.singleFullPathSampler.SamplePath(sampler, this.fullPathLength); //path entspricht f(X)
@@ -80,6 +80,7 @@ namespace RaytracingMethods.MMLT
         private readonly MarkovChainCreatorForSinglePathLength[] creators;
 
         public MarkovChainCreator(
+            Action<string, float> progressChanged,
             MLTFullPathSampler fullPathSampler,
             int nBootstrap, //nBootstrap = 100k = So viel Fullpaths werden am Anfang erzeugt
             float sigma,          //sigma=0.01f = Pertubationsweite bei der SmallStep-Mutation
@@ -89,6 +90,7 @@ namespace RaytracingMethods.MMLT
             this.creators = new MarkovChainCreatorForSinglePathLength[fullPathSampler.MaxFullPathLength - 1];
             for (int i=0;i<this.creators.Length;i++)
             {
+                progressChanged("Create Bootstrap-Samples", i / (float)this.creators.Length * 100);
                 this.creators[i] = new MarkovChainCreatorForSinglePathLength(fullPathSampler, nBootstrap, sigma, largeStepProbability, i + 2);
             }
         }

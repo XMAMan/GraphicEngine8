@@ -4,6 +4,7 @@ using GraphicGlobal;
 using System.Linq;
 using GraphicMinimal;
 using RaytracingRandom;
+using System.Collections.Generic;
 
 namespace RaytracingMethods.MMLT
 {
@@ -33,9 +34,9 @@ namespace RaytracingMethods.MMLT
         }
 
         public void BuildUp(RaytracingFrame3DData data)
-        {
+        {            
             this.fullPathSampler = new MLTFullPathSampler(new SinglePathSampler(data, withMedia));
-            this.chainCreator = new MarkovChainCreator(this.fullPathSampler, 100000, 0.01f, 0.3f);
+            this.chainCreator = new MarkovChainCreator(data.ProgressChanged, this.fullPathSampler, data.GlobalObjektPropertys.MetropolisBootstrapCount, 0.01f, 0.3f);
         }
 
         public MultiplexedMetropolisLightTransport() { }
@@ -69,10 +70,29 @@ namespace RaytracingMethods.MMLT
             FullPathSampleResult result = new FullPathSampleResult();
             result.RadianceFromRequestetPixel = new Vector3D(0, 0, 0);
 
-            //Wähle zufällig eine Kette (Fullpfad) aus
+            //Möglichkeit 1: Wähle zufällig eine Kette (Fullpfad) aus
             int chainIndex = this.chainSelector.SampleDiscrete(rand.NextDouble());
-            float chainSelectionPdf = (float)this.chainSelector.PdfValue(chainIndex);
+            double chainSelectionPdf = this.chainSelector.PdfValue(chainIndex);
             var chain = this.chains[chainIndex];
+            result.LighttracingPaths.AddRange(SampleChain(chain, chainSelectionPdf));            
+
+            //Möglichkeit 2: Für jede Fullpfadlänge wird die zugehörige Kette genommen und ein Pfad erzeugt
+            //for (int chainIndex=0; chainIndex < this.chains.Length;chainIndex++)
+            //{
+            //    var chain = this.chains[chainIndex];
+            //    if (chain.ImagePlaneLuminance != 0)
+            //    {
+            //        double chainSelectionPdf = 1;
+            //        result.LighttracingPaths.AddRange(SampleChain(this.chains[chainIndex], chainSelectionPdf));
+            //    }                
+            //}
+
+            return result;
+        }
+
+        private List<FullPath> SampleChain(MarkovChain chain, double chainSelectionPdf)
+        {
+            List<FullPath> returnList = new List<FullPath>();
 
             //Durch das mutieren des Pfades entsteht ein neuer Pfad
             var chainResult = chain.RunIteration(this.fullPathSampler);
@@ -81,22 +101,22 @@ namespace RaytracingMethods.MMLT
             if (chainResult.CurrentPath != null)
             {
                 SetRadiance(chainResult.CurrentPath, chainResult.CurrentWeight, chainSelectionPdf);
-                result.LighttracingPaths.Add(chainResult.CurrentPath);
+                returnList.Add(chainResult.CurrentPath);
             }
 
             //durch Mutation entstanden aber noch nicht akzeptiert
             if (chainResult.ProposedPath != null)
             {
                 SetRadiance(chainResult.ProposedPath, chainResult.ProposedWeight, chainSelectionPdf);
-                result.LighttracingPaths.Add(chainResult.ProposedPath);
+                returnList.Add(chainResult.ProposedPath);
             }
 
-            return result;
+            return returnList;
         }
 
-        private void SetRadiance(FullPath path, float acceptWeight, float chainSelectionPdf)
+        private void SetRadiance(FullPath path, double acceptWeight, double chainSelectionPdf)
         {
-            path.MisWeight *= acceptWeight * this.chains[path.PathLength - 2].ImagePlaneLuminance / chainSelectionPdf / this.fullPathSampler.PixelCount;
+            path.MisWeight = (float)(path.MisWeight * acceptWeight * this.chains[path.PathLength - 2].ImagePlaneLuminance / chainSelectionPdf / this.fullPathSampler.PixelCount);
             path.Radiance = path.PathContribution * path.MisWeight;
         }
     }

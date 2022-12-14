@@ -132,6 +132,7 @@ namespace GraphicPanelsTest
             TestScenes.AddTestscene_FullPathSamplerTestScene(graphic, data.WithMediaBox);
             graphic.Mode = data.Mode;
             graphic.GlobalSettings.SamplingCount = data.SamplingCount;
+            graphic.GlobalSettings.MetropolisBootstrapCount = 100000;
             graphic.GlobalSettings.ThreadCount = 1;
             graphic.GlobalSettings.PhotonCount = 10;
             graphic.GlobalSettings.RecursionDepth = 7;

@@ -32,6 +32,7 @@ namespace GraphicMinimal
         public TonemappingMethod Tonemapping { get; set; } = TonemappingMethod.None;
         public float BrightnessFactor { get; set; } = 1; //Mit diesen Faktor werden alle Farbwerte am Ende noch multipliziert (Ist quasi Tonemapping für Arme)
         public int PhotonCount { get; set; } = 60000;
+        public int MetropolisBootstrapCount { get; set; } = 1000000; //So viele Fullpaths werden in der Bootstrapphase pro Pfadlänge erzeugt, um ein Schätzwert für die Bildebene zu bekommen
         public float PhotonmapSearchRadiusFactor { get; set; } = 1; //Faktor für die Media-Photonmapping-Verfahren. Suchradius ist größe eines Pixelfootprints * PhotonmapSearchRadiusFactor
         public float BeamDataLineQueryReductionFactor { get; set; } = 0.1f; //Nur so viel Prozent aller LightSubpahts bekommt bei UPBP die Beam2Beam-Map gegenüber den anderen Photonmaps
         public float SearchRadiusForMediaBeamTracer { get; set; } = 0.005f; //Suchradius für die Beam2Beam-Abfrage beim MediaBeamTracer

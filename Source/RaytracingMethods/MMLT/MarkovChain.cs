@@ -33,9 +33,9 @@ namespace RaytracingMethods.MMLT
         public class IterationResult
         {
             public FullPath CurrentPath;
-            public float CurrentWeight;
+            public double CurrentWeight;
             public FullPath ProposedPath;
-            public float ProposedWeight;
+            public double ProposedWeight;
         }
 
         public IterationResult RunIteration(MLTFullPathSampler fullPathSampler)
@@ -43,22 +43,16 @@ namespace RaytracingMethods.MMLT
             IterationResult result = new IterationResult();
             
             sampler.StartIteration();
-            //Accept-LargeStep -> Diese Idee habe ich von hier https://cs.uwaterloo.ca/~thachisu/smallmmlt.cpp Zeile 602/603
-            //Sie stellt bis jetzt keine offentsichtliche Verbesserung aber auch keine Verschlechterung dar. Ich muss noch verstehen,
-            //was diese Formel zu bedeuten hat
-            //float isLargeStep = sampler.IsLargeStep ? 1 : 0;  //Accept-LargeStep
-            //float largeStepProp = 0.3f;                       //Accept-LargeStep
 
             var proposedPath = fullPathSampler.SamplePath(sampler, fullPathLength);
             float propsedC = proposedPath != null ? PixelHelper.ColorToGray(proposedPath.PathContribution * proposedPath.MisWeight) : 0;
-            float accept = proposedPath != null ? Math.Min(1, propsedC / this.currentC) : 0;
-   
+            double accept = proposedPath != null ? Math.Min(1, propsedC / this.currentC) : 0;
+
             //Proposed-Pfad:
             if (accept > 0)
             {
                 result.ProposedPath = new FullPath(proposedPath);
                 result.ProposedWeight = accept / propsedC;
-                //result.ProposedWeight = (accept + isLargeStep) / (propsedC + largeStepProp);  //Accept-LargeStep
             }
 
             //Current-Pfad:
@@ -66,8 +60,6 @@ namespace RaytracingMethods.MMLT
             {
                 result.CurrentPath = new FullPath(this.currentPath);
                 result.CurrentWeight = (1 - accept) / this.currentC;
-                //result.CurrentWeight = (1 - accept) / (this.currentC + largeStepProp);    //Accept-LargeStep
-
             }
 
             //Den Proposed-Pfad accepten oder rejecten
@@ -75,14 +67,12 @@ namespace RaytracingMethods.MMLT
             {
                 this.currentPath = proposedPath;
                 this.currentC = PixelHelper.ColorToGray(this.currentPath.PathContribution * this.currentPath.MisWeight);
-                sampler.Accept();
+                sampler.Accept();                
             }
             else
             {
                 sampler.Reject();
             }
-
-            
 
             return result;
         }

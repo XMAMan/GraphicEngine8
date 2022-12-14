@@ -18,6 +18,7 @@ namespace RaytracingMethods.MMLT
 
     //Verwendung: Vor der ersten initialen Large-Step-Iteration darf kein StartIteration gerufen werden. Ansonsten muss das immer erfolgen. Siehe MLTSamplerTest
     //Dokumentation: Siehe Dokumentation.odt->"Metropolis-Light-Transport – Die MLTSampler-Klasse"
+    [Serializable]
     internal class MLTSampler : IRandom
     {
         private readonly IRandom rand; //Erzeugt gleichmäßige Zufallszahlen
@@ -72,13 +73,19 @@ namespace RaytracingMethods.MMLT
 
         public string ToBase64String()
         {
-            throw new NotImplementedException();
+            return ObjectToStringConverter.ConvertObjectToString(this);
+        }
+
+        public static MLTSampler CreateFromBase64String(string base64String)
+        {
+            return ObjectToStringConverter.ConvertStringToObject<MLTSampler>(base64String);
         }
         #endregion
 
         //Listenelement von X.
         //Hier werden einerseits die zuletzt akzeptieren Zufallszahlen für ein Fullpath gespeichert als auch die neuen noch nicht akzeptieren
         //probe-Zufallszahlen
+        [Serializable]
         internal class PrimarySample //Wenn ich das als Struct anstatt als class mache, dann kann ich mit Xi = X[index]; Xi.Value= Kein Wert in X[] verändern
         {
             public double Value; //Wert von diesen Element (Hier wird die probe-Zufallszahl gepseichert)

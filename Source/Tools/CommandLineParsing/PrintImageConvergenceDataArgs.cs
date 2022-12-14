@@ -1,4 +1,5 @@
 ﻿using PowerArgs;
+using Tools.Tools.ImageConvergence;
 
 namespace Tools.CommandLineParsing
 {
@@ -61,6 +62,17 @@ namespace Tools.CommandLineParsing
 
         [ArgDefaultValue(20), ArgDescription("Factor for the Compare-Images"), ArgRange(1, int.MaxValue)]
         public int ScaleUpFactor { get; set; }
+
+        [ArgDefaultValue(110), ArgDescription("Factor for the Compare-Images"), ArgRange(1, 110)]
+        public int MaxShownError { get; set; }
+
+
+        [ArgDefaultValue(DataVisualizer.Layout.AllInRow), ArgDescription("Values: AllInRow, AllInColum")]
+        public DataVisualizer.Layout Layout { get; set; }
+
+
+        [ArgDefaultValue(DataVisualizer.MaxTime.Min), ArgDescription("Print curves up to to smalles/longest single-row. Values: Min, Max")]
+        public DataVisualizer.MaxTime MaxTime { get; set; }        
 
 
         [ArgRequired, ArgDescription("Filepath for the image to be created. Supported Filestyps: jpg"), ArgRegex(@".*\.jpg$")]

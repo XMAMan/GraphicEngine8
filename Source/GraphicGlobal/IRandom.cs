@@ -14,6 +14,7 @@ namespace GraphicGlobal
         string ToBase64String();
     }
 
+    [Serializable]
     public class Rand : IRandom
     {
         private readonly Random rand;

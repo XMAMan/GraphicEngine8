@@ -6,9 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Tools.Tools.ImageConvergence
 {
@@ -83,22 +81,32 @@ namespace Tools.Tools.ImageConvergence
                     }
                 }
 
-                //int lastTimeToStart = Convert.ToInt32(lines.Last().Split('_')[0]);
-                //if (foundIndex == lines.Length - 1 && Math.Abs(lastTimeToStart - time) > 5) return -1;
                 return foundIndex;
             }
         }
 
         private readonly Folder[] folder;
         private Bitmap referenceImage;
+        private MaxTime maxTime;
 
-        public DataVisualizer(Folder[] folder, Bitmap referenceImage)
+        public enum MaxTime { Min, Max}
+
+        public DataVisualizer(Folder[] folder, Bitmap referenceImage, MaxTime maxTime)
         {
             this.folder = folder;
             this.referenceImage = referenceImage;
+            this.maxTime = maxTime;
         }
 
-        public Bitmap PlotErrorCurves(int imageWidth, int imageHeight)
+        private uint GetMaxTime()
+        {
+            if (this.maxTime == MaxTime.Max)
+                return this.folder.Max(x => x.MaxTime);
+            else
+                return this.folder.Min(x => x.MaxTime);
+        }
+
+        private Bitmap PlotErrorCurves(int imageWidth, int imageHeight, int maxShownError)
         {
             Color[] colors = new Color[] { Color.Red, Color.Blue, Color.Green, Color.Violet, Color.RosyBrown, Color.DarkBlue, Color.Orange };
 
@@ -114,14 +122,15 @@ namespace Tools.Tools.ImageConvergence
                 });
             }
 
-            uint maxTime = this.folder.Min(x => x.MaxTime);
-            var plotter = new FunctionPlotter(new RectangleF(0, -10, maxTime, 110), 0, maxTime, new Size(imageWidth, imageHeight));
+            uint maxTime = GetMaxTime();
+            var plotter = new FunctionPlotter(new RectangleF(0, -2, maxTime, maxShownError), 0, maxTime, new Size(imageWidth, imageHeight));
             return plotter.PlotFunctions(functions, "Error over time in seconds - Equal-Time-Compare");
         }
 
-        public Bitmap GetDifferenceImages(int sizeFactor)
+
+        private Bitmap GetDifferenceImages(int sizeFactor)
         {
-            int time = (int)this.folder.Min(x => x.MaxTime);
+            int time = (int)GetMaxTime();
 
             int textSize = 10;
             int imgWidth = this.referenceImage.Width * sizeFactor;
@@ -149,13 +158,27 @@ namespace Tools.Tools.ImageConvergence
             return BitmapHelp.TransformBitmapListToRow(images, true);
         }
 
-        public Bitmap GetCompareImage(int imageWidth, int imageHeight, int scaleUpFactor)
+        public enum Layout { AllInRow, AllInColum}
+        public Bitmap GetCompareImage(int imageWidth, int imageHeight, int scaleUpFactor, Layout layout, int maxShownError)
         {
-            return BitmapHelp.TransformBitmapListToRow(new List<Bitmap>()
+            switch(layout)
             {
-                PlotErrorCurves(imageWidth,imageHeight),
-                GetDifferenceImages(scaleUpFactor)
-            });
+                case Layout.AllInRow:
+                    return BitmapHelp.TransformBitmapListToRow(new List<Bitmap>()
+                    {
+                        PlotErrorCurves(imageWidth,imageHeight, maxShownError),
+                        GetDifferenceImages(scaleUpFactor)
+                    });
+
+                case Layout.AllInColum:
+                    return BitmapHelp.TransformBitmapListToCollum(new List<Bitmap>()
+                    {
+                        PlotErrorCurves(imageWidth,imageHeight, maxShownError),
+                        GetDifferenceImages(scaleUpFactor)
+                    });
+            }
+
+            throw new ArgumentException(nameof(layout));
         }
     }
 }

@@ -198,8 +198,8 @@ namespace Tools.CommandLineParsing
                         if (string.IsNullOrEmpty(a.DataFolder6) == false)
                             files.Add(new DataVisualizer.Folder(a.DataFolder6, a.Label6));
 
-                        new DataVisualizer(files.ToArray(), new Bitmap(a.ReferenceImageInputFile))
-                            .GetCompareImage(a.Width, a.Height, a.ScaleUpFactor)
+                        new DataVisualizer(files.ToArray(), new Bitmap(a.ReferenceImageInputFile), a.MaxTime)
+                            .GetCompareImage(a.Width, a.Height, a.ScaleUpFactor, a.Layout, a.MaxShownError)
                             .Save(a.OutputImageFile, System.Drawing.Imaging.ImageFormat.Jpeg);
                     }
                     break;
