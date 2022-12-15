@@ -114,9 +114,10 @@ namespace RaytracingMethods.MMLT
             return returnList;
         }
 
-        private void SetRadiance(FullPath path, double acceptWeight, double chainSelectionPdf)
+        private void SetRadiance(FullPath path, double chainWeight, double chainSelectionPdf)
         {
-            path.MisWeight = (float)(path.MisWeight * acceptWeight * this.chains[path.PathLength - 2].ImagePlaneLuminance / chainSelectionPdf / this.fullPathSampler.PixelCount);
+            //path.MisWeight = (float)(path.MisWeight * chainWeight * this.chains[path.PathLength - 2].ImagePlaneLuminance / chainSelectionPdf / this.fullPathSampler.PixelCount); //Ohne Kelemen-MIS-Faktor
+            path.MisWeight = (float)(path.MisWeight * chainWeight / chainSelectionPdf / this.fullPathSampler.PixelCount); //Achtung: Da ich wegen den Kelemen-MIS-Faktor die ImagePlaneLuminance-Multiplikation bereits im chainWeight drin habe, muss ich das hier nicht nochmal machen
             path.Radiance = path.PathContribution * path.MisWeight;
         }
     }

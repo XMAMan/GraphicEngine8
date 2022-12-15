@@ -23,7 +23,7 @@ namespace RaytracingMethods.MMLT
     {
         private readonly IRandom rand; //Erzeugt gleichmäßige Zufallszahlen
         private readonly float sigma;   //Streuweite von der Normalverteilung für den SmallStep
-        private readonly float largeStepProbability;//Wahrscheinlichkeit, dass ich beim nächsten zu erzeugenden Fullpfad neue Zufallszahlen verwende
+        public readonly float LargeStepProbability;//Wahrscheinlichkeit, dass ich beim nächsten zu erzeugenden Fullpfad neue Zufallszahlen verwende
         private readonly int streamCount; //streamCount = 3 (Eyesubpfad, Lightsubpfad, ISingleFullPathSampler)
         private readonly List<PrimarySample> X = new List<PrimarySample>();//Menge aller Zufallszahlen vom zuletzt akzeptierten Fullpfad als auch die Zahlen vom aktuell zu erstellenden probe-Fullpfad
         private int currentIteration = 0;//Zählt wie viele Fullpaths hiermit erstellt wurden. Dabei ist egal ob der neu erstellte Pfad akzeptiert wurde oder man immer wieder den alten verwendet.
@@ -40,7 +40,7 @@ namespace RaytracingMethods.MMLT
         {
             this.rand = rand;
             this.sigma = sigma;
-            this.largeStepProbability = largeStepProbability;
+            this.LargeStepProbability = largeStepProbability;
             this.streamCount = streamCount;
         }
 
@@ -120,7 +120,7 @@ namespace RaytracingMethods.MMLT
         {
             this.currentIteration++;
             if (this.currentIteration > 0) //Wenn currentIteration hier 0 ist bedeutet dass das die erste LargeStep-Iteration Rejected wurde und nun zwansweise ein neuer LargeStep kommen muss
-                this.largeStep = this.rand.NextDouble() < this.largeStepProbability;
+                this.largeStep = this.rand.NextDouble() < this.LargeStepProbability;
         }
 
         //Erzeuge neuen Subpfad/Fullpath-Connection-Schritt

@@ -52,14 +52,22 @@ namespace RaytracingMethods.MMLT
             if (accept > 0)
             {
                 result.ProposedPath = new FullPath(proposedPath);
-                result.ProposedWeight = accept / propsedC;
+                //result.ProposedWeight = accept / propsedC; //So würde es ohne den Kelemen-MIS-Faktor aussehen
+
+                //A Simple and Robust Mutation Strategy for the Metropolis Light Transport Algorithm - Kelemen 2002 Abschnitt 5 -> Hier steht der Kelemen-MIS-Faktor
+                //Grundidee: Ich habe zwei Sampler die mit MIS kombiniert werden
+                //Sampler 1: Die MarkovKette erzeugt mit Wahrscheinlichkeit von (propsedC / this.ImagePlaneLuminance) M1 Samples
+                //Sampler 2: All die LargeStep-Proposalpfads. Es werden M1 * LargeStepProp Samples mit einer Pdf von 1 erzeugt. Im Hyperwürfel eine gleichmäßige Zufallszahl zu erzeugen ergibt eine Pdf von 1
+                //Wenn ich die Sampler kombiniere, dann bekomme ich für Current- und Proposal-Pfads den neuen Faktor hier:
+                result.ProposedWeight = (accept + (sampler.IsLargeStep ? 1 : 0)) / (propsedC / this.ImagePlaneLuminance + sampler.LargeStepProbability);
             }
 
             //Current-Pfad:
             if (accept < 1)
             {
                 result.CurrentPath = new FullPath(this.currentPath);
-                result.CurrentWeight = (1 - accept) / this.currentC;
+                //result.CurrentWeight = (1 - accept) / this.currentC; //So würde es ohne den Kelemen-MIS-Faktor aussehen
+                result.CurrentWeight = (1 - accept) / (this.currentC / this.ImagePlaneLuminance + sampler.LargeStepProbability);
             }
 
             //Den Proposed-Pfad accepten oder rejecten
