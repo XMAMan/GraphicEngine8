@@ -181,7 +181,8 @@ namespace ImageCreatorTest
 
             foreach (FileInfo file in new DirectoryInfo(saveFolder).GetFiles())
             {
-                file.Delete();
+                if (file.Name != ".gitkeep")
+                    file.Delete();
             }
 
             RaytracingFrame3DData frameData = TestHelper.GetFrameData(testImagePath, expected);
