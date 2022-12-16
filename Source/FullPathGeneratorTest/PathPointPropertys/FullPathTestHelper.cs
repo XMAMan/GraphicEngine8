@@ -126,7 +126,7 @@ namespace FullPathGeneratorTest.PathPointPropertys
                 0.5,  //PixelMitte Y
                 0,  //PathCreationTime
                 0.77880078307140488,// Distanz-Sampling von MediaBorder zur Position (0,0,0)
-                0,    //ContinationPdf PhasenFunktion
+                //0,    //ContinationPdf PhasenFunktion; Da die ContinationPdf 1 ist, wird die Absorbation nicht gesampelt
 
                 //Wenn ich mit der Isotrophic-Phase eine Richtung (-1,0,0) sampeln will:
                 //0.5,  //Phasenfunktion Richtung Phi

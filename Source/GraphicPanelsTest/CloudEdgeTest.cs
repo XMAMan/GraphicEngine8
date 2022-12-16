@@ -52,7 +52,7 @@ namespace GraphicPanelsTest
             GraphicPanel3D graphic = new GraphicPanel3D() { Width = 420, Height = 328 };
             TestScenes.AddTestScene18_CloudsForTestImage(graphic);
             graphic.Mode = mode;
-            graphic.GlobalSettings.SamplingCount = mode == Mode3D.ThinMediaSingleScatteringBiased ? 1 : 1000;
+            graphic.GlobalSettings.SamplingCount = mode == Mode3D.ThinMediaSingleScatteringBiased ? 1 : 2000;
 
             //var image = graphic.GetRaytracingImageSynchron(graphic.Width, graphic.Height, new ImagePixelRange(351, 10, 1, 9)); //Rechte Wolke Kante oben
             var image = graphic.GetRaytracingImageSynchron(graphic.Width, graphic.Height, new ImagePixelRange(289, 212, 1, 8)); //Rechte Wolke Kante unten
