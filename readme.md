@@ -48,6 +48,7 @@ Features
 	* Bidirectional Pathtracing
 	* Vertex Connection & Merging
 	* Unifying points, beams, and paths in volumetric light transport simulation
+	* Multiplexed Metropolis Light Transport
 	* Radiosity
 
 * Brdf-Materials:
