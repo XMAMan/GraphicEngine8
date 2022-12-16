@@ -146,6 +146,8 @@ namespace PdfHistogram
                 var points = GetNPointsFromFunction(func.Function, this.imageSize.Width);
                 foreach (var p in points)
                 {
+                    if (p == null) continue;
+
                     if (p.X < minX) minX = p.X;
                     if (p.X > maxX) maxX = p.X;
                     if (p.Y < minY) minY = p.Y;
