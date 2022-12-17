@@ -10,15 +10,21 @@ namespace RaytracingMethods
     public  class VCM : IFrameEstimator
     {
         private PixelRadianceCalculator pixelRadianceCalculator;
+        private readonly bool withMedia;
         public bool CreatesLigthPaths { get; } = true;
+
+        public VCM(bool withMedia)
+        {
+            this.withMedia = withMedia;
+        }
 
         public void BuildUp(RaytracingFrame3DData data)
         {
             this.pixelRadianceCalculator = PixelRadianceCreationHelper.CreatePixelRadianceCalculator(data,
                 new SubPathSettings()
                 {
-                    EyePathType = PathSamplingType.NoMedia,
-                    LightPathType = PathSamplingType.NoMedia
+                    EyePathType = this.withMedia ? PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling : PathSamplingType.NoMedia,
+                    LightPathType = this.withMedia ? PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling : PathSamplingType.NoMedia,
                 },
                 new FullPathSettings()
                 {

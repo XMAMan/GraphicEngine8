@@ -30,7 +30,7 @@ namespace Photonusmap
         {
             this.LightPathCount = sendedLightPathCount;
             progressChanged("Erstelle Photonmapsuchstruktur", 0);
-            this.surfacePointSearch = new FixedRadiusPointSearch(ligthPahts.SelectMany(x => x.Points).Where(x => x.Index > 0 && x.IsDiffusePoint).Cast<IPoint>().ToList());
+            this.surfacePointSearch = new FixedRadiusPointSearch(ligthPahts.SelectMany(x => x.Points).Where(x => x.Index > 0 && x.IsDiffusePoint && x.LocationType == ParticipatingMedia.MediaPointLocationType.Surface).Cast<IPoint>().ToList());
             this.MinEyeIndex = minEyeIndex;
             this.MaxEyeIndex = maxEyeIndex;
         }

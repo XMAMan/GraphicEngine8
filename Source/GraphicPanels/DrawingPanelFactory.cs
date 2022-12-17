@@ -45,7 +45,9 @@ namespace GraphicPanels
                 case Mode3D.ProgressivePhotonmapping:
                     return new RaytracerMain.RaytracerMain(new ProgressivePhotonmapping());
                 case Mode3D.VertexConnectionMerging:
-                    return new RaytracerMain.RaytracerMain(new VCM());
+                    return new RaytracerMain.RaytracerMain(new VCM(false));
+                case Mode3D.MediaVCM:
+                    return new RaytracerMain.RaytracerMain(new VCM(true));
                 case Mode3D.RadiositySolidAngle:
                     return new RaytracerMain.RaytracerMain(new Radiosity.Radiosity(Radiosity.Radiosity.Mode.SolidAngle));
                 case Mode3D.RadiosityHemicube:

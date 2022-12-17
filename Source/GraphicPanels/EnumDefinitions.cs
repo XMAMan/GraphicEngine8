@@ -18,6 +18,7 @@
         PhotonmapPixel,
         ProgressivePhotonmapping,
         VertexConnectionMerging,
+        MediaVCM,
         RadiositySolidAngle,
         RadiosityHemicube,
         MediaPathTracer,                    //Mit Distanzsampling: Pathtracing
