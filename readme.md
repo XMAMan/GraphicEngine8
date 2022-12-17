@@ -116,6 +116,7 @@ Related work
 * smallpt: Global Illumination in 99 lines of C++ (https://www.kevinbeason.com/smallpt/)
 * SmallVCM (http://www.smallvcm.com/)
 * SmallUPBP (http://www.smallupbp.com/)
+* SmallMMLT (https://cs.uwaterloo.ca/~thachisu/smallmmlt.cpp)
 
 Usage
 -----
