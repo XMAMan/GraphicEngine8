@@ -535,7 +535,9 @@ namespace Tools.Tools.SceneEditor
 
             graphic.GlobalSettings.BackgroundImage = "#FFFFFF";
             graphic.GlobalSettings.Camera = new Camera(cameraStart, cameraDirection, 38);
-            graphic.Mode = Mode3D.MediaFullBidirectionalPathTracing;
+            graphic.GlobalSettings.SamplingCount = 10000;
+            graphic.GlobalSettings.PhotonCount = 20000;
+            graphic.Mode = Mode3D.MediaVCM;
         }
 
         //RisingSmoke-Cornellbox

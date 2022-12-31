@@ -740,14 +740,15 @@
     "CameraSamplingMode": 2,
     "SaveFolder": "",
     "AutoSaveMode": 0,
-    "SamplingCount": 10,
+    "SamplingCount": 10000,
     "RecursionDepth": 10,
     "ThreadCount": 7,
     "MaxRenderTimeInSeconds": 2147483647,
     "RaytracerRenderMode": 0,
     "Tonemapping": 0,
     "BrightnessFactor": 1.0,
-    "PhotonCount": 60000,
+    "PhotonCount": 20000,
+    "MetropolisBootstrapCount": 1000000,
     "PhotonmapSearchRadiusFactor": 1.0,
     "BeamDataLineQueryReductionFactor": 0.1,
     "SearchRadiusForMediaBeamTracer": 0.005,
@@ -766,5 +767,5 @@
     },
     "LightPickStepSize": 0
   },
-  "Modus": 20
+  "Modus": 16
 }

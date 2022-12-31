@@ -8631,6 +8631,7 @@
     "Tonemapping": 7,
     "BrightnessFactor": 1.0,
     "PhotonCount": 60000,
+    "MetropolisBootstrapCount": 1000000,
     "PhotonmapSearchRadiusFactor": 1.0,
     "BeamDataLineQueryReductionFactor": 0.1,
     "SearchRadiusForMediaBeamTracer": 0.005,
@@ -8649,5 +8650,5 @@
     },
     "LightPickStepSize": 0
   },
-  "Modus": 26
+  "Modus": 27
 }
