@@ -36,7 +36,8 @@ namespace BitmapHelper
                     Color c1 = refImg.GetPixel(x, y);
                     Color c2 = estimateImg.GetPixel(x, y);
                     float diff = ColorDifference(c1, c2);
-                    sum += diff;
+                    if (float.IsNaN(diff) == false && float.IsInfinity(diff) == false)
+                        sum += diff;
                 }
 
             return (float)(sum / (refImg.Width * refImg.Height));

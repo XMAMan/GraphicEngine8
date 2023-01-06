@@ -49,7 +49,7 @@ namespace Tools.Tools.ImageConvergence
                 ProgressImageRate = args.ProgressImageSaveRate,
                 OutputFolder = args.OutputFolder
             });
-            this.errorCurve = new ErrorCurve(collector.ReferenceImage.Width, collector.ReferenceImage.Height, 20);
+            this.errorCurve = new ErrorCurve(collector.ReferenceImage.Width, collector.ReferenceImage.Height, args.ProgressImageScaleUpFactor);
             
             this.timer1.Start();            
 

@@ -30,6 +30,9 @@ namespace Tools.CommandLineParsing
         [ArgDefaultValue(1), ArgDescription("After 'ProgressImageSaveRate' CollectionTimerTicks one ProgressImage will be saved")]
         public int ProgressImageSaveRate { get; set; }
 
+        [ArgDefaultValue(20), ArgDescription("This factor is used to scale up the progress- and reference-image which is only used for displaying durring rendering (Not for Saving)")]
+        public int ProgressImageScaleUpFactor { get; set; }
+
 
         //So bekommt man die ganzen Werte hier: string.Join("\n", Enum.GetValues(typeof(Mode3D)).Cast<Mode3D>())
 
