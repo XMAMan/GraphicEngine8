@@ -13,18 +13,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Hier wird PT+DL mit MarkovChain-VC/VM/LT vereint.
+//Es gibt hier zwei Markovketten, dessen Targetfunktion die Luminance/Visible von der ImagePlane ist.
+//Arbeitet man mit Markovketten, dann muss man IMMER als Targetfunktion die ImagePlane und nie ein Pixel haben, da man ja ein Histogram über
+//die ImagePlane und nicht über ein einzelnes Pixel will.
+//Grobablauf:
+//1. Am Frameanfang für jedes Pixel ein EyeSubpath erstellen
+//2. Am Frameanfang 10000 ImagePlane-Schätzwerte errechnen und 2 davon zufällig aus Seedwert ausählen
+//3. Mit zwei Markovketten(VisibleChain/ContribtutionChain) PixelCount Iterationen durchlaufen. Die Ketten tauschen per Replica Exchange ihre Zustände
+//  -> Die Ketten erzeugen pro Iteration mit VC+VM+LT eine ImagePlane-Schätzwert
+//  -> Jede Kette hat ein LightSubpath, den sie mutiert und wo sie versucht ihn so zu verändert, dass er zusammen mit den EyeSubpaths ein hohen
+//     TargetFunktionswert bekommt
+//4. Pro Pixel wird per PT und DL auch noch ein Schätzwert genommen
+//5. Am Frameende wird das PT_DL-Bild und das VC_VM_LT-Bild zusammen addiert
+
+//Hinweis: Für die VC/VM/LT-Samples wähle ich zufällig ein Pixel aus. Deswegen müsste ich den EyeSubpath mit der PixelCount wichten und dessen Pdf mit der PixelCount dividieren
+//Wenn ich das machen würde, dann müsste ich am Frameende das Bild auch mit der Ketten-Normalisierungskonstante multiplizieren und mit der PixelCount divideren
+//Da ich aber die EyeSubpath-Pixel-Count-Multiplikation nicht gemacht habe, fällt auch die PixelCount-Division am Frameende weg
+
 //Offene Fragen:
-//-Warum muss ich nicht durch die PixelCount dividieren?
-// -> Weil ich wegen der ImagePlaneStratifizierung vermutlich nur ein ImagePlaneSample nehme
 
 //-Warum muss ich die LightTracing-Samples durch die PixelCount dividieren aber VC/VM nicht?
-// ->Bei Lighttracing muss man für jeden Pixel ein Pfad erzeugen da ein Pfad nur ein Pixel erhellt und gleichzeitig steht ein Pfad für ein
-//   ImagePlane-Schätzwert. Deswegen brauche ich PixelCount ImagePlane-Schätzwerte welche ich aber auch durch die PixelCount dividieren muss
-// ->Bei VC habe ich den Eye-Subpfad über die ImagePlane stratifiziert. Somit darf hier keine PixelCount-Division erfolgen
-// ->Bei VM sind die EyeSubpfads auch stratifiziert und sie wurden bereits durch die PhotonCount/PixelCount dividiert. Gedanklich kann ich die EyeMap
-//   also durch ein einzelnen stratifizierten Eye-Subpfad ersetzen. Somit ist das der gleiche Fall wie VC und somit darf keine Extra-Pixel-Division erfolgen
+// ->Wegen der fehlenden EyeSubpath-PixelSelection-Pdf im EyeSubpath fehlt dieser Faktor bei VC/VM/FrameEnde
+// ->Eigentlich müsste der PixelCount-Faktor bei VC/VM/Frameende rein und dafür bei LT raus. Ich habe hier quasi alle 4 Stellen um den
+//   PixelCount-Faktor gekürzt. Diese PixelCount-Division ist also die Kürzung.
 
 //-Was bedeutet LuminanceCorrectionFactor=AcceptWeightSum / PixelCount ?
+// -> Meine Vermutung: Ich vereine ja in der MIS-Formel PT_DL und VC_VM_LT obwohl das eine mit Pathtracing gesampelt wird und das andere per MarkovKette.
+//    Die Pdf von ein Markovketten-Sample wäre ja TargetFunktion/Normalisierungskonstante. Da ich aber die Kettensamples mit der "normalen" MIS-Formel
+//    verwende, ist diese LuminanceCorrectionFactor vermutlich der Ausgleich für diese Kette-Nicht-Kette-MIS-Vereinigung. 
 
 namespace RaytracingMethods.McVcm
 {
@@ -309,12 +326,17 @@ namespace RaytracingMethods.McVcm
 
                 if (luminanceFactor > 0)
                 {
+                    //Man würde ja erwarten, dass ich hier durch die PixelCount divideren muss, um somit alle ImagePlane-Schätzwerte durch die
+                    //SampleCount zu dividieren um somit ein Histogram zu erhalten.
+                    //Der Grund warum diese Division hier fehlt ist, weil man den Eye-Subpfad eigentlich durch die PixelSelectionPdf dividieren müsste
+                    //was bedeutet, dass man mit der PixelCount multipliziert. Dieser Faktor steht also implizit da und kürzt sich mit der Histogram-
+                    //Sample-Count-Division dann weg.
                     sum.AddFrame(chain.Image.GetColorScaledImage(luminanceFactor * 2));
                 }
             }
 
-            //Achtung: Nur zu Testzwecken!!!!!!!
-            File.AppendAllLines(@"C:\Users\enric\Desktop\Data\C#\51 GraphicEngine8\GraphicEngine8\Scenes\AcceptRatio.txt", new string[] { chains[0].GetAcceptRatio() + "\t" + chains[1].GetAcceptRatio() });
+            //So kann ich sehen ob die AcceptRatio immer so bei 23% liegt
+            //File.AppendAllLines("AcceptRatio.txt", new string[] { chains[0].GetAcceptRatio() + "\t" + chains[1].GetAcceptRatio() });
 
             return sum;
         }

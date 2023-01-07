@@ -95,7 +95,7 @@ namespace Tools.Tools.SceneEditor
                 this.graphicPanel.GlobalSettings.PhotonCount = 60000;//100000
                 this.graphicPanel.GlobalSettings.RaytracerRenderMode = RaytracerRenderMode.Frame;
                 this.graphicPanel.GlobalSettings.PhotonmapPixelSettings = PhotonmapDirectPixelSetting.ShowPixelPhotons; //Einstellungen, wenn man Mode=PhotonmapPixel verwendet
-                this.graphicPanel.GlobalSettings.MetropolisBootstrapCount = 100000;
+                this.graphicPanel.GlobalSettings.MetropolisBootstrapCount = 10000; //Für MMLT muss hier 100k genommen werden und für McVcm 10k
                 //this.graphicPanel.GlobalSettings.MaxRenderTimeInSeconds = 9;
                 //this.graphicPanel.GlobalSettings.RecursionDepth = 3; //3 = Direktes Licht
                 //File.WriteAllText(FilePaths.DataDirectory+"FlipperResult.obj", this.graphicPanel.GetFlippedWavefrontFileFromCurrentSceneData(this.graphicPanel.Width, this.graphicPanel.Height));
