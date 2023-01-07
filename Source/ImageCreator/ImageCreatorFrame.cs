@@ -140,6 +140,7 @@ namespace ImageCreator
 
                 string randomObjectBase64CodedForFramePrepare = DoFramePrepareStep(taskData);
                 taskData.Frame = DoFramePixelLoopStep(taskData, randomObjectBase64CodedForFramePrepare);
+                taskData.Frame = taskData.FrameEstimator.DoFramePostprocessing(taskData.FrameIterationNumber, taskData.Frame);
 
                 return taskData;
             }, input);

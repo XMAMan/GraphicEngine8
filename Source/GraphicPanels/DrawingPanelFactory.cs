@@ -78,6 +78,10 @@ namespace GraphicPanels
                     return new RaytracerMain.RaytracerMain(new MultiplexedMetropolisLightTransport(false));                    
                 case Mode3D.MMLT_WithMedia:
                     return new RaytracerMain.RaytracerMain(new MultiplexedMetropolisLightTransport(true));
+                case Mode3D.McVcm:
+                    return new RaytracerMain.RaytracerMain(new RaytracingMethods.McVcm.McVcm(false));
+                case Mode3D.McVcm_WithMedia:
+                    return new RaytracerMain.RaytracerMain(new RaytracingMethods.McVcm.McVcm(true));
             }
 
             throw new Exception("Unknown modus:" + modus.ToString());

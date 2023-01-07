@@ -31,6 +31,11 @@ namespace ImageCreator
         {
         }
 
+        public ImageBuffer DoFramePostprocessing(int frameIterationNumber, ImageBuffer frame)
+        {
+            return frame;
+        }
+
         public IFrameEstimator CreateCopy()
         {
             return new PixelToFrameTranslator(this.pixelEstimator);

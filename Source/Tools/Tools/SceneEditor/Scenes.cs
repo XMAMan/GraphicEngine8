@@ -537,6 +537,7 @@ namespace Tools.Tools.SceneEditor
             graphic.GlobalSettings.Camera = new Camera(cameraStart, cameraDirection, 38);
             graphic.GlobalSettings.SamplingCount = 10000;
             graphic.GlobalSettings.PhotonCount = 20000;
+            graphic.GlobalSettings.MetropolisBootstrapCount = 10000;
             graphic.Mode = Mode3D.MediaVCM;
         }
 

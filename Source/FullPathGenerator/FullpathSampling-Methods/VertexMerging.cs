@@ -35,7 +35,7 @@ namespace FullPathGenerator
 
             return pCounter;
         }
-        public List<FullPath> SampleFullPaths(SubPath eyePath, SubPath lightPath, FullPathFrameData frameData, IRandom rand)
+        public virtual List<FullPath> SampleFullPaths(SubPath eyePath, SubPath lightPath, FullPathFrameData frameData, IRandom rand)
         {
             List<FullPath> paths = new List<FullPath>();
             if (eyePath == null) return paths;
@@ -84,7 +84,7 @@ namespace FullPathGenerator
             return paths;
         }
 
-        private FullPath CreatePath(PathPoint eyePoint, PathPoint lightPoint, BrdfEvaluateResult eyeBrdf, ISurfacePhotonmap photonmap)
+        protected virtual FullPath CreatePath(PathPoint eyePoint, PathPoint lightPoint, BrdfEvaluateResult eyeBrdf, ISurfacePhotonmap photonmap)
         {
             SubPath eyePath = eyePoint.AssociatedPath;
             SubPath lightPath = lightPoint.AssociatedPath;

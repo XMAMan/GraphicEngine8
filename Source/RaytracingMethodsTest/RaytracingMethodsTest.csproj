@@ -55,7 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MLTSamplerTest.cs" />
+    <Compile Include="McVcm\MLTSamplerTest.cs" />
+    <Compile Include="MMLT\MLTSamplerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

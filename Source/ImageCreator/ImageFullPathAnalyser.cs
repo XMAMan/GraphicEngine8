@@ -159,6 +159,7 @@ namespace ImageCreator
                             throw new Exception(debugData.ToXmlString(), ex);
                         }
                     }
+                buffer = this.masterFrame.DoFramePostprocessing(i, buffer);
                 this.renderedFramesCounter++;
                 this.imageBuffer.AddFrame(buffer);
 

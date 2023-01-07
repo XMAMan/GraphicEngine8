@@ -67,7 +67,10 @@ namespace ImageCreatorTest
             Thread.Sleep(10);
         }
 
-
+        public ImageBuffer DoFramePostprocessing(int frameIterationNumber, ImageBuffer frame)
+        {
+            return frame;
+        }
 
         public void BuildUp(RaytracingFrame3DData data)
         {

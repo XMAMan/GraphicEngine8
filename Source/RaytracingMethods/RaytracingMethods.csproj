@@ -46,6 +46,17 @@
   <ItemGroup>
     <Compile Include="BidirectionalPathTracing.cs" />
     <Compile Include="FullBidirectionalPathTracing.cs" />
+    <Compile Include="McVcm\ChainSeed.cs" />
+    <Compile Include="McVcm\ChainState.cs" />
+    <Compile Include="McVcm\EyeMap.cs" />
+    <Compile Include="McVcm\EyeMapVertexMerging.cs" />
+    <Compile Include="McVcm\EyeSubPath.cs" />
+    <Compile Include="McVcm\MarkovChain.cs" />
+    <Compile Include="McVcm\McVcm.cs" />
+    <Compile Include="McVcm\FramePrepareHelper.cs" />
+    <Compile Include="McVcm\MLTSampler.cs" />
+    <Compile Include="McVcm\SplatList.cs" />
+    <Compile Include="McVcm\SplatListSampler.cs" />
     <Compile Include="MediaBeamTracer.cs" />
     <Compile Include="MediaBidirectionalPathTracing.cs" />
     <Compile Include="MediaEdgeSampler.cs" />

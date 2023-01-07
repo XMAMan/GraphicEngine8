@@ -79,5 +79,10 @@ namespace RaytracingMethods
             //this.pixelRadianceCalculator.PixelPhotonenCounter.AddPhotonCounterForPixel(x, y, result.CollectedVertexMergingPhotonCount);
             return result;
         }
+
+        public ImageBuffer DoFramePostprocessing(int frameIterationNumber, ImageBuffer frame)
+        {
+            return frame;
+        }
     }
 }

@@ -120,5 +120,10 @@ namespace RaytracingMethods.MMLT
             path.MisWeight = (float)(path.MisWeight * chainWeight / chainSelectionPdf / this.fullPathSampler.PixelCount); //Achtung: Da ich wegen den Kelemen-MIS-Faktor die ImagePlaneLuminance-Multiplikation bereits im chainWeight drin habe, muss ich das hier nicht nochmal machen
             path.Radiance = path.PathContribution * path.MisWeight;
         }
+
+        public ImageBuffer DoFramePostprocessing(int frameIterationNumber, ImageBuffer frame)
+        {
+            return frame;
+        }
     }
 }

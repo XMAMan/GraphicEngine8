@@ -33,7 +33,9 @@
         MMLT,                               //Multiplexed Metropolis Light Transport (Ohne Media)
         MMLT_WithMedia,                     //Multiplexed Metropolis Light Transport (Mit Media)
         SinglePathBPT,                      //BPT wo pro Sampleschritt nur ein einzelner Fullpfad erzeugt wird, der durch ein zufälliges Pixel geht
-        SinglePathBPT_WithMedia,            
+        SinglePathBPT_WithMedia,
+        McVcm,                              //Markov Chain VCM (Ohne Media)
+        McVcm_WithMedia,                    //Markov Chain VCM (Mit Media)
     }
 
     public enum Mode2D

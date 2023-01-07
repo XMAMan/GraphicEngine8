@@ -141,7 +141,8 @@ namespace RaytracingColorEstimator
                 LightSourceSampler = lightSourceSampler,
                 EyePathSampler = eyePathSampler,
                 LightPathSampler = lightPathSampler,
-                FullPathSampler = fullPathSampler
+                FullPathSampler = fullPathSampler,
+                PhaseFunction = phaseFunction
             };
         }
 

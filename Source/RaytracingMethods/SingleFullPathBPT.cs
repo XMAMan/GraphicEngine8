@@ -103,5 +103,10 @@ namespace RaytracingMethods
 
             return fullPath;
         }
+
+        public ImageBuffer DoFramePostprocessing(int frameIterationNumber, ImageBuffer frame)
+        {
+            return frame;
+        }
     }
 }
