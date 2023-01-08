@@ -49,6 +49,7 @@ Features
 	* Vertex Connection & Merging
 	* Unifying points, beams, and paths in volumetric light transport simulation
 	* Multiplexed Metropolis Light Transport
+	* Robust Light Transport Simulation via Metropolised Bidirectional Estimators (McVcm)
 	* Radiosity
 
 * Brdf-Materials:
