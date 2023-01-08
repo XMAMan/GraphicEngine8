@@ -39,6 +39,7 @@ using System.Threading.Tasks;
 //   PixelCount-Faktor gekürzt. Diese PixelCount-Division ist also die Kürzung.
 
 //-Was bedeutet LuminanceCorrectionFactor=AcceptWeightSum / PixelCount ?
+// -> Wenn ich AcceptWeightSum/PixelCount ausgebe, erhalte ich für die VisibleChain immer 0.5 und für die ContributionChain 0.45
 // -> Meine Vermutung: Ich vereine ja in der MIS-Formel PT_DL und VC_VM_LT obwohl das eine mit Pathtracing gesampelt wird und das andere per MarkovKette.
 //    Die Pdf von ein Markovketten-Sample wäre ja TargetFunktion/Normalisierungskonstante. Da ich aber die Kettensamples mit der "normalen" MIS-Formel
 //    verwende, ist diese LuminanceCorrectionFactor vermutlich der Ausgleich für diese Kette-Nicht-Kette-MIS-Vereinigung. 
