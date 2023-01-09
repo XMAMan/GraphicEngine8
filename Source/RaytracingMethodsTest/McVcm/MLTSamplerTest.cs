@@ -16,6 +16,7 @@ namespace RaytracingMethodsTest.McVcm
         //1 S 123     -> Für die 3 muss ein Reset auf Iteration 0 erfolgen; die 2 nutzt ohne Reset Iteration 0
         //2 S 1
         //3 S 1234    -> Die 2 wird ohne Reset auf Iteration 1 aufbauend erzeugt; Für die 4 muss ein Reset auf Iteration 0 erfolgen
+        //4 S 1       -> Iteration 3 wurde rejected
         [TestMethod]
         public void SmallStepIteration1_CheckThatResetIsUsed()
         {
@@ -38,6 +39,9 @@ namespace RaytracingMethodsTest.McVcm
                 0.5, 0.5, //Keine Pertubation für Zahl 2
                 0.5, 0.5, //Keine Pertubation für Zahl 3
                 0.4, 0.5, 0.5, 0.5, //Reset mit 0.4 und dann keine Pertubation für Zahl 4
+
+                //Fünfte Iteration mit SmallStep (Iteration 4 wurde rejected)
+                0.5, //Keine Pertubation für Zahl 1
             });
 
             MLTSampler sut = new MLTSampler(randMock, false);
@@ -85,6 +89,13 @@ namespace RaytracingMethodsTest.McVcm
             Assert.AreEqual(0.2 - (1 / 64f) * 3, X[1].Value);
             Assert.AreEqual(0.3 - (1 / 64f) * 3, X[2].Value);
             Assert.AreEqual(0.4 - (1 / 64f) * 3, X[3].Value);
+
+            //Fünfte Iteration mit SmallStep
+            sut.Reject();
+            sut.StartIteration(false);
+            sut.NextDouble(); //Nimm eine Zahl
+            X = sut.GetX();
+            Assert.AreEqual(0.1 - (1 / 64f) * 3, X[0].Value);
         }
     }
 }

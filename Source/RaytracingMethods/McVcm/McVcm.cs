@@ -40,9 +40,15 @@ using System.Threading.Tasks;
 
 //-Was bedeutet LuminanceCorrectionFactor=AcceptWeightSum / PixelCount ?
 // -> Wenn ich AcceptWeightSum/PixelCount ausgebe, erhalte ich für die VisibleChain immer 0.5 und für die ContributionChain 0.45
-// -> Meine Vermutung: Ich vereine ja in der MIS-Formel PT_DL und VC_VM_LT obwohl das eine mit Pathtracing gesampelt wird und das andere per MarkovKette.
-//    Die Pdf von ein Markovketten-Sample wäre ja TargetFunktion/Normalisierungskonstante. Da ich aber die Kettensamples mit der "normalen" MIS-Formel
-//    verwende, ist diese LuminanceCorrectionFactor vermutlich der Ausgleich für diese Kette-Nicht-Kette-MIS-Vereinigung. 
+// -> Pro Sampleiteration soll (1-a)*LastAccepted + a*Proposed in den Imagebuffer. Wenn aber mehrere Accepted-Werte hintereinander 
+//    kommen, dann fehlt der (1-a)-Wert. Vielleicht gleicht dieser LuminanceCorrectionFactor diese fehlende (1-a)-Werte aus, 
+//    die entstehen, wenn er mehrere Accepted-Werte ohne Reject dazwischen erzeugt
+
+//-Warum liegt die AcceptRatio nicht bei 23% trotz adaptiver SmallStep-Size?
+// -> Meine Vermutung: In der MLTSampler-Klasse geht der adaptive SmallStepSize-Anpasser davon aus, dass eine große
+//    SmallStepSize (von 1) Samples erzeugt, die weniger häufig Accepted werden (da ihre Luminance kleiner ist).
+//    Eine SmallStepSize von 1 entspricht ein LargeStep. Ich denke es ist nicht gesagt, dass dessen Luminance 
+//    kleiner sein muss als das aktuelle Sample. 
 
 namespace RaytracingMethods.McVcm
 {
@@ -178,7 +184,7 @@ namespace RaytracingMethods.McVcm
             var eyePathVC = eyeMap.GetVertexConnectionPath(pixX, pixY); //Zurückgegebener EyeSubPath zeigt auf zufälliges anderes Pixel (Wird nur für VC genutzt)
 
             //Wähle abwechselnd immer die Visible- oder ContributionChain aus
-            int chainIndex = (y * this.frameData.PixelRange.Width + x) % 2; //0 = VisibleChain; 1 = ContributionChain
+            int chainIndex = (x * this.frameData.PixelRange.Height + y) % 2; //0 = VisibleChain; 1 = ContributionChain
             var chain = this.chains[chainIndex];
 
             float largeStepProp = 0.3f;
@@ -325,7 +331,7 @@ namespace RaytracingMethods.McVcm
                 chain.UpdateNormalization();
                 float luminanceFactor = chain.GetLuminanceCorrectionFactor();
 
-                if (luminanceFactor > 0)
+                if (luminanceFactor > 0 && float.IsInfinity(luminanceFactor) == false)
                 {
                     //Man würde ja erwarten, dass ich hier durch die PixelCount divideren muss, um somit alle ImagePlane-Schätzwerte durch die
                     //SampleCount zu dividieren um somit ein Histogram zu erhalten.
