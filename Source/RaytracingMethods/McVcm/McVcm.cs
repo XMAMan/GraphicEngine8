@@ -241,7 +241,7 @@ namespace RaytracingMethods.McVcm
                 float mis = Mist(chain.SplatList.Luminance, chainIndex);
                 foreach (var path in chain.SplatList.VC_VM_LT)
                 {
-                    chain.AddPixel(path.PixelPosition, path.Radiance, path.MisWeight * chain.CumulativeWeight * mis);
+                    chain.AddPixel(path.PixelPosition, path.PathContribution, path.MisWeight * chain.CumulativeWeight * mis);
                 }
                 chain.AcceptWeightSum += chain.CumulativeWeight;
 
@@ -260,7 +260,7 @@ namespace RaytracingMethods.McVcm
                     float mis = Mist(proposed.Luminance, chainIndex);
                     foreach (var path in proposed.VC_VM_LT)
                     {
-                        chain.AddPixel(path.PixelPosition, path.Radiance, path.MisWeight * a * mis);
+                        chain.AddPixel(path.PixelPosition, path.PathContribution, path.MisWeight * a * mis);
                     }
                     chain.AcceptWeightSum += a;
                 }
@@ -284,7 +284,7 @@ namespace RaytracingMethods.McVcm
                             float mis = Mist(c.SplatList.Luminance, i);
                             foreach (var path in c.SplatList.VC_VM_LT)
                             {
-                                c.AddPixel(path.PixelPosition, path.Radiance, path.MisWeight * c.CumulativeWeight * mis);
+                                c.AddPixel(path.PixelPosition, path.PathContribution, path.MisWeight * c.CumulativeWeight * mis);
                             }
                             c.AcceptWeightSum += c.CumulativeWeight;
                         }
@@ -308,7 +308,7 @@ namespace RaytracingMethods.McVcm
                         float mis = Mist(c.SplatList.Luminance, i);
                         foreach (var path in c.SplatList.VC_VM_LT)
                         {
-                            c.AddPixel(path.PixelPosition, path.Radiance, path.MisWeight * c.CumulativeWeight * mis);
+                            c.AddPixel(path.PixelPosition, path.PathContribution, path.MisWeight * c.CumulativeWeight * mis);
                         }
                         c.AcceptWeightSum += c.CumulativeWeight;
                     }
@@ -338,7 +338,7 @@ namespace RaytracingMethods.McVcm
                     //Der Grund warum diese Division hier fehlt ist, weil man den Eye-Subpfad eigentlich durch die PixelSelectionPdf dividieren müsste
                     //was bedeutet, dass man mit der PixelCount multipliziert. Dieser Faktor steht also implizit da und kürzt sich mit der Histogram-
                     //Sample-Count-Division dann weg.
-                    sum.AddFrame(chain.Image.GetColorScaledImage(luminanceFactor * 2));
+                    sum.AddFrame(chain.Image.GetColorScaledImage(luminanceFactor));
                 }
             }
 
