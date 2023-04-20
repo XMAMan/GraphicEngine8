@@ -81,7 +81,7 @@ namespace Tools.Tools
                         {
                             this.Text = result.RenderTime;
 
-                            ImagePostProcessingHelper.SaveImageBuffer(result.RawImage, args.Output, args.Tonemapping);
+                            ImagePostProcessingHelper.SaveImageBuffer(result.RawImage, args.Output, args.Tonemapping, this.graphicPanel.GlobalSettings.BrightnessFactor);
       
                             if (args.CloseWindowAfterRendering) this.Close();
                         }

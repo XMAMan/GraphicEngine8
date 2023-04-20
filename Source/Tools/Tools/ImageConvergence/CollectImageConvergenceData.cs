@@ -81,7 +81,7 @@ namespace Tools.Tools.ImageConvergence
                     {
                         this.Text = result.RenderTime;
 
-                        ImagePostProcessingHelper.SaveImageBuffer(result.RawImage, args.OutputFolder + "\\Finish.bmp", args.Tonemapping);
+                        ImagePostProcessingHelper.SaveImageBuffer(result.RawImage, args.OutputFolder + "\\Finish.bmp", args.Tonemapping, this.graphicPanel.GlobalSettings.BrightnessFactor);
 
                         this.Close();
                     }

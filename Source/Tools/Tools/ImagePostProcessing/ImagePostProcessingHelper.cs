@@ -21,9 +21,9 @@ namespace Tools.Tools
             }
         }
 
-        public static void SaveImageBuffer(ImageBuffer image, string fileName, TonemappingMethod tonemapping)
+        public static void SaveImageBuffer(ImageBuffer image, string fileName, TonemappingMethod tonemapping, float brightnessFactor)
         {
-            switch(new FileInfo(fileName).Extension)
+            switch (new FileInfo(fileName).Extension)
             {
                 case ".raw":
                     image.WriteToFile(fileName);
@@ -34,15 +34,15 @@ namespace Tools.Tools
                     break;
 
                 case ".bmp":
-                    Tonemapping.GetImage(image, tonemapping).Save(fileName, System.Drawing.Imaging.ImageFormat.Bmp);
+                    Tonemapping.GetImage(image.GetColorScaledImage(brightnessFactor), tonemapping).Save(fileName, System.Drawing.Imaging.ImageFormat.Bmp);
                     break;
 
                 case ".png":
-                    Tonemapping.GetImage(image, tonemapping).Save(fileName, System.Drawing.Imaging.ImageFormat.Png);
+                    Tonemapping.GetImage(image.GetColorScaledImage(brightnessFactor), tonemapping).Save(fileName, System.Drawing.Imaging.ImageFormat.Png);
                     break;
 
                 case ".jpg":
-                    Tonemapping.GetImage(image, tonemapping).Save(fileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    Tonemapping.GetImage(image.GetColorScaledImage(brightnessFactor), tonemapping).Save(fileName, System.Drawing.Imaging.ImageFormat.Jpeg);
                     break;
 
                 default: throw new NotSupportedException(new FileInfo(fileName).Extension);

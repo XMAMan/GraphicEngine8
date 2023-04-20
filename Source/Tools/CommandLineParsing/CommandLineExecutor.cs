@@ -137,7 +137,7 @@ namespace Tools.CommandLineParsing
                     {
                         var a = (parsed.ActionArgs as TonemappingArgs);
                         var rawImage = ImagePostProcessingHelper.ReadImageBufferFromFile(a.RawImageFile);
-                        ImagePostProcessingHelper.SaveImageBuffer(rawImage, a.Output, a.Method);
+                        ImagePostProcessingHelper.SaveImageBuffer(rawImage, a.Output, a.Method, a.Brigthness);
                     }
                     break;
 
@@ -147,7 +147,7 @@ namespace Tools.CommandLineParsing
                         var a = (parsed.ActionArgs as TonemappingTwoAreasArgs);
                         var rawImage = ImagePostProcessingHelper.ReadImageBufferFromFile(a.RawImageFile);
                         var image = rawImage.GammaAndBrighnessCorrectionTwoAreas(a.Brigthness1, a.Gamma1, a.Brigthness2, a.Gamma2, a.Mask);
-                        ImagePostProcessingHelper.SaveImageBuffer(image, a.Output, TonemappingMethod.None);
+                        ImagePostProcessingHelper.SaveImageBuffer(image, a.Output, TonemappingMethod.None, 1);
                     }
                     break;
 

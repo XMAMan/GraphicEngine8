@@ -15,5 +15,8 @@ namespace Tools.CommandLineParsing
 
         [ArgRequired, ArgDefaultValue(TonemappingMethod.None), ArgDescription("Values: None,GammaOnly,Reinhard,Ward,HaarmPeterDuikersCurve,JimHejlAndRichardBurgessDawson,Uncharted2Tonemap,ACESFilmicToneMappingCurve")]
         public TonemappingMethod Method { get; set; }
+
+        [ArgDefaultValue(1), ArgDescription("Brigthness-Value")]
+        public float Brigthness { get; set; }
     }
 }
