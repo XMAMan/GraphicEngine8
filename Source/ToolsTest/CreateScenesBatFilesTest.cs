@@ -220,5 +220,11 @@ namespace ToolsTest
         {
             RunTestWithApproximatelyCompare("27_MirrorsEdge");
         }
+
+        [TestMethod]
+        public void Batfile_32_LivingRoom()
+        {
+            RunTestWithApproximatelyCompare("32_LivingRoom");
+        }
     }
 }
