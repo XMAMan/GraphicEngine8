@@ -1,0 +1,2 @@
+..\Source\Tools\bin\Debug\GraphicTool.exe CreateImage ..\Data\32_LivingRoom_json.txt -output 32_LivingRoom.jpg -renderMod VertexConnectionMerging -tonemapping ACESFilmicToneMappingCurve -sampleCount 10000 -width 1680 -height 987 -saveFolder AutoSave
+rem ..\Source\Tools\bin\Debug\GraphicTool.exe Tonemapping 0_0_1680_987_Finish.raw -output 32_LivingRoom.jpg -method ACESFilmicToneMappingCurve -brigthness 10

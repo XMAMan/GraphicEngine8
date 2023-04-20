@@ -52,6 +52,7 @@ namespace Tools.Tools.SceneEditor
             CreateSingleSceneFile(graphic, "25_SingleSphereForRapso_json.txt", () => AddTestszene25_SingleSphereForRapso(graphic));
             CreateSingleSceneFile(graphic, "26_SkyEnvironmapCreator_json.txt", () => AddTestszene26_SkyEnvironmapCreator(graphic));
             CreateSingleSceneFile(graphic, "27_MirrorsEdge_json.txt", () => AddTestszene27_MirrorsEdge(graphic));
+            CreateSingleSceneFile(graphic, "32_LivingRoom_json.txt", () => AddTestszene32_LivingRoom(graphic));
         }
 
         private static void CreateSingleSceneFile(GraphicPanel3D graphic, string sceneFile, Action addScene)
@@ -2251,6 +2252,77 @@ namespace Tools.Tools.SceneEditor
 
             graphic.GlobalSettings.Tonemapping = TonemappingMethod.ACESFilmicToneMappingCurve;
             graphic.GlobalSettings.SamplingCount = 10000;
+        }
+
+        public static void AddTestszene32_LivingRoom(GraphicPanel3D graphic)
+        {
+            graphic.RemoveAllObjekts();
+            graphic.AddWaveFrontFileAndSplit(DataDirectory + "32_LivingRoom.obj", true, new ObjectPropertys() { TileDiffuseFactor = 0.9f, Albedo = 0.5f });
+
+            Vector3D cameraStart = graphic.GetObjectByNameStartsWith("CameraStart").Position;
+            Vector3D cameraDirection = Vector3D.Normalize(graphic.GetObjectByNameStartsWith("CameraEnd").Position - cameraStart);
+            graphic.RemoveObjekt(graphic.GetObjectByNameStartsWith("CameraEnd").Id);
+            graphic.RemoveObjekt(graphic.GetObjectByNameStartsWith("CameraStart").Id);
+
+            graphic.GetObjectByNameStartsWith("Cube.027").TextureFile = DataDirectory + "Fenster3.png"; //Figur
+            graphic.GetObjectByNameStartsWith("Cube.015").TextureFile = DataDirectory + "Envwall.bmp";//Tisch
+            graphic.GetObjectByNameStartsWith("Cube.028").TextureFile = DataDirectory + "wellensittiche.JPG"; //Großes Buch
+            graphic.GetObjectByNameStartsWith("Cube.029").TextureFile = DataDirectory + "Weltkarte.png"; //Kleines Buch
+            graphic.GetObjectByNameStartsWith("Cube.025").TextureFile = DataDirectory + "stoff_hell.png"; //Teppich
+            graphic.GetObjectByNameStartsWith("Cube.016").TextureFile = DataDirectory + "toy_box_diffuse.png"; //Tischbeine
+            graphic.GetObjectByNameStartsWith("Ball").TextureFile = DataDirectory + "Wabe.png"; //Ball
+            foreach (var obj in graphic.GetObjectsByNameContainsSearch("RegalA")) obj.TextureFile = DataDirectory + "holz_dunkel1.jpg";
+            foreach (var obj in graphic.GetObjectsByNameContainsSearch("RegalB")) obj.TextureFile = DataDirectory + "holz_mittel.jpg";
+            foreach (var obj in graphic.GetObjectsByNameContainsSearch("Metall"))
+            {
+                obj.BrdfModel = BrdfModel.Phong;
+                obj.TextureFile = "#FFFFFF";
+                obj.GlossyPowExponent = 400;
+            }
+            foreach (var obj in graphic.GetObjectsByNameContainsSearch("Bottle"))
+            {
+                obj.RefractionIndex = 1.5f;
+                obj.BrdfModel = BrdfModel.TextureGlass;
+            }
+            foreach (var obj in graphic.GetObjectsByNameContainsSearch("RegalC"))
+            {
+                obj.BrdfModel = BrdfModel.PlasticDiffuse;
+                obj.SpecularAlbedo = 0.8f;
+                obj.SpecularHighlightPowExponent = 30;
+                obj.SpecularHighlightCutoff1 = 10;
+                obj.SpecularHighlightCutoff2 = 10;
+            }
+
+            int lightType = 0;
+            switch (lightType)
+            {
+                case 0:
+                    {
+                        graphic.AddSphere(1, 10, 10, new ObjectPropertys()
+                        {
+                            TextureFile = DataDirectory + "qwantani_1k.hdr", //Mittags ohne Wolken https://hdrihaven.com/hdri/?c=outdoor&h=qwantani (Sonnenstand mittelhoch und wolkenloser Himmel)
+                            RaytracingLightSource = new EnvironmentLightDescription() { Emission = 1, Rotate = 0.4f }
+                        });
+                        graphic.GlobalSettings.BrightnessFactor = 10;
+                        break;
+                    }
+                case 1:
+                    {
+                        graphic.AddSphere(1, 10, 10, new ObjectPropertys()
+                        {
+                            TextureFile = DataDirectory + "rustig_koppie_puresky_1k.hdr", //Mittags ohne Wolken ganz hell https://polyhaven.com/a/rustig_koppie_puresky       (Sonnenstand ganz tief und gelb)
+                            RaytracingLightSource = new EnvironmentLightDescription() { Emission = 1, Rotate = 0.41f }
+                        });
+                        graphic.GlobalSettings.BrightnessFactor = 4;
+                        break;
+                    }
+            }
+
+            graphic.GlobalSettings.Camera = new Camera(cameraStart, cameraDirection, 55);
+
+            graphic.GlobalSettings.PhotonCount = 10000;
+            graphic.GlobalSettings.Tonemapping = TonemappingMethod.ACESFilmicToneMappingCurve;
+            graphic.Mode = Mode3D.VertexConnectionMerging;
         }
     }
 }

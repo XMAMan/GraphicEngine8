@@ -82,7 +82,8 @@ namespace Tools.Tools.SceneEditor
                 if (testscene == 31) Scenes.AddTestszene25_SingleSphereForRapso(this.graphicPanel);
                 if (testscene == 32) Scenes.AddTestszene26_SkyEnvironmapCreator(this.graphicPanel);
                 if (testscene == 33) Scenes.AddTestszene27_MirrorsEdge(this.graphicPanel);
-   
+                if (testscene == 34) Scenes.AddTestszene32_LivingRoom(this.graphicPanel);
+
                 //...................
                 this.graphicPanel.Mode = Mode3D.Raytracer;
 
