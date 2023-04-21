@@ -27,6 +27,8 @@ Lightsource with motion blure effect
 MirrorBox
 ![MirrorsEdge](./ResultImages/MirrorsEdge.jpg)
 MirrorsEdge
+![LivingRoom](./Scenes/32_LivingRoom.jpg)
+LivingRoom
 ![Radiosity](./ResultImages/Radiosity1.jpg)
 Radiosity without color interpolation to see the patches
 ![RaytracingMaterials](./ResultImages/RaytracingMaterials2.jpg)
