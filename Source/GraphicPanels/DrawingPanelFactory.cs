@@ -101,13 +101,24 @@ namespace GraphicPanels
         {
             switch (mode)
             {
-                case Mode3D.CPU: return new GraphicPipelineCPU.GraphicPipelineCPU();
-                case Mode3D.OpenGL_Version_1_0: return new GraphicPipelineOpenGLv1_0.GraphicPipelineOpenGLv1_0(false);
-                case Mode3D.OpenGL_Version_1_0_OldShaders: return new GraphicPipelineOpenGLv1_0.GraphicPipelineOpenGLv1_0(true);
-                case Mode3D.Direct3D_11: return new GraphicPipelineDirect3D11.GraphicPipelineDirect3D11();
-                case Mode3D.OpenGL_Version_3_0: return new GraphicPipelineOpenGLv3_0.GraphicPipelineOpenGLv3_0();
+                case Mode3D.CPU: return LazyLoadGraphicPipelineCPUDll();
+                case Mode3D.OpenGL_Version_1_0: return LazyLoadGraphicPipelineOpenGLv1_0Dll(false);
+                case Mode3D.OpenGL_Version_1_0_OldShaders: return LazyLoadGraphicPipelineOpenGLv1_0Dll(true);
+                case Mode3D.Direct3D_11: return LazyLoadGraphicPipelineDirect3D11Dll();
+                case Mode3D.OpenGL_Version_3_0: return LazyLoadGraphicPipelineOpenGLv3_0Dll();
             }
             throw new Exception("Unknown Mode: " + mode);
         }
+
+        //Die Dll wird erst geladen, wenn eine Klasse aus der Dll in einer Methode verwendet wird. Deswegen verwende ich die
+        //Pipeline-Klassen nicht direkt in der Switch-Anweisung sondern ich habe noch eine extra Methode
+        //Hintergrund: DirectX läuft nur unter .NET aber nicht unter .NET Core. Damit ich diese Grafikbibliothek aber auch 
+        //unter .NET Core nutzen kann nutze ich LazyLoading so dass SlimDX.dll nicht geladen wird, wenn dier DirectX-Outputmode nicht 
+        //genommen wird.       
+        private IGraphicPipeline LazyLoadGraphicPipelineCPUDll() => new GraphicPipelineCPU.GraphicPipelineCPU();
+        private IGraphicPipeline LazyLoadGraphicPipelineOpenGLv1_0Dll(bool useOldShaders) => new GraphicPipelineOpenGLv1_0.GraphicPipelineOpenGLv1_0(useOldShaders);
+        private IGraphicPipeline LazyLoadGraphicPipelineDirect3D11Dll() => new GraphicPipelineDirect3D11.GraphicPipelineDirect3D11();
+        private IGraphicPipeline LazyLoadGraphicPipelineOpenGLv3_0Dll() => new GraphicPipelineOpenGLv3_0.GraphicPipelineOpenGLv3_0();
+
     }
 }
