@@ -97,6 +97,27 @@ namespace GraphicMinimal
             return new Vector2D(Math.Abs(this.X), Math.Abs(this.Y));
         }
 
+        public Vector2D SignZeroIsOne()
+        {
+            return new Vector2D(SignZeroIsOne(this.X), SignZeroIsOne(this.Y));
+        }
+
+        private static float SignZeroIsOne(float x)
+        {
+            return x < 0.0f ? -1.0f : 1.0f;
+        }
+
+        public Vector2D SignZeroIsZero()
+        {
+            return new Vector2D(SignZeroIsZero(this.X), SignZeroIsZero(this.Y));
+        }
+
+        private static float SignZeroIsZero(float x)
+        {
+            if (x == 0) return 0;
+            return x < 0.0f ? -1.0f : 1.0f;
+        }
+
         public static Vector2D operator +(Vector2D v1, Vector2D v2)
         {
             return new Vector2D(v1.X + v2.X, v1.Y + v2.Y);
