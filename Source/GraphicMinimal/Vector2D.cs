@@ -294,5 +294,11 @@ namespace GraphicMinimal
         {
             return v1.X * v2.Y - v2.X * v1.Y;
         }
+
+        //Kreuzprodukt zwischen (v.X, v.Y, 0) und (0,0,z)
+        public static Vector2D CrossWithZ(Vector2D v, float z)
+        {
+            return new Vector2D(z * v.Y, -z * v.X);
+        }
     }
 }
