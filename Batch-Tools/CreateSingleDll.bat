@@ -1,4 +1,5 @@
-rem Hiermit kann ich alle Dlls in die Exe mit packen
+rem Hiermit kann ich alle Dlls in die Super-Dll packen
+rem Leider bekommt man eine FileNotFound-Exception wenn man diese Dll dann verwenden will. Hinweis siehe hier: https://github.com/dotnet/ILMerge/issues/58
 rem Hinweis: Newtsonsoft.Json kann nicht mehr deserialisieren, wenn ich das hier mache da er GraphicPanels.dll sucht aber nicht findet. D.h. die 2D- und 3D-Demoanwendung geht noch aber die Raytracing-Scenen nicht
 rem Erzeuge erst mit dir /b *.dll eine DLL-Auflistung und entferne dort SlimDX.dll und OpenTK.dll
 cd ..\Source\Tools\bin\Debug\
