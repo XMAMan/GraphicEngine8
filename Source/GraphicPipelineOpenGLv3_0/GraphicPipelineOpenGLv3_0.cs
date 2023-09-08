@@ -23,6 +23,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using BitmapHelper;
 using GraphicGlobal;
+using GraphicGlobal.Rasterizer2DFunctions;
 
 namespace GraphicPipelineOpenGLv3_0
 {
@@ -1636,23 +1637,7 @@ namespace GraphicPipelineOpenGLv3_0
             GL.Color3(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
             GL.Begin(PrimitiveType.Points);
 
-            int x, y, d, dx, dxy, px = (int)pos.X, py = (int)pos.Y;
-            x = 0; y = radius; d = 1 - radius;
-            dx = 3; dxy = -2 * radius + 5;
-            while (y >= x)
-            {
-                GL.Vertex2(px + x, py + y);  // alle 8 Oktanden werden
-                GL.Vertex2(px + y, py + x);  // gleichzeitig gezeichnet
-                GL.Vertex2(px + y, py - x);
-                GL.Vertex2(px + x, py - y);
-                GL.Vertex2(px - x, py - y);
-                GL.Vertex2(px - y, py - x);
-                GL.Vertex2(px - y, py + x);
-                GL.Vertex2(px - x, py + y);
-
-                if (d < 0) { d = d + dx; dx = dx + 2; dxy = dxy + 2; x++; }
-                else { d = d + dxy; dx = dx + 2; dxy = dxy + 4; x++; y--; }
-            }
+            ShapeDrawer.DrawCircle(pos, radius, (p) => GL.Vertex2(p.X, p.Y));
 
             GL.End();
         }
@@ -1664,36 +1649,23 @@ namespace GraphicPipelineOpenGLv3_0
             GL.Color3(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
             GL.Begin(PrimitiveType.Points);
 
-            int x0 = (int)pos.X, y0 = (int)pos.Y;
-            int x = radius;
-            int y = 0;
-            int xChange = 1 - (radius << 1);
-            int yChange = 0;
-            int radiusError = 0;
+            ShapeDrawer.DrawFillCircle(pos, radius, (p) => GL.Vertex2(p.X, p.Y));
 
-            while (x >= y)
-            {
-                for (int i = x0 - x; i <= x0 + x; i++)
-                {
-                    GL.Vertex2(i, y0 + y);
-                    GL.Vertex2(i, y0 - y);
-                }
-                for (int i = x0 - y; i <= x0 + y; i++)
-                {
-                    GL.Vertex2(i, y0 + x);
-                    GL.Vertex2(i, y0 - x);
-                }
+            GL.End();
+        }
 
-                y++;
-                radiusError += yChange;
-                yChange += 2;
-                if (((radiusError << 1) + xChange) > 0)
-                {
-                    x--;
-                    radiusError += xChange;
-                    xChange += 2;
-                }
-            }
+        public void DrawCircleArc(Pen pen, Vector2D pos, int radius, float startAngle, float endAngle, bool withBorderLines)
+        {
+            CircleArcDrawer.DrawCircleArc(pos, radius, startAngle, endAngle, withBorderLines, (p) => DrawPixel(p, pen.Color, pen.Width));
+        }
+        public void DrawFillCircleArc(Color color, Vector2D pos, int radius, float startAngle, float endAngle)
+        {
+            GL.Disable(EnableCap.Texture2D);
+            GL.PointSize(2);
+            GL.Color3(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            GL.Begin(PrimitiveType.Points);
+
+            CircleArcDrawer.DrawFillCircleArc(pos, radius, startAngle, endAngle, (p) => GL.Vertex2(p.X, p.Y));
 
             GL.End();
         }

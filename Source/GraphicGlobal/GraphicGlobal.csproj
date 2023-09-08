@@ -70,6 +70,8 @@
     <Compile Include="Polygon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quad.cs" />
+    <Compile Include="Rasterizer2DFunctions\CircleArcDrawer.cs" />
+    <Compile Include="Rasterizer2DFunctions\ShapeDrawer.cs" />
     <Compile Include="Ray.cs" />
     <Compile Include="SphericalCoordinate.cs" />
     <Compile Include="SphericalCoordinateConverter.cs" />

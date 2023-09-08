@@ -43,6 +43,7 @@ using SlimDX.DXGI;
 using System.Drawing.Imaging;
 using BitmapHelper;
 using GraphicGlobal;
+using GraphicGlobal.Rasterizer2DFunctions;
 
 namespace GraphicPipelineDirect3D11
 {
@@ -1562,6 +1563,18 @@ namespace GraphicPipelineDirect3D11
                     xChange += 2;
                 }
             }
+        }
+
+        public void DrawCircleArc(Pen pen, Vector2D pos, int radius, float startAngle, float endAngle, bool withBorderLines)
+        {
+            CircleArcDrawer.DrawCircleArc(pos, radius, startAngle, endAngle, withBorderLines, (p) => DrawPixel(p, pen.Color, pen.Width));
+        }
+        public void DrawFillCircleArc(Color color, Vector2D pos, int radius, float startAngle, float endAngle)
+        {
+            SetPointSize(1);
+            SetColor(color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
+
+            CircleArcDrawer.DrawFillCircleArc(pos, radius, startAngle, endAngle, (p) => DrawLineOrPoint(new Vector3[] { new Vector3(p.X, p.Y, 0) }, true));
         }
 
         public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor)

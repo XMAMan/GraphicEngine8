@@ -6,6 +6,7 @@ using BitmapHelper;
 using GraphicPipelineCPU.Textures;
 using GraphicPipelineCPU.Rasterizer;
 using GraphicGlobal;
+using GraphicGlobal.Rasterizer2DFunctions;
 
 namespace GraphicPipelineCPU.DrawingHelper
 {
@@ -88,8 +89,8 @@ namespace GraphicPipelineCPU.DrawingHelper
             Vector2D r = (p2 - p1).Normalize();
             Vector2D n = -r.Spin90() / 2 * pen.Width;
 
-            p1.X -= 0.6f;
-            p2.X -= 0.6f;
+            p1 = new Vector2D(p1.X - 0.6f, p1.Y);
+            p2 = new Vector2D(p2.X - 0.6f, p2.Y);
 
             this.DrawTriangle2D(
                 new Vertex2D(p1 - n, new Vector2D(0, 0)),       //Links Oben
@@ -191,23 +192,7 @@ namespace GraphicPipelineCPU.DrawingHelper
         {
             pos = ViewPortTransformation(pos);
 
-            int x, y, d, dx, dxy, px = (int)pos.X, py = (int)pos.Y;
-            x = 0; y = radius; d = 1 - radius;
-            dx = 3; dxy = -2 * radius + 5;
-            while (y >= x)
-            {
-                DrawPixel(new Vector2D(px + x, py + y), pen.Color, pen.Width);
-                DrawPixel(new Vector2D(px + y, py + x), pen.Color, pen.Width);
-                DrawPixel(new Vector2D(px + y, py - x), pen.Color, pen.Width);
-                DrawPixel(new Vector2D(px + x, py - y), pen.Color, pen.Width);
-                DrawPixel(new Vector2D(px - x, py - y), pen.Color, pen.Width);
-                DrawPixel(new Vector2D(px - y, py - x), pen.Color, pen.Width);
-                DrawPixel(new Vector2D(px - y, py + x), pen.Color, pen.Width);
-                DrawPixel(new Vector2D(px - x, py + y), pen.Color, pen.Width);
-
-                if (d < 0) { d = d + dx; dx = dx + 2; dxy = dxy + 2; x++; }
-                else { d = d + dxy; dx = dx + 2; dxy = dxy + 4; x++; y--; }
-            }
+            ShapeDrawer.DrawCircle(pos, radius, (p) => DrawPixel(new Vector2D(p.X, p.Y), pen.Color, pen.Width));
         }
 
         //Quelle: http://stackoverflow.com/questions/1201200/fast-algorithm-for-drawing-filled-circles
@@ -215,36 +200,19 @@ namespace GraphicPipelineCPU.DrawingHelper
         {
             pos = ViewPortTransformation(pos);
 
-            int x0 = (int)pos.X, y0 = (int)pos.Y;
-            int x = radius;
-            int y = 0;
-            int xChange = 1 - (radius << 1);
-            int yChange = 0;
-            int radiusError = 0;
+            ShapeDrawer.DrawFillCircle(pos, radius, (p) => DrawPixel(new Vector2D(p.X, p.Y), color, 1));
+        }
 
-            while (x >= y)
-            {
-                for (int i = x0 - x; i <= x0 + x; i++)
-                {
-                    DrawPixel(new Vector2D(i, y0 + y), color, 1);
-                    DrawPixel(new Vector2D(i, y0 - y), color, 1);
-                }
-                for (int i = x0 - y; i <= x0 + y; i++)
-                {
-                    DrawPixel(new Vector2D(i, y0 + x), color, 1);
-                    DrawPixel(new Vector2D(i, y0 - x), color, 1);
-                }
+        public void DrawCircleArc(Pen pen, Vector2D pos, int radius, float startAngle, float endAngle, bool withBorderLines)
+        {
+            pos = ViewPortTransformation(pos);
 
-                y++;
-                radiusError += yChange;
-                yChange += 2;
-                if (((radiusError << 1) + xChange) > 0)
-                {
-                    x--;
-                    radiusError += xChange;
-                    xChange += 2;
-                }
-            }
+            CircleArcDrawer.DrawCircleArc(pos, radius, startAngle, endAngle, withBorderLines, (p) => DrawPixel(p, pen.Color, pen.Width));
+        }
+
+        public void DrawFillCircleArc(Color color, Vector2D pos, int radius, float startAngle, float endAngle)
+        {
+            CircleArcDrawer.DrawFillCircleArc(pos, radius, startAngle, endAngle, (p) => DrawPixel(new Vector2D(p.X, p.Y), color, 1));
         }
 
         public void DrawImage(ColorTexture texture, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight)

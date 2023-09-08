@@ -192,6 +192,15 @@ namespace GraphicGlobal
             this.pipeline.DrawFillCircle(color, pos, radius);
         }
 
+        public void DrawCircleArc(Pen pen, Vector2D pos, int radius, float startAngle, float endAngle, bool withBorderLines)
+        {
+            this.pipeline.DrawCircleArc(pen, pos, radius, startAngle, endAngle, withBorderLines);
+        }
+        public void DrawFillCircleArc(Color color, Vector2D pos, int radius, float startAngle, float endAngle)
+        {
+            this.pipeline.DrawFillCircleArc(color, pos, radius, startAngle, endAngle);
+        }
+
         public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, int x, int y, int width, int height, Color colorFactor)
         {
             this.pipeline.DrawSprite(textureId, xCount, yCount, xBild, yBild, x, y, width, height, colorFactor);

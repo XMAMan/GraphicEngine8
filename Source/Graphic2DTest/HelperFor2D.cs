@@ -1,6 +1,7 @@
 ﻿using BitmapHelper;
 using GraphicMinimal;
 using GraphicPanels;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -107,7 +108,7 @@ namespace Graphic2DTest
             graphic.DrawFillRectangle(dataDirectory + "Schildkroete.png", 280, 280, 40, 30, true, Color.FromArgb(255, 255, 255), 30, 50);
             graphic.DrawFillRectangle(Color.Red, 200 + 70, 200, 30, 20);
             graphic.DrawFillRectangle(Color.Green, 240 + 70, 240, 40, 30, 30);
-            graphic.DrawFillRectangle(Color.Blue, 280 + 70, 280, 40, 30, 30, 50);
+            graphic.DrawFillRectangle(Color.Blue, 280 + 70, 280, 40, 30, 30, 50);            
 
             //Ich teste hier den Fall, dass ein Dreieck mit P0.X==P1.X gezeichnet wird
             //Feststellung: OpenGL scheint eine Linie immer um ein Pixel nach Links zu verschieben. Wenn ich (3,3) angebe, zeichnet er bei (2,3)

@@ -160,6 +160,7 @@ namespace GraphicMinimal
 
         //v1 und v2 sind Richtungsvektoren. v1 wird gedanklich auf Einheitskreis-Startvektor (1,0) gelegt. 
         //v2 wird auch in den Kreis gelegt. Wenn v2.y > 0, dann liegt Winkel zwischen 0 und 180 Grad, sonst zwischen 180 und 360
+        //Die Richtungsvektoren werden im 1. Quadrant angegeben. Die Zeichenfunktionen befinden sich aber im 4. Quadrant! Für den 4. Quadrant bitte Angle360YMirrored nehmen.
         public static float Angle360(Vector2D v1, Vector2D v2) //Winkel zwischen zwei Richtungsvektoren
         {
             v1 = v1.Normalize();
@@ -189,6 +190,12 @@ namespace GraphicMinimal
             float v2Y = vD.X * v2.X + vD.Y * v2.Y; //Das ist die Y-Koordinate, von vD, welche in den Einheitskreis projektziert wurde
             if (v2Y < 0) f = 360 - f;
             return f;
+        }
+
+
+        public static float Angle360YMirrored(Vector2D v1, Vector2D v2)
+        {
+            return Angle360(new Vector2D(v1.X, -v1.Y), new Vector2D(v2.X, -v2.Y));
         }
 
         public static Vector2D DirectionFromPhi(double phi)

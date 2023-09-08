@@ -695,6 +695,15 @@ namespace GraphicPipelineCPU
             new DrawingHelper2D(prop).DrawFillCircle(color, pos, radius);
         }
 
+        public void DrawCircleArc(Pen pen, Vector2D pos, int radius, float startAngle, float endAngle, bool withBorderLines)
+        {
+            new DrawingHelper2D(prop).DrawCircleArc(pen, pos, radius, startAngle, endAngle, withBorderLines);
+        }
+        public void DrawFillCircleArc(Color color, Vector2D pos, int radius, float startAngle, float endAngle)
+        {
+            new DrawingHelper2D(prop).DrawFillCircleArc(color, pos, radius, startAngle, endAngle);
+        }
+
         public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor)
         {
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);

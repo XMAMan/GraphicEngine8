@@ -361,6 +361,15 @@ namespace GraphicPanels
             DrawFillCircle(color, pos, (int)radius);
         }
 
+        public void DrawCircleArc(Pen pen, Vector2D pos, int radius, float startAngle, float endAngle, bool withBorderLines)
+        {
+            this.GetPanel<IDrawing2D>().DrawCircleArc(pen, pos, radius, startAngle, endAngle, withBorderLines);
+        }
+        public void DrawFillCircleArc(Color color, Vector2D pos, int radius, float startAngle, float endAngle)
+        {
+            this.GetPanel<IDrawing2D>().DrawFillCircleArc(color, pos, radius, startAngle, endAngle);
+        }
+
         public void DrawImage(string texture, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, bool makeFirstPixelTransparent, Color colorFactor)
         {
             this.GetPanel<IDrawing2D>().DrawImage(GetTextureId(texture, makeFirstPixelTransparent), x, y, width, height, sourceX, sourceY, sourceWidth, sourceHeight, colorFactor);

@@ -55,6 +55,9 @@ namespace GraphicGlobal
         void DrawCircle(Pen pen, Vector2D pos, int radius);         // pos ist die Mitte des Kreises
         void DrawFillCircle(Color color, Vector2D pos, int radius); // pos ist die Mitte des Kreises
 
+        void DrawCircleArc(Pen pen, Vector2D pos, int radius, float startAngle, float endAngle, bool withBorderLines); //startAngle/endAngle=0..360
+        void DrawFillCircleArc(Color color, Vector2D pos, int radius, float startAngle, float endAngle); //startAngle/endAngle=0..360
+
         //xCount/yCount Anzahl Einzelbilder; xBild -> 1 .. xCount; yBild -> 1 .. yCount
         void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, int x, int y, int width, int height, Color colorFactor);
 
