@@ -331,6 +331,7 @@ namespace GraphicGlobal.Rasterizer2DFunctions
             }
         }
 
+        #region Versuche für die DrawFillCircleArc-Funktion
         //Idee 1: Per Scanline. Problem hier: Wenn zwei Randlinien so dicht zusammen sind, dass kein innerer Bereich dazwischen passt, dann kommt die Scanline durcheinander
         public static void DrawFillCircleArc1(Vector2D center, int radius, float startAngle, float endAngle, Action<Point> pixelCallback)
         {
@@ -395,6 +396,98 @@ namespace GraphicGlobal.Rasterizer2DFunctions
             }                          
         }
 
+        //Idee: Gehe innerhalb der minY-maxY-Schranken vom ersten gefundenden Randpixel bis zum zweiten gefundenen Randpixel
+        //Problem 1: Wenn beim Rand ein Loch ist liegen die minY-maxY-Werte ganz nah beieinander. Diese Y-Linie fehlt dann
+        //Problem 2: Überhängende Randkanten, wo darunter noch was liegt. Hier malt er außerhalb
+        public static void DrawFillCircleArc2(Vector2D center, int radius, float startAngle, float endAngle, Action<Point> pixelCallback)
+        {
+            byte[,] pix = new byte[radius * 2 + 1, radius * 2 + 1];
+            int[] minY = new int[radius * 2 + 1];
+            int[] maxY = new int[radius * 2 + 1];
+
+            for (int x = 0; x < pix.GetLength(0); x++)
+            {
+                minY[x] = int.MaxValue;
+                maxY[x] = int.MinValue;
+
+                for (int y = 0; y < pix.GetLength(1); y++)
+                {
+                    pix[x, y] = 0;
+                }
+            }
+
+
+            int left = (int)center.X - radius;
+            int top = (int)center.Y - radius;
+
+            Action<Vector2D> setPixMap = (p) =>
+            {
+                int xi = (int)p.X - left;
+                int yi = (int)p.Y - top;
+                pix[xi, yi] = 1;
+
+                if (yi < minY[xi]) minY[xi] = yi;
+                if (yi > maxY[xi]) maxY[xi] = yi;
+            };
+
+            DrawCircleArc(center, radius, startAngle, endAngle, true, setPixMap);
+
+            for (int x = 0; x < pix.GetLength(0); x++)
+            {
+                //Gehe mit y von oben nach unten
+                bool isInside = false;
+                bool isOnBorder = false;
+                for (int y = minY[x]; y <= maxY[x]; y++)
+                {
+                    if (pix[x, y] == 1 && isOnBorder == false && isInside == false)
+                    {
+                        isOnBorder = true;
+                    }
+                    else if (pix[x, y] == 0 && isOnBorder && isInside == false)
+                    {
+                        isOnBorder = false;
+                        isInside = true;
+                    }
+                    else if (pix[x, y] == 1 && isInside)
+                    {
+                        break;
+                    }
+
+                    if (isInside)
+                    {
+                        pixelCallback(new Point(left + x, top + y));
+                    }
+                }
+
+
+                //Gehe mit y von unten nach oben
+                isInside = false;
+                isOnBorder = false;
+                for (int y = maxY[x]; y >= minY[x]; y--)
+                {
+                    if (pix[x, y] == 1 && isOnBorder == false && isInside == false)
+                    {
+                        isOnBorder = true;
+                    }
+                    else if (pix[x, y] == 0 && isOnBorder && isInside == false)
+                    {
+                        isOnBorder = false;
+                        isInside = true;
+                    }
+                    else if (pix[x, y] == 1 && isInside)
+                    {
+                        break;
+                    }
+
+                    if (isInside)
+                    {
+                        pixelCallback(new Point(left + x, top + y));
+                    }
+                }
+            }
+        }
+        #endregion
+
         //Idee: Zeichne für jeden CircleArc-Randpixel eine Linie zum Kreiszentrum
         public static void DrawFillCircleArc(Vector2D center, int radius, float startAngle, float endAngle, Action<Point> pixelCallback)
         {
@@ -405,5 +498,7 @@ namespace GraphicGlobal.Rasterizer2DFunctions
 
             DrawCircleArc(center, radius, startAngle, endAngle, true, setPixMap);
         }
+
+        
     }
 }
