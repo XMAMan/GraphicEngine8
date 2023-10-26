@@ -10,6 +10,24 @@ namespace GraphicPanels
     {
         private readonly GraphicPipelineCache pipelineCache = new GraphicPipelineCache();
 
+        //Mit dieser Methode lade ich nur die Dlls, deren Grafikmodus auch wirklich genutzt wird
+        public IDrawingPanel CreateDrawingPanel(Mode2D modus)
+        {
+            switch (modus)
+            {
+                case Mode2D.CPU:
+                    return new Rasterizer.Rasterizer(pipelineCache.GetEntry(Mode3D.CPU));
+                case Mode2D.OpenGL_Version_1_0:
+                    return new Rasterizer.Rasterizer(pipelineCache.GetEntry(Mode3D.OpenGL_Version_1_0));
+                case Mode2D.OpenGL_Version_3_0:
+                    return new Rasterizer.Rasterizer(pipelineCache.GetEntry(Mode3D.OpenGL_Version_3_0));
+                case Mode2D.Direct3D_11:
+                    return new Rasterizer.Rasterizer(pipelineCache.GetEntry(Mode3D.Direct3D_11));
+            }
+
+            throw new Exception("Unknown modus:" + modus.ToString());
+        }
+
         public IDrawingPanel CreateDrawingPanel(Mode3D modus)
         {
             switch (modus)

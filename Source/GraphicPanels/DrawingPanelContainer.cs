@@ -33,7 +33,16 @@ namespace GraphicPanels
 
         public IDrawingPanel GetPanel(Mode2D mode)
         {
-            return GetPanel(TranslateMode2DInto3D(mode));
+            var modus3D = TranslateMode2DInto3D(mode);
+
+            if (this.panels.ContainsKey(modus3D) == false)
+            {
+                var newDrawingPanel = this.drawingPanelFactory.CreateDrawingPanel(mode); //Ich nutze hier die CreateDrawingPanel-Funktion mit Mode2D da so die ganzen anderen Dlls nicht mit geladen werden
+                this.panels.Add(modus3D, newDrawingPanel);
+                controlWasCreated(newDrawingPanel.DrawingControl);
+            }
+
+            return this.panels[modus3D];
         }
 
         private Mode3D TranslateMode2DInto3D(Mode2D mode)
