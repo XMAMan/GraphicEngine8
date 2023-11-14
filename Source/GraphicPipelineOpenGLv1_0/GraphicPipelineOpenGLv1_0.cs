@@ -1715,10 +1715,10 @@ namespace GraphicPipelineOpenGLv1_0
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             Gl.glBindTexture(Gl.GL_TEXTURE_2D, textureId);
             Gl.glBegin(Gl.GL_QUADS);
-            Gl.glTexCoord2f((xBild - 1) * xf + 0.01f, (yBild - 1) * yf + 0.01f); Gl.glVertex2i(x, y);
-            Gl.glTexCoord2f(xBild * xf - 0.01f, (yBild - 1) * yf + 0.01f); Gl.glVertex2i(x + width, y);
-            Gl.glTexCoord2f(xBild * xf - 0.01f, yBild * yf - 0.01f); Gl.glVertex2i(x + width, y + height);
-            Gl.glTexCoord2f((xBild - 1) * xf + 0.01f, yBild * yf - 0.01f); Gl.glVertex2i(x, y + height);
+            Gl.glTexCoord2f(xBild * xf + 0.01f, yBild * yf + 0.01f); Gl.glVertex2i(x, y);
+            Gl.glTexCoord2f((xBild + 1) * xf - 0.01f, yBild * yf + 0.01f); Gl.glVertex2i(x + width, y);
+            Gl.glTexCoord2f((xBild + 1) * xf - 0.01f, (yBild + 1) * yf - 0.01f); Gl.glVertex2i(x + width, y + height);
+            Gl.glTexCoord2f(xBild * xf + 0.01f, (yBild + 1) * yf - 0.01f); Gl.glVertex2i(x, y + height);
             Gl.glEnd();
             DisableBlending();
         }

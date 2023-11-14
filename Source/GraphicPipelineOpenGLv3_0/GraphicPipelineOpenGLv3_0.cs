@@ -1679,10 +1679,10 @@ namespace GraphicPipelineOpenGLv3_0
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             GL.BindTexture(TextureTarget.Texture2D, textureId);
             GL.Begin(PrimitiveType.Quads);
-            GL.TexCoord2((xBild - 1) * xf + 0.01f, (yBild - 1) * yf + 0.01f); GL.Vertex2(x, y);
-            GL.TexCoord2(xBild * xf - 0.01f, (yBild - 1) * yf + 0.01f); GL.Vertex2(x + width, y);
-            GL.TexCoord2(xBild * xf - 0.01f, yBild * yf - 0.01f); GL.Vertex2(x + width, y + height);
-            GL.TexCoord2((xBild - 1) * xf + 0.01f, yBild * yf - 0.01f); GL.Vertex2(x, y + height);
+            GL.TexCoord2(xBild * xf + 0.01f, yBild * yf + 0.01f); GL.Vertex2(x, y);
+            GL.TexCoord2((xBild + 1) * xf - 0.01f, yBild * yf + 0.01f); GL.Vertex2(x + width, y);
+            GL.TexCoord2((xBild + 1) * xf - 0.01f, (yBild + 1) * yf - 0.01f); GL.Vertex2(x + width, y + height);
+            GL.TexCoord2(xBild * xf + 0.01f, (yBild + 1) * yf - 0.01f); GL.Vertex2(x, y + height);
             GL.End();
             DisableBlending();
         }

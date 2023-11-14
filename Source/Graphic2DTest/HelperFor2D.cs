@@ -159,6 +159,17 @@ namespace Graphic2DTest
                 graphic.CreateOrUpdateNamedBitmapTexture("ScreenAlpha", screenAlpha);
                 graphic.DrawFillRectangle("ScreenAlpha", 420, 130, 40, 40, false, Color.FromArgb(255, 255, 255));
             }
+
+            //Prüfe das er bei der Sprite-Einzahlanzeige jeweils das richtige Teilbild zeigt (Erwartung: Zahlen von 1 bis 6)
+            int spriteCounter = 0;
+            for (int x=0;x<3;x++)
+                for (int y=0;y<2;y++)
+                {
+                    graphic.DrawSprite(dataDirectory + "Zahlen.png", 3, 2, x, y, 325 + x * 20, 177 + y * 20, 20, 20, true, Color.White);
+                    spriteCounter++;
+                }
+            
+
         }
     }
 }

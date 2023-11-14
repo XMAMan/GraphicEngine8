@@ -1727,13 +1727,13 @@ namespace GraphicPipelineDirect3D11
             SetTexture(textureId);
             int id = GetTriangleArrayId(new GraphicGlobal.Triangle[] { 
                 new GraphicGlobal.Triangle(
-                    new Vertex(x, y, 0, (xBild - 1) * xf + 0.01f, (yBild - 1) * yf + 0.01f){Normal = new Vector3D(0,0,1) }, 
-                    new Vertex(x, y + height, 0, (xBild - 1) * xf + 0.01f, yBild * yf - 0.01f){Normal = new Vector3D(0,0,1) }, 
-                    new Vertex(x + width, y, 0, xBild * xf - 0.01f, (yBild - 1) * yf + 0.01f){Normal = new Vector3D(0,0,1) }), 
+                    new Vertex(x, y, 0, xBild * xf + 0.01f, yBild * yf + 0.01f){Normal = new Vector3D(0,0,1) },
+                    new Vertex(x, y + height, 0, xBild * xf + 0.01f, (yBild + 1)* yf - 0.01f){Normal = new Vector3D(0,0,1) },
+                    new Vertex(x + width, y, 0, (xBild+1) * xf - 0.01f, yBild * yf + 0.01f){Normal = new Vector3D(0,0,1) }),
                 new GraphicGlobal.Triangle(
-                    new Vertex(x, y + height, 0, (xBild - 1) * xf + 0.01f, yBild * yf - 0.01f){Normal = new Vector3D(0,0,1) }, 
-                    new Vertex(x + width, y + height, 0, xBild * xf - 0.01f, yBild * yf - 0.01f){Normal = new Vector3D(0,0,1) }, 
-                    new Vertex(x + width, y, 0, xBild * xf - 0.01f, (yBild - 1) * yf + 0.01f){Normal = new Vector3D(0,0,1) }) 
+                    new Vertex(x, y + height, 0, xBild * xf + 0.01f, (yBild+1) * yf - 0.01f){Normal = new Vector3D(0,0,1) },
+                    new Vertex(x + width, y + height, 0, (xBild+1) * xf - 0.01f, (yBild+1) * yf - 0.01f){Normal = new Vector3D(0,0,1) },
+                    new Vertex(x + width, y, 0, (xBild+1) * xf - 0.01f, yBild * yf + 0.01f){Normal = new Vector3D(0,0,1) })
             });
             DrawTriangleArray(id);
             RemoveTriangleArray(id);
