@@ -306,6 +306,17 @@ namespace GraphicPanels
             }
         }
 
+        public bool IsNamedBitmapTextureAvailable(string nameWhichIsUsedForThe2DDrawingMethods)
+        {
+            return this.bitmapNames.ContainsKey(nameWhichIsUsedForThe2DDrawingMethods);
+        }
+
+        public Size GetTextureSize(string nameWhichIsUsedForThe2DDrawingMethods)
+        {
+            string key = nameWhichIsUsedForThe2DDrawingMethods;
+            return new Size(this.bitmapNames[key].Width, this.bitmapNames[key].Height);
+        }
+
         public void DrawLine(Pen pen, Vector2D p1, Vector2D p2)
         {
             this.GetPanel<IDrawing2D>().DrawLine(pen, p1, p2);
