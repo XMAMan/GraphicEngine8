@@ -33,9 +33,15 @@ namespace Tools
 
             this.graphicPanel2D.MouseClick += new MouseEventHandler(GraphicPanel2D_MouseClick);
 
+            this.graphicPanel2D.SizeChanged += GraphicPanel2D_SizeChanged;
+
             CreateVoronoiPolygons();          
         }
 
+        private void GraphicPanel2D_SizeChanged(object sender, EventArgs e)
+        {
+            HelperFor2D.Draw2D(this.graphicPanel2D, WorkingDirectory, this.spriteNr, this.voronioPolygons, this.voronoiCellPoints, this.marioTexture, false);
+        }
 
         void GraphicPanel2D_MouseClick(object sender, MouseEventArgs e)
         {
@@ -60,7 +66,7 @@ namespace Tools
         void Timer1_Tick(object sender, EventArgs e)
         {
             spriteNr++;
-            HelperFor2D.Draw2D(this.graphicPanel2D, WorkingDirectory, this.spriteNr, this.voronioPolygons, this.voronoiCellPoints, this.marioTexture, false);
+            //HelperFor2D.Draw2D(this.graphicPanel2D, WorkingDirectory, this.spriteNr, this.voronioPolygons, this.voronoiCellPoints, this.marioTexture, false);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

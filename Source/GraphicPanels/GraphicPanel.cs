@@ -8,6 +8,8 @@ using GraphicMinimal;
 using GraphicGlobal;
 using System.IO;
 using BitmapHelper;
+using System.Threading.Tasks;
+using System.Runtime.Remoting.Channels;
 
 namespace GraphicPanels
 {
@@ -26,7 +28,13 @@ namespace GraphicPanels
             MouseWheel
         }
 
+        private enum ControlEventName
+        {
+            SizeChanged
+        }
+
         private Dictionary<MouseEventName, List<MouseEventHandler>> events = new Dictionary<MouseEventName, List<MouseEventHandler>>();
+        private Dictionary<ControlEventName, List<EventHandler>> controlEvents = new Dictionary<ControlEventName, List<EventHandler>>();
 
         internal DrawingPanelContainer controls; // Zeigt Anzeigedaten an
 
@@ -39,6 +47,11 @@ namespace GraphicPanels
             foreach (var e in Enum.GetValues(typeof(MouseEventName)).Cast<MouseEventName>())
             {
                 events.Add(e, new List<MouseEventHandler>());
+            }
+
+            foreach (var e in Enum.GetValues(typeof(ControlEventName)).Cast<ControlEventName>())
+            {
+                controlEvents.Add(e, new List<EventHandler>());
             }
         }
 
@@ -65,6 +78,32 @@ namespace GraphicPanels
                     AddEventHandlerToControl(control, eventName, eventHandler);
                 }
             }
+            foreach (var eventName in this.controlEvents.Keys)
+            {
+                foreach (var eventHandler in this.controlEvents[eventName])
+                {
+                    AddEventHandlerToControl(control, eventName, eventHandler);
+                }
+            }
+        }
+
+        private void AddControlEventHandler(ControlEventName eventName, EventHandler handler)
+        {
+            this.controlEvents[eventName].Add(handler);
+
+            foreach (var c in this.controls.GetAllLoadedControls())
+            {
+                AddEventHandlerToControl(c, eventName, handler);
+            }
+        }
+        private void RemoveControlEventHandler(ControlEventName eventName, EventHandler handler)
+        {
+            this.controlEvents[eventName].Remove(handler);
+
+            foreach (var c in this.controls.GetAllLoadedControls())
+            {
+                RemoveEventHandlerFromControl(c, eventName, handler);
+            }
         }
 
         private void AddMouseEventHandler(MouseEventName eventName, MouseEventHandler handler)
@@ -84,6 +123,32 @@ namespace GraphicPanels
             foreach (var c in this.controls.GetAllLoadedControls())
             {
                 RemoveEventHandlerFromControl(c, eventName, handler);
+            }
+        }
+
+        private void AddEventHandlerToControl(Control control, ControlEventName eventName, EventHandler handler)
+        {
+            switch (eventName)
+            {
+                case ControlEventName.SizeChanged:
+                    control.SizeChanged += handler;
+                    break;
+
+                default:
+                    throw new ArgumentException("Unknown EventName: " + eventName.ToString());
+            }
+        }
+
+        private void RemoveEventHandlerFromControl(Control control, ControlEventName eventName, EventHandler handler)
+        {
+            switch (eventName)
+            {
+                case ControlEventName.SizeChanged:
+                    control.SizeChanged -= handler;
+                    break;
+
+                default:
+                    throw new ArgumentException("Unknown EventName: " + eventName.ToString());
             }
         }
 
@@ -138,6 +203,30 @@ namespace GraphicPanels
                     break;
                 default:
                     throw new ArgumentException("Unknown EventName: " + eventName.ToString());
+            }
+        }
+
+        public new event EventHandler SizeChanged
+        {
+            add
+            {
+                //Die Zeichenroutingen für das Panel haben nur dann ein Effekt, wenn sie aus ein Maus-Handler oder Timer gerufen werden
+                //Ruft man ihn aus dem SizeChanged-Handler direkt, dann bleibt das Fenster schwarz.
+                //Ich erzeuge hier eine Action, welche ein Task im GUI-Threadaufruft, welcher dann dann hier übergebenen EventHandler aufruft,
+                //welcher dann die eigentliche User-Zeichenroutine aufruft
+                EventHandler action = (sender, e) =>
+                {
+                    this.BeginInvoke((Action)(() =>
+                    {
+                        value(sender, e);
+                    }));
+                };
+                
+                AddControlEventHandler(ControlEventName.SizeChanged, action);
+            }
+            remove
+            {
+                RemoveControlEventHandler(ControlEventName.SizeChanged, value);
             }
         }
 

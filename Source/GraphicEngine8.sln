@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.6.33712.159
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32510.428
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "Tools\Tools.csproj", "{A777CFAF-42A8-4BD8-9E01-4698F23CB810}"
 EndProject
@@ -163,7 +163,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphic2DTest", "Graphic2DT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaytracingMethodsTest", "RaytracingMethodsTest\RaytracingMethodsTest.csproj", "{0B3CFF4A-48F1-4393-BE5C-82CA0B580459}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicPanelWpf", "GraphicPanelWpf\GraphicPanelWpf.csproj", "{19F82177-C2AB-4BAF-B88C-67ED422626F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicPanelWpf", "GraphicPanelWpf\GraphicPanelWpf.csproj", "{19F82177-C2AB-4BAF-B88C-67ED422626F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf2DDemo", "Wpf2DDemo\Wpf2DDemo.csproj", "{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1002,6 +1004,22 @@ Global
 		{19F82177-C2AB-4BAF-B88C-67ED422626F7}.Release|x64.Build.0 = Release|Any CPU
 		{19F82177-C2AB-4BAF-B88C-67ED422626F7}.Release|x86.ActiveCfg = Release|Any CPU
 		{19F82177-C2AB-4BAF-B88C-67ED422626F7}.Release|x86.Build.0 = Release|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Debug|x64.Build.0 = Debug|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Debug|x86.Build.0 = Debug|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Release|x64.ActiveCfg = Release|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Release|x64.Build.0 = Release|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Release|x86.ActiveCfg = Release|Any CPU
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1084,6 +1102,7 @@ Global
 		{BC058911-AA38-48E1-912C-0FF22DB00E46} = {506AFE27-BD97-4FDB-BF84-B84EBFDF77E9}
 		{0B3CFF4A-48F1-4393-BE5C-82CA0B580459} = {E6C9F3D3-724B-40F1-87FF-3AC72D3234F0}
 		{19F82177-C2AB-4BAF-B88C-67ED422626F7} = {8407AE1D-71E8-492F-8D23-60DB19093C7C}
+		{D8E28F2E-7533-4AA8-B1F1-392F9710D5B5} = {8407AE1D-71E8-492F-8D23-60DB19093C7C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {59ACDAFB-51E4-432F-BFC9-0C1597A97FAC}

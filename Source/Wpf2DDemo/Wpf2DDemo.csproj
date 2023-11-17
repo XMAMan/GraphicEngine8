@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GraphicMinimal\GraphicMinimal.csproj" />
+    <ProjectReference Include="..\GraphicPanels\GraphicPanels.csproj" />
+    <ProjectReference Include="..\GraphicPanelWpf\GraphicPanelWpf.csproj" />
+  </ItemGroup>
+
+</Project>

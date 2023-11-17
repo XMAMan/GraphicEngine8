@@ -77,6 +77,7 @@ namespace GraphicPipelineOpenGLv3_0
             simpleOpenGlControl.SwapBuffers();
             simpleOpenGlControl.SizeChanged += new EventHandler(resize);
             simpleOpenGlControl.Paint += new PaintEventHandler(simpleOpenGlControl_Paint);
+
             resize(null, null);
             shader = new ShaderHelper();
             GL.Disable(EnableCap.Multisample); //Antialiasing im Colorpuffer
