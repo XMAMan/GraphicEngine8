@@ -25,12 +25,14 @@ namespace GraphicPanels
             MouseDown,
             MouseUp,
             MouseDoubleClick,
-            MouseWheel
+            MouseWheel,            
         }
 
         private enum ControlEventName
         {
-            SizeChanged
+            SizeChanged,
+            MouseEnter,
+            MouseLeave
         }
 
         private Dictionary<MouseEventName, List<MouseEventHandler>> events = new Dictionary<MouseEventName, List<MouseEventHandler>>();
@@ -133,6 +135,12 @@ namespace GraphicPanels
                 case ControlEventName.SizeChanged:
                     control.SizeChanged += handler;
                     break;
+                case ControlEventName.MouseEnter:
+                    control.MouseEnter += handler;
+                    break;
+                case ControlEventName.MouseLeave:
+                    control.MouseLeave += handler;
+                    break;
 
                 default:
                     throw new ArgumentException("Unknown EventName: " + eventName.ToString());
@@ -145,6 +153,12 @@ namespace GraphicPanels
             {
                 case ControlEventName.SizeChanged:
                     control.SizeChanged -= handler;
+                    break;
+                case ControlEventName.MouseEnter:
+                    control.MouseEnter -= handler;
+                    break;
+                case ControlEventName.MouseLeave:
+                    control.MouseLeave -= handler;
                     break;
 
                 default:
@@ -173,7 +187,7 @@ namespace GraphicPanels
                     break;
                 case MouseEventName.MouseWheel:
                     control.MouseWheel += handler;
-                    break;
+                    break;                
                 default:
                     throw new ArgumentException("Unknown EventName: " + eventName.ToString());
             }
@@ -201,6 +215,7 @@ namespace GraphicPanels
                 case MouseEventName.MouseWheel:
                     control.MouseWheel -= handler;
                     break;
+                
                 default:
                     throw new ArgumentException("Unknown EventName: " + eventName.ToString());
             }
@@ -227,6 +242,30 @@ namespace GraphicPanels
             remove
             {
                 RemoveControlEventHandler(ControlEventName.SizeChanged, value);
+            }
+        }
+
+        public new event EventHandler MouseEnter
+        {
+            add
+            {
+                AddControlEventHandler(ControlEventName.MouseEnter, value);
+            }
+            remove
+            {
+                RemoveControlEventHandler(ControlEventName.MouseEnter, value);
+            }
+        }
+
+        public new event EventHandler MouseLeave
+        {
+            add
+            {
+                AddControlEventHandler(ControlEventName.MouseLeave, value);
+            }
+            remove
+            {
+                RemoveControlEventHandler(ControlEventName.MouseLeave, value);
             }
         }
 
@@ -301,6 +340,8 @@ namespace GraphicPanels
                 RemoveMouseEventHandler(MouseEventName.MouseWheel, value);
             }
         }
+
+        
 
         public virtual void ClearScreen(string backgroundImage)
         {
