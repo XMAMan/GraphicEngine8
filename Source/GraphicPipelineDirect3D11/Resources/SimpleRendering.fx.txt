@@ -250,6 +250,7 @@ float4 PS_Standard( PS_IN input ) : SV_Target
 
 	//return objektColor;
 
+	if (Discard100Transparent && objektColor.w < 0.01) discard;
 	if (BlendingBlackColor && (objektColor.x + objektColor.y + objektColor.z) < 0.1) discard;
 	if (LightingIsEnabled == false) return objektColor;
 

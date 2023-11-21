@@ -1154,6 +1154,24 @@ namespace GraphicPipelineDirect3D11
             m_effect.GetConstantBufferByName("ConstantBufferCommon").GetMemberByName("BlendingBlackColor").AsScalar().Set(false);
         }
 
+        private void UseAlphaBlendingAndDiscardTransparent(Color colorFactor)
+        {
+            //Jemand möchte eine Figur teilweise transparent zeichnen
+            if (colorFactor.A < 255)
+            {
+                //Es wird Alpha-Gewichtet in den ColorBuffer geschrieben
+                SetBlendingWithAlpha();
+                m_effect.GetConstantBufferByName("ConstantBufferCommon").GetMemberByName("Discard100Transparent").AsScalar().Set(false);
+            }
+            else
+            {
+                //Nutze kein Alpha-Blending sondern zeichne überhaupt nicht in den ColorBuffer, wenn 
+                //das Pixel zu 100% Transparent ist (colorFactor.A ist 255 aber im Bitmap sind manche Pixel transparent)
+                DisableBlending();
+                m_effect.GetConstantBufferByName("ConstantBufferCommon").GetMemberByName("Discard100Transparent").AsScalar().Set(true);
+            }
+        }
+
         public void EnableWireframe()
         {
             m_context.Rasterizer.State = RasterizerStateHelper.SetFillMode(m_device, m_context.Rasterizer.State, DX11.FillMode.Wireframe);
@@ -1205,6 +1223,7 @@ namespace GraphicPipelineDirect3D11
         {
             SetBlendState(false, m_context.OutputMerger.BlendState.Description.RenderTargets[0].RenderTargetWriteMask);
             m_effect.GetConstantBufferByName("ConstantBufferCommon").GetMemberByName("BlendingBlackColor").AsScalar().Set(false);
+            m_effect.GetConstantBufferByName("ConstantBufferCommon").GetMemberByName("Discard100Transparent").AsScalar().Set(false);
         }
 
         public void EnableCullFace()
@@ -1580,7 +1599,7 @@ namespace GraphicPipelineDirect3D11
         public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor)
         {
             Size tex = GetTextureSize(textureId);
-            SetBlendingWithAlpha();
+            UseAlphaBlendingAndDiscardTransparent(colorFactor); // SetBlendingWithAlpha();
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             EnableTexturemapping();
             SetTexture(textureId);
@@ -1614,7 +1633,7 @@ namespace GraphicPipelineDirect3D11
 
         public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor)
         {
-            SetBlendingWithAlpha();
+            UseAlphaBlendingAndDiscardTransparent(colorFactor); // SetBlendingWithAlpha();
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             EnableTexturemapping();
             SetTexture(textureId);
@@ -1685,7 +1704,7 @@ namespace GraphicPipelineDirect3D11
 
         public void DrawFillPolygon(int textureId, Color colorFactor, List<Triangle2D> triangleList)
         {
-            SetBlendingWithAlpha();
+            UseAlphaBlendingAndDiscardTransparent(colorFactor); // SetBlendingWithAlpha();
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             EnableTexturemapping();
             foreach (Triangle2D triangle in triangleList)
@@ -1720,6 +1739,7 @@ namespace GraphicPipelineDirect3D11
 
         public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, int x, int y, int width, int height, Color colorFactor)
         {
+            UseAlphaBlendingAndDiscardTransparent(colorFactor); // SetBlendingWithAlpha();
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
 
             float xf = 1.0f / xCount, yf = 1.0f / yCount;

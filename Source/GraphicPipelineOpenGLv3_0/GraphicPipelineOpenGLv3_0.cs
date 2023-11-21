@@ -1360,6 +1360,24 @@ namespace GraphicPipelineOpenGLv3_0
         #endregion
 
         #region 2D
+        private void UseAlphaBlendingAndDiscardTransparent(Color colorFactor)
+        {
+            //Jemand möchte eine Figur teilweise transparent zeichnen
+            if (colorFactor.A < 255)
+            {
+                //Es wird Alpha-Gewichtet in den ColorBuffer geschrieben
+                SetBlendingWithAlpha();
+            }
+            else
+            {
+                //Nutze kein Alpha-Blending sondern zeichne überhaupt nicht in den ColorBuffer, wenn 
+                //das Pixel zu 100% Transparent ist (colorFactor.A ist 255 aber im Bitmap sind manche Pixel transparent)
+                GL.Enable(EnableCap.AlphaTest);
+                GL.AlphaFunc(AlphaFunction.Greater, 0.01f);
+                GL.Disable(EnableCap.Blend);
+            }
+        }
+
         public float ZValue2D { get; set; } = 0;
 
         public void DrawLine(System.Drawing.Pen pen, Vector2D p1, Vector2D p2)
@@ -1459,7 +1477,7 @@ namespace GraphicPipelineOpenGLv3_0
             float f = 0;// 0.01f;
 
             Size tex = GetTextureSize(textureId);
-            SetBlendingWithAlpha(); //SetBlendingWithBlackColor();
+            UseAlphaBlendingAndDiscardTransparent(colorFactor);// SetBlendingWithAlpha();
             GL.Enable(EnableCap.Texture2D);
             SetTextureFilter(TextureFilter.Point);
             //GL.Color3(colorFactor.X, colorFactor.Y, colorFactor.Z);
@@ -1490,7 +1508,8 @@ namespace GraphicPipelineOpenGLv3_0
 
         public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor)
         {
-            SetBlendingWithAlpha(); //SetBlendingWithBlackColor();
+            UseAlphaBlendingAndDiscardTransparent(colorFactor);// SetBlendingWithAlpha();
+
             GL.Enable(EnableCap.Texture2D);
             SetTextureFilter(TextureFilter.Point);
             //GL.Color3(colorFactor.X, colorFactor.Y, colorFactor.Z);
@@ -1581,7 +1600,7 @@ namespace GraphicPipelineOpenGLv3_0
 
         public void DrawFillPolygon(int textureId, Color colorFactor, List<Triangle2D> triangleList)
         {
-            SetBlendingWithAlpha();
+            UseAlphaBlendingAndDiscardTransparent(colorFactor);// SetBlendingWithAlpha();
             GL.Enable(EnableCap.Texture2D);
             SetTextureFilter(TextureFilter.Point);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
@@ -1665,7 +1684,7 @@ namespace GraphicPipelineOpenGLv3_0
         public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, int x, int y, int width, int height, Color colorFactor)
         {
             float xf = 1.0f / xCount, yf = 1.0f / yCount;
-            SetBlendingWithAlpha();
+            UseAlphaBlendingAndDiscardTransparent(colorFactor);// SetBlendingWithAlpha();
             GL.Enable(EnableCap.Texture2D);
             SetTextureFilter(TextureFilter.Point);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);

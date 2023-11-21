@@ -105,6 +105,7 @@ cbuffer ConstantBufferCommon
 {
 	float3 CameraPosition;				// Position der Kamera in Worldspace
 	bool BlendingBlackColor;
+	bool Discard100Transparent;			// Sollen Pixel mit A<=0.01 verworfen werden?
 	float TesselationFactor;			// 1.. Normale tesselation, um so größer, um so mehr Huckel entstehen
 	float HeighScaleFactor;				// um so größer, um so höher sind die Huckel
 	float LineWidth;					// Dicke der Linien
