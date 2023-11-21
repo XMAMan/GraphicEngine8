@@ -1360,6 +1360,8 @@ namespace GraphicPipelineOpenGLv3_0
         #endregion
 
         #region 2D
+        public float ZValue2D { get; set; } = 0;
+
         public void DrawLine(System.Drawing.Pen pen, Vector2D p1, Vector2D p2)
         {
             GL.LoadMatrix(ref modelViewMatrix);
@@ -1371,8 +1373,8 @@ namespace GraphicPipelineOpenGLv3_0
                 GL.Disable(EnableCap.LineStipple);
             GL.Color3(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
             GL.Begin(PrimitiveType.Lines);
-            GL.Vertex2(p1.X + 0.5f, p1.Y); //OpenGL verschiebt Linien immer um 0.5f Pixel nach links. Damit gleiche ich das aus
-            GL.Vertex2(p2.X + 0.5f, p2.Y);
+            GL.Vertex3(p1.X + 0.5f, p1.Y, this.ZValue2D); //OpenGL verschiebt Linien immer um 0.5f Pixel nach links. Damit gleiche ich das aus
+            GL.Vertex3(p2.X + 0.5f, p2.Y, this.ZValue2D);
             GL.End();
         }
 
@@ -1382,7 +1384,7 @@ namespace GraphicPipelineOpenGLv3_0
             GL.Disable(EnableCap.Texture2D);
             GL.Begin(PrimitiveType.Points);
             GL.Color3(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
-            GL.Vertex2(pos.X, pos.Y);
+            GL.Vertex3(pos.X, pos.Y, this.ZValue2D);
             GL.End(); 
         }
 
@@ -1423,10 +1425,10 @@ namespace GraphicPipelineOpenGLv3_0
             SizeF sizef = GetStringSize(size, text);
 
             GL.Begin(PrimitiveType.Quads);
-            GL.TexCoord2(0f, 0f); GL.Vertex2(x, y);
-            GL.TexCoord2(1f, 0f); GL.Vertex2(x + sizef.Width, y);
-            GL.TexCoord2(1f, 1f); GL.Vertex2(x + sizef.Width, y + sizef.Height);
-            GL.TexCoord2(0f, 1f); GL.Vertex2(x, y + sizef.Height);
+            GL.TexCoord2(0f, 0f); GL.Vertex3(x, y, this.ZValue2D);
+            GL.TexCoord2(1f, 0f); GL.Vertex3(x + sizef.Width, y, this.ZValue2D);
+            GL.TexCoord2(1f, 1f); GL.Vertex3(x + sizef.Width, y + sizef.Height, this.ZValue2D);
+            GL.TexCoord2(0f, 1f); GL.Vertex3(x, y + sizef.Height, this.ZValue2D);
             GL.End();
 
             PopProjectionMatrix();
@@ -1444,11 +1446,11 @@ namespace GraphicPipelineOpenGLv3_0
                 GL.Disable(EnableCap.LineStipple);
             GL.Color3(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
             GL.Begin(PrimitiveType.LineStrip);
-            GL.Vertex2(x, y);
-            GL.Vertex2(x + width, y);
-            GL.Vertex2(x + width, y + height);
-            GL.Vertex2(x, y + height);
-            GL.Vertex2(x, y);
+            GL.Vertex3(x, y, this.ZValue2D);
+            GL.Vertex3(x + width, y, this.ZValue2D);
+            GL.Vertex3(x + width, y + height, this.ZValue2D);
+            GL.Vertex3(x, y + height, this.ZValue2D);
+            GL.Vertex3(x, y, this.ZValue2D);
             GL.End();
         }
 
@@ -1465,10 +1467,10 @@ namespace GraphicPipelineOpenGLv3_0
             GL.BindTexture(TextureTarget.Texture2D, textureId);
             GL.Begin(PrimitiveType.Quads);
 
-            GL.TexCoord2(sourceX / (float)tex.Width + f, sourceY / (float)tex.Height + f); GL.Vertex2(x, y);
-            GL.TexCoord2((sourceX + sourceWidth) / (float)tex.Width - f, sourceY / (float)tex.Height + f); GL.Vertex2(x + width, y);
-            GL.TexCoord2((sourceX + sourceWidth) / (float)tex.Width - f, (sourceY + sourceHeight) / (float)tex.Height - f); GL.Vertex2(x + width, y + height);
-            GL.TexCoord2(sourceX / (float)tex.Width + f, (sourceY + sourceHeight) / (float)tex.Height - f); GL.Vertex2(x, y + height);
+            GL.TexCoord2(sourceX / (float)tex.Width + f, sourceY / (float)tex.Height + f); GL.Vertex3(x, y, this.ZValue2D);
+            GL.TexCoord2((sourceX + sourceWidth) / (float)tex.Width - f, sourceY / (float)tex.Height + f); GL.Vertex3(x + width, y, this.ZValue2D);
+            GL.TexCoord2((sourceX + sourceWidth) / (float)tex.Width - f, (sourceY + sourceHeight) / (float)tex.Height - f); GL.Vertex3(x + width, y + height, this.ZValue2D);
+            GL.TexCoord2(sourceX / (float)tex.Width + f, (sourceY + sourceHeight) / (float)tex.Height - f); GL.Vertex3(x, y + height, this.ZValue2D);
 
             GL.End();
             DisableBlending();
@@ -1495,10 +1497,10 @@ namespace GraphicPipelineOpenGLv3_0
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             GL.BindTexture(TextureTarget.Texture2D, textureId);
             GL.Begin(PrimitiveType.Quads);
-            GL.TexCoord2(0.01f, 0.01f); GL.Vertex2(x, y);
-            GL.TexCoord2(0.99f, 0.01f); GL.Vertex2(x + width, y);
-            GL.TexCoord2(0.99f, 0.99f); GL.Vertex2(x + width, y + height);
-            GL.TexCoord2(0.01f, 0.99f); GL.Vertex2(x, y + height);
+            GL.TexCoord2(0.01f, 0.01f); GL.Vertex3(x, y, this.ZValue2D);
+            GL.TexCoord2(0.99f, 0.01f); GL.Vertex3(x + width, y, this.ZValue2D);
+            GL.TexCoord2(0.99f, 0.99f); GL.Vertex3(x + width, y + height, this.ZValue2D);
+            GL.TexCoord2(0.01f, 0.99f); GL.Vertex3(x, y + height, this.ZValue2D);
             GL.End();
             DisableBlending();
         }
@@ -1532,10 +1534,10 @@ namespace GraphicPipelineOpenGLv3_0
             GL.Disable(EnableCap.Texture2D);
             GL.Color3(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
             GL.Begin(PrimitiveType.Quads);
-            GL.TexCoord2(0.01f, 0.01f); GL.Vertex2(x, y);
-            GL.TexCoord2(0.99f, 0.01f); GL.Vertex2(x + width, y);
-            GL.TexCoord2(0.99f, 0.99f); GL.Vertex2(x + width, y + height);
-            GL.TexCoord2(0.01f, 0.99f); GL.Vertex2(x, y + height);
+            GL.TexCoord2(0.01f, 0.01f); GL.Vertex3(x, y, this.ZValue2D);
+            GL.TexCoord2(0.99f, 0.01f); GL.Vertex3(x + width, y, this.ZValue2D);
+            GL.TexCoord2(0.99f, 0.99f); GL.Vertex3(x + width, y + height, this.ZValue2D);
+            GL.TexCoord2(0.01f, 0.99f); GL.Vertex3(x, y + height, this.ZValue2D);
             GL.End();
         }
 
@@ -1571,9 +1573,9 @@ namespace GraphicPipelineOpenGLv3_0
             GL.Begin(PrimitiveType.LineStrip);
             foreach (Vector2D V in points)
             {
-                GL.Vertex2(V.X, V.Y);
+                GL.Vertex3(V.X, V.Y, this.ZValue2D);
             }
-            GL.Vertex2(points[0].X, points[0].Y);
+            GL.Vertex3(points[0].X, points[0].Y, this.ZValue2D);
             GL.End();
         }
 
@@ -1589,18 +1591,13 @@ namespace GraphicPipelineOpenGLv3_0
             foreach (Triangle2D triangle in triangleList)
             {
                 GL.TexCoord2(triangle.P1.Textcoord.X, triangle.P1.Textcoord.Y);
-                GL.Vertex2(triangle.P1.Position.X, triangle.P1.Position.Y);
+                GL.Vertex3(triangle.P1.Position.X, triangle.P1.Position.Y, this.ZValue2D);
 
                 GL.TexCoord2(triangle.P2.Textcoord.X, triangle.P2.Textcoord.Y);
-                GL.Vertex2(triangle.P2.Position.X, triangle.P2.Position.Y);
+                GL.Vertex3(triangle.P2.Position.X, triangle.P2.Position.Y, this.ZValue2D);
 
                 GL.TexCoord2(triangle.P3.Textcoord.X, triangle.P3.Textcoord.Y);
-                GL.Vertex2(triangle.P3.Position.X, triangle.P3.Position.Y);
-                //foreach (Vertex2D vertex in triangle)
-                //{
-                //    GL.TexCoord2(vertex.Textcoord.X, vertex.Textcoord.Y);
-                //    GL.Vertex2(vertex.Position.X, vertex.Position.Y);
-                //}
+                GL.Vertex3(triangle.P3.Position.X, triangle.P3.Position.Y, this.ZValue2D);
             }
             GL.End();
         }
@@ -1614,19 +1611,13 @@ namespace GraphicPipelineOpenGLv3_0
             foreach (Triangle2D triangle in triangleList)
             {
                 GL.TexCoord2(triangle.P1.Textcoord.X, triangle.P1.Textcoord.Y);
-                GL.Vertex2(triangle.P1.Position.X, triangle.P1.Position.Y);
+                GL.Vertex3(triangle.P1.Position.X, triangle.P1.Position.Y, this.ZValue2D);
 
                 GL.TexCoord2(triangle.P2.Textcoord.X, triangle.P2.Textcoord.Y);
-                GL.Vertex2(triangle.P2.Position.X, triangle.P2.Position.Y);
+                GL.Vertex3(triangle.P2.Position.X, triangle.P2.Position.Y, this.ZValue2D);
 
                 GL.TexCoord2(triangle.P3.Textcoord.X, triangle.P3.Textcoord.Y);
-                GL.Vertex2(triangle.P3.Position.X, triangle.P3.Position.Y);
-
-                //foreach (Vertex2D vertex in triangle)
-                //{
-                //    GL.TexCoord2(vertex.Textcoord.X, vertex.Textcoord.Y);
-                //    GL.Vertex2(vertex.Position.X, vertex.Position.Y);
-                //}
+                GL.Vertex3(triangle.P3.Position.X, triangle.P3.Position.Y, this.ZValue2D);
             }
             GL.End();
         }
@@ -1638,7 +1629,7 @@ namespace GraphicPipelineOpenGLv3_0
             GL.Color3(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
             GL.Begin(PrimitiveType.Points);
 
-            ShapeDrawer.DrawCircle(pos, radius, (p) => GL.Vertex2(p.X, p.Y));
+            ShapeDrawer.DrawCircle(pos, radius, (p) => GL.Vertex3(p.X, p.Y, this.ZValue2D));
 
             GL.End();
         }
@@ -1650,7 +1641,7 @@ namespace GraphicPipelineOpenGLv3_0
             GL.Color3(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
             GL.Begin(PrimitiveType.Points);
 
-            ShapeDrawer.DrawFillCircle(pos, radius, (p) => GL.Vertex2(p.X, p.Y));
+            ShapeDrawer.DrawFillCircle(pos, radius, (p) => GL.Vertex3(p.X, p.Y, this.ZValue2D));
 
             GL.End();
         }
@@ -1666,7 +1657,7 @@ namespace GraphicPipelineOpenGLv3_0
             GL.Color3(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
             GL.Begin(PrimitiveType.Points);
 
-            CircleArcDrawer.DrawFillCircleArc(pos, radius, startAngle, endAngle, (p) => GL.Vertex2(p.X, p.Y));
+            CircleArcDrawer.DrawFillCircleArc(pos, radius, startAngle, endAngle, (p) => GL.Vertex3(p.X, p.Y, this.ZValue2D));
 
             GL.End();
         }
@@ -1680,10 +1671,10 @@ namespace GraphicPipelineOpenGLv3_0
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             GL.BindTexture(TextureTarget.Texture2D, textureId);
             GL.Begin(PrimitiveType.Quads);
-            GL.TexCoord2(xBild * xf + 0.01f, yBild * yf + 0.01f); GL.Vertex2(x, y);
-            GL.TexCoord2((xBild + 1) * xf - 0.01f, yBild * yf + 0.01f); GL.Vertex2(x + width, y);
-            GL.TexCoord2((xBild + 1) * xf - 0.01f, (yBild + 1) * yf - 0.01f); GL.Vertex2(x + width, y + height);
-            GL.TexCoord2(xBild * xf + 0.01f, (yBild + 1) * yf - 0.01f); GL.Vertex2(x, y + height);
+            GL.TexCoord2(xBild * xf + 0.01f, yBild * yf + 0.01f); GL.Vertex3(x, y, this.ZValue2D);
+            GL.TexCoord2((xBild + 1) * xf - 0.01f, yBild * yf + 0.01f); GL.Vertex3(x + width, y, this.ZValue2D);
+            GL.TexCoord2((xBild + 1) * xf - 0.01f, (yBild + 1) * yf - 0.01f); GL.Vertex3(x + width, y + height, this.ZValue2D);
+            GL.TexCoord2(xBild * xf + 0.01f, (yBild + 1) * yf - 0.01f); GL.Vertex3(x, y + height, this.ZValue2D);
             GL.End();
             DisableBlending();
         }

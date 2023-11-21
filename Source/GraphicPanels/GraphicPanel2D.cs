@@ -70,5 +70,20 @@ namespace GraphicPanels
         {
             return BitmapHelp.TransformColorToMaxAlpha(image, color, colorBias);
         }
+
+        public float ZValue2D
+        {
+            get => GetPanel<IDrawing2D>().ZValue2D;
+            set => GetPanel<IDrawing2D>().ZValue2D = value;
+        }
+
+        public void EnableDepthTesting()
+        {
+            GetPanel<IDrawing2D>().EnableDepthTesting();
+        }
+        public void DisableDepthTesting()
+        {
+            GetPanel<IDrawing2D>().DisableDepthTesting();
+        }        
     }
 }

@@ -654,6 +654,8 @@ namespace GraphicPipelineCPU
 
         #region 2D
 
+        public float ZValue2D { get; set; } = 0;
+
         public void DrawLine(Pen pen, Vector2D p1, Vector2D p2)
         {
             //new PointsAndLinesDrawer(prop).DrawLine(new Vector3D(p1.X, p1.Y, 0), new Vector3D(p2.X, p2.Y, 0)); return;

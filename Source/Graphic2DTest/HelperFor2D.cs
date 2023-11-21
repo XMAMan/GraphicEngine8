@@ -168,8 +168,27 @@ namespace Graphic2DTest
                     graphic.DrawSprite(dataDirectory + "Zahlen.png", 3, 2, x, y, 325 + x * 20, 177 + y * 20, 20, 20, true, Color.White);
                     spriteCounter++;
                 }
-            
 
+            //Da kein DepthTesting aktiviert ist wird die Linie über die Schildkröte gemalt
+            graphic.DrawFillRectangle(dataDirectory + "Schildkroete.png", 410, 210, 30, 20, true, Color.FromArgb(255, 255, 255));
+            graphic.DrawLine(new Pen(Color.Blue, 2), new Vector2D(404, 220), new Vector2D(450, 220));
+
+            //DepthTesting wird aktiviert
+            graphic.EnableDepthTesting();
+
+            //Der Z-Wert von der Schildkröte ist kleiner als der Z-Wert von der Linie. Also liegt die Linie vorne
+            graphic.ZValue2D = 1 - 5; //Hinten
+            graphic.DrawFillRectangle(dataDirectory + "Schildkroete.png", 410, 230, 30, 20, true, Color.FromArgb(255, 255, 255));
+            graphic.ZValue2D = 2 - 5; //Vorne
+            graphic.DrawLine(new Pen(Color.Blue, 2), new Vector2D(404, 240), new Vector2D(450, 240));
+
+            //Der Z-Wert von der Schildkröte ist größer als der Z-Wert von der Linie. Also liegt die Schildkröte vorne
+            graphic.ZValue2D = 2 - 5; //Vorne
+            graphic.DrawFillRectangle(dataDirectory + "Schildkroete.png", 410, 250, 30, 20, true, Color.FromArgb(255, 255, 255));
+            graphic.ZValue2D = 1 - 5; //Hinten
+            graphic.DrawLine(new Pen(Color.Blue, 2), new Vector2D(404, 260), new Vector2D(450, 260));
+
+            graphic.DisableDepthTesting();
         }
     }
 }

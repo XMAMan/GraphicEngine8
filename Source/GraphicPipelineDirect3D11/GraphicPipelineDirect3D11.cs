@@ -348,7 +348,7 @@ namespace GraphicPipelineDirect3D11
         {
             if (left == 0 && right == 0)
             {
-                m_projMatrix = TransformMatrixToSlimdx(Matrix4x4.ProjectionMatrixOrtho(0.0f, this.drawingArea.Width, this.drawingArea.Height, 0.0f, +10.0f, -10.0f));
+                m_projMatrix = TransformMatrixToSlimdx(Matrix4x4.ProjectionMatrixOrtho(0.0f, this.drawingArea.Width, this.drawingArea.Height, 0.0f, -1000.0f, +1000.0f));
             }
             else
             {
@@ -1432,19 +1432,19 @@ namespace GraphicPipelineDirect3D11
         #endregion
 
         #region 2D
-
+        public float ZValue2D {get;set; } = 0;
         public void DrawLine(Pen pen, Vector2D p1, Vector2D p2)
         {
             SetColor(pen.Color.R / 255f, pen.Color.G / 255f, pen.Color.B / 255f, pen.Color.A / 255f);
             SetLineWidth(pen.Width);
-            DrawLineOrPoint(new Vector3[] { new Vector3(p1.X, p1.Y, 0), new Vector3(p2.X, p2.Y, 0) }, true);
+            DrawLineOrPoint(new Vector3[] { new Vector3(p1.X, p1.Y, this.ZValue2D), new Vector3(p2.X, p2.Y, this.ZValue2D) }, true);
         }
 
         public void DrawPixel(Vector2D pos, Color color, float size)
         {
             SetPointSize(size);
             SetColor(color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
-            DrawLineOrPoint(new Vector3[] { new Vector3(pos.X, pos.Y, 0) }, true);
+            DrawLineOrPoint(new Vector3[] { new Vector3(pos.X, pos.Y, this.ZValue2D) }, true);
         }
 
         private SizeF singleLetterSize = new SizeF(0, 0);
@@ -1480,8 +1480,8 @@ namespace GraphicPipelineDirect3D11
 
             int id = GetTriangleArrayId(new GraphicGlobal.Triangle[] 
             { 
-                new GraphicGlobal.Triangle( new Vertex(x, y, 0, 0, 0){Normal = new Vector3D(0,0,1) }, new Vertex(x, y + sizef.Height, 0, 0, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + sizef.Width, y, 0, 1, 0){Normal = new Vector3D(0,0,1) }) , 
-                new GraphicGlobal.Triangle(new Vertex(x, y + sizef.Height, 0, 0, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + sizef.Width, y + sizef.Height, 0, 1, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + sizef.Width, y, 0, 1, 0){Normal = new Vector3D(0,0,1) })
+                new GraphicGlobal.Triangle( new Vertex(x, y, this.ZValue2D, 0, 0){Normal = new Vector3D(0,0,1) }, new Vertex(x, y + sizef.Height, this.ZValue2D, 0, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + sizef.Width, y, this.ZValue2D, 1, 0){Normal = new Vector3D(0,0,1) }) , 
+                new GraphicGlobal.Triangle(new Vertex(x, y + sizef.Height, this.ZValue2D, 0, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + sizef.Width, y + sizef.Height, this.ZValue2D, 1, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + sizef.Width, y, this.ZValue2D, 1, 0){Normal = new Vector3D(0,0,1) })
             });
             DrawTriangleArray(id);
             RemoveTriangleArray(id);
@@ -1514,14 +1514,14 @@ namespace GraphicPipelineDirect3D11
             dx = 3; dxy = -2 * radius + 5;
             while (y >= x)
             {
-                DrawLineOrPoint(new Vector3[] {  new Vector3(px + x, py + y, 0),  // alle 8 Oktanden werden
-                                                 new Vector3(px + y, py + x, 0),  // gleichzeitig gezeichnet
-                                                 new Vector3(px + y, py - x, 0),
-                                                 new Vector3(px + x, py - y, 0),
-                                                 new Vector3(px - x, py - y, 0),
-                                                 new Vector3(px - y, py - x, 0),
-                                                 new Vector3(px - y, py + x, 0),
-                                                 new Vector3(px - x, py + y, 0)}, true);
+                DrawLineOrPoint(new Vector3[] {  new Vector3(px + x, py + y, this.ZValue2D),  // alle 8 Oktanden werden
+                                                 new Vector3(px + y, py + x, this.ZValue2D),  // gleichzeitig gezeichnet
+                                                 new Vector3(px + y, py - x, this.ZValue2D),
+                                                 new Vector3(px + x, py - y, this.ZValue2D),
+                                                 new Vector3(px - x, py - y, this.ZValue2D),
+                                                 new Vector3(px - y, py - x, this.ZValue2D),
+                                                 new Vector3(px - y, py + x, this.ZValue2D),
+                                                 new Vector3(px - x, py + y, this.ZValue2D)}, true);
 
                 if (d < 0) { d = d + dx; dx = dx + 2; dxy = dxy + 2; x++; }
                 else { d = d + dxy; dx = dx + 2; dxy = dxy + 4; x++; y--; }
@@ -1544,13 +1544,13 @@ namespace GraphicPipelineDirect3D11
             {
                 for (int i = x0 - x; i <= x0 + x; i++)
                 {
-                    DrawLineOrPoint(new Vector3[] {  new Vector3(i, y0 + y + 1, 0), 
-                                                     new Vector3(i, y0 - y - 1, 0), }, true);
+                    DrawLineOrPoint(new Vector3[] {  new Vector3(i, y0 + y + 1, this.ZValue2D), 
+                                                     new Vector3(i, y0 - y - 1, this.ZValue2D), }, true);
                 }
                 for (int i = x0 - y; i <= x0 + y; i++)
                 {
-                    DrawLineOrPoint(new Vector3[] {  new Vector3(i, y0 + x + 1, 0), 
-                                                     new Vector3(i, y0 - x - 1, 0), }, true);
+                    DrawLineOrPoint(new Vector3[] {  new Vector3(i, y0 + x + 1, this.ZValue2D), 
+                                                     new Vector3(i, y0 - x - 1, this.ZValue2D), }, true);
                 }
 
                 y++;
@@ -1574,7 +1574,7 @@ namespace GraphicPipelineDirect3D11
             SetPointSize(1);
             SetColor(color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
 
-            CircleArcDrawer.DrawFillCircleArc(pos, radius, startAngle, endAngle, (p) => DrawLineOrPoint(new Vector3[] { new Vector3(p.X, p.Y, 0) }, true));
+            CircleArcDrawer.DrawFillCircleArc(pos, radius, startAngle, endAngle, (p) => DrawLineOrPoint(new Vector3[] { new Vector3(p.X, p.Y, this.ZValue2D) }, true));
         }
 
         public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor)
@@ -1587,14 +1587,14 @@ namespace GraphicPipelineDirect3D11
             int id = GetTriangleArrayId(new GraphicGlobal.Triangle[] 
             { 
                 new GraphicGlobal.Triangle(
-                    new Vertex(x, y, 0, sourceX / (float)tex.Width, sourceY / (float)tex.Height){Normal = new Vector3D(0,0,1) }, 
-                    new Vertex(x, y + height, 0, sourceX / (float)tex.Width, (sourceY + sourceHeight)/ (float)tex.Height){Normal = new Vector3D(0,0,1) }, 
-                    new Vertex(x + width, y, 0, (sourceX + sourceWidth) / (float)tex.Width, sourceY / (float)tex.Height){Normal = new Vector3D(0,0,1) }),
+                    new Vertex(x, y, this.ZValue2D, sourceX / (float)tex.Width, sourceY / (float)tex.Height){Normal = new Vector3D(0,0,1) }, 
+                    new Vertex(x, y + height, this.ZValue2D, sourceX / (float)tex.Width, (sourceY + sourceHeight)/ (float)tex.Height){Normal = new Vector3D(0,0,1) }, 
+                    new Vertex(x + width, y, this.ZValue2D, (sourceX + sourceWidth) / (float)tex.Width, sourceY / (float)tex.Height){Normal = new Vector3D(0,0,1) }),
 
                 new GraphicGlobal.Triangle(
-                    new Vertex(x, y + height, 0, sourceX / (float)tex.Width, (sourceY + sourceHeight) / (float)tex.Height){Normal = new Vector3D(0,0,1) }, 
-                    new Vertex(x + width, y + height, 0, (sourceX + sourceWidth) / (float)tex.Width, (sourceY + sourceHeight)/ (float)tex.Height){Normal = new Vector3D(0,0,1) }, 
-                    new Vertex(x + width, y, 0, (sourceX + sourceWidth) / (float)tex.Width, sourceY / (float)tex.Height){Normal = new Vector3D(0,0,1) })
+                    new Vertex(x, y + height, this.ZValue2D, sourceX / (float)tex.Width, (sourceY + sourceHeight) / (float)tex.Height){Normal = new Vector3D(0,0,1) }, 
+                    new Vertex(x + width, y + height, this.ZValue2D, (sourceX + sourceWidth) / (float)tex.Width, (sourceY + sourceHeight)/ (float)tex.Height){Normal = new Vector3D(0,0,1) }, 
+                    new Vertex(x + width, y, this.ZValue2D, (sourceX + sourceWidth) / (float)tex.Width, sourceY / (float)tex.Height){Normal = new Vector3D(0,0,1) })
             });
             DrawTriangleArray(id);
             RemoveTriangleArray(id);
@@ -1620,8 +1620,8 @@ namespace GraphicPipelineDirect3D11
             SetTexture(textureId);
             int id = GetTriangleArrayId(new GraphicGlobal.Triangle[] 
             { 
-                new GraphicGlobal.Triangle(new Vertex(x, y, 0, 0, 0){Normal = new Vector3D(0,0,1) }, new Vertex(x, y + height, 0, 0, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + width, y, 0, 1, 0){Normal = new Vector3D(0,0,1) }),
-                new GraphicGlobal.Triangle(new Vertex(x, y + height, 0, 0, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + width, y + height, 0, 1, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + width, y, 0, 1, 0){Normal = new Vector3D(0,0,1) })
+                new GraphicGlobal.Triangle(new Vertex(x, y, this.ZValue2D, 0, 0){Normal = new Vector3D(0,0,1) }, new Vertex(x, y + height, this.ZValue2D, 0, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + width, y, this.ZValue2D, 1, 0){Normal = new Vector3D(0,0,1) }),
+                new GraphicGlobal.Triangle(new Vertex(x, y + height, this.ZValue2D, 0, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + width, y + height, this.ZValue2D, 1, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + width, y, this.ZValue2D, 1, 0){Normal = new Vector3D(0,0,1) })
             });
             DrawTriangleArray(id);
             RemoveTriangleArray(id);
@@ -1655,8 +1655,8 @@ namespace GraphicPipelineDirect3D11
             SetColor(color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
             int id = GetTriangleArrayId(new GraphicGlobal.Triangle[] 
             { 
-                new GraphicGlobal.Triangle(new Vertex(x, y, 0, 0, 0){Normal = new Vector3D(0,0,1) }, new Vertex(x, y + height, 0, 0, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + width, y, 0, 1, 0){Normal = new Vector3D(0,0,1) }), 
-                new GraphicGlobal.Triangle(new Vertex(x, y + height, 0, 0, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + width, y + height, 0, 1, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + width, y, 0, 1, 0){Normal = new Vector3D(0,0,1) })
+                new GraphicGlobal.Triangle(new Vertex(x, y, this.ZValue2D, 0, 0){Normal = new Vector3D(0,0,1) }, new Vertex(x, y + height, this.ZValue2D, 0, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + width, y, this.ZValue2D, 1, 0){Normal = new Vector3D(0,0,1) }), 
+                new GraphicGlobal.Triangle(new Vertex(x, y + height, this.ZValue2D, 0, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + width, y + height, this.ZValue2D, 1, 1){Normal = new Vector3D(0,0,1) }, new Vertex(x + width, y, this.ZValue2D, 1, 0){Normal = new Vector3D(0,0,1) })
             });
             DrawTriangleArray(id);
             RemoveTriangleArray(id);
@@ -1692,9 +1692,9 @@ namespace GraphicPipelineDirect3D11
             {
                 SetTexture(textureId);
                 int id = GetTriangleArrayId(new GraphicGlobal.Triangle[] { new GraphicGlobal.Triangle( 
-                    new Vertex(triangle.P1.Position.X, triangle.P1.Position.Y, 0, triangle.P1.Textcoord.X, triangle.P1.Textcoord.Y){Normal = new Vector3D(0,0,1) }, 
-                    new Vertex(triangle.P2.Position.X, triangle.P2.Position.Y, 0, triangle.P2.Textcoord.X, triangle.P2.Textcoord.Y){Normal = new Vector3D(0,0,1) }, 
-                    new Vertex(triangle.P3.Position.X, triangle.P3.Position.Y, 0, triangle.P3.Textcoord.X, triangle.P3.Textcoord.Y){Normal = new Vector3D(0,0,1) })
+                    new Vertex(triangle.P1.Position.X, triangle.P1.Position.Y, this.ZValue2D, triangle.P1.Textcoord.X, triangle.P1.Textcoord.Y){Normal = new Vector3D(0,0,1) }, 
+                    new Vertex(triangle.P2.Position.X, triangle.P2.Position.Y, this.ZValue2D, triangle.P2.Textcoord.X, triangle.P2.Textcoord.Y){Normal = new Vector3D(0,0,1) }, 
+                    new Vertex(triangle.P3.Position.X, triangle.P3.Position.Y, this.ZValue2D, triangle.P3.Textcoord.X, triangle.P3.Textcoord.Y){Normal = new Vector3D(0,0,1) })
                 });
                 DrawTriangleArray(id);
                 RemoveTriangleArray(id);
@@ -1709,9 +1709,9 @@ namespace GraphicPipelineDirect3D11
             foreach (Triangle2D triangle in triangleList)
             {
                 int id = GetTriangleArrayId(new GraphicGlobal.Triangle[] { new GraphicGlobal.Triangle(
-                    new Vertex(triangle.P1.Position.X, triangle.P1.Position.Y, 0, triangle.P1.Textcoord.X, triangle.P1.Textcoord.Y){Normal = new Vector3D(0,0,1) }, 
-                    new Vertex(triangle.P2.Position.X, triangle.P2.Position.Y, 0, triangle.P2.Textcoord.X, triangle.P2.Textcoord.Y){Normal = new Vector3D(0,0,1) }, 
-                    new Vertex(triangle.P3.Position.X, triangle.P3.Position.Y, 0, triangle.P3.Textcoord.X, triangle.P3.Textcoord.Y){Normal = new Vector3D(0,0,1) })
+                    new Vertex(triangle.P1.Position.X, triangle.P1.Position.Y, this.ZValue2D, triangle.P1.Textcoord.X, triangle.P1.Textcoord.Y){Normal = new Vector3D(0,0,1) }, 
+                    new Vertex(triangle.P2.Position.X, triangle.P2.Position.Y, this.ZValue2D, triangle.P2.Textcoord.X, triangle.P2.Textcoord.Y){Normal = new Vector3D(0,0,1) }, 
+                    new Vertex(triangle.P3.Position.X, triangle.P3.Position.Y, this.ZValue2D, triangle.P3.Textcoord.X, triangle.P3.Textcoord.Y){Normal = new Vector3D(0,0,1) })
                 });
                 DrawTriangleArray(id);
                 RemoveTriangleArray(id);
@@ -1727,13 +1727,13 @@ namespace GraphicPipelineDirect3D11
             SetTexture(textureId);
             int id = GetTriangleArrayId(new GraphicGlobal.Triangle[] { 
                 new GraphicGlobal.Triangle(
-                    new Vertex(x, y, 0, xBild * xf + 0.01f, yBild * yf + 0.01f){Normal = new Vector3D(0,0,1) },
-                    new Vertex(x, y + height, 0, xBild * xf + 0.01f, (yBild + 1)* yf - 0.01f){Normal = new Vector3D(0,0,1) },
-                    new Vertex(x + width, y, 0, (xBild+1) * xf - 0.01f, yBild * yf + 0.01f){Normal = new Vector3D(0,0,1) }),
+                    new Vertex(x, y, this.ZValue2D, xBild * xf + 0.01f, yBild * yf + 0.01f){Normal = new Vector3D(0,0,1) },
+                    new Vertex(x, y + height, this.ZValue2D, xBild * xf + 0.01f, (yBild + 1)* yf - 0.01f){Normal = new Vector3D(0,0,1) },
+                    new Vertex(x + width, y, this.ZValue2D, (xBild+1) * xf - 0.01f, yBild * yf + 0.01f){Normal = new Vector3D(0,0,1) }),
                 new GraphicGlobal.Triangle(
-                    new Vertex(x, y + height, 0, xBild * xf + 0.01f, (yBild+1) * yf - 0.01f){Normal = new Vector3D(0,0,1) },
-                    new Vertex(x + width, y + height, 0, (xBild+1) * xf - 0.01f, (yBild+1) * yf - 0.01f){Normal = new Vector3D(0,0,1) },
-                    new Vertex(x + width, y, 0, (xBild+1) * xf - 0.01f, yBild * yf + 0.01f){Normal = new Vector3D(0,0,1) })
+                    new Vertex(x, y + height, this.ZValue2D, xBild * xf + 0.01f, (yBild+1) * yf - 0.01f){Normal = new Vector3D(0,0,1) },
+                    new Vertex(x + width, y + height, this.ZValue2D, (xBild+1) * xf - 0.01f, (yBild+1) * yf - 0.01f){Normal = new Vector3D(0,0,1) },
+                    new Vertex(x + width, y, this.ZValue2D, (xBild+1) * xf - 0.01f, yBild * yf + 0.01f){Normal = new Vector3D(0,0,1) })
             });
             DrawTriangleArray(id);
             RemoveTriangleArray(id);

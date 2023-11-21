@@ -31,6 +31,9 @@ namespace GraphicGlobal
 
     public interface IDrawing2D
     {
+        float ZValue2D { get; set; } //Dieser Z-Wert wird bei allen 2D-Zeichenfunktionen genutzt (Default ist 0)
+        void EnableDepthTesting();
+        void DisableDepthTesting();
         void DrawLine(Pen pen, Vector2D p1, Vector2D p2);
         void DrawPixel(Vector2D pos, Color color, float size);
 

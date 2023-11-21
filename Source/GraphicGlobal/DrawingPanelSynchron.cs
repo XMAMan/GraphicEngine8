@@ -34,6 +34,7 @@ namespace GraphicGlobal
         public void ClearScreen(int textureId)
         {
             this.pipeline.DrawFillRectangle(textureId, 0, 0, this.Width, this.Height, Color.FromArgb(255, 255, 255, 255));
+            this.pipeline.ClearDepthAndStencilBuffer();
         }
 
         public void ClearScreen(Color color)
@@ -100,6 +101,21 @@ namespace GraphicGlobal
             //int colorTexture = this.GetPanel().Pipeline.GetDepthTextureIdFromFramebuffer(framebufferId); //Es geht bei DirectX; Bei CPU und OpenGL3-0 fehlt der Cubemapwürfel; OpenGL 1.0 liefert weißes Bild
             return this.GetPanel().Pipeline.GetTextureData(colorTexture);*/
 
+        }
+
+        public float ZValue2D
+        {
+            get => this.pipeline.ZValue2D;
+            set => this.pipeline.ZValue2D = value;
+        }
+
+        public void EnableDepthTesting()
+        {
+            this.pipeline.EnableDepthTesting();
+        }
+        public void DisableDepthTesting()
+        {
+            this.pipeline.DisableDepthTesting();
         }
 
         public void DrawLine(Pen pen, Vector2D p1, Vector2D p2)

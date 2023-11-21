@@ -6,7 +6,7 @@ using GraphicGlobal;
 
 namespace Rasterizer
 {
-    public class Rasterizer : DrawingPanelSynchron, IDrawingPanel
+    public class Rasterizer : DrawingPanelSynchron, IDrawingPanel, IDrawing3D, IDrawing2D
     {
         private Dictionary<DrawingObject, RasterizerDrawingObject> drawingObjectCache = new Dictionary<DrawingObject, RasterizerDrawingObject>();
         private Dictionary<RasterizerLightSourceDescription, int> shadowmapCache = new Dictionary<RasterizerLightSourceDescription, int>();//Lichtquellen werden wegen der Shadowmap-Id gecacht
