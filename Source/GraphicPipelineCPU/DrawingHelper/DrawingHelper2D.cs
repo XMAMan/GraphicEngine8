@@ -7,6 +7,7 @@ using GraphicPipelineCPU.Textures;
 using GraphicPipelineCPU.Rasterizer;
 using GraphicGlobal;
 using GraphicGlobal.Rasterizer2DFunctions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GraphicPipelineCPU.DrawingHelper
 {
@@ -71,7 +72,15 @@ namespace GraphicPipelineCPU.DrawingHelper
         {
             if (prop.IsScissorEnabled == false || (prop.IsScissorEnabled && x >= prop.ScissorRectangle.Left && x < prop.ScissorRectangle.Right && y >= prop.ScissorRectangle.Top && y < prop.ScissorRectangle.Bottom))
             {
+                if (prop.DepthTestingIsEnabled)                                 // Dephtest
+                {
+                    if (prop.ZValue2DTransformed < 0 || prop.ZValue2DTransformed > 1) return;         // Pixel liegt nicht im Sichtbereich
+                    if (prop.Buffer.Depth[x, y] < prop.ZValue2DTransformed) return;        // Ein anderer Pixel liegt bereits da
+                }
+
                 Color color = colorFunc(pp);
+
+                if (prop.Discard100Transparent && color.A < 2) return;
 
                 if (prop.BlendingIsEnabled)
                 {
@@ -81,6 +90,9 @@ namespace GraphicPipelineCPU.DrawingHelper
                 {
                     prop.Buffer.Color[x,y] = color;
                 }
+
+                if (prop.WritingToDepthBuffer && prop.Buffer.Depth != null)
+                    prop.Buffer.Depth[x, y] = prop.ZValue2DTransformed;
             }
         }
 

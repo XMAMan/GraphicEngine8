@@ -72,6 +72,9 @@ namespace GraphicPipelineCPU
         public Control DrawingArea;
         public bool IsScissorEnabled = false;
         public Rectangle ScissorRectangle;
+        public float ZValue2D = 0; //Wenn ich DepthTesting bei 2D-Grafiken verwenden will
+        public float ZNearOrtho, ZFarOrtho, ZValue2DTransformed; //Parameter von SetProjectionMatrix2D(..)
+        public bool Discard100Transparent = false; //Sollen Pixel, die 100% Transparent sind verworfen werden? Wird benötigt, wenn man bei 2D-Grafiken DepthTesting + MakeFirstPixelTransparent nutzen will
 
         //2D + 3D
         public Framebuffer Buffer = null; //[x,y]    -> Dieser Puffer zeigt entweder auf 'StandardBuffer' oder auf ein Framebuffer

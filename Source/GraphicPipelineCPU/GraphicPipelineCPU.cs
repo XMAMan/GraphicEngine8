@@ -72,7 +72,9 @@ namespace GraphicPipelineCPU
         {
             if (left == 0 && right == 0)
             {
-                prop.ProjectionMatrix = Matrix4x4.ProjectionMatrixOrtho(prop.ViewPort.Left, prop.ViewPort.Right, prop.ViewPort.Bottom, prop.ViewPort.Top, +10.0f, -10.0f);
+                prop.ZNearOrtho = -1000;
+                prop.ZFarOrtho = 1000;
+                prop.ProjectionMatrix = Matrix4x4.ProjectionMatrixOrtho(prop.ViewPort.Left, prop.ViewPort.Right, prop.ViewPort.Bottom, prop.ViewPort.Top, -1000.0f, +1000.0f);
             }
             else
             {
@@ -523,6 +525,7 @@ namespace GraphicPipelineCPU
         public void DisableBlending()
         {
             prop.BlendingIsEnabled = false;
+            prop.Discard100Transparent = false;
         }
 
         public void EnableWireframe()
@@ -654,7 +657,38 @@ namespace GraphicPipelineCPU
 
         #region 2D
 
-        public float ZValue2D { get; set; } = 0;
+        public float ZValue2D 
+        { 
+            get => prop.ZValue2D; 
+            set
+            {
+                prop.ZValue2D = value;
+                prop.ZValue2DTransformed = OrthoZTransform(value);
+            }
+        }
+
+        //Transformiert den Z-Wert in ein 0..1-Bereich (so wie es auch die Ortho-Matrix machen würde)
+        public  float OrthoZTransform(float zValue)
+        {
+            return 1 - (zValue - prop.ZNearOrtho) / (prop.ZFarOrtho - prop.ZNearOrtho);
+        }
+
+        private void UseAlphaBlendingAndDiscardTransparent(Color colorFactor)
+        {
+            //Jemand möchte eine Figur teilweise transparent zeichnen
+            if (colorFactor.A < 255)
+            {
+                //Es wird Alpha-Gewichtet in den ColorBuffer geschrieben
+                SetBlendingWithAlpha();
+            }
+            else
+            {
+                //Nutze kein Alpha-Blending sondern zeichne überhaupt nicht in den ColorBuffer, wenn 
+                //das Pixel zu 100% Transparent ist (colorFactor.A ist 255 aber im Bitmap sind manche Pixel transparent)
+                DisableBlending();
+                prop.Discard100Transparent = true;
+            }
+        }
 
         public void DrawLine(Pen pen, Vector2D p1, Vector2D p2)
         {
@@ -708,30 +742,35 @@ namespace GraphicPipelineCPU
 
         public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor)
         {
+            UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawImage(prop.Textures.GetColorTexture(textureId), x, y, width, height, sourceX, sourceY, sourceWidth, sourceHeight);
         }
 
         public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor, float zAngle, float yAngle)
         {
+            UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawImage(prop.Textures.GetColorTexture(textureId), x, y, width, height, sourceX, sourceY, sourceWidth, sourceHeight, zAngle, yAngle);
         }
 
         public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor)
         {
+            UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawFillRectangle(prop.Textures.GetColorTexture(textureId), x, y, width, height);
         }
 
         public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
+            UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawFillRectangle(prop.Textures.GetColorTexture(textureId), x, y, width, height, angle);
         }
 
         public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
+            UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawFillRectangle(prop.Textures.GetColorTexture(textureId), x, y, width, height, zAngle, yAngle);
         }
@@ -753,6 +792,7 @@ namespace GraphicPipelineCPU
 
         public void DrawFillPolygon(int textureId, Color colorFactor, List<Triangle2D> triangleList)
         {
+            UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawFillPolygon(prop.Textures.GetColorTexture(textureId), triangleList);
         }
@@ -764,6 +804,7 @@ namespace GraphicPipelineCPU
 
         public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, int x, int y, int width, int height, Color colorFactor)
         {
+            UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawSprite(prop.Textures.GetColorTexture(textureId), xCount, yCount, xBild, yBild, x, y, width, height);
         }
