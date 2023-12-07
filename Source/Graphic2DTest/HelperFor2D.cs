@@ -49,7 +49,7 @@ namespace Graphic2DTest
             return polygon.Select(x => new Vertex2D(x.Position + position, x.Textcoord)).ToArray();
         }
 
-        public static void Draw2D(GraphicPanel2D graphic, string dataDirectory, int spriteNr, List<Vertex2D[]> voronioPolygons, List<Point> voronoiCellPoints, TextureData marioTex, bool showScreenAlpha)
+        public static void Draw2D(GraphicPanel2D graphic, string dataDirectory, int spriteNr, List<Vertex2D[]> voronioPolygons, List<Point> voronoiCellPoints, TextureData marioTex, bool showScreenAlpha, Matrix4x4 transform)
         {
             /*graphic.ClearScreen(Color.White);
              foreach (var polygon in this.voronioPolygons)
@@ -67,7 +67,7 @@ namespace Graphic2DTest
 
             string text = graphic.Mode.ToString();
             graphic.ClearScreen(dataDirectory + "thumb_COLOURBOX5847554.jpg");
-
+            graphic.MultTransformationMatrix(transform);
             Size size = graphic.GetStringSize(20, text);
 
             graphic.EnableScissorTesting(300, 20, 60, 25);

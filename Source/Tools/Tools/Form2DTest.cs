@@ -40,7 +40,7 @@ namespace Tools
 
         private void GraphicPanel2D_SizeChanged(object sender, EventArgs e)
         {
-            HelperFor2D.Draw2D(this.graphicPanel2D, WorkingDirectory, this.spriteNr, this.voronioPolygons, this.voronoiCellPoints, this.marioTexture, false);
+            HelperFor2D.Draw2D(this.graphicPanel2D, WorkingDirectory, this.spriteNr, this.voronioPolygons, this.voronoiCellPoints, this.marioTexture, false, Matrix4x4.Ident());
         }
 
         void GraphicPanel2D_MouseClick(object sender, MouseEventArgs e)

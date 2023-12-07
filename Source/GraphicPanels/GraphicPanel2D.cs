@@ -84,6 +84,26 @@ namespace GraphicPanels
         public void DisableDepthTesting()
         {
             GetPanel<IDrawing2D>().DisableDepthTesting();
-        }        
+        }
+
+        public void SetTransformationMatrixToIdentity()
+        {
+            GetPanel<IDrawing3D>().Pipeline.SetModelViewMatrixToIdentity();
+        }
+
+        public void MultTransformationMatrix(Matrix4x4 matrix)
+        {
+            GetPanel<IDrawing3D>().Pipeline.MultMatrix(matrix);
+        }
+
+        public void PushMatrix()
+        {
+            GetPanel<IDrawing3D>().Pipeline.PushMatrix();
+        }
+
+        public void PopMatrix()
+        {
+            GetPanel<IDrawing3D>().Pipeline.PopMatrix();
+        }
     }
 }

@@ -22,12 +22,21 @@ namespace GraphicPipelineCPU.DrawingHelper
 
         private void DrawTriangle2D(Vertex2D p1, Vertex2D p2, Vertex2D p3, Color color)
         {
-            DrawTriangle2D(p1, p2, p3, (_)=> color);
+            DrawTriangle2D(ViewPortTransformation(p1), ViewPortTransformation(p2), ViewPortTransformation(p3), (_) => color);
         }
 
-        private Vector2D ViewPortTransformation(Vector2D v)
+        public Vector2D ViewPortTransformation(Vector2D v)
         {
+            v = Matrix4x4.MultPosition(prop.ModelviewMatrix, new Vector3D(v.X, v.Y, 0)).XY;
             return prop.ViewPort.TransformIntoViewPort(new Vector2D(v.X / (float)prop.DrawingArea.Width, v.Y / (float)prop.DrawingArea.Height));
+        }
+
+        private float TransformLength(float length)
+        {
+            var p1 = Matrix4x4.MultPosition(prop.ModelviewMatrix, new Vector3D(0, 0, 0)).XY;
+            var p2 = Matrix4x4.MultPosition(prop.ModelviewMatrix, new Vector3D(length, 0, 0)).XY;
+
+            return (p2 - p1).Length();
         }
 
         private Vertex2D ViewPortTransformation(Vertex2D v)
@@ -100,6 +109,8 @@ namespace GraphicPipelineCPU.DrawingHelper
         {
             Vector2D r = (p2 - p1).Normalize();
             Vector2D n = -r.Spin90() / 2 * pen.Width;
+
+
 
             p1 = new Vector2D(p1.X - 0.6f, p1.Y);
             p2 = new Vector2D(p2.X - 0.6f, p2.Y);
@@ -175,23 +186,10 @@ namespace GraphicPipelineCPU.DrawingHelper
 
         public void DrawRectangle(Pen pen, int x, int y, int width, int height)
         {
-            var pos = ViewPortTransformation(new Vector2D(x, y));
-            x = (int)pos.X;
-            y = (int)pos.Y;
-            var wh = prop.ViewPort.TransformIntoViewPort(new SizeF(width / (float)prop.DrawingArea.Width, height / (float)prop.DrawingArea.Height));
-            width = wh.Width;
-            height = wh.Height;
-
-            for (int xi = x; xi <= x + width; xi++)
-            {
-                DrawPixel(new Vector2D(xi, y), pen.Color, pen.Width);
-                DrawPixel(new Vector2D(xi, y + height), pen.Color, pen.Width);
-            }
-            for (int yi = y; yi <= y + height; yi++)
-            {
-                DrawPixel(new Vector2D(x, yi), pen.Color, pen.Width);
-                DrawPixel(new Vector2D(x + width, yi), pen.Color, pen.Width);
-            }
+            DrawLineWithLineRasterizer(pen, new Vector2D(x, y), new Vector2D(x + width, y));
+            DrawLineWithLineRasterizer(pen, new Vector2D(x + width, y), new Vector2D(x + width, y + height));
+            DrawLineWithLineRasterizer(pen, new Vector2D(x + width, y + height), new Vector2D(x, y + height));
+            DrawLineWithLineRasterizer(pen, new Vector2D(x, y), new Vector2D(x, y + height));
         }
 
         public void DrawPolygon(Pen pen, List<Vector2D> points)
@@ -203,6 +201,7 @@ namespace GraphicPipelineCPU.DrawingHelper
         public void DrawCircle(Pen pen, Vector2D pos, int radius)
         {
             pos = ViewPortTransformation(pos);
+            radius = (int)TransformLength(radius);
 
             ShapeDrawer.DrawCircle(pos, radius, (p) => DrawPixel(new Vector2D(p.X, p.Y), pen.Color, pen.Width));
         }
@@ -211,6 +210,7 @@ namespace GraphicPipelineCPU.DrawingHelper
         public void DrawFillCircle(Color color, Vector2D pos, int radius)
         {
             pos = ViewPortTransformation(pos);
+            radius = (int)TransformLength(radius);
 
             ShapeDrawer.DrawFillCircle(pos, radius, (p) => DrawPixel(new Vector2D(p.X, p.Y), color, 1));
         }
@@ -218,12 +218,16 @@ namespace GraphicPipelineCPU.DrawingHelper
         public void DrawCircleArc(Pen pen, Vector2D pos, int radius, float startAngle, float endAngle, bool withBorderLines)
         {
             pos = ViewPortTransformation(pos);
+            radius = (int)TransformLength(radius);
 
             CircleArcDrawer.DrawCircleArc(pos, radius, startAngle, endAngle, withBorderLines, (p) => DrawPixel(p, pen.Color, pen.Width));
         }
 
         public void DrawFillCircleArc(Color color, Vector2D pos, int radius, float startAngle, float endAngle)
         {
+            pos = ViewPortTransformation(pos);
+            radius = (int)TransformLength(radius);
+
             CircleArcDrawer.DrawFillCircleArc(pos, radius, startAngle, endAngle, (p) => DrawPixel(new Vector2D(p.X, p.Y), color, 1));
         }
 

@@ -698,7 +698,9 @@ namespace GraphicPipelineCPU
 
         public void DrawPixel(Vector2D pos, Color color, float size)
         {
-            new DrawingHelper2D(prop).DrawPixel(pos + new Vector2D(0, 0.5f), color, size);
+            var helper = new DrawingHelper2D(prop);
+            pos = helper.ViewPortTransformation(pos);
+            helper.DrawPixel(pos + new Vector2D(0, 0.5f), color, size);
         }
 
         public Size GetStringSize(float size, string text)

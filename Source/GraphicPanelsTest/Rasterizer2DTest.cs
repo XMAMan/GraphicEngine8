@@ -29,7 +29,7 @@ namespace GraphicPanelsTest
         [TestMethod]
         public void Rasterizer2D()
         {
-            Bitmap result = BitmapHelp.TransformBitmapListToRow(modesToTest.Select(x => CreateImage(x, 477, 359)).ToList());
+            Bitmap result = BitmapHelp.TransformBitmapListToRow(modesToTest.Select(x => CreateImage(x, 477, 359, Matrix4x4.Ident())).ToList());
 
             result.Save(WorkingDirectory + "Rasterizer2D.bmp");
 
@@ -37,6 +37,69 @@ namespace GraphicPanelsTest
 
             Assert.IsTrue(UnitTestHelper.BitmapHelper.CompareTwoBitmaps(expected, result));
         }
+
+        //Hier wird das Rasterizer2D-Bild auf 80% verkleinert und um 20 Grad im Uhrzeigersinn gedreht indem eine Matrix verwendet wird
+        [TestMethod]
+        public void Rasterizer2DWithTransformation()
+        {
+            int width = 477, height = 359;
+
+            var m = Matrix4x4.Ident();
+            m *= Matrix4x4.Translate(-width / 2, -height / 2, 0);   //Verschiebe die Mitte des Bildes auf den Nullpunkt
+            m *= Matrix4x4.Rotate(20, 0, 0, 1);                     //Drehe das Bild um 20 Grad um die Z-Achse
+            m *= Matrix4x4.Scale(0.8f, 0.8f, 0.8f);                 //Skaliere das Bild auf 80%
+            m *= Matrix4x4.Translate(+width / 2, +height / 2, 0);   //Bringe das Bild zurück zur Bildschirmmitte
+
+            Bitmap result = BitmapHelp.TransformBitmapListToRow(modesToTest.Select(x => CreateImage(x, width, height, m)).ToList());
+
+            result.Save(WorkingDirectory + "Rasterizer2DWithTransformation.bmp");
+
+            Bitmap expected = new Bitmap(WorkingDirectory + "ExpectedValues\\Rasterizer2DWithTransformatio_Expected.bmp");
+
+            Assert.IsTrue(UnitTestHelper.BitmapHelper.CompareTwoBitmaps(expected, result));
+        }
+
+        [TestMethod]
+        public void GraphicPanel2DWithTransformation()
+        {
+            GraphicPanel2D panel = new GraphicPanel2D() { Mode = Mode2D.CPU, Width = 400, Height = 400 };
+
+            panel.ClearScreen(Color.White);
+
+            //Beispiel 1: So kann man ein Rechteck um sein Zentrum um die Z-Achse um 45 Grad drehen
+            Rectangle rec1 = new Rectangle(30, 40, 60, 20);
+            panel.DrawRectangle(Pens.Red, rec1.X, rec1.Y, rec1.Width, rec1.Height); //Unverändertes Rechteck
+
+            //Die Matrix-Operationen müssen rückwärts angegeben werden wenn man direkt mit MultTransformationMatrix arbeitet
+            panel.SetTransformationMatrixToIdentity();
+            panel.MultTransformationMatrix(Matrix4x4.Translate(+rec1.X + rec1.Width / 2, +rec1.Y + rec1.Height / 2, 0)); //Schritt 3: Gehe zurück zum Ausgangspunkt
+            panel.MultTransformationMatrix(Matrix4x4.Rotate(45, 0,0,1));                                             //Schritt 2: Drehe es um 45 Grad um die Z-Achse
+            panel.MultTransformationMatrix(Matrix4x4.Translate(-rec1.X - rec1.Width / 2, -rec1.Y - rec1.Height / 2, 0)); //Schritt 1: Bewege das Rechteckzentrum zum Nullpunkt
+
+            panel.DrawRectangle(Pens.Blue, rec1.X, rec1.Y, rec1.Width, rec1.Height); // Rechteck was gedreht wurde
+
+            //Beispiel 2: So kann ein Rechteck um die rechte untere Ecke skaliert werden.
+            //Hier müssen die Matrix-Operationen vorwärts angegeben werden, wenn man direkt mit der Matrix-Klasse arbeitet
+            Rectangle rec2 = new Rectangle(30, 90, 60, 20);
+            panel.SetTransformationMatrixToIdentity();
+            panel.DrawRectangle(Pens.Red, rec2.X, rec2.Y, rec2.Width, rec2.Height); //Unverändertes Rechteck
+            var m = Matrix4x4.Ident();
+            m *= Matrix4x4.Translate(-rec2.Right, -rec2.Bottom, 0); //Schritt 1: Bringe die rechte untere Ecke auf den Nullpunkt
+            m *= Matrix4x4.Scale(0.5f, 0.5f, 0.5f);                 //Schritt 2: Halbiere die Größe
+            m *= Matrix4x4.Translate(+rec2.Right, +rec2.Bottom, 0); //Schritt 3: Gehe zurück
+            panel.MultTransformationMatrix(m);
+            panel.DrawRectangle(Pens.Blue, rec2.X, rec2.Y, rec2.Width, rec2.Height);
+
+            panel.FlipBuffer();
+
+            Bitmap result = panel.GetScreenShoot();
+
+            result.Save(WorkingDirectory + "GraphicPanel2DWithTransformation.bmp");
+
+            panel.Dispose();
+        }
+
+
 
         [TestMethod]
         public void CircleArcTest()
@@ -119,7 +182,7 @@ namespace GraphicPanelsTest
             BitmapHelp.TransformBitmapListToRow(images).Save(WorkingDirectory + "CircleArcsTutorial.bmp");
         }
 
-        private Bitmap CreateImage(Mode2D mode, int width, int height)
+        private Bitmap CreateImage(Mode2D mode, int width, int height, Matrix4x4 transform)
         {
             GraphicPanel2D graphic = new GraphicPanel2D() { Width = width, Height = height, Mode = mode };
 
@@ -130,7 +193,7 @@ namespace GraphicPanelsTest
             var voronioPolygons = GraphicPanel2D.GetVoronoiPolygons(marioTexture.Image.Size, voronoiCellPoints);
             voronioPolygons = voronioPolygons.Select(x => HelperFor2D.TransformPolygon(x, new Vector2D(340, 30))).ToList(); //Verschiebe an Position
 
-            HelperFor2D.Draw2D(graphic, DataDirectory, spriteNr, voronioPolygons, voronoiCellPoints, marioTexture, true);
+            HelperFor2D.Draw2D(graphic, DataDirectory, spriteNr, voronioPolygons, voronoiCellPoints, marioTexture, true, transform);
             Bitmap img = graphic.GetScreenShoot();
             graphic.Dispose();
             return img;
