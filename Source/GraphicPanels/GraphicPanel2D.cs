@@ -86,6 +86,16 @@ namespace GraphicPanels
             GetPanel<IDrawing2D>().DisableDepthTesting();
         }
 
+        public void EnableWritingToTheDepthBuffer()
+        {
+            GetPanel<IDrawing2D>().EnableWritingToTheDepthBuffer();
+        }
+
+        public void DisableWritingToTheDepthBuffer()
+        {
+            GetPanel<IDrawing2D>().DisableWritingToTheDepthBuffer();
+        }
+
         public void SetTransformationMatrixToIdentity()
         {
             GetPanel<IDrawing3D>().Pipeline.SetModelViewMatrixToIdentity();

@@ -117,7 +117,15 @@ namespace GraphicGlobal
         {
             this.pipeline.DisableDepthTesting();
         }
-
+        public void EnableWritingToTheDepthBuffer()
+        {
+            this.pipeline.EnableWritingToTheDepthBuffer();
+        }
+        public void DisableWritingToTheDepthBuffer()
+        {
+            this.pipeline.DisableWritingToTheDepthBuffer();
+        }
+        
         public void DrawLine(Pen pen, Vector2D p1, Vector2D p2)
         {
             this.pipeline.DrawLine(pen, p1, p2);
