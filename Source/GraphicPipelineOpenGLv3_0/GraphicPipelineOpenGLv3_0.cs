@@ -1391,8 +1391,8 @@ namespace GraphicPipelineOpenGLv3_0
                 GL.Disable(EnableCap.LineStipple);
             GL.Color3(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
             GL.Begin(PrimitiveType.Lines);
-            GL.Vertex3(p1.X + 0.5f, p1.Y, this.ZValue2D); //OpenGL verschiebt Linien immer um 0.5f Pixel nach links. Damit gleiche ich das aus
-            GL.Vertex3(p2.X + 0.5f, p2.Y, this.ZValue2D);
+            GL.Vertex3(p1.X, p1.Y, this.ZValue2D); //OpenGL verschiebt Linien immer um 0.5f Pixel nach links. Damit gleiche ich das aus
+            GL.Vertex3(p2.X, p2.Y, this.ZValue2D);
             GL.End();
         }
 
