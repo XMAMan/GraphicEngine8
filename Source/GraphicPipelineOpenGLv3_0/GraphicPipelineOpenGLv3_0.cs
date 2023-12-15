@@ -1423,7 +1423,7 @@ namespace GraphicPipelineOpenGLv3_0
         public void DrawString(int x, int y, System.Drawing.Color color, float size, string text)
         {
             GL.LoadMatrix(ref modelViewMatrix);
-            string key = text + size;
+            string key = text + "_" + size + "_" + color.R + "_" + color.G + "_" + color.B;
             if (!texte.Keys.Contains(key))
             {
                 texte.Add(key, CreateTextureFromBitmap(BitmapHelp.GetBitmapText(text, size, color, Color.Transparent)));

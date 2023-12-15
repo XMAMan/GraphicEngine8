@@ -1481,7 +1481,7 @@ namespace GraphicPipelineDirect3D11
 
         public void DrawString(int x, int y, Color color, float size, string text)
         {
-            string key = text + size;
+            string key = text + "_" + size + "_" + color.R + "_" + color.G + "_" + color.B;
             if (!texte.Keys.Contains(key))
             {
                 texte.Add(key, CreateTextureFromBitmap(BitmapHelp.GetBitmapText(text, size, color, Color.Transparent)));

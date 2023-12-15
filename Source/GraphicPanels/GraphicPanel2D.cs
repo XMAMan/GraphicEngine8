@@ -106,6 +106,11 @@ namespace GraphicPanels
             GetPanel<IDrawing3D>().Pipeline.MultMatrix(matrix);
         }
 
+        public Matrix4x4 GetTransformationMatrix()
+        {
+            return GetPanel<IDrawing3D>().Pipeline.GetModelViewMatrix();
+        }
+
         public void PushMatrix()
         {
             GetPanel<IDrawing3D>().Pipeline.PushMatrix();
