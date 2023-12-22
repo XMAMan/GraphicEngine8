@@ -524,5 +524,24 @@ namespace GraphicMinimal
                                         0,   0,   0,   0});
         }
 
+
+        public static float GetSizeFactorFromMatrix(Matrix4x4 matrix)
+        {
+            var p1 = Matrix4x4.MultPosition(matrix, new Vector3D(0, 0, 0)).XY;
+            var p2 = Matrix4x4.MultPosition(matrix, new Vector3D(1, 0, 0)).XY;
+            return (p2 - p1).Length();
+        }
+
+        public static float GetAngleInDegreeFromMatrix(Matrix4x4 matrix)
+        {
+            var p1 = Matrix4x4.MultPosition(matrix, new Vector3D(0, 0, 0)).XY;
+            var p2 = Matrix4x4.MultPosition(matrix, new Vector3D(1, 0, 0)).XY;
+            return Vector2D.Angle360(new Vector2D(1, 0), p2 - p1);
+        }
+
+        public static Vector2D GetTranslationVectorFromMatrix(Matrix4x4 matrix)
+        {
+            return Matrix4x4.MultPosition(matrix, new Vector3D(0, 0, 0)).XY;
+        }
     }
 }
