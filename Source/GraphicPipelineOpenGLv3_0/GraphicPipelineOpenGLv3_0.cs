@@ -1681,7 +1681,7 @@ namespace GraphicPipelineOpenGLv3_0
             GL.End();
         }
 
-        public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, int x, int y, int width, int height, Color colorFactor)
+        public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, Color colorFactor)
         {
             float xf = 1.0f / xCount, yf = 1.0f / yCount;
             UseAlphaBlendingAndDiscardTransparent(colorFactor);// SetBlendingWithAlpha();

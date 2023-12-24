@@ -225,7 +225,7 @@ namespace GraphicGlobal
             this.pipeline.DrawFillCircleArc(color, pos, radius, startAngle, endAngle);
         }
 
-        public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, int x, int y, int width, int height, Color colorFactor)
+        public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, Color colorFactor)
         {
             this.pipeline.DrawSprite(textureId, xCount, yCount, xBild, yBild, x, y, width, height, colorFactor);
         }

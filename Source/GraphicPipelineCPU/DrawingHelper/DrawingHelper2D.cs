@@ -334,7 +334,7 @@ namespace GraphicPipelineCPU.DrawingHelper
             }
         }
 
-        public void DrawSprite(ColorTexture texture, int xCount, int yCount, int xBild, int yBild, int x, int y, int width, int height)
+        public void DrawSprite(ColorTexture texture, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height)
         {
             float xf = 1.0f / xCount, yf = 1.0f / yCount;
             DrawTriangle2D(new Vertex2D(x, y, xBild * xf + 0.01f, yBild * yf + 0.01f),

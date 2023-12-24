@@ -1737,7 +1737,7 @@ namespace GraphicPipelineDirect3D11
             }
         }
 
-        public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, int x, int y, int width, int height, Color colorFactor)
+        public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, Color colorFactor)
         {
             UseAlphaBlendingAndDiscardTransparent(colorFactor); // SetBlendingWithAlpha();
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);

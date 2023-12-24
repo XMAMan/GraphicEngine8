@@ -585,7 +585,7 @@ namespace GraphicPanels
             this.GetPanel<IDrawing2D>().DrawFillPolygon(color, triangleList);
         }
 
-        public void DrawSprite(string spriteFile, int xCount, int yCount, int xBild, int yBild, int x, int y, int width, int height, bool makeFirstPixelTransparent, Color colorFactor)
+        public void DrawSprite(string spriteFile, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, bool makeFirstPixelTransparent, Color colorFactor)
         {
             this.GetPanel<IDrawing2D>().DrawSprite(GetTextureId(spriteFile, makeFirstPixelTransparent), xCount, yCount, xBild, yBild, x, y, width, height, colorFactor);
         }
