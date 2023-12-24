@@ -231,19 +231,19 @@ namespace GraphicPipelineCPU.DrawingHelper
             CircleArcDrawer.DrawFillCircleArc(pos, radius, startAngle, endAngle, (p) => DrawPixel(new Vector2D(p.X, p.Y), color, 1));
         }
 
-        public void DrawImage(ColorTexture texture, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight)
+        public void DrawImage(ColorTexture texture, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight)
         {
             Size tex = texture.GetSize();
-            DrawTriangle2D(new Vertex2D(x, y, sourceX / (float)tex.Width, sourceY / (float)tex.Height),
-                           new Vertex2D(x + width, y, (sourceX + sourceWidth) / (float)tex.Width, sourceY / (float)tex.Height),
-                           new Vertex2D(x, y + height, sourceX / (float)tex.Width, (sourceY + sourceHeight) / (float)tex.Height), texture);
+            DrawTriangle2D(new Vertex2D(x, y, sourceX / tex.Width, sourceY / tex.Height),
+                           new Vertex2D(x + width, y, (sourceX + sourceWidth) / tex.Width, sourceY / tex.Height),
+                           new Vertex2D(x, y + height, sourceX / tex.Width, (sourceY + sourceHeight) / tex.Height), texture);
 
-            DrawTriangle2D(new Vertex2D(x + width, y + height, (sourceX + sourceWidth) / (float)tex.Width, (sourceY + sourceHeight) / (float)tex.Height),
-                           new Vertex2D(x + width, y, (sourceX + sourceWidth) / (float)tex.Width, sourceY / (float)tex.Height),
-                           new Vertex2D(x, y + height, sourceX / (float)tex.Width, (sourceY + sourceHeight) / (float)tex.Height), texture);
+            DrawTriangle2D(new Vertex2D(x + width, y + height, (sourceX + sourceWidth) / tex.Width, (sourceY + sourceHeight) / tex.Height),
+                           new Vertex2D(x + width, y, (sourceX + sourceWidth) / tex.Width, sourceY / tex.Height),
+                           new Vertex2D(x, y + height, sourceX / tex.Width, (sourceY + sourceHeight) / tex.Height), texture);
         }
 
-        public void DrawImage(ColorTexture texture, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, float zAngle, float yAngle)
+        public void DrawImage(ColorTexture texture, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, float zAngle, float yAngle)
         {
             Size tex = texture.GetSize();
 
@@ -253,8 +253,8 @@ namespace GraphicPipelineCPU.DrawingHelper
             Vector2D P3 = Vector2D.RotatePointAroundPivotPoint(center, Vector2D.RotatePointAboutYAxis(x, new Vector2D(x - width / 2, y + height / 2), yAngle), zAngle);
             Vector2D P4 = Vector2D.RotatePointAroundPivotPoint(center, Vector2D.RotatePointAboutYAxis(x, new Vector2D(x + width / 2, y + height / 2), yAngle), zAngle);
 
-            DrawTriangle2D(new Vertex2D(P1.X, P1.Y, sourceX / (float)tex.Width, sourceY / (float)tex.Height), new Vertex2D(P2.X, P2.Y, (sourceX + sourceWidth) / (float)tex.Width, sourceY / (float)tex.Height), new Vertex2D(P3.X, P3.Y, sourceX / (float)tex.Width, (sourceY + sourceHeight) / (float)tex.Height), texture);
-            DrawTriangle2D(new Vertex2D(P4.X, P4.Y, (sourceX + sourceWidth) / (float)tex.Width, (sourceY + sourceHeight) / (float)tex.Height), new Vertex2D(P3.X, P3.Y, sourceX / (float)tex.Width, (sourceY + sourceHeight) / (float)tex.Height), new Vertex2D(P2.X, P2.Y, (sourceX + sourceWidth) / (float)tex.Width, sourceY / (float)tex.Height), texture);
+            DrawTriangle2D(new Vertex2D(P1.X, P1.Y, sourceX / tex.Width, sourceY / tex.Height), new Vertex2D(P2.X, P2.Y, (sourceX + sourceWidth) / tex.Width, sourceY / tex.Height), new Vertex2D(P3.X, P3.Y, sourceX / tex.Width, (sourceY + sourceHeight) / tex.Height), texture);
+            DrawTriangle2D(new Vertex2D(P4.X, P4.Y, (sourceX + sourceWidth) / tex.Width, (sourceY + sourceHeight) / tex.Height), new Vertex2D(P3.X, P3.Y, sourceX / tex.Width, (sourceY + sourceHeight) / tex.Height), new Vertex2D(P2.X, P2.Y, (sourceX + sourceWidth) / tex.Width, sourceY / tex.Height), texture);
         }
 
         public void DrawFillRectangle(ColorTexture texture, float x, float y, float width, float height)

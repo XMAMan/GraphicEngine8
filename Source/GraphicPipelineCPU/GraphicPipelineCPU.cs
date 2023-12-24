@@ -742,14 +742,14 @@ namespace GraphicPipelineCPU
             new DrawingHelper2D(prop).DrawFillCircleArc(color, pos, radius, startAngle, endAngle);
         }
 
-        public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor)
+        public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor)
         {
             UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawImage(prop.Textures.GetColorTexture(textureId), x, y, width, height, sourceX, sourceY, sourceWidth, sourceHeight);
         }
 
-        public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor, float zAngle, float yAngle)
+        public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor, float zAngle, float yAngle)
         {
             UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);

@@ -1596,7 +1596,7 @@ namespace GraphicPipelineDirect3D11
             CircleArcDrawer.DrawFillCircleArc(pos, radius, startAngle, endAngle, (p) => DrawLineOrPoint(new Vector3[] { new Vector3(p.X, p.Y, this.ZValue2D) }, true));
         }
 
-        public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor)
+        public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor)
         {
             Size tex = GetTextureSize(textureId);
             UseAlphaBlendingAndDiscardTransparent(colorFactor); // SetBlendingWithAlpha();
@@ -1620,7 +1620,7 @@ namespace GraphicPipelineDirect3D11
             DisableTexturemapping();
         }
 
-        public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor, float zAngle, float yAngle)
+        public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor, float zAngle, float yAngle)
         {
             PushMatrix();
             m_modelviewMatrix = SlimDX.Matrix.Translation(x, y, 0) * m_modelviewMatrix;

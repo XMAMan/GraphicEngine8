@@ -1472,7 +1472,7 @@ namespace GraphicPipelineOpenGLv3_0
             GL.End();
         }
 
-        public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor)
+        public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor)
         {
             float f = 0;// 0.01f;
 
@@ -1485,16 +1485,16 @@ namespace GraphicPipelineOpenGLv3_0
             GL.BindTexture(TextureTarget.Texture2D, textureId);
             GL.Begin(PrimitiveType.Quads);
 
-            GL.TexCoord2(sourceX / (float)tex.Width + f, sourceY / (float)tex.Height + f); GL.Vertex3(x, y, this.ZValue2D);
-            GL.TexCoord2((sourceX + sourceWidth) / (float)tex.Width - f, sourceY / (float)tex.Height + f); GL.Vertex3(x + width, y, this.ZValue2D);
-            GL.TexCoord2((sourceX + sourceWidth) / (float)tex.Width - f, (sourceY + sourceHeight) / (float)tex.Height - f); GL.Vertex3(x + width, y + height, this.ZValue2D);
-            GL.TexCoord2(sourceX / (float)tex.Width + f, (sourceY + sourceHeight) / (float)tex.Height - f); GL.Vertex3(x, y + height, this.ZValue2D);
+            GL.TexCoord2(sourceX / tex.Width + f, sourceY / tex.Height + f); GL.Vertex3(x, y, this.ZValue2D);
+            GL.TexCoord2((sourceX + sourceWidth) / tex.Width - f, sourceY / tex.Height + f); GL.Vertex3(x + width, y, this.ZValue2D);
+            GL.TexCoord2((sourceX + sourceWidth) / tex.Width - f, (sourceY + sourceHeight) / tex.Height - f); GL.Vertex3(x + width, y + height, this.ZValue2D);
+            GL.TexCoord2(sourceX / tex.Width + f, (sourceY + sourceHeight) / tex.Height - f); GL.Vertex3(x, y + height, this.ZValue2D);
 
             GL.End();
             DisableBlending();
         }
 
-        public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor, float zAngle, float yAngle)
+        public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor, float zAngle, float yAngle)
         {
             GL.Translate(x, y, 0);
             GL.Rotate(zAngle, 0, 0, 1);

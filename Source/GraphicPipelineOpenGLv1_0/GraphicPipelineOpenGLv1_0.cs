@@ -1558,7 +1558,7 @@ namespace GraphicPipelineOpenGLv1_0
             Gl.glEnd();
         }
 
-        public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor)
+        public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor)
         {
             Size tex = GetTextureSize(textureId);
             float f = 0;// 0.01f;
@@ -1569,15 +1569,15 @@ namespace GraphicPipelineOpenGLv1_0
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             Gl.glBindTexture(Gl.GL_TEXTURE_2D, textureId);
             Gl.glBegin(Gl.GL_QUADS);
-            Gl.glTexCoord2f(sourceX / (float)tex.Width + f, sourceY / (float)tex.Height + f); Gl.glVertex3f(x, y, this.ZValue2D);
-            Gl.glTexCoord2f((sourceX + sourceWidth) / (float)tex.Width - f, sourceY / (float)tex.Height + f); Gl.glVertex3f(x + width, y, this.ZValue2D);
-            Gl.glTexCoord2f((sourceX + sourceWidth) / (float)tex.Width - f, (sourceY + sourceHeight) / (float)tex.Height - f); Gl.glVertex3f(x + width, y + height, this.ZValue2D);
-            Gl.glTexCoord2f(sourceX / (float)tex.Width + f, (sourceY + sourceHeight) / (float)tex.Height - f); Gl.glVertex3f(x, y + height, this.ZValue2D);
+            Gl.glTexCoord2f(sourceX / tex.Width + f, sourceY / tex.Height + f); Gl.glVertex3f(x, y, this.ZValue2D);
+            Gl.glTexCoord2f((sourceX + sourceWidth) / tex.Width - f, sourceY / tex.Height + f); Gl.glVertex3f(x + width, y, this.ZValue2D);
+            Gl.glTexCoord2f((sourceX + sourceWidth) / tex.Width - f, (sourceY + sourceHeight) / tex.Height - f); Gl.glVertex3f(x + width, y + height, this.ZValue2D);
+            Gl.glTexCoord2f(sourceX / tex.Width + f, (sourceY + sourceHeight) / tex.Height - f); Gl.glVertex3f(x, y + height, this.ZValue2D);
             Gl.glEnd();
             DisableBlending();
         }
 
-        public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor, float zAngle, float yAngle)
+        public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor, float zAngle, float yAngle)
         {
             Gl.glTranslatef(x, y, 0);
             Gl.glRotatef(zAngle, 0, 0, 1);

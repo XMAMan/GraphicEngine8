@@ -511,12 +511,12 @@ namespace GraphicPanels
             this.GetPanel<IDrawing2D>().DrawFillCircleArc(color, pos, radius, startAngle, endAngle);
         }
 
-        public void DrawImage(string texture, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, bool makeFirstPixelTransparent, Color colorFactor)
+        public void DrawImage(string texture, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, bool makeFirstPixelTransparent, Color colorFactor)
         {
             this.GetPanel<IDrawing2D>().DrawImage(GetTextureId(texture, makeFirstPixelTransparent), x, y, width, height, sourceX, sourceY, sourceWidth, sourceHeight, colorFactor);
         }
 
-        public void DrawImage(string texture, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, bool makeFirstPixelTransparent, Color colorFactor, float zAngle, float yAngle)
+        public void DrawImage(string texture, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, bool makeFirstPixelTransparent, Color colorFactor, float zAngle, float yAngle)
         {
             this.GetPanel<IDrawing2D>().DrawImage(GetTextureId(texture, makeFirstPixelTransparent), x, y, width, height, sourceX, sourceY, sourceWidth, sourceHeight, colorFactor, zAngle, yAngle);
         }

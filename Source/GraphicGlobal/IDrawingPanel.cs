@@ -50,8 +50,8 @@ namespace GraphicGlobal
         void DrawFillRectangle(Color color, float x, float y, float width, float height, float angle);//x,y liegen in der Mitte, angle geht von 0 bis 360
         void DrawFillRectangle(Color color, float x, float y, float width, float height, float zAngle, float yAngle);//x,y liegen in der Mitte, angle geht von 0 bis 360
 
-        void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor); //Nimmt ein Teilausschnitt aus ein Bild und zeichnet diesen
-        void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor, float zAngle, float yAngle); //x,y liegen in der Mitte, angle geht von 0 bis 360
+        void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor); //Nimmt ein Teilausschnitt aus ein Bild und zeichnet diesen
+        void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor, float zAngle, float yAngle); //x,y liegen in der Mitte, angle geht von 0 bis 360
 
         void DrawPolygon(Pen pen, List<Vector2D> points);
         void DrawFillPolygon(int textureId, Color colorFactor, List<Triangle2D> triangleList);

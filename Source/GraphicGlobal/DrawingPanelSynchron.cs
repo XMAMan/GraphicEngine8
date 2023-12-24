@@ -151,12 +151,12 @@ namespace GraphicGlobal
             this.pipeline.DrawRectangle(pen, x, y, width, height);
         }
 
-        public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor)
+        public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor)
         {
             this.pipeline.DrawImage(textureId, x, y, width, height, sourceX, sourceY, sourceWidth, sourceHeight, colorFactor);
         }
 
-        public void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor, float zAngle, float yAngle)
+        public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor, float zAngle, float yAngle)
         {
             this.pipeline.DrawImage(textureId, x, y, width, height, sourceX, sourceY, sourceWidth, sourceHeight, colorFactor, zAngle, yAngle);
         }
