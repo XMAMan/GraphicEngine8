@@ -1420,7 +1420,7 @@ namespace GraphicPipelineOpenGLv3_0
         }
 
         //http://www.opentk.com/book/export/html/1555
-        public void DrawString(int x, int y, System.Drawing.Color color, float size, string text)
+        public void DrawString(float x, float y, System.Drawing.Color color, float size, string text)
         {
             GL.LoadMatrix(ref modelViewMatrix);
             string key = text + "_" + size + "_" + color.R + "_" + color.G + "_" + color.B;

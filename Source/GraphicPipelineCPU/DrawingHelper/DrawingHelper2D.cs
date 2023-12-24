@@ -167,11 +167,11 @@ namespace GraphicPipelineCPU.DrawingHelper
             return new Size((int)(singleLetterSize.Width * text.Length * size), (int)(singleLetterSize.Height * size * 1.3f));
         }
 
-        public void DrawString(int x, int y, Color color, float size, string text)
+        public void DrawString(float x, float y, Color color, float size, string text)
         {
             var pos = ViewPortTransformation(new Vector2D(x, y));
-            x = (int)pos.X;
-            y = (int)pos.Y;
+            x = pos.X;
+            y = pos.Y;
 
             Bitmap image = BitmapHelp.GetBitmapText(text, size, color, Color.White);
             Rectangle reci = BitmapHelp.SearchRectangleInBitmap(image, Color.White);

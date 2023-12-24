@@ -1450,7 +1450,7 @@ namespace GraphicPipelineOpenGLv1_0
             return new Size((int)(singleLetterSize.Width * text.Length * size), (int)(singleLetterSize.Height * size * 1.3f)); 
         }
 
-        public void DrawString(int x, int y, Color color, float size, string text)
+        public void DrawString(float x, float y, Color color, float size, string text)
         {
             Gl.glDisable(Gl.GL_TEXTURE_2D);
             Gl.glMatrixMode(Gl.GL_PROJECTION);	/* specifies the current matrix */

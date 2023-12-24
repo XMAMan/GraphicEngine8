@@ -1479,7 +1479,7 @@ namespace GraphicPipelineDirect3D11
             return new Size((int)(singleLetterSize.Width * text.Length * size), (int)(singleLetterSize.Height * size * 1.3f));
         }
 
-        public void DrawString(int x, int y, Color color, float size, string text)
+        public void DrawString(float x, float y, Color color, float size, string text)
         {
             string key = text + "_" + size + "_" + color.R + "_" + color.G + "_" + color.B;
             if (!texte.Keys.Contains(key))

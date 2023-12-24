@@ -462,14 +462,14 @@ namespace GraphicPanels
             return this.GetPanel<IDrawing2D>().GetStringSize(size, text);
         }
 
-        public void DrawString(int x, int y, Color color, float size, string text)
+        public void DrawString(float x, float y, Color color, float size, string text)
         {
             this.GetPanel<IDrawing2D>().DrawString(x, y, color, size, text);
         }
 
         public void DrawString(Vector2D position, Color color, float size, string text)
         {
-            DrawString((int)position.X, (int)position.Y, color, size, text);
+            DrawString(position.X, position.Y, color, size, text);
         }
 
         public void DrawRectangle(Pen pen, int x, int y, int width, int height)

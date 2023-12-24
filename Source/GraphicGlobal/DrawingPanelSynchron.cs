@@ -141,7 +141,7 @@ namespace GraphicGlobal
             return this.pipeline.GetStringSize(size, text);
         }
 
-        public void DrawString(int x, int y, Color color, float size, string text)
+        public void DrawString(float x, float y, Color color, float size, string text)
         {
             this.pipeline.DrawString(x, y, color, size, text);
         }

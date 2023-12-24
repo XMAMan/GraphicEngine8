@@ -40,7 +40,7 @@ namespace GraphicGlobal
         void DrawPixel(Vector2D pos, Color color, float size);
 
         Size GetStringSize(float size, string text);
-        void DrawString(int x, int y, Color color, float size, string text);
+        void DrawString(float x, float y, Color color, float size, string text);
 
         void DrawRectangle(Pen pen, int x, int y, int width, int height);
         void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor);
