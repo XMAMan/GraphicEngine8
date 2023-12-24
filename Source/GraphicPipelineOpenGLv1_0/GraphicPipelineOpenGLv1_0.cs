@@ -1476,7 +1476,7 @@ namespace GraphicPipelineOpenGLv1_0
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
         }
 
-        public void DrawRectangle(Pen pen, int x, int y, int width, int height)
+        public void DrawRectangle(Pen pen, float x, float y, float width, float height)
         {
             DisableTexturemapping();
             Gl.glDisable(Gl.GL_TEXTURE_2D);

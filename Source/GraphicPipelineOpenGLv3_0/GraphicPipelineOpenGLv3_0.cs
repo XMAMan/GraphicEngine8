@@ -1454,7 +1454,7 @@ namespace GraphicPipelineOpenGLv3_0
             //DisableBlending();
         }
 
-        public void DrawRectangle(System.Drawing.Pen pen, int x, int y, int width, int height)
+        public void DrawRectangle(System.Drawing.Pen pen, float x, float y, float width, float height)
         {
             GL.Disable(EnableCap.Texture2D);
             GL.LineWidth(pen.Width);

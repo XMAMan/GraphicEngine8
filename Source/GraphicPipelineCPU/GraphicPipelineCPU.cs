@@ -713,7 +713,7 @@ namespace GraphicPipelineCPU
             new DrawingHelper2D(prop).DrawString(x, y, color, size, text);
         }
 
-        public void DrawRectangle(Pen pen, int x, int y, int width, int height)
+        public void DrawRectangle(Pen pen, float x, float y, float width, float height)
         {
             new DrawingHelper2D(prop).DrawRectangle(pen, x, y, width, height);
         }

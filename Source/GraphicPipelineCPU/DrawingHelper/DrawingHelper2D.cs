@@ -184,7 +184,7 @@ namespace GraphicPipelineCPU.DrawingHelper
                 }
         }
 
-        public void DrawRectangle(Pen pen, int x, int y, int width, int height)
+        public void DrawRectangle(Pen pen, float x, float y, float width, float height)
         {
             DrawLineWithLineRasterizer(pen, new Vector2D(x, y), new Vector2D(x + width, y));
             DrawLineWithLineRasterizer(pen, new Vector2D(x + width, y), new Vector2D(x + width, y + height));

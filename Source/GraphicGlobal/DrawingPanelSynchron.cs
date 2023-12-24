@@ -146,7 +146,7 @@ namespace GraphicGlobal
             this.pipeline.DrawString(x, y, color, size, text);
         }
 
-        public void DrawRectangle(Pen pen, int x, int y, int width, int height)
+        public void DrawRectangle(Pen pen, float x, float y, float width, float height)
         {
             this.pipeline.DrawRectangle(pen, x, y, width, height);
         }

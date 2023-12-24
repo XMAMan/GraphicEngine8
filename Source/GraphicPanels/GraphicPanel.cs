@@ -472,7 +472,7 @@ namespace GraphicPanels
             DrawString(position.X, position.Y, color, size, text);
         }
 
-        public void DrawRectangle(Pen pen, int x, int y, int width, int height)
+        public void DrawRectangle(Pen pen, float x, float y, float width, float height)
         {
             this.GetPanel<IDrawing2D>().DrawRectangle(pen, x, y, width, height);
         }

@@ -42,7 +42,7 @@ namespace GraphicGlobal
         Size GetStringSize(float size, string text);
         void DrawString(float x, float y, Color color, float size, string text);
 
-        void DrawRectangle(Pen pen, int x, int y, int width, int height);
+        void DrawRectangle(Pen pen, float x, float y, float width, float height);
         void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor);
         void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float angle);//x,y liegen in der Mitte, angle geht von 0 bis 360
         void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float zAngle, float yAngle);//x,y liegen in der Mitte, angle geht von 0 bis 360

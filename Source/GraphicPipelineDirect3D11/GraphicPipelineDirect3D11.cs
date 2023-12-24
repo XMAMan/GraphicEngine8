@@ -1509,7 +1509,7 @@ namespace GraphicPipelineDirect3D11
             DisableBlending();
         }
 
-        public void DrawRectangle(Pen pen, int x, int y, int width, int height)
+        public void DrawRectangle(Pen pen, float x, float y, float width, float height)
         {
             DrawLine(pen, new Vector2D(x, y), new Vector2D(x + width, y));
             DrawLine(pen, new Vector2D(x + width, y), new Vector2D(x + width, y + height));
