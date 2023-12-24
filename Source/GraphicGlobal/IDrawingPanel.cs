@@ -43,12 +43,12 @@ namespace GraphicGlobal
         void DrawString(int x, int y, Color color, float size, string text);
 
         void DrawRectangle(Pen pen, int x, int y, int width, int height);
-        void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor);
-        void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float angle);//x,y liegen in der Mitte, angle geht von 0 bis 360
-        void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float zAngle, float yAngle);//x,y liegen in der Mitte, angle geht von 0 bis 360
-        void DrawFillRectangle(Color color, int x, int y, int width, int height);
-        void DrawFillRectangle(Color color, int x, int y, int width, int height, float angle);//x,y liegen in der Mitte, angle geht von 0 bis 360
-        void DrawFillRectangle(Color color, int x, int y, int width, int height, float zAngle, float yAngle);//x,y liegen in der Mitte, angle geht von 0 bis 360
+        void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor);
+        void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float angle);//x,y liegen in der Mitte, angle geht von 0 bis 360
+        void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float zAngle, float yAngle);//x,y liegen in der Mitte, angle geht von 0 bis 360
+        void DrawFillRectangle(Color color, float x, float y, float width, float height);
+        void DrawFillRectangle(Color color, float x, float y, float width, float height, float angle);//x,y liegen in der Mitte, angle geht von 0 bis 360
+        void DrawFillRectangle(Color color, float x, float y, float width, float height, float zAngle, float yAngle);//x,y liegen in der Mitte, angle geht von 0 bis 360
 
         void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor); //Nimmt ein Teilausschnitt aus ein Bild und zeichnet diesen
         void DrawImage(int textureId, int x, int y, int width, int height, int sourceX, int sourceY, int sourceWidth, int sourceHeight, Color colorFactor, float zAngle, float yAngle); //x,y liegen in der Mitte, angle geht von 0 bis 360

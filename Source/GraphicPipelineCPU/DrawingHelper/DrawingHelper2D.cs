@@ -257,13 +257,13 @@ namespace GraphicPipelineCPU.DrawingHelper
             DrawTriangle2D(new Vertex2D(P4.X, P4.Y, (sourceX + sourceWidth) / (float)tex.Width, (sourceY + sourceHeight) / (float)tex.Height), new Vertex2D(P3.X, P3.Y, sourceX / (float)tex.Width, (sourceY + sourceHeight) / (float)tex.Height), new Vertex2D(P2.X, P2.Y, (sourceX + sourceWidth) / (float)tex.Width, sourceY / (float)tex.Height), texture);
         }
 
-        public void DrawFillRectangle(ColorTexture texture, int x, int y, int width, int height)
+        public void DrawFillRectangle(ColorTexture texture, float x, float y, float width, float height)
         {
             DrawTriangle2D(new Vertex2D(x, y, 0, 0), new Vertex2D(x + width, y, 1, 0), new Vertex2D(x, y + height, 0, 1), texture);
             DrawTriangle2D(new Vertex2D(x + width, y + height, 1, 1), new Vertex2D(x, y + height, 0, 1), new Vertex2D(x + width, y, 1, 0), texture);
         }
 
-        public void DrawFillRectangle(ColorTexture texture, int x, int y, int width, int height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(ColorTexture texture, float x, float y, float width, float height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             Vector2D center = new Vector2D(x, y);
             Vector2D P1 = Vector2D.RotatePointAroundPivotPoint(center, new Vector2D(x - width / 2, y - height / 2), angle);
@@ -275,7 +275,7 @@ namespace GraphicPipelineCPU.DrawingHelper
             DrawTriangle2D(new Vertex2D(P4.X, P4.Y, 1, 1), new Vertex2D(P3.X, P3.Y, 0, 1), new Vertex2D(P2.X, P2.Y, 1, 0), texture);
         }
 
-        public void DrawFillRectangle(ColorTexture texture, int x, int y, int width, int height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(ColorTexture texture, float x, float y, float width, float height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             Vector2D center = new Vector2D(x, y);
             Vector2D P1 = Vector2D.RotatePointAroundPivotPoint(center, Vector2D.RotatePointAboutYAxis(x, new Vector2D(x - width / 2, y - height / 2), yAngle), zAngle);
@@ -287,13 +287,13 @@ namespace GraphicPipelineCPU.DrawingHelper
             DrawTriangle2D(new Vertex2D(P4.X, P4.Y, 1, 1), new Vertex2D(P3.X, P3.Y, 0, 1), new Vertex2D(P2.X, P2.Y, 1, 0), texture);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height)
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height)
         {
             DrawTriangle2D(new Vertex2D(x, y, 0, 0), new Vertex2D(x + width, y, 1, 0), new Vertex2D(x, y + height, 0, 1), color);
             DrawTriangle2D(new Vertex2D(x + width, y + height, 1, 1), new Vertex2D(x, y + height, 0, 1), new Vertex2D(x + width, y, 1, 0), color);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             Vector2D center = new Vector2D(x, y);
 
@@ -306,7 +306,7 @@ namespace GraphicPipelineCPU.DrawingHelper
             DrawTriangle2D(new Vertex2D(P4.X, P4.Y, 1, 1), new Vertex2D(P3.X, P3.Y, 0, 1), new Vertex2D(P2.X, P2.Y, 1, 0), color);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             Vector2D center = new Vector2D(x, y);
             Vector2D P1 = Vector2D.RotatePointAroundPivotPoint(center, Vector2D.RotatePointAboutYAxis(x, new Vector2D(x - width / 2, y - height / 2), yAngle), zAngle);

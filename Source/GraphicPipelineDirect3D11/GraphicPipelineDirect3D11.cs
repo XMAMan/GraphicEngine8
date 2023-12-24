@@ -1631,7 +1631,7 @@ namespace GraphicPipelineDirect3D11
             PopMatrix();
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor)
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor)
         {
             UseAlphaBlendingAndDiscardTransparent(colorFactor); // SetBlendingWithAlpha();
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
@@ -1647,7 +1647,7 @@ namespace GraphicPipelineDirect3D11
             DisableTexturemapping();
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             PushMatrix();
             m_modelviewMatrix = SlimDX.Matrix.Translation(x, y, 0) * m_modelviewMatrix;
@@ -1657,7 +1657,7 @@ namespace GraphicPipelineDirect3D11
             PopMatrix();
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             PushMatrix();
             m_modelviewMatrix = SlimDX.Matrix.Translation(x, y, 0) * m_modelviewMatrix;
@@ -1668,7 +1668,7 @@ namespace GraphicPipelineDirect3D11
             PopMatrix();
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height)
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height)
         {
             //m_effect.GetConstantBufferByName("ConstantBufferTexture").GetMemberByName("Transparentcolor").AsVector().Set(new Vector3(2,2,2)); //Es gibt keine Farbe, die Transparent ist
             SetColor(color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
@@ -1681,7 +1681,7 @@ namespace GraphicPipelineDirect3D11
             RemoveTriangleArray(id);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             PushMatrix();
             m_modelviewMatrix = SlimDX.Matrix.Translation(x, y, 0) * m_modelviewMatrix;
@@ -1691,7 +1691,7 @@ namespace GraphicPipelineDirect3D11
             PopMatrix();
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             PushMatrix();
             m_modelviewMatrix = SlimDX.Matrix.Translation(x, y, 0) * m_modelviewMatrix;

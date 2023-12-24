@@ -1589,7 +1589,7 @@ namespace GraphicPipelineOpenGLv1_0
             DisableBlending();
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor)
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor)
         {
             UseAlphaBlendingAndDiscardTransparent(colorFactor); // SetBlendingWithAlpha();
             EnableTexturemapping();
@@ -1606,7 +1606,7 @@ namespace GraphicPipelineOpenGLv1_0
             DisableBlending();
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             //SetBlendingWithBlackColor();
             Gl.glTranslatef(x, y, 0);
@@ -1617,7 +1617,7 @@ namespace GraphicPipelineOpenGLv1_0
             DisableBlending();
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             //SetBlendingWithBlackColor();
             Gl.glTranslatef(x, y, 0);
@@ -1630,7 +1630,7 @@ namespace GraphicPipelineOpenGLv1_0
             DisableBlending();
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height)
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height)
         {
             DisableTexturemapping();
             Gl.glDisable(Gl.GL_TEXTURE_2D);
@@ -1643,7 +1643,7 @@ namespace GraphicPipelineOpenGLv1_0
             Gl.glEnd();
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             Gl.glTranslatef(x, y, 0);
             Gl.glRotatef(angle, 0, 0, 1);
@@ -1652,7 +1652,7 @@ namespace GraphicPipelineOpenGLv1_0
             Gl.glTranslatef(-x, -y, 0);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             Gl.glTranslatef(x, y, 0);
             Gl.glRotatef(zAngle, 0, 0, 1);

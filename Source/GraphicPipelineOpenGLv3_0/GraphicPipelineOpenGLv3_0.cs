@@ -1506,7 +1506,7 @@ namespace GraphicPipelineOpenGLv3_0
             DisableBlending();
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor)
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor)
         {
             UseAlphaBlendingAndDiscardTransparent(colorFactor);// SetBlendingWithAlpha();
 
@@ -1524,7 +1524,7 @@ namespace GraphicPipelineOpenGLv3_0
             DisableBlending();
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float angle)
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float angle)
         {
             //SetBlendingWithAlpha();
             GL.Translate(x, y, 0);
@@ -1535,7 +1535,7 @@ namespace GraphicPipelineOpenGLv3_0
             DisableBlending();  
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float zAngle, float yAngle)
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float zAngle, float yAngle)
         {
             //SetBlendingWithAlpha();
             GL.Translate(x, y, 0);
@@ -1548,7 +1548,7 @@ namespace GraphicPipelineOpenGLv3_0
             DisableBlending();
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height)
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height)
         {
             GL.Disable(EnableCap.Texture2D);
             GL.Color3(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
@@ -1560,7 +1560,7 @@ namespace GraphicPipelineOpenGLv3_0
             GL.End();
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             GL.Translate(x, y, 0);
             GL.Rotate(angle, 0, 0, 1);
@@ -1569,7 +1569,7 @@ namespace GraphicPipelineOpenGLv3_0
             GL.Translate(-x, -y, 0);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             GL.Translate(x, y, 0);
             GL.Rotate(zAngle, 0, 0, 1);

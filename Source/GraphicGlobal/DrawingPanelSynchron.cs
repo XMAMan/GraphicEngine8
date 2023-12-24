@@ -161,32 +161,32 @@ namespace GraphicGlobal
             this.pipeline.DrawImage(textureId, x, y, width, height, sourceX, sourceY, sourceWidth, sourceHeight, colorFactor, zAngle, yAngle);
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor)
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor)
         {
             this.pipeline.DrawFillRectangle(textureId, x, y, width, height, colorFactor);
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float angle)
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float angle)
         {
             this.pipeline.DrawFillRectangle(textureId, x, y, width, height, colorFactor, angle);
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float zAngle, float yAngle)
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float zAngle, float yAngle)
         {
             this.pipeline.DrawFillRectangle(textureId, x, y, width, height, colorFactor, zAngle, yAngle);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height)
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height)
         {
             this.pipeline.DrawFillRectangle(color, x, y, width, height);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float angle)
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float angle)
         {
             this.pipeline.DrawFillRectangle(color, x, y, width, height, angle);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float zAngle, float yAngle)
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float zAngle, float yAngle)
         {
             this.pipeline.DrawFillRectangle(color, x, y, width, height, zAngle, yAngle);
         }

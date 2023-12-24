@@ -756,38 +756,38 @@ namespace GraphicPipelineCPU
             new DrawingHelper2D(prop).DrawImage(prop.Textures.GetColorTexture(textureId), x, y, width, height, sourceX, sourceY, sourceWidth, sourceHeight, zAngle, yAngle);
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor)
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor)
         {
             UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawFillRectangle(prop.Textures.GetColorTexture(textureId), x, y, width, height);
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawFillRectangle(prop.Textures.GetColorTexture(textureId), x, y, width, height, angle);
         }
 
-        public void DrawFillRectangle(int textureId, int x, int y, int width, int height, Color colorFactor, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawFillRectangle(prop.Textures.GetColorTexture(textureId), x, y, width, height, zAngle, yAngle);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height)
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height)
         {
             new DrawingHelper2D(prop).DrawFillRectangle(color, x, y, width, height);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             new DrawingHelper2D(prop).DrawFillRectangle(color, x, y, width, height, angle);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             new DrawingHelper2D(prop).DrawFillRectangle(color, x, y, width, height, zAngle, yAngle);
         }

@@ -521,32 +521,32 @@ namespace GraphicPanels
             this.GetPanel<IDrawing2D>().DrawImage(GetTextureId(texture, makeFirstPixelTransparent), x, y, width, height, sourceX, sourceY, sourceWidth, sourceHeight, colorFactor, zAngle, yAngle);
         }
 
-        public void DrawFillRectangle(string texture, int x, int y, int width, int height, bool makeFirstPixelTransparent, Color colorFactor)
+        public void DrawFillRectangle(string texture, float x, float y, float width, float height, bool makeFirstPixelTransparent, Color colorFactor)
         {
             this.GetPanel<IDrawing2D>().DrawFillRectangle(GetTextureId(texture, makeFirstPixelTransparent), x, y, width, height, colorFactor);
         }
 
-        public void DrawFillRectangle(string texture, int x, int y, int width, int height, bool makeFirstPixelTransparent, Color colorFactor, float angle)
+        public void DrawFillRectangle(string texture, float x, float y, float width, float height, bool makeFirstPixelTransparent, Color colorFactor, float angle)
         {
             this.GetPanel<IDrawing2D>().DrawFillRectangle(GetTextureId(texture, makeFirstPixelTransparent), x, y, width, height, colorFactor, angle);
         }
 
-        public void DrawFillRectangle(string texture, int x, int y, int width, int height, bool makeFirstPixelTransparent, Color colorFactor, float zAngle, float yAngle)
+        public void DrawFillRectangle(string texture, float x, float y, float width, float height, bool makeFirstPixelTransparent, Color colorFactor, float zAngle, float yAngle)
         {
             this.GetPanel<IDrawing2D>().DrawFillRectangle(GetTextureId(texture, makeFirstPixelTransparent), x, y, width, height, colorFactor, zAngle, yAngle);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height)
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height)
         {
             this.GetPanel<IDrawing2D>().DrawFillRectangle(color, x, y, width, height);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             this.GetPanel<IDrawing2D>().DrawFillRectangle(color, x, y, width, height, angle);
         }
 
-        public void DrawFillRectangle(Color color, int x, int y, int width, int height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
+        public void DrawFillRectangle(Color color, float x, float y, float width, float height, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
             this.GetPanel<IDrawing2D>().DrawFillRectangle(color, x, y, width, height, zAngle, yAngle);
         }
