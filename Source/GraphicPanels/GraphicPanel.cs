@@ -585,6 +585,22 @@ namespace GraphicPanels
             this.GetPanel<IDrawing2D>().DrawFillPolygon(color, triangleList);
         }
 
+        public void DrawFillRegularPolygon(Color color, Vector2D center, float radius, int cornerCount)
+        {
+            if (cornerCount < 3) throw new ArgumentException("Cornercount must be greater then 2");
+
+            List<Vector2D> points = new List<Vector2D>();
+            for (int i = 0; i < cornerCount; i++)
+            {
+                double angle = Math.PI * 2 * (i / (double)cornerCount);
+
+                var point = new Vector2D((float)Math.Cos(angle), (float)Math.Sin(angle)) * radius + center;
+                points.Add(point);
+            }
+
+            DrawFillPolygon(color, points);
+        }
+
         public void DrawSprite(string spriteFile, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, bool makeFirstPixelTransparent, Color colorFactor)
         {
             this.GetPanel<IDrawing2D>().DrawSprite(GetTextureId(spriteFile, makeFirstPixelTransparent), xCount, yCount, xBild, yBild, x, y, width, height, colorFactor);
