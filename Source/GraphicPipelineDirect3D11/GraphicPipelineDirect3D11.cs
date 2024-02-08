@@ -1737,7 +1737,7 @@ namespace GraphicPipelineDirect3D11
             }
         }
 
-        public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, Color colorFactor)
+        public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, float texBorder, Color colorFactor)
         {
             UseAlphaBlendingAndDiscardTransparent(colorFactor); // SetBlendingWithAlpha();
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
@@ -1747,13 +1747,13 @@ namespace GraphicPipelineDirect3D11
             SetTexture(textureId);
             int id = GetTriangleArrayId(new GraphicGlobal.Triangle[] { 
                 new GraphicGlobal.Triangle(
-                    new Vertex(x, y, this.ZValue2D, xBild * xf + 0.01f, yBild * yf + 0.01f){Normal = new Vector3D(0,0,1) },
-                    new Vertex(x, y + height, this.ZValue2D, xBild * xf + 0.01f, (yBild + 1)* yf - 0.01f){Normal = new Vector3D(0,0,1) },
-                    new Vertex(x + width, y, this.ZValue2D, (xBild+1) * xf - 0.01f, yBild * yf + 0.01f){Normal = new Vector3D(0,0,1) }),
+                    new Vertex(x, y, this.ZValue2D, xBild * xf + texBorder, yBild * yf + texBorder){Normal = new Vector3D(0,0,1) },
+                    new Vertex(x, y + height, this.ZValue2D, xBild * xf + texBorder, (yBild + 1)* yf - texBorder){Normal = new Vector3D(0,0,1) },
+                    new Vertex(x + width, y, this.ZValue2D, (xBild+1) * xf - texBorder, yBild * yf + texBorder){Normal = new Vector3D(0,0,1) }),
                 new GraphicGlobal.Triangle(
-                    new Vertex(x, y + height, this.ZValue2D, xBild * xf + 0.01f, (yBild+1) * yf - 0.01f){Normal = new Vector3D(0,0,1) },
-                    new Vertex(x + width, y + height, this.ZValue2D, (xBild+1) * xf - 0.01f, (yBild+1) * yf - 0.01f){Normal = new Vector3D(0,0,1) },
-                    new Vertex(x + width, y, this.ZValue2D, (xBild+1) * xf - 0.01f, yBild * yf + 0.01f){Normal = new Vector3D(0,0,1) })
+                    new Vertex(x, y + height, this.ZValue2D, xBild * xf + texBorder, (yBild+1) * yf - texBorder){Normal = new Vector3D(0,0,1) },
+                    new Vertex(x + width, y + height, this.ZValue2D, (xBild+1) * xf - texBorder, (yBild+1) * yf - texBorder){Normal = new Vector3D(0,0,1) },
+                    new Vertex(x + width, y, this.ZValue2D, (xBild+1) * xf - texBorder, yBild * yf + texBorder){Normal = new Vector3D(0,0,1) })
             });
             DrawTriangleArray(id);
             RemoveTriangleArray(id);

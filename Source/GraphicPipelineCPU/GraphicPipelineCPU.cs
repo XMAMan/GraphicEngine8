@@ -804,11 +804,11 @@ namespace GraphicPipelineCPU
             new DrawingHelper2D(prop).DrawFillPolygon(color, triangleList);
         }
 
-        public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, Color colorFactor)
+        public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, float texBorder, Color colorFactor)
         {
             UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
-            new DrawingHelper2D(prop).DrawSprite(prop.Textures.GetColorTexture(textureId), xCount, yCount, xBild, yBild, x, y, width, height);
+            new DrawingHelper2D(prop).DrawSprite(prop.Textures.GetColorTexture(textureId), xCount, yCount, xBild, yBild, x, y, width, height, texBorder);
         }
 
         public void EnableScissorTesting(int x, int y, int width, int height)

@@ -64,7 +64,7 @@ namespace GraphicGlobal
         void DrawFillCircleArc(Color color, Vector2D pos, int radius, float startAngle, float endAngle); //startAngle/endAngle=0..360
 
         //xCount/yCount Anzahl Einzelbilder; xBild -> 1 .. xCount; yBild -> 1 .. yCount
-        void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, Color colorFactor);
+        void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, float texBorder, Color colorFactor);
 
         //Nur in diesen rechteckigen Bereich darf man zeichnen (Clipping nennt man das, wenn man im 3D eine Clipping-Plane hat)
         void EnableScissorTesting(int x, int y, int width, int height);

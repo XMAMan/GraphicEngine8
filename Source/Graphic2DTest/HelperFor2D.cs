@@ -147,7 +147,7 @@ namespace Graphic2DTest
 
 
             //int spriteNr = 0;
-            graphic.DrawSprite(dataDirectory + "fire1.png", 11, 11, spriteNr % 11, spriteNr / 11, 20, 180, 40, 40, true, Color.FromArgb(spriteNr % 255, 255, 255, 255));
+            graphic.DrawSprite(dataDirectory + "fire1.png", 11, 11, spriteNr % 11, spriteNr / 11, 20, 180, 40, 40, 0.01f, true, Color.FromArgb(spriteNr % 255, 255, 255, 255));
 
             //graphic.DrawLine(new Pen(Color.Blue, 5), new Vector2D(40, 200), new Vector2D(40, 250));
             graphic.FlipBuffer();
@@ -165,7 +165,7 @@ namespace Graphic2DTest
             for (int x=0;x<3;x++)
                 for (int y=0;y<2;y++)
                 {
-                    graphic.DrawSprite(dataDirectory + "Zahlen.png", 3, 2, x, y, 325 + x * 20, 177 + y * 20, 20, 20, true, Color.White);
+                    graphic.DrawSprite(dataDirectory + "Zahlen.png", 3, 2, x, y, 325 + x * 20, 177 + y * 20, 20, 20, 0.01f, true, Color.White);
                     spriteCounter++;
                 }
 

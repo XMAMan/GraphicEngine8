@@ -1708,7 +1708,7 @@ namespace GraphicPipelineOpenGLv1_0
             Gl.glEnd();
         }
 
-        public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, Color colorFactor)
+        public void DrawSprite(int textureId, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, float texBorder, Color colorFactor)
         {
             float xf = 1.0f / xCount, yf = 1.0f / yCount;
             UseAlphaBlendingAndDiscardTransparent(colorFactor); // SetBlendingWithAlpha();
@@ -1718,10 +1718,10 @@ namespace GraphicPipelineOpenGLv1_0
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             Gl.glBindTexture(Gl.GL_TEXTURE_2D, textureId);
             Gl.glBegin(Gl.GL_QUADS);
-            Gl.glTexCoord2f(xBild * xf + 0.01f, yBild * yf + 0.01f); Gl.glVertex3f(x, y, this.ZValue2D);
-            Gl.glTexCoord2f((xBild + 1) * xf - 0.01f, yBild * yf + 0.01f); Gl.glVertex3f(x + width, y, this.ZValue2D);
-            Gl.glTexCoord2f((xBild + 1) * xf - 0.01f, (yBild + 1) * yf - 0.01f); Gl.glVertex3f(x + width, y + height, this.ZValue2D);
-            Gl.glTexCoord2f(xBild * xf + 0.01f, (yBild + 1) * yf - 0.01f); Gl.glVertex3f(x, y + height, this.ZValue2D);
+            Gl.glTexCoord2f(xBild * xf + texBorder, yBild * yf + texBorder); Gl.glVertex3f(x, y, this.ZValue2D);
+            Gl.glTexCoord2f((xBild + 1) * xf - texBorder, yBild * yf + texBorder); Gl.glVertex3f(x + width, y, this.ZValue2D);
+            Gl.glTexCoord2f((xBild + 1) * xf - texBorder, (yBild + 1) * yf - texBorder); Gl.glVertex3f(x + width, y + height, this.ZValue2D);
+            Gl.glTexCoord2f(xBild * xf + texBorder, (yBild + 1) * yf - texBorder); Gl.glVertex3f(x, y + height, this.ZValue2D);
             Gl.glEnd();
             DisableBlending();
         }

@@ -334,15 +334,15 @@ namespace GraphicPipelineCPU.DrawingHelper
             }
         }
 
-        public void DrawSprite(ColorTexture texture, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height)
+        public void DrawSprite(ColorTexture texture, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, float texBorder)
         {
             float xf = 1.0f / xCount, yf = 1.0f / yCount;
-            DrawTriangle2D(new Vertex2D(x, y, xBild * xf + 0.01f, yBild * yf + 0.01f),
-                           new Vertex2D(x + width, y, (xBild +1)* xf - 0.01f, yBild * yf + 0.01f),
-                           new Vertex2D(x, y + height, xBild * xf + 0.01f, (yBild+1) * yf - 0.01f), texture);
-            DrawTriangle2D(new Vertex2D(x + width, y + height, (xBild+1) * xf - 0.01f, (yBild+1) * yf - 0.01f),
-                           new Vertex2D(x + width, y, (xBild+1) * xf - 0.01f, yBild * yf + 0.01f),
-                           new Vertex2D(x, y + height, xBild * xf + 0.01f, (yBild+1) * yf - 0.01f), texture);
+            DrawTriangle2D(new Vertex2D(x, y, xBild * xf + texBorder, yBild * yf + texBorder),
+                           new Vertex2D(x + width, y, (xBild +1)* xf - texBorder, yBild * yf + texBorder),
+                           new Vertex2D(x, y + height, xBild * xf + texBorder, (yBild+1) * yf - texBorder), texture);
+            DrawTriangle2D(new Vertex2D(x + width, y + height, (xBild+1) * xf - texBorder, (yBild+1) * yf - texBorder),
+                           new Vertex2D(x + width, y, (xBild+1) * xf - texBorder, yBild * yf + texBorder),
+                           new Vertex2D(x, y + height, xBild * xf + texBorder, (yBild+1) * yf - texBorder), texture);
         }
     }
 }

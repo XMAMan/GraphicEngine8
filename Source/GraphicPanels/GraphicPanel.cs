@@ -601,9 +601,9 @@ namespace GraphicPanels
             DrawFillPolygon(color, points);
         }
 
-        public void DrawSprite(string spriteFile, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, bool makeFirstPixelTransparent, Color colorFactor)
+        public void DrawSprite(string spriteFile, int xCount, int yCount, int xBild, int yBild, float x, float y, float width, float height, float texBorder, bool makeFirstPixelTransparent, Color colorFactor)
         {
-            this.GetPanel<IDrawing2D>().DrawSprite(GetTextureId(spriteFile, makeFirstPixelTransparent), xCount, yCount, xBild, yBild, x, y, width, height, colorFactor);
+            this.GetPanel<IDrawing2D>().DrawSprite(GetTextureId(spriteFile, makeFirstPixelTransparent), xCount, yCount, xBild, yBild, x, y, width, height, texBorder, colorFactor);
         }
 
         public void EnableScissorTesting(int x, int y, int width, int height)
