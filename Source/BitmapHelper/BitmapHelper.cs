@@ -582,6 +582,18 @@ namespace BitmapHelper
             return newImage;
         }
 
+        public static Bitmap ScaleImageDownWithoutColorInterpolation(Bitmap image, int factor)
+        {
+            Bitmap newImage = new Bitmap(image.Width / factor, image.Height / factor);
+            for (int x = 0; x < newImage.Width; x++)
+                for (int y = 0; y < newImage.Height; y++)
+                {
+                    Color c = image.GetPixel(x * factor, y * factor);
+                    newImage.SetPixel(x, y, c);
+                }
+            return newImage;
+        }
+
         //Ich habe ein Bild, dessen Breite ratioWidth und dessen Höhe ratioHeight ist. Nun möchte ich, dass das Breite-Zu-Höhe verhältnis beibehalten wird
         //und dieses Bild mit maximaler größe in den Rahmen maxWidth * maxHeight eingespannt wird. Da der Rahmen ein anders Seitenverhältnis haben kann, bedeutet dass,
         //das unten oder an der rechte Seite dann ein weißer Rand entstehen wird, wenn mein Bild in den Rahmen gespannt wird
