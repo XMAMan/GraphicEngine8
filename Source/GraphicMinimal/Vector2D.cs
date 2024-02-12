@@ -241,6 +241,7 @@ namespace GraphicMinimal
             return t * 90;
         }
 
+        //Rotation erfolgt über die Z-Achse
         public static Vector2D RotatePointAroundPivotPoint(Vector2D pivotpoint, Vector2D point, float angleInDegree)
         {
             double angleRadians = angleInDegree * Math.PI / 180;
@@ -251,10 +252,25 @@ namespace GraphicMinimal
                                 pivotpoint.Y + (float)(Math.Sin(angleRadians) * v.X + Math.Cos(angleRadians) * v.Y));
         }
 
+        //Rotation erfolgt über die Y-Achse
         public static Vector2D RotatePointAboutYAxis(float xFromYAxis, Vector2D point, float angleInDegree)
         {
             double angleRadians = angleInDegree * Math.PI / 180;
             return new Vector2D(xFromYAxis + (float)(Math.Cos(angleRadians) * (point.X - xFromYAxis)), point.Y);
+        }
+
+        //Rotation erfolgt über Vektor aus XY-Ebene
+        //In der XY-Ebene ist ein Kooridantensystem mit Nullpunkt axisNullPoint gegeben dessen Y-Achse in Richtung axisDirection zeigt
+        //Der Punkt point wird um diese Axe gedreht. angleInDegree=0 -> Punkt bleibt unverändert; angleInDegree=90 -> Punkt liegt auf der Axe; angleInDegree=180 -> Punkt wurde an Axe gespiegelt
+        public static Vector2D RotatePointAboutXYAxis(Vector2D axisDirection, Vector2D axisNullPoint, Vector2D point, float angleInDegree)
+        {
+            double d = (double)angleInDegree * Math.PI / 180.0;
+            Vector2D dir = -axisDirection.Spin90();
+            Vector2D toPoint = point - axisNullPoint;
+            var Y = axisDirection * (axisDirection * toPoint); //X+Y=toPoint
+            var X = toPoint - Y;
+            float length = (float)Math.Cos(d);
+            return axisNullPoint + Y + X * length;
         }
 
         //Dreht 90 Grad nach Links (Gegen den Uhrzeigersinn)
