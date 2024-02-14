@@ -356,10 +356,17 @@ namespace GraphicPipelineOpenGLv3_0
             GL.MatrixMode(MatrixMode.Projection);					// Select The Projection Matrix
             GL.LoadIdentity();
 
-            if (left == 0 && right == 0)
+            if (bottom == 0 && top == 0)
             {
-                projectionMatrix = Matrix4.CreateOrthographic(simpleOpenGlControl.Width, simpleOpenGlControl.Height, -1000.0f, 1000.0f);
-                GL.Ortho(0.0f, simpleOpenGlControl.Width, simpleOpenGlControl.Height, 0.0f, -1000.0f, 1000.0f);
+                bottom = simpleOpenGlControl.Width;
+                top = simpleOpenGlControl.Height;
+                if (this.activeFrameBufferId != -1)
+                {
+                    bottom = framebuffers[this.activeFrameBufferId].Width;
+                    top = framebuffers[this.activeFrameBufferId].Height;
+                }
+                projectionMatrix = Matrix4.CreateOrthographic(bottom, top, -1000.0f, 1000.0f);
+                GL.Ortho(0.0f, bottom, top, 0.0f, -1000.0f, 1000.0f);
             }
             else
             {
@@ -463,6 +470,7 @@ namespace GraphicPipelineOpenGLv3_0
         }
 
         private Dictionary<int, Framebuffer> framebuffers = new Dictionary<int, Framebuffer>();
+        private int activeFrameBufferId = -1; //Wenn EnableRenderToFramebuffer(id) aufgerufen wurde, dann steht hier die id des aktiven Framebuffers
 
         //http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-14-render-to-texture/
         public int CreateFramebuffer(int width, int height, bool withColorTexture, bool withDepthTexture)
@@ -583,12 +591,14 @@ namespace GraphicPipelineOpenGLv3_0
             // Render to our framebuffer
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, framebufferId);
             GL.Viewport(0, 0, framebuffers[framebufferId].Width, framebuffers[framebufferId].Height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
+            this.activeFrameBufferId = framebufferId;
         }
 
         public void DisableRenderToFramebuffer()
         {
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
             GL.Viewport(0, 0, simpleOpenGlControl.Width, simpleOpenGlControl.Height);
+            this.activeFrameBufferId = -1;
         }
 
         public int GetColorTextureIdFromFramebuffer(int framebufferId)

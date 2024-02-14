@@ -28,7 +28,7 @@ namespace GraphicPipelineCPU.DrawingHelper
         public Vector2D ViewPortTransformation(Vector2D v)
         {
             v = Matrix4x4.MultPosition(prop.ModelviewMatrix, new Vector3D(v.X, v.Y, 0)).XY;
-            return prop.ViewPort.TransformIntoViewPort(new Vector2D(v.X / (float)prop.DrawingArea.Width, v.Y / (float)prop.DrawingArea.Height));
+            return prop.ViewPort.TransformIntoViewPort(new Vector2D(v.X / (float)prop.ViewPort.Width, v.Y / (float)prop.ViewPort.Height));
         }
 
         private float TransformLength(float length)

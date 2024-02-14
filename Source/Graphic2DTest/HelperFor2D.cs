@@ -23,11 +23,13 @@ namespace Graphic2DTest
         //Returnwert: Name der erstellten Textur. Existiert die Textur bereits, wird sie aktualisiert
         public static TextureData CreateMarioTexture(GraphicPanel2D graphic, string texturFile, float yAngle)
         {
-            int frameBufferId = graphic.CreateFramebuffer(80, 80, true, false);
+            int width = 80;
+            int height = 80;
+            int frameBufferId = graphic.CreateFramebuffer(width, height, true, false);
             graphic.EnableRenderToFramebuffer(frameBufferId);
             graphic.ClearScreen(Color.Transparent);
             //Nimm aus den großen Bild nur den Abschnitt, wo der Mario zu sehen ist und male in in den Framebuffer
-            graphic.DrawImage(texturFile, graphic.Width / 2, graphic.Height / 2, graphic.Width, graphic.Height, 243, 202, 283 - 243, 240 - 202, true, Color.FromArgb(255, 255, 255), 0, yAngle);
+            graphic.DrawImage(texturFile, width / 2, height / 2, width, height, 243, 202, 283 - 243, 240 - 202, true, Color.FromArgb(255, 255, 255), 0, yAngle);
             graphic.FlipBuffer();
             int colorTextureId = graphic.GetColorTextureIdFromFramebuffer(frameBufferId);
             Bitmap marioTexture = graphic.GetTextureData(colorTextureId);

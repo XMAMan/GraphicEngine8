@@ -70,11 +70,20 @@ namespace GraphicPipelineCPU
 
         public void SetProjectionMatrix2D(float left = 0, float right = 0, float bottom = 0, float top = 0, float znear = 0, float zfar = 0)
         {
-            if (left == 0 && right == 0)
+            if (bottom == 0 && top == 0)
             {
                 prop.ZNearOrtho = -1000;
                 prop.ZFarOrtho = 1000;
-                prop.ProjectionMatrix = Matrix4x4.ProjectionMatrixOrtho(prop.ViewPort.Left, prop.ViewPort.Right, prop.ViewPort.Bottom, prop.ViewPort.Top, -1000.0f, +1000.0f);
+
+                bottom = this.Width;
+                top = this.Height;
+                if (prop.ActiveFrameBufferId != -1)
+                {
+                    bottom = prop.Framebuffers[prop.ActiveFrameBufferId].Width;
+                    top = prop.Framebuffers[prop.ActiveFrameBufferId].Height;
+                }
+
+                prop.ProjectionMatrix = Matrix4x4.ProjectionMatrixOrtho(prop.ViewPort.Left, prop.ViewPort.Right, bottom, top, -1000.0f, +1000.0f);
             }
             else
             {
@@ -217,12 +226,14 @@ namespace GraphicPipelineCPU
         {
             prop.Buffer = prop.Framebuffers[framebufferId];
             SetViewport(0, 0, prop.Framebuffers[framebufferId].Width, prop.Framebuffers[framebufferId].Height);
+            prop.ActiveFrameBufferId = framebufferId;
         }
 
         public void DisableRenderToFramebuffer()
         {
             prop.Buffer = prop.StandardBuffer;
             SetViewport(0, 0, this.Width, this.Height);
+            prop.ActiveFrameBufferId = -1;
         }
 
         public int GetColorTextureIdFromFramebuffer(int framebufferId)

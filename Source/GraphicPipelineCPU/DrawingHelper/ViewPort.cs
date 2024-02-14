@@ -15,6 +15,8 @@ namespace GraphicPipelineCPU.DrawingHelper
         public int Right { get => this.rectangle.Right; }
         public int Top { get => this.rectangle.Top; }
         public int Bottom { get => this.rectangle.Bottom; }
+        public int Width { get => this.rectangle.Width; }
+        public int Height { get =>  this.rectangle.Height; }
 
         //ViewPort-Transformation bedeutet man hat eine 2D-Koordinate in ein 0..1-Bereich oder -1..+1-Bereich und
         //ich lege nun für diese Koordinate fest wo auf dem Bildschirm sie erscheinen soll

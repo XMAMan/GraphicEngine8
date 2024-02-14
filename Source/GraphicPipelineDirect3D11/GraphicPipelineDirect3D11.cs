@@ -122,6 +122,7 @@ namespace GraphicPipelineDirect3D11
         private List<Texture> textures = new List<Texture>();
         private CubemapControlData cubemaps = new CubemapControlData(); 
         private Dictionary<int, MyFramebuffer> framebuffers = new Dictionary<int, MyFramebuffer>(); //[FramebufferId | 2D-Texture]
+        private int activeFrameBufferId = -1; //Wenn EnableRenderToFramebuffer(id) aufgerufen wurde, dann steht hier die id des aktiven Framebuffers
         private Stack<SlimDX.Matrix> modelviewMatrixStack = new Stack<SlimDX.Matrix>();
         private Stack<SlimDX.Matrix> projectionMatrixStack = new Stack<SlimDX.Matrix>();
         private SlimDX.Matrix m_modelviewMatrix;            // Aktuelle ModelViewmatrix
@@ -346,9 +347,16 @@ namespace GraphicPipelineDirect3D11
 
         public void SetProjectionMatrix2D(float left = 0, float right = 0, float bottom = 0, float top = 0, float znear = 0, float zfar = 0)
         {
-            if (left == 0 && right == 0)
+            if (bottom == 0 && top == 0)
             {
-                m_projMatrix = TransformMatrixToSlimdx(Matrix4x4.ProjectionMatrixOrtho(0.0f, this.drawingArea.Width, this.drawingArea.Height, 0.0f, -1000.0f, +1000.0f));
+                bottom = this.drawingArea.Width;
+                top = this.drawingArea.Height;
+                if (this.activeFrameBufferId != -1)
+                {
+                    bottom = framebuffers[this.activeFrameBufferId].Width;
+                    top = framebuffers[this.activeFrameBufferId].Height;
+                }
+                m_projMatrix = TransformMatrixToSlimdx(Matrix4x4.ProjectionMatrixOrtho(0.0f, bottom, top, 0.0f, -1000.0f, +1000.0f));
             }
             else
             {
@@ -590,6 +598,8 @@ namespace GraphicPipelineDirect3D11
             }
 
             m_context.OutputMerger.SetTargets(m_renderTargetDepthActive, m_renderTargetActive);
+
+            this.activeFrameBufferId = framebufferId;
         }
 
         public void DisableRenderToFramebuffer()
@@ -599,6 +609,8 @@ namespace GraphicPipelineDirect3D11
 
             m_context.Rasterizer.SetViewports(new Viewport(0, 0, this.Width, this.Height, 0f, 1f));
             m_context.OutputMerger.SetTargets(m_renderTargetDepthActive, m_renderTargetActive);
+
+            this.activeFrameBufferId = -1;
         }
 
         public int GetColorTextureIdFromFramebuffer(int framebufferId)

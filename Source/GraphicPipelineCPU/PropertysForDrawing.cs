@@ -29,6 +29,7 @@ namespace GraphicPipelineCPU
         public CubemappedFrameCollection Cubemaps = new CubemappedFrameCollection();
         public TriangleArrayCollection TriangleArrays = new TriangleArrayCollection();
         public FramebufferCollection Framebuffers = new FramebufferCollection();
+        public int ActiveFrameBufferId = -1; //Wenn EnableRenderToFramebuffer(id) aufgerufen wurde, dann steht hier die id des aktiven Framebuffers
         public ColorTextureDeck ActiveColorTextureDeck = null;
 
         //Nur für 3D

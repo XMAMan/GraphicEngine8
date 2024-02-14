@@ -217,9 +217,16 @@ namespace GraphicPipelineOpenGLv1_0
             Gl.glMatrixMode(Gl.GL_PROJECTION);							// Select The Projection Matrix
             Gl.glLoadIdentity();										// Reset The Projection Matrix
             
-            if (left == 0 && right == 0)
+            if (bottom == 0 && top == 0)
             {
-                Gl.glOrtho(0.0f, simpleOpenGlControl.Width, simpleOpenGlControl.Height, 0.0f, -1000.0f, 1000.0f);				// Create Ortho 640x480 View (0,0 At Top Left)
+                bottom = simpleOpenGlControl.Width;
+                top = simpleOpenGlControl.Height;
+                if (this.activeFrameBufferId != -1)
+                {
+                    bottom = framebuffers[this.activeFrameBufferId].Width;
+                    top = framebuffers[this.activeFrameBufferId].Height;
+                }
+                Gl.glOrtho(0.0f, bottom, top, 0.0f, -1000.0f, 1000.0f);				// Create Ortho 640x480 View (0,0 At Top Left)
             }
             else
             {
@@ -423,7 +430,7 @@ namespace GraphicPipelineOpenGLv1_0
         }
 
         private Dictionary<int, Framebuffer> framebuffers = new Dictionary<int, Framebuffer>();
-
+        private int activeFrameBufferId = -1; //Wenn EnableRenderToFramebuffer(id) aufgerufen wurde, dann steht hier die id des aktiven Framebuffers
         public int CreateFramebuffer(int width, int height, bool withColorTexture, bool withDepthTexture)
         {
             // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
@@ -539,12 +546,14 @@ namespace GraphicPipelineOpenGLv1_0
             // Render to our framebuffer
             Gl.glBindFramebufferEXT(Gl.GL_FRAMEBUFFER_EXT, framebufferId);
             Gl.glViewport(0, 0, framebuffers[framebufferId].Width, framebuffers[framebufferId].Height); // Render on the whole framebuffer, complete from the lower left corner to the upper right
+            this.activeFrameBufferId = framebufferId;
         }
 
         public void DisableRenderToFramebuffer()
         {
             Gl.glBindFramebufferEXT(Gl.GL_FRAMEBUFFER_EXT, 0);
             Gl.glViewport(0, 0, simpleOpenGlControl.Width, simpleOpenGlControl.Height);
+            this.activeFrameBufferId = -1;
         }
 
         public int GetColorTextureIdFromFramebuffer(int framebufferId)
