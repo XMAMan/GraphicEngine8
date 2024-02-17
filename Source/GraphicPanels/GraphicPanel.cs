@@ -452,6 +452,12 @@ namespace GraphicPanels
             this.GetPanel<IDrawing2D>().DrawLine(pen, p1, p2);
         }
 
+        public void DrawLineWithTexture(string texture, Vector2D p1, Vector2D p2, float lineWidth, bool makeFirstPixelTransparent = false)
+        {
+            var c1 = (p1 + p2) / 2;
+            this.DrawFillRectangle(texture, c1.X, c1.Y, (p1 - p2).Length(), lineWidth, makeFirstPixelTransparent, Color.White, Vector2D.Angle360(new Vector2D(1, 0), p2 - p1));
+        }
+
         public void DrawPixel(Vector2D pos, Color color, float size)
         {
             this.GetPanel<IDrawing2D>().DrawPixel(pos, color, size);
