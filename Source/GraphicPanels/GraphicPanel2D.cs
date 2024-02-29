@@ -54,9 +54,8 @@ namespace GraphicPanels
             return BitmapHelp.GetVoronoiPolygons(imageSize, cellPoints);
         }
 
-        public static List<Point> GetRandomPointList(int cellPointCount, int maxX, int maxY, int randSeed = 0)
+        public static List<Point> GetRandomPointList(int cellPointCount, int maxX, int maxY, Random rand)
         {
-            Random rand = new Random(randSeed);
             List<Point> cellPoints = new List<Point>();
             for (int i = 0; i < cellPointCount; i++)
             {

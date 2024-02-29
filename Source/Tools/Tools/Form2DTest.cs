@@ -45,7 +45,7 @@ namespace Tools
 
         void GraphicPanel2D_MouseClick(object sender, MouseEventArgs e)
         {
-            this.voronoiCellPoints = GraphicPanel2D.GetRandomPointList(10, this.graphicPanel2D.Width, this.graphicPanel2D.Height);
+            this.voronoiCellPoints = GraphicPanel2D.GetRandomPointList(10, this.graphicPanel2D.Width, this.graphicPanel2D.Height, new Random(0));
             this.voronioPolygons = GraphicPanel2D.GetVoronoiPolygons(this.graphicPanel2D.Size, this.voronoiCellPoints);
         }
 
@@ -56,7 +56,7 @@ namespace Tools
             float yAngle = 10;
 
             this.marioTexture = HelperFor2D.CreateMarioTexture(this.graphicPanel2D, WorkingDirectory + "nes_super_mario_bros.png", yAngle);
-            this.voronoiCellPoints = GraphicPanel2D.GetRandomPointList(10, marioTexture.Image.Width, marioTexture.Image.Height);
+            this.voronoiCellPoints = GraphicPanel2D.GetRandomPointList(10, marioTexture.Image.Width, marioTexture.Image.Height, new Random(0));
             this.voronioPolygons = GraphicPanel2D.GetVoronoiPolygons(marioTexture.Image.Size, this.voronoiCellPoints);
 
             this.voronioPolygons = this.voronioPolygons.Select(x => HelperFor2D.TransformPolygon(x, new Vector2D(340, 30))).ToList(); //Verschiebe an Position

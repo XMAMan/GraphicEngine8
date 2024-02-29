@@ -189,7 +189,7 @@ namespace GraphicPanelsTest
             float yAngle = 10;
             int spriteNr = 180;
             var marioTexture = HelperFor2D.CreateMarioTexture(graphic, DataDirectory + "nes_super_mario_bros.png", yAngle);
-            var voronoiCellPoints = GraphicPanel2D.GetRandomPointList(10, marioTexture.Image.Width, marioTexture.Image.Height);
+            var voronoiCellPoints = GraphicPanel2D.GetRandomPointList(10, marioTexture.Image.Width, marioTexture.Image.Height, new Random(0));
             var voronioPolygons = GraphicPanel2D.GetVoronoiPolygons(marioTexture.Image.Size, voronoiCellPoints);
             voronioPolygons = voronioPolygons.Select(x => HelperFor2D.TransformPolygon(x, new Vector2D(340, 30))).ToList(); //Verschiebe an Position
 
