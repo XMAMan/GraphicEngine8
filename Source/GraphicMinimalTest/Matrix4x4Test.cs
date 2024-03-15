@@ -262,5 +262,61 @@ namespace GraphicMinimalTest
 
             Assert.AreEqual(m1.Print(), m2.Print());
         }
+
+        [TestMethod]
+        public void MultDirection_Rotate90()
+        {
+            Matrix4x4 m1 = Matrix4x4.Rotate(90, 0, 0, 1);
+            var v1 = new Vector3D(1, 0, 0); //Zeige nach rechts
+            var v2 = new Vector3D(0, 1, 0); //Zeige nach oben
+
+            var r1 = Matrix4x4.MultDirection(m1, v1); //Zeige nach oben
+            var r2 = Matrix4x4.MultDirection(m1, v2); //Zeige nach links
+
+            string s1 = (int)r1.X + ";" + (int)r1.Y + ";" + (int)r1.Z;
+            string s2 = (int)r2.X + ";" + (int)r2.Y + ";" + (int)r2.Z;
+
+            Assert.AreEqual("0;1;0", s1);
+            Assert.AreEqual("-1;0;0", s2);
+        }
+
+        [TestMethod]
+        public void MultPosition_TranslateRight()
+        {
+            Matrix4x4 m1 = Matrix4x4.Translate(1, 0, 0);
+            var v1 = new Vector3D(0, 0, 0);
+            var v2 = new Vector3D(1, 1, 0);
+
+            var r1 = Matrix4x4.MultPosition(m1, v1);
+            var r2 = Matrix4x4.MultPosition(m1, v2);
+
+            string s1 = (int)r1.X + ";" + (int)r1.Y + ";" + (int)r1.Z;
+            string s2 = (int)r2.X + ";" + (int)r2.Y + ";" + (int)r2.Z;
+
+            Assert.AreEqual("1;0;0", s1);
+            Assert.AreEqual("2;1;0", s2);
+        }
+
+        [TestMethod]
+        public void GetSizeFactorFromMatrix_SizeFactor3()
+        {
+            float sizeFactor = Matrix4x4.GetSizeFactorFromMatrix(Matrix4x4.Scale(3, 3, 3));
+            Assert.AreEqual(3, sizeFactor);
+        }
+
+        [TestMethod]
+        public void GetAngleInDegreeFromMatrix_Angle45()
+        {
+            float angle = Matrix4x4.GetAngleInDegreeFromMatrix(Matrix4x4.Rotate(45, 0,0,1));
+            Assert.AreEqual(45, (int)(angle + 0.5f));
+        }
+
+        [TestMethod]
+        public void GetTranslationVectorFromMatrix_Translate11_12_0()
+        {
+            var translate = Matrix4x4.GetTranslationVectorFromMatrix(Matrix4x4.Translate(11, 12, 0));
+            Assert.AreEqual(11, translate.X);
+            Assert.AreEqual(12, translate.Y);
+        }
     }
 }

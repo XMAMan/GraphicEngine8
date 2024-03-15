@@ -93,8 +93,8 @@ namespace GraphicMinimal
             float c = (float)Math.Cos(angle * Math.PI / 180);
             float s = (float)Math.Sin(angle * Math.PI / 180);
 
-            return new Matrix3x3($"Rotate({angle.ToEnString()})", new float[] {c, -s,  0,
-                                                                               s,  c,  0,
+            return new Matrix3x3($"Rotate({angle.ToEnString()})", new float[] {c,  s,  0,
+                                                                               -s, c,  0,
                                                                                0,  0,  1});
         }
 
@@ -223,6 +223,41 @@ namespace GraphicMinimal
             Vector2D p10 = (textureMatrix * new Vector3D(1, 0, 1)).XY;
 
             return new Vector2D((p10 - p00).Length(), (p01 - p00).Length());
+        }
+
+        public static Vector2D MultDirection(Matrix3x3 matrix, Vector2D direction)
+        {
+            var m = matrix.Values;
+            Vector2D res = new Vector2D(m[0] * direction.X + m[3] * direction.Y,
+                                        m[1] * direction.X + m[4] * direction.Y);
+            return res;
+        }
+
+        public static Vector2D MultPosition(Matrix3x3 matrix, Vector2D position)
+        {
+            var m = matrix.Values;
+            Vector2D res = new Vector2D(m[0] * position.X + m[3] * position.Y + m[6],
+                                        m[1] * position.X + m[4] * position.Y + m[7]);
+            return res;
+        }
+
+        public static float GetSizeFactorFromMatrix(Matrix3x3 matrix)
+        {
+            var p1 = Matrix3x3.MultPosition(matrix, new Vector2D(0, 0));
+            var p2 = Matrix3x3.MultPosition(matrix, new Vector2D(1, 0));
+            return (p2 - p1).Length();
+        }
+
+        public static float GetAngleInDegreeFromMatrix(Matrix3x3 matrix)
+        {
+            var p1 = Matrix3x3.MultPosition(matrix, new Vector2D(0, 0));
+            var p2 = Matrix3x3.MultPosition(matrix, new Vector2D(1, 0));
+            return Vector2D.Angle360(new Vector2D(1, 0), p2 - p1);
+        }
+
+        public static Vector2D GetTranslationVectorFromMatrix(Matrix3x3 matrix)
+        {
+            return Matrix3x3.MultPosition(matrix, new Vector2D(0, 0));
         }
     }
 }

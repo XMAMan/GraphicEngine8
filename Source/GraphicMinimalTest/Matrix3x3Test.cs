@@ -132,5 +132,61 @@ namespace GraphicMinimalTest
 
             Assert.AreEqual(m1.Print(), m2.Print());
         }
+
+        [TestMethod]
+        public void MultDirection_Rotate90()
+        {
+            Matrix3x3 m1 = Matrix3x3.Rotate(90);
+            var v1 = new Vector2D(1, 0); //Zeige nach rechts
+            var v2 = new Vector2D(0, 1); //Zeige nach oben
+
+            var r1 = Matrix3x3.MultDirection(m1, v1); //Zeige nach oben
+            var r2 = Matrix3x3.MultDirection(m1, v2); //Zeige nach links
+            string s1 = (int)r1.X + ";" + (int)r1.Y;
+            string s2 = (int)r2.X + ";" + (int)r2.Y;
+
+            Assert.AreEqual("0;1", s1);
+            Assert.AreEqual("-1;0", s2);      
+        }
+
+        [TestMethod]
+        public void MultPosition_TranslateRight()
+        {
+            Matrix3x3 m1 = Matrix3x3.Translate(1, 0);
+            var v1 = new Vector2D(0, 0);
+            var v2 = new Vector2D(1, 1);
+
+            var r1 = Matrix3x3.MultPosition(m1, v1);
+            var r2 = Matrix3x3.MultPosition(m1, v2);
+
+            string s1 = (int)r1.X + ";" + (int)r1.Y;
+            string s2 = (int)r2.X + ";" + (int)r2.Y;
+
+            Assert.AreEqual("1;0", s1);
+            Assert.AreEqual("2;1", s2);
+        }
+
+
+        [TestMethod]
+        public void GetSizeFactorFromMatrix_SizeFactor3()
+        {
+            float sizeFactor = Matrix3x3.GetSizeFactorFromMatrix(Matrix3x3.Scale(3, 3));
+            Assert.AreEqual(3, sizeFactor);
+        }
+
+        [TestMethod]
+        public void GetAngleInDegreeFromMatrix_Angle45()
+        {
+            float angle = Matrix3x3.GetAngleInDegreeFromMatrix(Matrix3x3.Rotate(45));
+            Assert.AreEqual(45, (int)(angle + 0.5f));
+        }
+
+        [TestMethod]
+        public void GetTranslationVectorFromMatrix_Translate11_12()
+        {
+            var translate = Matrix3x3.GetTranslationVectorFromMatrix(Matrix3x3.Translate(11, 12));
+            Assert.AreEqual(11, translate.X);
+            Assert.AreEqual(12, translate.Y);
+        }
     }
 }
