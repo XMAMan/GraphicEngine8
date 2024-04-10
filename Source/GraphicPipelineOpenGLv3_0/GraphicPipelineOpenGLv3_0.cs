@@ -1526,10 +1526,10 @@ namespace GraphicPipelineOpenGLv3_0
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             GL.BindTexture(TextureTarget.Texture2D, textureId);
             GL.Begin(PrimitiveType.Quads);
-            GL.TexCoord2(0.01f, 0.01f); GL.Vertex3(x, y, this.ZValue2D);
-            GL.TexCoord2(0.99f, 0.01f); GL.Vertex3(x + width, y, this.ZValue2D);
-            GL.TexCoord2(0.99f, 0.99f); GL.Vertex3(x + width, y + height, this.ZValue2D);
-            GL.TexCoord2(0.01f, 0.99f); GL.Vertex3(x, y + height, this.ZValue2D);
+            GL.TexCoord2(0, 0); GL.Vertex3(x, y, this.ZValue2D);
+            GL.TexCoord2(1, 0); GL.Vertex3(x + width, y, this.ZValue2D);
+            GL.TexCoord2(1, 1); GL.Vertex3(x + width, y + height, this.ZValue2D);
+            GL.TexCoord2(0, 1); GL.Vertex3(x, y + height, this.ZValue2D);
             GL.End();
             DisableBlending();
         }
@@ -1563,10 +1563,10 @@ namespace GraphicPipelineOpenGLv3_0
             GL.Disable(EnableCap.Texture2D);
             GL.Color3(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
             GL.Begin(PrimitiveType.Quads);
-            GL.TexCoord2(0.01f, 0.01f); GL.Vertex3(x, y, this.ZValue2D);
-            GL.TexCoord2(0.99f, 0.01f); GL.Vertex3(x + width, y, this.ZValue2D);
-            GL.TexCoord2(0.99f, 0.99f); GL.Vertex3(x + width, y + height, this.ZValue2D);
-            GL.TexCoord2(0.01f, 0.99f); GL.Vertex3(x, y + height, this.ZValue2D);
+            GL.TexCoord2(0, 0); GL.Vertex3(x, y, this.ZValue2D);
+            GL.TexCoord2(1, 0); GL.Vertex3(x + width, y, this.ZValue2D);
+            GL.TexCoord2(1, 1); GL.Vertex3(x + width, y + height, this.ZValue2D);
+            GL.TexCoord2(0, 1); GL.Vertex3(x, y + height, this.ZValue2D);
             GL.End();
         }
 

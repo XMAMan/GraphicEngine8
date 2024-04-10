@@ -1607,10 +1607,10 @@ namespace GraphicPipelineOpenGLv1_0
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             Gl.glBindTexture(Gl.GL_TEXTURE_2D, textureId);
             Gl.glBegin(Gl.GL_QUADS);
-            Gl.glTexCoord2f(0.01f, 0.01f); Gl.glVertex3f(x, y, this.ZValue2D);
-            Gl.glTexCoord2f(0.99f, 0.01f); Gl.glVertex3f(x + width, y, this.ZValue2D);
-            Gl.glTexCoord2f(0.99f, 0.99f); Gl.glVertex3f(x + width, y + height, this.ZValue2D);
-            Gl.glTexCoord2f(0.01f, 0.99f); Gl.glVertex3f(x, y + height, this.ZValue2D);
+            Gl.glTexCoord2f(0, 0); Gl.glVertex3f(x, y, this.ZValue2D);
+            Gl.glTexCoord2f(1, 0); Gl.glVertex3f(x + width, y, this.ZValue2D);
+            Gl.glTexCoord2f(1, 1); Gl.glVertex3f(x + width, y + height, this.ZValue2D);
+            Gl.glTexCoord2f(0, 1); Gl.glVertex3f(x, y + height, this.ZValue2D);
             Gl.glEnd();
             DisableBlending();
         }
@@ -1645,10 +1645,10 @@ namespace GraphicPipelineOpenGLv1_0
             Gl.glDisable(Gl.GL_TEXTURE_2D);
             Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
             Gl.glBegin(Gl.GL_QUADS);
-            Gl.glTexCoord2f(0.01f, 0.01f); Gl.glVertex3f(x, y, this.ZValue2D);
-            Gl.glTexCoord2f(0.99f, 0.01f); Gl.glVertex3f(x + width, y, this.ZValue2D);
-            Gl.glTexCoord2f(0.99f, 0.99f); Gl.glVertex3f(x + width, y + height, this.ZValue2D);
-            Gl.glTexCoord2f(0.01f, 0.99f); Gl.glVertex3f(x, y + height, this.ZValue2D);
+            Gl.glTexCoord2f(0, 0); Gl.glVertex3f(x, y, this.ZValue2D);
+            Gl.glTexCoord2f(1, 0); Gl.glVertex3f(x + width, y, this.ZValue2D);
+            Gl.glTexCoord2f(1, 1); Gl.glVertex3f(x + width, y + height, this.ZValue2D);
+            Gl.glTexCoord2f(0, 1); Gl.glVertex3f(x, y + height, this.ZValue2D);
             Gl.glEnd();
         }
 
