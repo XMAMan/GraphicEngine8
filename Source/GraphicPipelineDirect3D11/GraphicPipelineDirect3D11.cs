@@ -1630,6 +1630,7 @@ namespace GraphicPipelineDirect3D11
             DrawTriangleArray(id);
             RemoveTriangleArray(id);
             DisableTexturemapping();
+            SetBlendingWithAlpha();
         }
 
         public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor, float zAngle, float yAngle)
@@ -1657,6 +1658,7 @@ namespace GraphicPipelineDirect3D11
             DrawTriangleArray(id);
             RemoveTriangleArray(id);
             DisableTexturemapping();
+            SetBlendingWithAlpha();
         }
 
         public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
@@ -1731,6 +1733,7 @@ namespace GraphicPipelineDirect3D11
                 RemoveTriangleArray(id);
             }
             DisableTexturemapping();
+            SetBlendingWithAlpha();
         }
 
         public void DrawFillPolygon(Color color, List<Triangle2D> triangleList)
@@ -1770,6 +1773,7 @@ namespace GraphicPipelineDirect3D11
             DrawTriangleArray(id);
             RemoveTriangleArray(id);
             DisableTexturemapping();
+            SetBlendingWithAlpha();
         }
         
 

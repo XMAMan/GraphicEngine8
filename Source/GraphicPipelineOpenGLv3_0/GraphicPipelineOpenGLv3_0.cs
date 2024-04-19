@@ -1399,7 +1399,7 @@ namespace GraphicPipelineOpenGLv3_0
                 GL.Enable(EnableCap.LineStipple);//Linien dürfen gepunktet sein
             else
                 GL.Disable(EnableCap.LineStipple);
-            GL.Color3(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            GL.Color4(pen.Color);
             GL.Begin(PrimitiveType.Lines);
             GL.Vertex3(p1.X, p1.Y, this.ZValue2D); //OpenGL verschiebt Linien immer um 0.5f Pixel nach links. Damit gleiche ich das aus
             GL.Vertex3(p2.X, p2.Y, this.ZValue2D);
@@ -1411,7 +1411,7 @@ namespace GraphicPipelineOpenGLv3_0
             GL.PointSize(size);
             GL.Disable(EnableCap.Texture2D);
             GL.Begin(PrimitiveType.Points);
-            GL.Color3(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            GL.Color4(color);
             GL.Vertex3(pos.X, pos.Y, this.ZValue2D);
             GL.End(); 
         }
@@ -1472,7 +1472,7 @@ namespace GraphicPipelineOpenGLv3_0
                 GL.Enable(EnableCap.LineStipple);//Linien dürfen gepunktet sein
             else
                 GL.Disable(EnableCap.LineStipple);
-            GL.Color3(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            GL.Color4(pen.Color);
             GL.Begin(PrimitiveType.LineStrip);
             GL.Vertex3(x, y, this.ZValue2D);
             GL.Vertex3(x + width, y, this.ZValue2D);
@@ -1490,7 +1490,6 @@ namespace GraphicPipelineOpenGLv3_0
             UseAlphaBlendingAndDiscardTransparent(colorFactor);// SetBlendingWithAlpha();
             GL.Enable(EnableCap.Texture2D);
             SetTextureFilter(TextureFilter.Point);
-            //GL.Color3(colorFactor.X, colorFactor.Y, colorFactor.Z);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             GL.BindTexture(TextureTarget.Texture2D, textureId);
             GL.Begin(PrimitiveType.Quads);
@@ -1501,7 +1500,7 @@ namespace GraphicPipelineOpenGLv3_0
             GL.TexCoord2(sourceX / tex.Width + f, (sourceY + sourceHeight) / tex.Height - f); GL.Vertex3(x, y + height, this.ZValue2D);
 
             GL.End();
-            DisableBlending();
+            SetBlendingWithAlpha();
         }
 
         public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor, float zAngle, float yAngle)
@@ -1513,7 +1512,6 @@ namespace GraphicPipelineOpenGLv3_0
             GL.Rotate(-yAngle, 0, 1, 0);
             GL.Rotate(-zAngle, 0, 0, 1);
             GL.Translate(-x, -y, 0);
-            DisableBlending();
         }
 
         public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor)
@@ -1522,7 +1520,6 @@ namespace GraphicPipelineOpenGLv3_0
 
             GL.Enable(EnableCap.Texture2D);
             SetTextureFilter(TextureFilter.Point);
-            //GL.Color3(colorFactor.X, colorFactor.Y, colorFactor.Z);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             GL.BindTexture(TextureTarget.Texture2D, textureId);
             GL.Begin(PrimitiveType.Quads);
@@ -1531,23 +1528,20 @@ namespace GraphicPipelineOpenGLv3_0
             GL.TexCoord2(1, 1); GL.Vertex3(x + width, y + height, this.ZValue2D);
             GL.TexCoord2(0, 1); GL.Vertex3(x, y + height, this.ZValue2D);
             GL.End();
-            DisableBlending();
+            SetBlendingWithAlpha();
         }
 
         public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float angle)
         {
-            //SetBlendingWithAlpha();
             GL.Translate(x, y, 0);
             GL.Rotate(angle, 0, 0, 1);
             DrawFillRectangle(textureId, -width / 2, -height / 2, width, height, colorFactor);
             GL.Rotate(-angle, 0, 0, 1);
             GL.Translate(-x, -y, 0);
-            DisableBlending();  
         }
 
         public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float zAngle, float yAngle)
         {
-            //SetBlendingWithAlpha();
             GL.Translate(x, y, 0);
             GL.Rotate(zAngle, 0, 0, 1);
             GL.Rotate(yAngle, 0, 1, 0);
@@ -1555,13 +1549,12 @@ namespace GraphicPipelineOpenGLv3_0
             GL.Rotate(-yAngle, 0, 1, 0);
             GL.Rotate(-zAngle, 0, 0, 1);
             GL.Translate(-x, -y, 0);
-            DisableBlending();
         }
 
         public void DrawFillRectangle(Color color, float x, float y, float width, float height)
         {
             GL.Disable(EnableCap.Texture2D);
-            GL.Color3(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            GL.Color4(color);
             GL.Begin(PrimitiveType.Quads);
             GL.TexCoord2(0, 0); GL.Vertex3(x, y, this.ZValue2D);
             GL.TexCoord2(1, 0); GL.Vertex3(x + width, y, this.ZValue2D);
@@ -1598,7 +1591,7 @@ namespace GraphicPipelineOpenGLv3_0
                 GL.Enable(EnableCap.LineStipple);//Linien dürfen gepunktet sein
             else
                 GL.Disable(EnableCap.LineStipple);
-            GL.Color3(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            GL.Color4(pen.Color);
             GL.Begin(PrimitiveType.LineStrip);
             foreach (Vector2D V in points)
             {
@@ -1634,7 +1627,7 @@ namespace GraphicPipelineOpenGLv3_0
         public void DrawFillPolygon(Color color, List<Triangle2D> triangleList)
         {
             GL.Disable(EnableCap.Texture2D);
-            GL.Color3(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            GL.Color4(color);
 
             GL.Begin(PrimitiveType.Triangles);
             foreach (Triangle2D triangle in triangleList)
@@ -1655,7 +1648,7 @@ namespace GraphicPipelineOpenGLv3_0
         {
             GL.Disable(EnableCap.Texture2D);
             GL.PointSize(pen.Width);
-            GL.Color3(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            GL.Color4(pen.Color);
             GL.Begin(PrimitiveType.Points);
 
             ShapeDrawer.DrawCircle(pos, radius, (p) => GL.Vertex3(p.X, p.Y, this.ZValue2D));
@@ -1667,7 +1660,7 @@ namespace GraphicPipelineOpenGLv3_0
         {
             GL.Disable(EnableCap.Texture2D);
             GL.PointSize(2);
-            GL.Color3(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            GL.Color4(color);
             GL.Begin(PrimitiveType.Points);
 
             ShapeDrawer.DrawFillCircle(pos, radius, (p) => GL.Vertex3(p.X, p.Y, this.ZValue2D));
@@ -1683,7 +1676,7 @@ namespace GraphicPipelineOpenGLv3_0
         {
             GL.Disable(EnableCap.Texture2D);
             GL.PointSize(2);
-            GL.Color3(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            GL.Color4(color);
             GL.Begin(PrimitiveType.Points);
 
             CircleArcDrawer.DrawFillCircleArc(pos, radius, startAngle, endAngle, (p) => GL.Vertex3(p.X, p.Y, this.ZValue2D));
@@ -1705,7 +1698,7 @@ namespace GraphicPipelineOpenGLv3_0
             GL.TexCoord2((xBild + 1) * xf - texBorder, (yBild + 1) * yf - texBorder); GL.Vertex3(x + width, y + height, this.ZValue2D);
             GL.TexCoord2(xBild * xf + texBorder, (yBild + 1) * yf - texBorder); GL.Vertex3(x, y + height, this.ZValue2D);
             GL.End();
-            DisableBlending();
+            SetBlendingWithAlpha();
         }
 
         public void EnableScissorTesting(int x, int y, int width, int height)

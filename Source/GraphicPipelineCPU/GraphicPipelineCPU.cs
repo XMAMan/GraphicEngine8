@@ -758,6 +758,7 @@ namespace GraphicPipelineCPU
             UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawImage(prop.Textures.GetColorTexture(textureId), x, y, width, height, sourceX, sourceY, sourceWidth, sourceHeight);
+            SetBlendingWithAlpha();
         }
 
         public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor, float zAngle, float yAngle)
@@ -765,6 +766,7 @@ namespace GraphicPipelineCPU
             UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawImage(prop.Textures.GetColorTexture(textureId), x, y, width, height, sourceX, sourceY, sourceWidth, sourceHeight, zAngle, yAngle);
+            SetBlendingWithAlpha();
         }
 
         public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor)
@@ -772,6 +774,7 @@ namespace GraphicPipelineCPU
             UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawFillRectangle(prop.Textures.GetColorTexture(textureId), x, y, width, height);
+            SetBlendingWithAlpha();
         }
 
         public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
@@ -779,6 +782,7 @@ namespace GraphicPipelineCPU
             UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawFillRectangle(prop.Textures.GetColorTexture(textureId), x, y, width, height, angle);
+            SetBlendingWithAlpha();
         }
 
         public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
@@ -786,6 +790,7 @@ namespace GraphicPipelineCPU
             UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawFillRectangle(prop.Textures.GetColorTexture(textureId), x, y, width, height, zAngle, yAngle);
+            SetBlendingWithAlpha();
         }
 
         public void DrawFillRectangle(Color color, float x, float y, float width, float height)
@@ -808,6 +813,7 @@ namespace GraphicPipelineCPU
             UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawFillPolygon(prop.Textures.GetColorTexture(textureId), triangleList);
+            SetBlendingWithAlpha();
         }
 
         public void DrawFillPolygon(Color color, List<Triangle2D> triangleList)
@@ -820,6 +826,7 @@ namespace GraphicPipelineCPU
             UseAlphaBlendingAndDiscardTransparent(colorFactor);
             SetColor(colorFactor.R / 255f, colorFactor.G / 255f, colorFactor.B / 255f, colorFactor.A / 255f);
             new DrawingHelper2D(prop).DrawSprite(prop.Textures.GetColorTexture(textureId), xCount, yCount, xBild, yBild, x, y, width, height, texBorder);
+            SetBlendingWithAlpha();
         }
 
         public void EnableScissorTesting(int x, int y, int width, int height)

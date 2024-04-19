@@ -1416,7 +1416,7 @@ namespace GraphicPipelineOpenGLv1_0
                 Gl.glEnable(Gl.GL_LINE_STIPPLE);//Linien dürfen gepunktet sein
             else
                 Gl.glDisable(Gl.GL_LINE_STIPPLE);
-            Gl.glColor3f(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            Gl.glColor4f(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f, pen.Color.A / 255.0f);
             Gl.glBegin(Gl.GL_LINES);
             Gl.glVertex3f(p1.X + 0.5f, p1.Y, this.ZValue2D);  //OpenGL verschiebt Linien immer um 0.5f Pixel nach links. Damit gleiche ich das aus
             Gl.glVertex3f(p2.X + 0.5f, p2.Y, this.ZValue2D);
@@ -1429,7 +1429,7 @@ namespace GraphicPipelineOpenGLv1_0
             //Gl.glDisable(Gl.GL_TEXTURE_2D);
             DisableTexturemapping();
             Gl.glBegin(Gl.GL_POINTS);
-            Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            Gl.glColor4f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
             Gl.glVertex3f(pos.X, pos.Y, this.ZValue2D);
             Gl.glEnd(); 
         }
@@ -1468,7 +1468,7 @@ namespace GraphicPipelineOpenGLv1_0
             Glu.gluOrtho2D(0, simpleOpenGlControl.Width, 0, simpleOpenGlControl.Height);	/* Sets the clipping rectangle extends */
 
             
-            Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            Gl.glColor4f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
             Gl.glMatrixMode(Gl.GL_MODELVIEW);
             Gl.glPushMatrix();
             Gl.glLoadIdentity();
@@ -1494,7 +1494,7 @@ namespace GraphicPipelineOpenGLv1_0
                 Gl.glEnable(Gl.GL_LINE_STIPPLE);//Linien dürfen gepunktet sein
             else
                 Gl.glDisable(Gl.GL_LINE_STIPPLE);
-            Gl.glColor3f(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            Gl.glColor4f(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f, pen.Color.A / 255.0f);
             Gl.glBegin(Gl.GL_LINE_STRIP);
             Gl.glVertex3f(x, y, this.ZValue2D);
             Gl.glVertex3f(x + width, y, this.ZValue2D);
@@ -1513,7 +1513,7 @@ namespace GraphicPipelineOpenGLv1_0
                 Gl.glEnable(Gl.GL_LINE_STIPPLE);//Linien dürfen gepunktet sein
             else
                 Gl.glDisable(Gl.GL_LINE_STIPPLE);
-            Gl.glColor3f(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            Gl.glColor4f(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f, pen.Color.A / 255.0f);
             Gl.glBegin(Gl.GL_LINE_STRIP);
             foreach (Vector2D V in points)
             {
@@ -1528,7 +1528,7 @@ namespace GraphicPipelineOpenGLv1_0
             DisableTexturemapping();
             Gl.glDisable(Gl.GL_TEXTURE_2D);
             Gl.glPointSize(pen.Width);
-            Gl.glColor3f(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            Gl.glColor4f(pen.Color.R / 255.0f, pen.Color.G / 255.0f, pen.Color.B / 255.0f, pen.Color.A / 255.0f);
             Gl.glBegin(Gl.GL_POINTS);
 
             ShapeDrawer.DrawCircle(pos, radius, (p) => Gl.glVertex3f(p.X, p.Y, this.ZValue2D));
@@ -1542,7 +1542,7 @@ namespace GraphicPipelineOpenGLv1_0
             Gl.glDisable(Gl.GL_TEXTURE_2D);
             Gl.glPointSize(1);
 
-            Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            Gl.glColor4f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
             Gl.glBegin(Gl.GL_POINTS);
 
             ShapeDrawer.DrawFillCircle(pos, radius, (p) => Gl.glVertex3f(p.X, p.Y, this.ZValue2D));
@@ -1559,7 +1559,7 @@ namespace GraphicPipelineOpenGLv1_0
             DisableTexturemapping();
             Gl.glDisable(Gl.GL_TEXTURE_2D);
             Gl.glPointSize(1);
-            Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            Gl.glColor4f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
             Gl.glBegin(Gl.GL_POINTS);
 
             CircleArcDrawer.DrawFillCircleArc(pos, radius, startAngle, endAngle, (p) => Gl.glVertex3f(p.X, p.Y, this.ZValue2D));
@@ -1583,7 +1583,7 @@ namespace GraphicPipelineOpenGLv1_0
             Gl.glTexCoord2f((sourceX + sourceWidth) / tex.Width - f, (sourceY + sourceHeight) / tex.Height - f); Gl.glVertex3f(x + width, y + height, this.ZValue2D);
             Gl.glTexCoord2f(sourceX / tex.Width + f, (sourceY + sourceHeight) / tex.Height - f); Gl.glVertex3f(x, y + height, this.ZValue2D);
             Gl.glEnd();
-            DisableBlending();
+            SetBlendingWithAlpha();
         }
 
         public void DrawImage(int textureId, float x, float y, float width, float height, float sourceX, float sourceY, float sourceWidth, float sourceHeight, Color colorFactor, float zAngle, float yAngle)
@@ -1595,7 +1595,6 @@ namespace GraphicPipelineOpenGLv1_0
             Gl.glRotatef(-yAngle, 0, 1, 0);
             Gl.glRotatef(-zAngle, 0, 0, 1);
             Gl.glTranslatef(-x, -y, 0);
-            DisableBlending();
         }
 
         public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor)
@@ -1612,23 +1611,20 @@ namespace GraphicPipelineOpenGLv1_0
             Gl.glTexCoord2f(1, 1); Gl.glVertex3f(x + width, y + height, this.ZValue2D);
             Gl.glTexCoord2f(0, 1); Gl.glVertex3f(x, y + height, this.ZValue2D);
             Gl.glEnd();
-            DisableBlending();
+            SetBlendingWithAlpha();
         }
 
         public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float angle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
-            //SetBlendingWithBlackColor();
             Gl.glTranslatef(x, y, 0);
             Gl.glRotatef(angle, 0, 0, 1);
             DrawFillRectangle(textureId, -width / 2, -height / 2, width, height, colorFactor);
             Gl.glRotatef(-angle, 0, 0, 1);
             Gl.glTranslatef(-x, -y, 0);
-            DisableBlending();
         }
 
         public void DrawFillRectangle(int textureId, float x, float y, float width, float height, Color colorFactor, float zAngle, float yAngle)//x,y liegen in der Mitte, angle geht von 0 bis 360
         {
-            //SetBlendingWithBlackColor();
             Gl.glTranslatef(x, y, 0);
             Gl.glRotatef(zAngle, 0, 0, 1);
             Gl.glRotatef(yAngle, 0, 1, 0);
@@ -1636,14 +1632,13 @@ namespace GraphicPipelineOpenGLv1_0
             Gl.glRotatef(-yAngle, 0, 1, 0);
             Gl.glRotatef(-zAngle, 0, 0, 1);
             Gl.glTranslatef(-x, -y, 0);
-            DisableBlending();
         }
 
         public void DrawFillRectangle(Color color, float x, float y, float width, float height)
         {
             DisableTexturemapping();
             Gl.glDisable(Gl.GL_TEXTURE_2D);
-            Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            Gl.glColor4f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
             Gl.glBegin(Gl.GL_QUADS);
             Gl.glTexCoord2f(0, 0); Gl.glVertex3f(x, y, this.ZValue2D);
             Gl.glTexCoord2f(1, 0); Gl.glVertex3f(x + width, y, this.ZValue2D);
@@ -1700,7 +1695,7 @@ namespace GraphicPipelineOpenGLv1_0
         {
             DisableTexturemapping();
             Gl.glDisable(Gl.GL_TEXTURE_2D);
-            Gl.glColor3f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f);//Der Aufruf von glColor3b klappt nicht. Ich weiß nicht warum.
+            Gl.glColor4f(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
 
             Gl.glBegin(Gl.GL_TRIANGLES);
             foreach (Triangle2D triangle in triangleList)
@@ -1732,7 +1727,7 @@ namespace GraphicPipelineOpenGLv1_0
             Gl.glTexCoord2f((xBild + 1) * xf - texBorder, (yBild + 1) * yf - texBorder); Gl.glVertex3f(x + width, y + height, this.ZValue2D);
             Gl.glTexCoord2f(xBild * xf + texBorder, (yBild + 1) * yf - texBorder); Gl.glVertex3f(x, y + height, this.ZValue2D);
             Gl.glEnd();
-            DisableBlending();
+            SetBlendingWithAlpha();
         }
 
         public void EnableScissorTesting(int x, int y, int width, int height)

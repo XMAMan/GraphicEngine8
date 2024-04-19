@@ -108,7 +108,7 @@ namespace Graphic2DTest
             graphic.DrawFillRectangle(dataDirectory + "Schildkroete.png", 200, 200, 30, 20, true, Color.FromArgb(255, 255, 255));
             graphic.DrawFillRectangle(dataDirectory + "Schildkroete.png", 240, 240, 40, 30, true, Color.FromArgb(255, 255, 255), 30);
             graphic.DrawFillRectangle(dataDirectory + "Schildkroete.png", 280, 280, 40, 30, true, Color.FromArgb(255, 255, 255), 30, 50);
-            graphic.DrawFillRectangle(Color.Red, 200 + 70, 200, 30, 20);
+            graphic.DrawFillRectangle(Color.FromArgb(200, 255, 0, 0), 200 + 70, 200, 30, 20);
             graphic.DrawFillRectangle(Color.Green, 240 + 70, 240, 40, 30, 30);
             graphic.DrawFillRectangle(Color.Blue, 280 + 70, 280, 40, 30, 30, 50);            
 
