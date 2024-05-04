@@ -493,6 +493,7 @@ namespace GraphicPanels
             this.GetPanel<IDrawing2D>().DrawCircle(pen, pos, radius);
         }
 
+        //Nutze diese Funktion, wenn radius > 1 ist. Sollte es kleiner 1 sein, dann nutze DrawCircleWithLines
         public void DrawCircle(Pen pen, Vector2D pos, float radius)
         {
             DrawCircle(pen, pos, (int)radius);
@@ -503,9 +504,44 @@ namespace GraphicPanels
             this.GetPanel<IDrawing2D>().DrawFillCircle(color, pos, radius);
         }
 
+        //Nutze diese Funktion, wenn radius > 1 ist. Sollte es kleiner 1 sein, dann nutze DrawFillCircleWithTriangles
         public void DrawFillCircle(Color color, Vector2D pos, float radius)
         {
             DrawFillCircle(color, pos, (int)radius);
+        }
+
+        public void DrawCircleWithLines(Pen pen, Vector2D pos, float radius, int pointCount)
+        {
+            var points = GetCirclePoints(pos, radius, pointCount);
+            DrawPolygon(pen, points);
+        }
+
+        public void DrawFillCircleWithTriangles(Color color, Vector2D pos, float radius, int pointCount)
+        {
+            var points = GetCirclePoints(pos, radius, pointCount);
+
+            List<Triangle2D> triangles = new List<Triangle2D>();
+            for (int i = 0; i < points.Count; i++)
+            {
+                var p1 = points[i];
+                var p2 = points[(i + 1) % points.Count];
+                var p3 = pos;
+                triangles.Add(new Triangle2D(new Vertex2D(p1, new Vector2D(0,0)), new Vertex2D(p2, new Vector2D(0, 0)), new Vertex2D(p3, new Vector2D(0, 0))));
+            }
+
+            DrawFillPolygon(color, triangles);
+        }
+
+        private List<Vector2D> GetCirclePoints(Vector2D pos, float radius, int pointCount)
+        {
+            List<Vector2D> points = new List<Vector2D>();
+            for (int i = 0; i < pointCount; i++)
+            {
+                double phi = i / (float)pointCount * 2 * Math.PI;
+                var dir = new Vector2D((float)Math.Cos(phi), (float)Math.Sin(phi));
+                points.Add(pos + dir * radius);
+            }
+            return points;
         }
 
         public void DrawCircleArc(Pen pen, Vector2D pos, int radius, float startAngle, float endAngle, bool withBorderLines)
