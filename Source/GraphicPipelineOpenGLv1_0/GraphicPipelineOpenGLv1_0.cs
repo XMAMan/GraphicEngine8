@@ -1689,6 +1689,7 @@ namespace GraphicPipelineOpenGLv1_0
                 Gl.glVertex3f(triangle.P3.Position.X, triangle.P3.Position.Y, this.ZValue2D);
             }
             Gl.glEnd();
+            SetBlendingWithAlpha();
         }
 
         public void DrawFillPolygon(Color color, List<Triangle2D> triangleList)
