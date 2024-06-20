@@ -163,6 +163,9 @@ namespace GraphicMinimal
         //Die Richtungsvektoren werden im 1. Quadrant angegeben. Die Zeichenfunktionen befinden sich aber im 4. Quadrant! Für den 4. Quadrant bitte Angle360YMirrored nehmen.
         public static float Angle360(Vector2D v1, Vector2D v2) //Winkel zwischen zwei Richtungsvektoren
         {
+            //Wenn v1=(1,0) ist, dann kann man das hier so vereinfachen:
+            //return -(float)((Math.PI - Math.Atan2(v2.Y, v2.X)) / Math.PI * 180);
+
             v1 = v1.Normalize();
             v2 = v2.Normalize();
 
