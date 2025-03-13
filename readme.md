@@ -123,16 +123,18 @@ Related work
 
 Usage
 -----
-* Open the Source/GraphicEngine8.sln-File with Vistual Studio 2019/2022 and Build to project
-	* Go to Common->Tools and mark this project as startproject
-	* Go to Settings->Debug->Arguments and paste SceneEditor ..\\..\\..\\..\\Data\\ SaveFolder
-	* Press Strg+F5 to start the Application
-	* Press 1,2,3,4 or 5 to create an image with OpenGL/DirectX/CPU-Rasterizer or the Raytracer
-* Batch-Tools/2DTest.bat -> Demoapplication for 2D-Graphics (OpgenGL, DirectX, CPU-Rasterizer) 
-	* Press 1,2,3 or 4 to switch between the outputmode
-* Batch-Tools/3DTest.bat -> Demoapplication for 3D-Graphics (OpgenGL, DirectX, CPU-Rasterizer)
-	* Press 1,2,3 or 4 to switch between the outputmode
-* Scenes/*.bat -> This will start the Raytracer/Rasterizer to create a single image
+* See the example-project here: https://github.com/XMAMan/GraphicEngineExamples
+* Here are the way if you download this project direct and don't want to use the NuGet:
+	* Open the Source/GraphicEngine8.sln-File with Vistual Studio 2019/2022 and Build to project
+		* Go to Common->Tools and mark this project as startproject
+		* Go to Settings->Debug->Arguments and paste SceneEditor ..\\..\\..\\..\\Data\\ SaveFolder
+		* Press Strg+F5 to start the Application
+		* Press 1,2,3,4 or 5 to create an image with OpenGL/DirectX/CPU-Rasterizer or the Raytracer
+	* Batch-Tools/2DTest.bat -> Demoapplication for 2D-Graphics (OpgenGL, DirectX, CPU-Rasterizer) 
+		* Press 1,2,3 or 4 to switch between the outputmode
+	* Batch-Tools/3DTest.bat -> Demoapplication for 3D-Graphics (OpgenGL, DirectX, CPU-Rasterizer)
+		* Press 1,2,3 or 4 to switch between the outputmode
+	* Scenes/*.bat -> This will start the Raytracer/Rasterizer to create a single image
 
 Steps to create a own Raytracing-Image
 --------------------------------------
