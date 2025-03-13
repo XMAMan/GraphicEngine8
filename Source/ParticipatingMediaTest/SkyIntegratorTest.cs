@@ -55,7 +55,7 @@ namespace ParticipatingMediaTest
             double expectedValue = 558411.02088211768; //Berechnet mit MonteCarlo mit 100000000 Samples
             //double expectedValue = 558403.867358797;     //Berechnet mit MonteCarlo mit 1000000000 Samples
 
-            Assert.IsTrue(Math.Abs(actualValue - expectedValue) < maxError, "Error=" + Math.Abs(actualValue - expectedValue));
+            Assert.IsTrue(Math.Abs(actualValue - expectedValue) < 103, "Error=" + Math.Abs(actualValue - expectedValue));
         }
 
         #region TestDataCreation

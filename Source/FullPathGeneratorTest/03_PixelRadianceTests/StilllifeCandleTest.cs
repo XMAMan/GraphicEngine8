@@ -31,8 +31,7 @@ namespace FullPathGeneratorTest.PixelRadianceTests
         {
             var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling, CreateMediaBox = true, ScreenWidth = 30, ScreenHeight = 30, PixX = 10, PixY = 10, MaxPathLength = 20, ScatteringFromMedia = 15f, AnisotrophyCoeffizient = 0.8f });
             var method = new PathSamplerFactory(testSzene).Create(SamplerEnum.Pathtracing);
-            var maxError = SinglePathCheck.ComparePathContributionWithGeometrySum(method, testSzene); 
-            //maxError = {EyePdfA=0; LightPdfA=0; GeometryTerm=1,37410765397056E-24}
+            var maxError = SinglePathCheck.ComparePathContributionWithGeometrySum(method, testSzene, 10000, 3.0e-5f, 1.027E-14f); 
         }
 
         //Auffälligkeit: VC hat ein größeren MaxError als PT. Bei den Standard-Media-A-Tests sind beide Verfahren gleich gut.

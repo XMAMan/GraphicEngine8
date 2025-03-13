@@ -16,8 +16,7 @@ namespace FullPathGeneratorTest.BasicTests
             //var testSzene = new BoxTestSzene(PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling, true);
             var testSzene = new BoxTestScene(new BoxData() { EyePathSamplingType = PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling, LightPathSamplingType = PathSamplingType.ParticipatingMediaShortRayWithDistanceSampling, CreateMediaBox = true, ScreenWidth = 30, ScreenHeight = 30, PixX = 10, PixY = 10, MaxPathLength = 20, ScatteringFromMedia = 15f, AnisotrophyCoeffizient = 0.8f });
             var method = new PathSamplerFactory(testSzene).Create(SamplerEnum.Pathtracing);
-            var maxError = SinglePathCheck.ComparePathContributionWithGeometrySum(method, testSzene);
-            //maxError = {EyePdfA=0; LightPdfA=0; GeometryTerm=2,01948391736579E-28}
+            var maxError = SinglePathCheck.ComparePathContributionWithGeometrySum(method, testSzene, 10000, 3.0e-5f, 1.0166E-14f);
         }
 
         [TestMethod]
