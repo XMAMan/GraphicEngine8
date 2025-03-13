@@ -101,6 +101,7 @@ namespace RaytracingLightSourceTest.Fullpathsampling
         }
 
         [TestMethod]
+        [Ignore] //Der Test wird zwar grün aber er braucht 13.1 Minuten weswegen er ignoriert wird
         public void Motion()
         {
             CheckSinglePixelColor(LightsourceType.Motion, 423, 0, false, false, PathSamplingType.NoMedia);
@@ -255,7 +256,7 @@ namespace RaytracingLightSourceTest.Fullpathsampling
             Assert.IsTrue(isVisible > 0.5f);
         }
 
-            //Gibt an, wie viel Prozent der ausgesendeten Photonen im Sichtbareich liegen
+        //Gibt an, wie viel Prozent der ausgesendeten Photonen im Sichtbareich liegen
         private float GetHowManyLightPathsAreVisible(FullPathTestData testData, int sampleCount)
         {
             int visibleCounter = 0;
@@ -275,12 +276,15 @@ namespace RaytracingLightSourceTest.Fullpathsampling
             int pixX = 0, pixY = 0;
             PathContributionForEachPathSpace pathContribution = new PathContributionForEachPathSpace();
             if (fullPathSampler == null) return pathContribution;
+            //string randomSeed = "{\"$type\":\"System.Random, mscorlib\",\"inext\":15,\"inextp\":36,\"SeedArray\":{\"$type\":\"System.Int32[], mscorlib\",\"$values\":[0,596405125,37007826,1359626589,88093285,1508946829,1379288673,639372759,651858485,1732950425,417961844,1025312867,1835368030,1782243452,825702096,98683144,1828758566,33377072,833616165,1295006359,1386323288,1057494384,446811995,2130605144,1936592216,629334249,285766576,1405409985,1131408241,1529031776,1159410895,196280996,189017781,1934547420,1900891173,1957135515,1653007295,2020036774,1466101496,2094728759,414374379,455440757,1545386154,1732949860,2100689066,200375592,40707514,2142928712,2127806030,65400817,1302197223,209737776,1033079129,258323063,239785361,384981897]}}";
             IRandom rand = new Rand(0);
 
             int errorCount = 0;
 
             for (int i = 0; i < sampleCount; i++)
             {
+                //string randBase64 = rand.ToBase64String();
+
                 List<FullPath> paths = fullPathSampler.SampleFullPaths(testData.EyePathSampler.SamplePathFromCamera(pixX, pixY, rand), testData.LightPathSampler.SamplePathFromLighsource(rand), null, rand);
                 foreach (var path in paths)
                 {

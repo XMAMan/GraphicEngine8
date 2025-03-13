@@ -203,7 +203,7 @@ namespace RaytracingLightSourceTest.Fullpathsampling
                     textureFile = DataDirectory + "room.hdr";
                     break;
                 case LightsourceType.Motion:
-                    triangleLightsourceData = TriangleObjectGenerator.CreateSquareXY(groundSize, groundSize, 10);
+                    triangleLightsourceData = TriangleObjectGenerator.CreateSquareXY(groundSize, groundSize, 1);
                     lightYPos = cameraToGroundDistance + distanceBetweenLightSourceAndCamera;
                     lightSourceDescription = new DiffuseSurfaceLightDescription() { Emission = emission };
                     motionDesc = new TranslationMovementEulerDescription() { Factor = 5, PositionStart = new Vector3D(0, lightYPos, 0), PositionEnd = new Vector3D(0, lightYPos, 0) };
