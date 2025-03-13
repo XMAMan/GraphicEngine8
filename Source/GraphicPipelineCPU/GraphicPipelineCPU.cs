@@ -70,20 +70,22 @@ namespace GraphicPipelineCPU
 
         public void SetProjectionMatrix2D(float left = 0, float right = 0, float bottom = 0, float top = 0, float znear = 0, float zfar = 0)
         {
-            if (bottom == 0 && top == 0)
+            if (right == 0 && bottom == 0)
             {
                 prop.ZNearOrtho = -1000;
                 prop.ZFarOrtho = 1000;
 
-                bottom = this.Width;
-                top = this.Height;
+                left = prop.ViewPort.Left;
+                top = prop.ViewPort.Top;
+                right = this.Width;
+                bottom = this.Height;
                 if (prop.ActiveFrameBufferId != -1)
                 {
-                    bottom = prop.Framebuffers[prop.ActiveFrameBufferId].Width;
-                    top = prop.Framebuffers[prop.ActiveFrameBufferId].Height;
+                    right = prop.Framebuffers[prop.ActiveFrameBufferId].Width;
+                    bottom = prop.Framebuffers[prop.ActiveFrameBufferId].Height;
                 }
 
-                prop.ProjectionMatrix = Matrix4x4.ProjectionMatrixOrtho(prop.ViewPort.Left, prop.ViewPort.Right, bottom, top, -1000.0f, +1000.0f);
+                prop.ProjectionMatrix = Matrix4x4.ProjectionMatrixOrtho(left, right, bottom, top, -1000.0f, +1000.0f);
             }
             else
             {
