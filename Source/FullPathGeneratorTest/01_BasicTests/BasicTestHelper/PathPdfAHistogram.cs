@@ -22,8 +22,8 @@ namespace FullPathGeneratorTest.BasicTests.BasicTestHelper
 
             var frameData = PathContributionCalculator.CreateFrameDataWithPhotonmap(testSzene.LightPathSampler, testSzene.PhotonenCount, testSzene.rand, testSzene.SizeFactor, sampler.PhotonSettings);
 
-            string randString = "AAEAAAD/////AQAAAAAAAAAEAQAAAA1TeXN0ZW0uUmFuZG9tAwAAAAVpbmV4dAZpbmV4dHAJU2VlZEFycmF5AAAHCAgIDAAAACEAAAAJAgAAAA8CAAAAOAAAAAgAAAAA+uhZJXDZ1UvgyYphR+LTUVOLGxis2553EtNUCzuj6BeK161+HJHgVLpL2hZN61MmtBAYMa9ciHKPre5GZ7IuWa9x1mOSg01CTb2ba+uKGCz3t41j98ygawuf+n5jIwNFPypKIXqC2GRYUskyNmnSB4TDLT6extg8mTFWDSm522sa9b0UaOFgHBBzH37vQ3ZodO9uLzhIkWCct/VpBmh6ep2LKDKDgxlCXN69J9q02VSbW2EJK+b4QRTYjVzJ6BklmFZ/ASbpfW4LgcYt6QEZbxFTw1IUB4cc6eRSegs=";
-            testSzene.rand = new Rand(randString);
+            //string randString = "AAEAAAD/////AQAAAAAAAAAEAQAAAA1TeXN0ZW0uUmFuZG9tAwAAAAVpbmV4dAZpbmV4dHAJU2VlZEFycmF5AAAHCAgIDAAAACEAAAAJAgAAAA8CAAAAOAAAAAgAAAAA+uhZJXDZ1UvgyYphR+LTUVOLGxis2553EtNUCzuj6BeK161+HJHgVLpL2hZN61MmtBAYMa9ciHKPre5GZ7IuWa9x1mOSg01CTb2ba+uKGCz3t41j98ygawuf+n5jIwNFPypKIXqC2GRYUskyNmnSB4TDLT6extg8mTFWDSm522sa9b0UaOFgHBBzH37vQ3ZodO9uLzhIkWCct/VpBmh6ep2LKDKDgxlCXN69J9q02VSbW2EJK+b4QRTYjVzJ6BklmFZ/ASbpfW4LgcYt6QEZbxFTw1IUB4cc6eRSegs=";
+            testSzene.rand = new Rand(0);
 
             for (int i = 0; i < sampleCount; i++)
             {

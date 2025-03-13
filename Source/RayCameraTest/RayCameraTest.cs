@@ -212,7 +212,7 @@ namespace RayCameraTestNamespace
         [TestMethod]
         public void CreatePrimaryRay_TentSampling_DirectionLengthIsOne()
         {
-            IRandom rand = new Rand("AAEAAAD/////AQAAAAAAAAAEAQAAAA1TeXN0ZW0uUmFuZG9tAwAAAAVpbmV4dAZpbmV4dHAJU2VlZEFycmF5AAAHCAgIKAAAAAYAAAAJAgAAAA8CAAAAOAAAAAgAAAAALdIvElz3eWmHGJ1QuFUyCn6IoG5tzy0KBky2cZ/51Hu/r/w2/HvCVG0I53ycek02NbymU/dd7wXVxb4+OkHTHMQtRzmaWEFx5NOmErW1rS40E+8EsgLeUVJWrWcD6qhRld3XaURCAyClOCchFyXVbeEs/2C7Q34GPEkPHg7/L3DooMAkjYRfGuuL3nDPaKN/dTlfXAJBxiYOWXdTjoufTDP60APIbrw+BNE4Q7FU6gV3JM5V3pq8WSzg1ne/B2dMWL9uVDqO6kDj/c0Dsu7TSVKpkyet4+M5Jhdkcws=");
+            IRandom rand = new Rand(0);
             RayCamera sut = new RayCamera(new CameraConstructorData() { Camera = new Camera(new Vector3D(0f, 6360100f, 0f), new Vector3D(0.672672808f, 0.739940107f, 0f), 100), ScreenWidth = 400, ScreenHeight = 400, PixelRange = new ImagePixelRange(0, 0, 400, 400), DistanceDephtOfFieldPlane = 100, WidthDephtOfField = 2, SamplingMode = PixelSamplingMode.Tent });
             var ray = sut.CreatePrimaryRay(200, 384, rand);
             Assert.AreEqual(1, ray.Direction.Length());

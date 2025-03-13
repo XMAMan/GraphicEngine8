@@ -32,7 +32,13 @@ namespace GraphicPanelWpf
             this.panel = panel;
         }
 
-        private GraphicPanel2D panel;
+        public GraphicControl(GraphicPanel3D panel)
+           : this()
+        {
+            this.panel = panel;
+        }
+
+        private GraphicPanel panel;
 
         //Schritte um das GraphicPanel2D in WPF unter .NET 6 zu nutzen
         //1. Die csproj-Datei in Notepad++ öffnen und <UseWindowsForms>true</UseWindowsForms> einfügen damit ich das WindowsFormsHost nutzen kann

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace GraphicMinimal
@@ -26,7 +27,7 @@ namespace GraphicMinimal
         public RaytracerAutoSaveMode AutoSaveMode { get; set; } = RaytracerAutoSaveMode.Disabled;
         public int SamplingCount { get; set; } = 10;
         public int RecursionDepth { get; set; } = 10;
-        public int ThreadCount { get; set; } = (new System.Management.ManagementObjectSearcher("Select * from Win32_ComputerSystem").Get()).Cast<System.Management.ManagementBaseObject>().ToList().Sum(x => int.Parse(x["NumberOfLogicalProcessors"].ToString())) - 1;
+        public int ThreadCount { get; set; } = GetNumberOfLogicalProcessors() - 1;
         public int MaxRenderTimeInSeconds { get; set; } = int.MaxValue;
         public RaytracerRenderMode RaytracerRenderMode { get; set; } = RaytracerRenderMode.SmallBoxes;
         public TonemappingMethod Tonemapping { get; set; } = TonemappingMethod.None;
@@ -40,6 +41,17 @@ namespace GraphicMinimal
         [XmlIgnore()] public IParticipatingMediaDescription GlobalParticipatingMedia { get; set; } = null; //[XmlIgnore()] Wenn ich diese Property mal serialisieren will siehe hier: https://stackoverflow.com/questions/1333864/xml-serialization-of-interface-property
         public RadiositySettings RadiositySettings { get; set; } = new RadiositySettings();
         public int LightPickStepSize { get; set; } = 0; //0=LightPickProp laut Emission; 4 = Wenn man kleine schwache Lampe nah an Kamera hat(Säulenbüro); 2 = Wenn ich das bei der Stilllife-Scene einstelle, dann verwende ich die gleiche LightPickProp, wie es SmallUPBP macht; 
+
+        public static int GetNumberOfLogicalProcessors()
+        {
+            //WinForm only
+            //int processorCount = (new System.Management.ManagementObjectSearcher("Select * from Win32_ComputerSystem").Get()).Cast<System.Management.ManagementBaseObject>().ToList().Sum(x => int.Parse(x["NumberOfLogicalProcessors"].ToString()));
+
+            //WPF / WinForm
+            int processorCount = Environment.ProcessorCount;
+
+            return processorCount;
+        }
     }
 
     public class RadiositySettings

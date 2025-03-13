@@ -26,22 +26,27 @@ namespace GraphicGlobal
         //Schöner String
         public static string ConvertObjectToString(object data)
         {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                new BinaryFormatter().Serialize(ms, data);
-                return Convert.ToBase64String(ms.ToArray());
-            }
+            //BinaryFormatter funktioniert nur unter WinForm aber nicht unter WPF
+            //using (MemoryStream ms = new MemoryStream())
+            //{
+            //    new BinaryFormatter().Serialize(ms, data);
+            //    return Convert.ToBase64String(ms.ToArray());
+            //}
+
+            return JsonConverterNoPublicFields.Serialize(data);
         }
 
         public static T ConvertStringToObject<T>(string base64String)
         {
-            byte[] bytes = Convert.FromBase64String(base64String);
-            using (MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length))
-            {
-                ms.Write(bytes, 0, bytes.Length);
-                ms.Position = 0;
-                return (T)new BinaryFormatter().Deserialize(ms);
-            }
+            //byte[] bytes = Convert.FromBase64String(base64String);
+            //using (MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length))
+            //{
+            //    ms.Write(bytes, 0, bytes.Length);
+            //    ms.Position = 0;
+            //    return (T)new BinaryFormatter().Deserialize(ms);
+            //}
+
+            return JsonConverterNoPublicFields.Deserialize<T>(base64String);
         }
     }
 }
