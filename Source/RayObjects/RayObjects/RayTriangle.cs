@@ -103,7 +103,7 @@ namespace RayObjects.RayObjects
 
             if (beta < 0f) { u1 = u2 = double.NaN; return; }
             if (gamma < 0f) { u1 = u2 = double.NaN; return; }
-            double sum = beta + gamma;
+            double sum = (float)beta + (float)gamma;
             if (sum > 1f) { u1 = u2 = double.NaN; return; }
 
             u1 = (beta + gamma) * (beta + gamma);
