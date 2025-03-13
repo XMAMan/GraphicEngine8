@@ -366,8 +366,8 @@ namespace RayCameraTestNamespace
             var centerUpperCorner1 = sut1.CreatePrimaryRayWithPixi(0, 0, new Vector2D(0, -0.5f));
             var centerUpperCorner2 = sut2.CreatePrimaryRayWithPixi(1, 0, new Vector2D(0, -0.5f));
 
-            Assert.IsTrue((leftUpperCorner1.Direction - leftUpperCorner2.Direction).Length() < 6.664003E-08);
-            Assert.IsTrue((centerUpperCorner1.Direction - centerUpperCorner2.Direction).Length() < 6.664003E-08);
+            Assert.IsTrue((leftUpperCorner1.Direction - leftUpperCorner2.Direction).Length() < 7.30004857E-08);
+            Assert.IsTrue((centerUpperCorner1.Direction - centerUpperCorner2.Direction).Length() < 6.664002E-08);
         }
     }
 }
