@@ -24,7 +24,7 @@ namespace GraphicPipelineCPUTest
                 new LineTestData() //0
                 {
                     Input = new Line() { P1 = new Vector3D(0, 0, -1), P2 = new Vector3D(100, 100, -1) }, //Kein Clipping
-                    Expected = new Line() { P1 = new Vector3D(100, 100, 0.5f), P2 = new Vector3D(0, 0, 0.5f),  }
+                    Expected = new Line() { P1 = new Vector3D(0, 0, 0.5f), P2 = new Vector3D(100, 100, 0.5f),  }
                 },
                 new LineTestData() //1
                 {

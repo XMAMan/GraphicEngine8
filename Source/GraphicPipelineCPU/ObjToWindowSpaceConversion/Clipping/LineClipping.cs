@@ -48,8 +48,8 @@ namespace GraphicPipelineCPU.ObjToWindowSpaceConversion.Clipping
 
             if (polygon.Any() == false) return newPolygon;
 
-            bool p1IsInside = polygon[0].GetAxis(axis, signFromAxis) < polygon[0].W ? true : false;
-            bool p2IsInside = polygon[1].GetAxis(axis, signFromAxis) < polygon[1].W ? true : false;
+            bool p1IsInside = polygon[0].GetAxis(axis, signFromAxis) <= polygon[0].W ? true : false;
+            bool p2IsInside = polygon[1].GetAxis(axis, signFromAxis) <= polygon[1].W ? true : false;
 
             if (p1IsInside != p2IsInside)
             {
