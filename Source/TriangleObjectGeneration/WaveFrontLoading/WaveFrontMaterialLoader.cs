@@ -16,7 +16,7 @@ namespace TriangleObjectGeneration
         {
             string fileText = File.ReadAllText(fileName);
             List<WaveFrontMaterial> materials = new List<WaveFrontMaterial>();
-            string[] blocks = fileText.Split(new string[] { "\n\n" }, StringSplitOptions.None);
+            string[] blocks = fileText.Replace("\r\n","\n").Split(new string[] { "\n\n" }, StringSplitOptions.None);
             foreach (var block in blocks)
             {
                 //if (block.StartsWith("newmtl ") && block.StartsWith("newmtl None") == false) //So fehlt beim Haus1 bei AddTestszene17_TheFifthElement die Texture da das Material None_Fenster4.png heißt. Das None-Material führt dazu, dass der GlossyPowExponent 0 statt 200 ist. Da aber die Brdf kein Gloss ist, hat das kein Effekt.
