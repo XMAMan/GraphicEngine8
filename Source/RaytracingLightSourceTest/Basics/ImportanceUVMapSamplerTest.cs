@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GraphicGlobal;
 using GraphicMinimal;
 using IntersectionTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ParticipatingMedia;
-using ParticipatingMedia.Media;
 using PdfHistogram;
 using RayObjects;
 using RayObjects.RayObjects;
-using RaytracingLightSource.Basics;
 using RaytracingLightSource.RayLightSource.Importance;
 
 namespace RaytracingLightSourceTest.Basics

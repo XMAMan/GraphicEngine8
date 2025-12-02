@@ -6,11 +6,7 @@ using ParticipatingMedia.Media;
 using RayObjects;
 using RayObjects.RayObjects;
 using RaytracingColorEstimator;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TriangleObjectGeneration;
 
 namespace FullPathGeneratorTest.SubPathConnectors

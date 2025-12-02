@@ -1,14 +1,11 @@
 ﻿using GraphicGlobal;
 using GraphicMinimal;
-using IntersectionTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RayObjects;
 using RaytracingLightSource;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TriangleObjectGeneration;
 
 namespace RaytracingLightSourceTest.Basics

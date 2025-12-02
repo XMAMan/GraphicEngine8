@@ -1,13 +1,7 @@
 ﻿using GraphicGlobal;
 using GraphicMinimal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PdfHistogram;
 using RayCameraNamespace;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RayCameraTestNamespace
 {

@@ -1,6 +1,4 @@
 ﻿using GraphicMinimal;
-using System;
-using System.Threading;
 
 namespace ImageCreator
 {

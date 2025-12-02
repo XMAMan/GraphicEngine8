@@ -11,7 +11,6 @@ using RayObjects;
 using GraphicGlobal.MathHelper;
 using UnitTestHelper;
 using RaytracingBrdf.BrdfFunctions;
-using RaytracingBrdf.BrdfFunctions.MicrofacetBrdf;
 using RaytracingBrdf.BrdfFunctions.MicrofacetBrdf.Heiz;
 using RaytracingBrdf.BrdfFunctions.MicrofacetBrdf.Walter;
 

@@ -1,14 +1,10 @@
 ﻿using GraphicGlobal;
 using GraphicMinimal;
 using IntersectionTests;
-using IntersectionTests.Ray_3D_Object.IntersectableObjects;
 using RaytracingBrdf;
 using RaytracingBrdf.SampleAndRequest;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ParticipatingMediaTest.MediaMocks
 {

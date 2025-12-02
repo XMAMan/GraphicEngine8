@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using BitmapHelper;
 using GraphicMinimal;
-using IntersectionTests;
 using ParticipatingMedia;
 using RayObjects.RayObjects;
 using RaytracingRandom;

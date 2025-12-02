@@ -1,11 +1,7 @@
-﻿using System;
-using RayTracerGlobal;
-using RaytracerMain;
-using RaytracingColorEstimator;
+﻿using RaytracingColorEstimator;
 using FullPathGenerator;
 using GraphicGlobal;
 using SubpathGenerator;
-using Photonusmap;
 
 namespace RaytracingMethods
 {

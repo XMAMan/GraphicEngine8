@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-
-namespace GraphicGlobal
+﻿namespace GraphicGlobal
 {
     public static class ObjectToStringConverter
     {

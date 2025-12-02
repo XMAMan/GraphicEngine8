@@ -1,6 +1,4 @@
-﻿using System;
-using GraphicGlobal;
-using GraphicMinimal;
+﻿using GraphicGlobal;
 
 namespace ParticipatingMedia.DistanceSampling
 {

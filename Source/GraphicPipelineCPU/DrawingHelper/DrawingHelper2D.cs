@@ -7,7 +7,6 @@ using GraphicPipelineCPU.Textures;
 using GraphicPipelineCPU.Rasterizer;
 using GraphicGlobal;
 using GraphicGlobal.Rasterizer2DFunctions;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GraphicPipelineCPU.DrawingHelper
 {

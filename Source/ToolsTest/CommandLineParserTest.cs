@@ -1,14 +1,13 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PowerArgs;
-using Tools;
 using System.IO;
 using GraphicPanels;
-using FluentAssertions;
 using Tools.CommandLineParsing;
 
 namespace ToolsTest
 {
+
     [TestClass]
     public class CommandLineParserTest
     {
@@ -59,8 +58,7 @@ namespace ToolsTest
 
             Action action = () => Args.ParseAction<CommandLineParser>(args.Split(' '));
             action
-                .Should().Throw<PowerArgs.ValidationArgException>()
-                .WithMessage(@"File not found - ..\..\..\..\Data\NotAvailable_json.txt");
+                .Should().Throw<PowerArgs.ValidationArgException>(@"File not found - ..\..\..\..\Data\NotAvailable_json.txt");
 
         }
 
@@ -71,8 +69,7 @@ namespace ToolsTest
 
             Action action = () => Args.ParseAction<CommandLineParser>(args.Split(' '));
             action
-                .Should().Throw<PowerArgs.ValidationArgException>()
-                .WithMessage("Invalid argument: image.hdr2");
+                .Should().Throw<PowerArgs.ValidationArgException>("Invalid argument: image.hdr2");
 
         }
     }

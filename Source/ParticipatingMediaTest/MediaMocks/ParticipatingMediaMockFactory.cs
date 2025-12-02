@@ -1,5 +1,4 @@
 ﻿using GraphicMinimal;
-using ParticipatingMedia;
 using ParticipatingMedia.Media;
 using ParticipatingMedia.PhaseFunctions;
 using System;

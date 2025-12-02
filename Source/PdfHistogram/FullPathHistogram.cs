@@ -9,7 +9,6 @@ using GraphicMinimal;
 using ParticipatingMedia;
 using RayObjects.RayObjects;
 using RaytracingRandom;
-using SubpathGenerator;
 
 namespace PdfHistogram
 {

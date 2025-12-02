@@ -3,7 +3,6 @@ using GraphicMinimal;
 using ParticipatingMedia;
 using ParticipatingMedia.DistanceSampling;
 using ParticipatingMedia.Media;
-using RayTracerGlobal;
 using System;
 using System.Collections.Generic;
 using System.Linq;

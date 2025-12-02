@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.IO;
-using System.Text;
 using System.Drawing;
 
 namespace BitmapHelper.FortuneVoronio

@@ -2,7 +2,6 @@
 using FullPathGenerator;
 using GraphicGlobal;
 using SubpathGenerator;
-using Photonusmap;
 using GraphicMinimal;
 
 namespace RaytracingMethods

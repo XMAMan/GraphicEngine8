@@ -8,7 +8,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BitmapHelper;
 using RayObjects;
 using RaytracingBrdf.BrdfFunctions;
-using RaytracingBrdf.BrdfFunctions.MicrofacetBrdf;
 using RaytracingBrdf.BrdfFunctions.MicrofacetBrdf.Heiz;
 
 //https://en.wikipedia.org/wiki/Bidirectional_reflectance_distribution_function

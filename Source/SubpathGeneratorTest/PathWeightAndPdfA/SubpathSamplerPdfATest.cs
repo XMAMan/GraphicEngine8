@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PdfHistogram;
 using SubpathGenerator;
-using System.IO;
 
 namespace SubpathGeneratorTest
 {

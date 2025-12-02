@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GraphicMinimal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PointSearch;
 using RayTracerGlobal;

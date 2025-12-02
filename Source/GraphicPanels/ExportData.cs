@@ -1,5 +1,4 @@
 ﻿using GraphicMinimal;
-using GraphicGlobal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;

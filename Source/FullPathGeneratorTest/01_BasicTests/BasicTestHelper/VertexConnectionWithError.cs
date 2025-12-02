@@ -1,12 +1,7 @@
 ﻿using FullPathGenerator;
 using GraphicMinimal;
-using RaytracingLightSource;
 using SubpathGenerator;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FullPathGeneratorTest._01_BasicTests.BasicTestHelper
 {

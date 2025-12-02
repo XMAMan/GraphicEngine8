@@ -1,7 +1,6 @@
 ﻿using FullPathGenerator;
 using FullPathGenerator.AnalyseHelper;
 using FullPathGeneratorTest.BasicTests.BasicTestHelper;
-using GraphicMinimal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SubpathGenerator;
 

@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using BitmapHelper;
 using GraphicPanels;
-using FullPathGenerator.AnalyseHelper;
 using GraphicMinimal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

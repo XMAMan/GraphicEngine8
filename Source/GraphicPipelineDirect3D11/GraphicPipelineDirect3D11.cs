@@ -25,7 +25,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using SlimDX;
 using DX11 = SlimDX.Direct3D11;
@@ -37,10 +36,7 @@ using SlimDX.D3DCompiler;
 using System.Runtime.InteropServices;
 using GraphicMinimal;
 using SlimDX.Direct3D11;
-using SlimDX.Direct2D;
-using SlimDX.DirectWrite;
 using SlimDX.DXGI;
-using System.Drawing.Imaging;
 using BitmapHelper;
 using GraphicGlobal;
 using GraphicGlobal.Rasterizer2DFunctions;

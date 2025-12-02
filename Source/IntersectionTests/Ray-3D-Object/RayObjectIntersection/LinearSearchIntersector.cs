@@ -2,7 +2,6 @@
 using System.Linq;
 using GraphicGlobal;
 using GraphicMinimal;
-using RayTracerGlobal;
 
 namespace IntersectionTests
 {

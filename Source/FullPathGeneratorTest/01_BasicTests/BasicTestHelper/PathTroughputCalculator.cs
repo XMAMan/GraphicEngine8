@@ -6,7 +6,6 @@ using IntersectionTests;
 using ParticipatingMedia;
 using RayCameraNamespace;
 using RayTracerGlobal;
-using RaytracingBrdf.SampleAndRequest;
 using SubpathGenerator;
 
 namespace FullPathGeneratorTest.BasicTests.BasicTestHelper

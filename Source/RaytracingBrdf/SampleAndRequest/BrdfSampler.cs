@@ -1,5 +1,4 @@
 ﻿using System;
-using GraphicMinimal;
 using GraphicGlobal;
 using RayTracerGlobal;
 using RaytracingBrdf.BrdfFunctions;

@@ -3,12 +3,7 @@ using GraphicGlobal;
 using GraphicMinimal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RasterizerTest.Helper;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RasterizerTest
 {

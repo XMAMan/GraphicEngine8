@@ -6,7 +6,6 @@ using RaytracingColorEstimator;
 using RaytracingRandom;
 using SubpathGenerator;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 
 namespace RaytracingMethods.McVcm

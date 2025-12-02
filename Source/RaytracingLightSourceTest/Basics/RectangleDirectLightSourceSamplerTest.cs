@@ -1,6 +1,5 @@
 ﻿using GraphicGlobal;
 using GraphicMinimal;
-using IntersectionTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PdfHistogram;
 using RayObjects;
@@ -10,9 +9,6 @@ using RaytracingLightSource.Basics.LightDirectionSampler;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RaytracingLightSourceTest.Basics
 {

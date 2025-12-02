@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Drawing.Imaging;
-using System.Text.RegularExpressions;
 using GraphicMinimal;
 
 namespace BitmapHelper.FortuneVoronio

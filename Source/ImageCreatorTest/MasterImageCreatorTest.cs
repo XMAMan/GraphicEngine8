@@ -1,6 +1,4 @@
-﻿using UnitTestHelper;
-using GraphicGlobal;
-using GraphicMinimal;
+﻿using GraphicMinimal;
 using ImageCreator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RaytracingColorEstimator;
@@ -9,7 +7,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

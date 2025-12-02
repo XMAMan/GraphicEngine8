@@ -2,7 +2,6 @@
 using FullPathGeneratorTest.BasicTests.BasicTestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SubpathGenerator;
-using System.IO;
 
 namespace FullPathGeneratorTest.BasicTests
 {

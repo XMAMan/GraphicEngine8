@@ -4,16 +4,10 @@ using FullPathGenerator.AnalyseHelper;
 using FullPathGeneratorTest._01_BasicTests.BasicTestHelper;
 using GraphicGlobal;
 using GraphicMinimal;
-using PdfHistogram;
 using Photonusmap;
-using RayCameraNamespace;
 using SubpathGenerator;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace FullPathGeneratorTest.BasicTests.BasicTestHelper
 {

@@ -3,15 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using ParticipatingMedia;
 using FullPathGenerator;
-using GraphicMinimal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Photonusmap;
-using RayCameraNamespace;
-using RaytracingBrdf;
 using SubpathGenerator;
-using IntersectionTests;
 using RayTracerGlobal;
-using GraphicGlobal;
 using FullPathGeneratorTest._01_BasicTests.BasicTestHelper;
 
 namespace FullPathGeneratorTest.BasicTests.BasicTestHelper

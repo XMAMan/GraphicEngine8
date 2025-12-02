@@ -1,6 +1,5 @@
 ﻿using BitmapHelper;
 using FullPathGenerator;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace RaytracingMethods.McVcm

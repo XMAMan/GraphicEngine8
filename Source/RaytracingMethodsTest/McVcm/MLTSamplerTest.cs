@@ -1,11 +1,7 @@
 ﻿using GraphicGlobal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RaytracingMethods.McVcm;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RaytracingMethodsTest.McVcm
 {

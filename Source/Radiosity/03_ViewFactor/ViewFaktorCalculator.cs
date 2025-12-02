@@ -8,7 +8,6 @@ using GraphicMinimal;
 using GraphicGlobal;
 using System.IO;
 using RayTracerGlobal;
-using RayObjects;
 
 namespace Radiosity._03_ViewFactor
 {

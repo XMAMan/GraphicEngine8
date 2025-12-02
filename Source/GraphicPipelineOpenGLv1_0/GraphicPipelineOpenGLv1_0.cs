@@ -6,12 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Tao.OpenGl;
 using Tao.Platform.Windows;
-using Tao.FreeGlut;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using GraphicMinimal;
 using System.Runtime.InteropServices;

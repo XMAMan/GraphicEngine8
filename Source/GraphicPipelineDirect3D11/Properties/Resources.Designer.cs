@@ -19,7 +19,7 @@ namespace GraphicPipelineDirect3D11.Properties {
     // -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
     // Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
     // mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,7 +61,9 @@ namespace GraphicPipelineDirect3D11.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die struct PatchTess
+        ///   Sucht eine lokalisierte Zeichenfolge, die //http://www.richardssoftware.net/2013/09/bump-and-displacement-mapping-with.html
+        ///
+        ///struct PatchTess
         ///{
         ///        float EdgeTess[3] : SV_TessFactor;
         ///        float InsideTess  : SV_InsideTessFactor;
@@ -74,8 +76,7 @@ namespace GraphicPipelineDirect3D11.Properties {
         ///        
         ///        // Average tess factors along edges, and pick an edge tess factor for 
         ///        // the interior tessellation.  It is important to do the tess factor
-        ///        // calculation based on the edge properties so that edges shared by 
-        ///        // more than o [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///        // calc [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string DisplacementMapping {
             get {
@@ -103,8 +104,13 @@ namespace GraphicPipelineDirect3D11.Properties {
         ///	return output;
         ///}
         ///
-        /////http://msdn.microsoft.com/en-us/library/windows/desktop/bb509609(v=vs.85).aspx	-&gt; Erklärung zur Syntax für den Geometryshader
-        ///[maxvertexcount(100)]  //So viele Vertexe kommen  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///PS_IN_Simple VShaderSimpleDraw1(float3 pos : POSITION)
+        ///{
+        ///	PS_IN_Simple output = (PS_IN_Simple)0;
+        ///	output.pos = mul(float4(pos.xyz, 1.0), WorldViewProj);
+        ///	return output;
+        ///}
+        ///        /// [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string LinesAndPoints {
             get {
@@ -119,8 +125,8 @@ namespace GraphicPipelineDirect3D11.Properties {
         ///
         ///	output.pos = mul(float4(input.pos.xyz, 1.0), WorldViewProj);
         ///	output.col = input.col;
-        ///	output.tex = float2(input.tex.x * TexturScaleFaktorX, input.tex.y * TexturScaleFaktorY);	
-        ///	
+        ///	output.tex = mul(float3(input.tex.xy, 1.0), (float3x3)TextureMatrix).xy;
+        ///
         ///	return output;
         ///}
         ///
@@ -128,7 +134,7 @@ namespace GraphicPipelineDirect3D11.Properties {
         ///{
         ///	float4 objektColor = CurrentColor * (1 - UseTexture0) + GetTexelFromColorTexture(input.tex) * UseTexture0 * CurrentColor;	
         ///
-        ///	if (BlendingBlackColor &amp;&amp; (objektColor.x + objektColor.y + obje [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///	if (BlendingBlackColor &amp;&amp; (objektColor.x + objektColor.y + objektColor.z) &lt; 0.1)  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string MouseHitTest {
             get {
@@ -144,8 +150,8 @@ namespace GraphicPipelineDirect3D11.Properties {
         ///	PS_IN output = (PS_IN)0;
         ///
         ///	output.pos = mul(float4(input.pos.xyz, 1.0), WorldViewProj);
-        ///	output.col = input.col;
-        ///	output.tex = float2(input.tex.x * TexturScaleFaktorX, input. [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///	output.col = input.col;	
+        ///	output.tex = mul(float3(input.tex.xy, 1.0), (float3x3)Textu [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string ParallaxMapping {
             get {
@@ -159,7 +165,7 @@ namespace GraphicPipelineDirect3D11.Properties {
         ///	PS_IN output = (PS_IN)0;
         ///	output.pos = mul(float4(input.pos.xyz, 1.0), ShadowMatrix);
         ///	//output.pos = mul(float4(input.pos.xyz, 1.0), WorldViewProj);
-        ///	output.tex = float2(input.tex.x * TexturScaleFaktorX, input.tex.y * TexturScaleFaktorY);	
+        ///	output.tex = mul(float3(input.tex.xy, 1.0), (float3x3)TextureMatrix).xy;
         ///
         ///	return output;
         ///}
@@ -173,7 +179,7 @@ namespace GraphicPipelineDirect3D11.Properties {
         /////float PS_ShadowmapCreation( PS_IN input ) : SV_Depth
         ///PS_OUTPUT PS_ShadowmapCreation( PS_IN input )
         ///{
-        ///	PS_OU [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///	PS_OUTPUT output = (PS [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string ShadowmapCreation {
             get {
@@ -205,13 +211,9 @@ namespace GraphicPipelineDirect3D11.Properties {
         ///   Sucht eine lokalisierte Zeichenfolge, die // Nonnumeric values cannot be added to a cbuffer.
         ///Texture2D Texture0;					// Speichert die aktuell gesetzte Textur-ID. Wird mit m_effectPass vom HS in GraKa kopiert (Zum kopieren in den Shader)	-&gt; Darf nicht im Constant-Buffer gespeichert werden
         ///Texture2D Texture1;					// Bumpmaptextur
-        ///TextureCube CubeMapTexture;			// Cubemap für Reflektionen
-        ///Texture2D ShadowTexture;			// Shadowmapping
-        ///float4 CurrentColor;
-        ///
-        /////http://alt.3dcenter.org/artikel/grafikfilter/ -&gt; Was sind Texturfilter überhaupt?
-        ///
-        ///Sample [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///TextureCube CubeMapTexture;			// Cubemap für Reflektionen (Hier wird das Bild Y-Mäßig gespiegelt)
+        ///Texture2DArray CubeMapArrayTexture; // Der Einsatz eines Texture2DArray erlaubt mir mein eigenes Cubemapping zu machen
+        ///Te [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string Variablen {
             get {

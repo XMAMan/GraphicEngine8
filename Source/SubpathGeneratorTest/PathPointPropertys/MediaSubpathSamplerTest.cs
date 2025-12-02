@@ -4,7 +4,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ParticipatingMedia;
 using ParticipatingMediaTest.MediaMocks;
 using RayTracerGlobal;
-using SubpathGenerator;
 using System;
 using System.Collections.Generic;
 

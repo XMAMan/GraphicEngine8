@@ -1,5 +1,4 @@
-﻿using GraphicGlobal;
-using GraphicGlobal.MathHelper;
+﻿using GraphicGlobal.MathHelper;
 using GraphicMinimal;
 using System.Collections.Generic;
 

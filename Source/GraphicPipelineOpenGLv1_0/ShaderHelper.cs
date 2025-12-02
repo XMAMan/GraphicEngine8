@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Tao.OpenGl;
 using GraphicMinimal;
-using GraphicGlobal;
 
 namespace GraphicPipelineOpenGLv1_0
 {

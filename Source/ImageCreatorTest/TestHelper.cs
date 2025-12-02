@@ -1,5 +1,4 @@
 ﻿using BitmapHelper;
-using GraphicGlobal;
 using GraphicMinimal;
 using RaytracingColorEstimator;
 using System.Drawing;

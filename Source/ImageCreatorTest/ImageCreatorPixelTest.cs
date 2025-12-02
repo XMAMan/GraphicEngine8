@@ -5,7 +5,6 @@ using RaytracingColorEstimator;
 using System;
 using System.Drawing;
 using System.Threading;
-using UnitTestHelper;
 
 namespace ImageCreatorTest
 {

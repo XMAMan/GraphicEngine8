@@ -2,7 +2,6 @@
 using GraphicMinimal;
 using ParticipatingMedia.DistanceSampling;
 using ParticipatingMedia.PhaseFunctions;
-using System;
 
 namespace ParticipatingMedia.Media
 {

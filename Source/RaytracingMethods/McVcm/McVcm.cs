@@ -6,12 +6,7 @@ using Photonusmap;
 using RaytracingColorEstimator;
 using SubpathGenerator;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 //Hier wird PT+DL mit MarkovChain-VC/VM/LT vereint.
 //Es gibt hier zwei Markovketten, dessen Targetfunktion die Luminance/Visible von der ImagePlane ist.

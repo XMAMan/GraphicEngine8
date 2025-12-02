@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using FullPathGenerator;
 using FullPathGeneratorTest.BasicTests.BasicTestHelper;
 using GraphicMinimal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PdfHistogram;
-using RayCameraNamespace;
-using RaytracingBrdf;
 using SubpathGenerator;
 
 namespace FullPathGeneratorTest

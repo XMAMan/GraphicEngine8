@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using FullPathGenerator;
+﻿using FullPathGenerator;
 using FullPathGenerator.AnalyseHelper;
 using FullPathGeneratorTest.BasicTests.BasicTestHelper;
 using GraphicMinimal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RayCameraNamespace;
 using SubpathGenerator;
 
 namespace FullPathGeneratorTest.MultipleImportanceTests

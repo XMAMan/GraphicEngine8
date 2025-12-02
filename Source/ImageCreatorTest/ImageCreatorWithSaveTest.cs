@@ -1,5 +1,4 @@
-﻿using UnitTestHelper;
-using GraphicMinimal;
+﻿using GraphicMinimal;
 using ImageCreator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RaytracingColorEstimator;

@@ -19,7 +19,7 @@ namespace GraphicPipelineOpenGLv1_0.Properties {
     // -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
     // Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
     // mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -111,9 +111,9 @@ namespace GraphicPipelineOpenGLv1_0.Properties {
         /////layout(location = 0) out float fragmentdepth; // Ausgabe landet im Framebuffer an Texutur 0 (sie landet NICHT in der Tiefenpuffertextur).
         ///											  // Dafür sorgt die Grafikpipline automatisch, sobald ein Pixel den Pixelshader ohne Discard verläßt. Welche Farbe er dabei hat ist egal.
         ///
-        /////layout(location = 0) out vec4 out_frag_color;
-        ///
-        ///uniform sampler2D Texture0;	// Farbt [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///uniform sampler2D Texture0;	// Farbtextur
+        ///uniform int UseTexture0; 
+        ///uniform int Blend [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string PixelShaderCreateShadowmap {
             get {

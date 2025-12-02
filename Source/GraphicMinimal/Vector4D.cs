@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GraphicMinimal
+﻿namespace GraphicMinimal
 {
     //Es hilft dabei eine Position mit einer 4*4-Matrix zu multiplizieren und dann diese homogene Variable weiter zu verarbeiten
     //Für die ungeclippte RGBA-Darstellung im PixelShader hilft es auch

@@ -2,14 +2,12 @@
 using GraphicMinimal;
 using IntersectionTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ParticipatingMedia;
 using ParticipatingMedia.Media;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ParticipatingMediaTest
 {

@@ -5,9 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ParticipatingMedia;
 using ParticipatingMediaTest.MediaMocks;
 using RayTracerGlobal;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace IntersectionTestsTest.MediaIntersectionFinderTests
 {

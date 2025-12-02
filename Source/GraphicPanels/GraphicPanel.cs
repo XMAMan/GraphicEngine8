@@ -8,8 +8,6 @@ using GraphicMinimal;
 using GraphicGlobal;
 using System.IO;
 using BitmapHelper;
-using System.Threading.Tasks;
-using System.Runtime.Remoting.Channels;
 
 namespace GraphicPanels
 {

@@ -1,7 +1,6 @@
 ﻿using GraphicGlobal;
 using GraphicMinimal;
 using IntersectionTests;
-using ParticipatingMedia;
 using ParticipatingMedia.Media;
 using RayObjects;
 using RayObjects.RayObjects;

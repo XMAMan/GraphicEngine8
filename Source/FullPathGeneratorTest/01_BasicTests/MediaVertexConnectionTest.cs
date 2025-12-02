@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FullPathGenerator.AnalyseHelper;
+﻿using FullPathGenerator.AnalyseHelper;
 using FullPathGeneratorTest.BasicTests.BasicTestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SubpathGenerator;

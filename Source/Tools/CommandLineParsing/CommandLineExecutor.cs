@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using PowerArgs;
 using GraphicPanels;
 using System.Windows.Forms;

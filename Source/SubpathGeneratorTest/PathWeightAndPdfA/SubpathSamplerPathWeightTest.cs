@@ -1,12 +1,8 @@
-﻿using GraphicGlobal;
-using GraphicMinimal;
+﻿using GraphicMinimal;
 using IntersectionTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ParticipatingMedia;
-using ParticipatingMedia.PhaseFunctions;
-using PdfHistogram;
 using RayTracerGlobal;
-using RaytracingBrdf;
 using SubpathGenerator;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,5 @@
 ﻿using GraphicMinimal;
 using System;
-using System.Collections.Generic;
 
 namespace GraphicGlobal
 {
